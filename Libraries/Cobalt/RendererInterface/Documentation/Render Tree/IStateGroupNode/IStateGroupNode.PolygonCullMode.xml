@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateGroupNode.PolygonCullMode" Title="PolygonCullMode enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> ->
+    PolygonCullMode
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>PolygonCullMode</TypeRef> enumeration specifies which triangle faces are discarded before rasterization by an <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="None">
+        Disables face culling.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Front">
+        Discards front-facing polygons.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Back">
+        Discards back-facing polygons.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode.SetPolygonCullMode">IStateGroupNode.SetPolygonCullMode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

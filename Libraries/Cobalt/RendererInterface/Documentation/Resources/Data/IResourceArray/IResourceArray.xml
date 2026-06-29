@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IResourceArray" Title="IResourceArray interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+      IResourceArray
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class IResourceArray;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IResourceArray</TypeRef> type is a convenience base interface for all resource array types. For specific
+      functionality provided by resource arrays, please refer to the documentation for the specific types which extend this interface.
+    </Paragraph>
+  </Section>
+  <Section Title="Extended interface types">
+    <TypeMemberList>
+      <TypeMemberListEntry Visibility="Public" Name="ITexelArray" TypeCategory="Interface" PageName="cobalt.graphics.ITexelArray">
+        A set of texel vector elements in a one dimensional array. Able to be read or written within shaders, and able
+        to alias <PageRef PageName="cobalt.graphics.IIndexBuffer">IIndexBuffer</PageRef> and <PageRef PageName="cobalt.graphics.IVertexBuffer">IVertexBuffer</PageRef>
+        resources to allow them to be written from shaders.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Visibility="Public" Name="IDataArray" TypeCategory="Interface" PageName="cobalt.graphics.IDataArray">
+        A set of arbitrary byte structures in a one dimensional array. Able to be read or written within shaders, and
+        able to be used for atomic operations or defining indirect draw parameters.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="PerformanceHint" TypeCategory="Enumeration" PageName="cobalt.graphics.IResourceArray.PerformanceHint" Visibility="Public">
+        Flags to provide hints about how a resource array will be read and written by the CPU and GPU.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="DataPersistenceFlags" TypeCategory="Enumeration" PageName="cobalt.graphics.IResourceArray.DataPersistenceFlags" Visibility="Public">
+        Flags to describe how long existing resource array data must remain valid.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Usage methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetPerformanceHints" PageName="cobalt.graphics.IResourceArray.SetPerformanceHints">
+          Provides hints to the renderer about how this resource array will be read and written.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetDataPersistenceFlags" PageName="cobalt.graphics.IResourceArray.SetDataPersistenceFlags">
+          Provides hints to the renderer about the required lifetime of existing resource data.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+</XMLDocContent>

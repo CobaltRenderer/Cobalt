@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.RenderPluginEnumerator.ClearAllPlugins" Title="ClearAllPlugins method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.RenderPluginEnumerator">RenderPluginEnumerator</PageRef> ->
+    ClearAllPlugins
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ClearAllPlugins</TypeRef> method removes every loaded plugin record and releases the module handles owned by the enumerator.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        Only call this after all objects created from the loaded plugins have been destroyed, unless another module handle is keeping the plugin loaded.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void ClearAllPlugins();]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.RenderPluginEnumerator">RenderPluginEnumerator</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.RendererPlugin">RendererPlugin</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

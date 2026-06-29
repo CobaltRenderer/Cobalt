@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IResourceArray.SetPerformanceHints" Title="SetPerformanceHints method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph><PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> -> <PageRef PageName="cobalt.graphics.IResourceArray">IResourceArray</PageRef> -> SetPerformanceHints</Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetPerformanceHints</TypeRef> method provides CPU and GPU read/write usage hints for a resource array. These hints help the renderer choose memory placement, staging behaviour, and synchronization paths that match the expected usage pattern.
+    </Paragraph>
+    <Paragraph>
+      The CPU hint describes how application code expects to read or write the resource. The GPU hint describes how shader or transfer work is expected to access it. Correct hints are especially useful for large arrays, frequently updated data, and resources that are read back to the CPU.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+      Performance hints do not grant permission to use a resource in a particular way. Required operations still need the appropriate usage flags and a compatible allocation.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage"><Code Language="C++"><![CDATA[void SetPerformanceHints(PerformanceHint performanceHintCpu, PerformanceHint performanceHintGpu);]]></Code><SubSection Title="Argument list"><ArgumentList><ArgumentListEntry Type="PerformanceHint" Name="performanceHintCpu">The hint describing how the CPU is expected to read from or write to the resource.</ArgumentListEntry><ArgumentListEntry Type="PerformanceHint" Name="performanceHintGpu">The hint describing how the GPU is expected to read from or write to the resource.</ArgumentListEntry></ArgumentList></SubSection></Section>
+  <Section Title="See also"><PageRefList><PageRefListEntry PageName="cobalt.graphics.IResourceArray">IResourceArray</PageRefListEntry></PageRefList></Section>
+</XMLDocContent>

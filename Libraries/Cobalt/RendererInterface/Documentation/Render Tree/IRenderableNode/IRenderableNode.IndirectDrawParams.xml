@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderableNode.IndirectDrawParams" Title="IndirectDrawParams structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef> ->
+    IndirectDrawParams
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IndirectDrawParams</TypeRef> structure describes the data layout expected by <PageRef PageName="cobalt.graphics.IRenderableNode.SetIndirectDraw">SetIndirectDraw</PageRef> when indirect drawing is used without an index attribute bound to the renderable node.
+    </Paragraph>
+    <Paragraph>
+      The structure is normally written into an <PageRef PageName="cobalt.graphics.IDataArray">IDataArray</PageRef> by the CPU or by a compute shader, then consumed by the renderer during drawing.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <DataMemberList>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="vertexCount">
+        The number of vertices to draw for this command.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="instanceCount">
+        The number of instances to draw for this command.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="firstVertex">
+        The first vertex to read from the bound vertex attributes.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="firstInstance">
+        The first instance index used when instance data is read.
+      </DataMemberListEntry>
+    </DataMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderableNode.SetIndirectDraw">IRenderableNode.SetIndirectDraw</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IDataArray">IDataArray</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

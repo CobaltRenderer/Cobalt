@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.ILogger.Delete" Title="Delete method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.ILogger">ILogger</PageRef> ->
+    Delete
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Delete</TypeRef> method destroys the logger object.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Call this method only when manually managing a logger lifetime. In normal code, hold loggers in <TypeRef>ILogger::unique_ptr</TypeRef> and allow the custom deleter to call this method.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[virtual void Delete() = 0;]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.ILogger">ILogger</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.ILogger.Deleter">ILogger.Deleter</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

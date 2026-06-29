@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.WindowSystemInfoWayland" Title="WindowSystemInfoWayland structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef> ->
+    WindowSystemInfoWayland
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[struct WindowSystemInfoWayland : public IRenderer::WindowSystemInfoBase;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowSystemInfoWayland</TypeRef> structure identifies the Wayland window system and supplies the display used during renderer initialization.
+    </Paragraph>
+    <Paragraph>
+      Availability: Linux or compatible Wayland platforms when <TypeRef>COBALT_RENDERER_WAYLAND_SUPPORT</TypeRef> is enabled. This is automatically enabled on Linux unless platform binding selection is manual.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <DataMemberList>
+      <DataMemberListEntry Visibility="Public" Type="wl_display*" Name="display">
+        The Wayland display.
+      </DataMemberListEntry>
+    </DataMemberList>
+  </Section>
+  <Section Title="Constructors">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Constructor" PageName="cobalt.graphics.WindowSystemInfoWayland.Constructor">
+          Creates a WindowSystemInfoWayland structure.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.WindowInfoWayland">WindowInfoWayland</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer.Initialize">IRenderer.Initialize</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

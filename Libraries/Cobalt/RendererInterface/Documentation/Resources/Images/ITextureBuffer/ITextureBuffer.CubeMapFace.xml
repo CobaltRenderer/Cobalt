@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureBuffer.CubeMapFace" Title="CubeMapFace enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef> ->
+    CubeMapFace
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>CubeMapFace</TypeRef> enumeration identifies one of the six faces of a cubemap texture. It is used by cubemap texture data upload and update methods to select the face being written.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="PositiveX">
+        Selects the positive X cubemap face.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="NegativeX">
+        Selects the negative X cubemap face.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="PositiveY">
+        Selects the positive Y cubemap face.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="NegativeY">
+        Selects the negative Y cubemap face.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="PositiveZ">
+        Selects the positive Z cubemap face.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="NegativeZ">
+        Selects the negative Z cubemap face.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBufferCube">ITextureBufferCube</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBufferCubeArray">ITextureBufferCubeArray</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

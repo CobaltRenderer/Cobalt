@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateBuffer.GetStateValueId" Title="GetStateValueId method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateBuffer">IStateBuffer</PageRef> ->
+    GetStateValueId
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetStateValueId</TypeRef> method retrieves an ID for the given state value.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[StateValueId GetStateValueId(const Marshal::In<std::string>& name) const;]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const Marshal::In&lt;std::string&gt;" Name="name">
+          The shader-visible state value name to look up.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="StateValueId">
+        The ID of the named state value, or StateValueId::Null if no matching value exists.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateBuffer">IStateBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

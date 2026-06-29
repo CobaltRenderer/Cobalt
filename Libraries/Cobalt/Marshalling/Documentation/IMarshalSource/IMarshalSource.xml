@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.marshalling.IMarshalSource" Title="IMarshalSource" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Section Title="Overview">
+    <Paragraph>
+      The <TypeRef>IMarshalSource</TypeRef> family provides the low-level source-side interface used by the marshalling library to extract data from a bound
+      object and flatten it into a representation that can cross the assembly boundary. The concrete helper class <PageRef PageName="cobalt.marshalling.MarshalSource">MarshalSource</PageRef>
+      derives from these interfaces and is what the public marshal helpers normally create internally.
+    </Paragraph>
+    <Paragraph>
+      The exact set of members present on this type varies significantly between specializations. In general, the specializations cover the same families of
+      operations as the higher level <TypeRef>Marshal::In</TypeRef> and <TypeRef>Marshal::Ret</TypeRef> wrappers: whole-object marshalling, marshal
+      without move where applicable, and container-specific access for STL types such as <TypeRef>std::vector</TypeRef>, <TypeRef>std::array</TypeRef>,
+      <TypeRef>std::basic_string</TypeRef>, <TypeRef>std::pair</TypeRef>, and <TypeRef>std::tuple</TypeRef>.
+    </Paragraph>
+  </Section>
+
+  <Section Title="Member Families">
+    <SubSection Title="Marshalling methods">
+      <Paragraph>
+        Source specializations provide methods that return a marshalled copy of the bound object, and where supported, a variant that preserves the source
+        object instead of moving from it.
+      </Paragraph>
+    </SubSection>
+    <SubSection Title="Container metadata">
+      <Paragraph>
+        STL container specializations provide size, capacity, and empty queries where those operations make sense for the bound type.
+      </Paragraph>
+    </SubSection>
+    <SubSection Title="Element retrieval">
+      <Paragraph>
+        Specializations for indexed or composite types expose element-specific retrieval functions so that the target side can reconstruct the original
+        object layout safely.
+      </Paragraph>
+    </SubSection>
+  </Section>
+
+  <Section Title="Usage">
+    <Paragraph>
+      Application code normally does not create <TypeRef>IMarshalSource</TypeRef> objects directly. The class exists to support the internals of the higher
+      level marshal helpers, and the public source wrapper <PageRef PageName="cobalt.marshalling.MarshalSource">MarshalSource</PageRef> should be preferred
+      whenever direct use is required.
+    </Paragraph>
+  </Section>
+
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.marshalling.MarshalSource">MarshalSource</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.marshalling.MarshalIn">Marshal::In</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.marshalling.MarshalRet">Marshal::Ret</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

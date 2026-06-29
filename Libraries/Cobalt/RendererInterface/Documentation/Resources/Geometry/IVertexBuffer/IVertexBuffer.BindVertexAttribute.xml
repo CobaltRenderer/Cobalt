@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IVertexBuffer.BindVertexAttribute" Title="BindVertexAttribute method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IVertexBuffer">IVertexBuffer</PageRef> ->
+    BindVertexAttribute
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>BindVertexAttribute</TypeRef> method binds the specified VertexAttribute as a member of the buffer.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken BindVertexAttribute(IVertexAttribute& vertexAttribute);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IVertexAttribute" Name="vertexAttribute">
+          The vertex attribute to bind to this vertex buffer.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken">
+        True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IVertexBuffer">IVertexBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureSampler.SetTextureMipmapMode" Title="SetTextureMipmapMode method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITextureSampler">ITextureSampler</PageRef> ->
+    SetTextureMipmapMode
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetTextureMipmapMode</TypeRef> method specifies the filter mode to use when sampling from the texture.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetTextureMipmapMode(MipmapMode mipmapMode);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="MipmapMode" Name="mipmapMode">
+          The mipmap selection and filtering mode to use when sampling.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureSampler">ITextureSampler</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

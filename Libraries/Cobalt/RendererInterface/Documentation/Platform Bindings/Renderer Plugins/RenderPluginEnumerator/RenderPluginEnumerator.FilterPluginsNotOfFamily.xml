@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.RenderPluginEnumerator.FilterPluginsNotOfFamily" Title="FilterPluginsNotOfFamily method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.RenderPluginEnumerator">RenderPluginEnumerator</PageRef> ->
+    FilterPluginsNotOfFamily
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>FilterPluginsNotOfFamily</TypeRef> method removes renderer plugins that are not of the specified API family from the filtered set.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void FilterPluginsNotOfFamily(IRendererPlugin::ApiFamily apiFamily);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="ApiFamily!cobalt.graphics.IRendererPlugin.ApiFamily" Name="apiFamily">
+          The API family to keep.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.RenderPluginEnumerator">RenderPluginEnumerator</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.RendererPlugin">RendererPlugin</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

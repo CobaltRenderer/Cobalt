@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateBufferLayout" Title="IStateBufferLayout interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    IStateBufferLayout
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class IStateBufferLayout;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IStateBufferLayout</TypeRef> interface defines the layout of a state buffer for use in a shader
+      program. As state buffers generally contain multiple fields, which are mapped into the shader program as a large
+      block of data, it is necessary to know the sizes and locations of the individual fields within the buffer, and
+      their associated names, in order to allow these fields to be individually written to through the
+      <PageRef PageName="cobalt.graphics.IStateBuffer.SetStateValue">SetStateValue</PageRef> method of the <PageRef PageName="cobalt.graphics.IStateBuffer">IStateBuffer</PageRef>
+      class.
+    </Paragraph>
+    <Paragraph>
+      There are two ways to initialize an <TypeRef>IStateBufferLayout</TypeRef> object. The preferred way is to build
+      the state buffer layout from the shader program itself. After creating an <TypeRef>IStateBufferLayout</TypeRef>
+      object, it can be passed directly into the <PageRef PageName="cobalt.graphics.IShaderProgram.LoadStateBufferLayoutFromShader">LoadStateBufferLayoutFromShader</PageRef>
+      method on an <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef> object. This uses shader
+      reflection to determine the full layout of the state buffer from the structure that is defined in the shader
+      itself. This is the best approach, as it is simple for the application to do, and it allows the shader programs
+      and the renderer maximum flexibility in how the state buffer is laid out. The alternate approach is for the
+      application to define the contents of the state buffer manually, using the state layout building methods listed
+      below. Fields must be added in the order they are defined, with each field being appended using the standard
+      buffer layout rules for the renderer that was loaded. For Direct3D renderers, this uses the formally defined
+      <URL DisplayName="Packing Rules for Constant Variables">https://docs.microsoft.com/en-us/windows/desktop/direct3dhlsl/dx-graphics-hlsl-packing-rules</URL>.
+      For OpenGL, the "std140" layout rules are used, as found in <URL DisplayName="Section 7.6.2.2">https://www.khronos.org/registry/OpenGL/specs/gl/glspec45.core.pdf#page=159</URL>
+      of the OpenGL 4.5 Specification.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        Please note if you are using GLSL as your shader language and defining your own manually built layouts, there is
+        a specific warning not to use <TypeRef>vec3</TypeRef> types. See following note from the <URL DisplayName="official OpenGL wiki">https://www.khronos.org/opengl/wiki/Interface_Block_(GLSL)</URL>:
+      </Paragraph>
+      <Paragraph>
+        "Implementations sometimes get the std140 layout wrong for vec3 components. You are advised to manually pad your
+        structures/arrays out and avoid using vec3 at all."
+      </Paragraph>
+      <Paragraph>
+        Although specific vendors and driver versions are not named, this advice should be followed when using the GLSL
+        shader language and manually built state buffer layouts, to avoid compatibility problems.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="DataType" TypeCategory="Enumeration" PageName="cobalt.graphics.IStateBufferLayout.DataType" Visibility="Public">
+        Identifies the scalar type of fields, vectors, and matrices appended during manual state buffer layout construction.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.IStateBufferLayout.Delete">
+          Schedules the object for deletion. After calling this method, the object will be destroyed after the current
+          frame completes drawing.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="State layout building methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="BeginLayoutDefinition" PageName="cobalt.graphics.IStateBufferLayout.BeginLayoutDefinition">
+          Starts the process of constructing a state buffer layout
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="AppendField" PageName="cobalt.graphics.IStateBufferLayout.AppendField">
+          Appends a scalar field to the state buffer layout
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="AppendVector" PageName="cobalt.graphics.IStateBufferLayout.AppendVector">
+          Appends a vector field to the state buffer layout
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="AppendMatrix" PageName="cobalt.graphics.IStateBufferLayout.AppendMatrix">
+          Appends a matrix field to the state buffer layout
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ConstructStateLayout" PageName="cobalt.graphics.IStateBufferLayout.ConstructStateLayout">
+          Completes the process of constructing a state buffer layout
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateBuffer">IStateBuffer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

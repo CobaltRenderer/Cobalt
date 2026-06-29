@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.marshalling.MarshalSource" Title="MarshalSource" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Section Title="Overview">
+    <Paragraph>
+      The <TypeRef>MarshalSource</TypeRef> helper is the concrete source-side marshalling wrapper used by the public input and return-value marshal helpers.
+      It binds a source object, exposes the low-level <PageRef PageName="cobalt.marshalling.IMarshalSource">IMarshalSource</PageRef> interface, and
+      performs the object decomposition required to reconstruct the source object on the receiving side of the assembly boundary.
+    </Paragraph>
+    <Paragraph>
+      In normal application code this type is created implicitly by <PageRef PageName="cobalt.marshalling.MarshalIn">Marshal::In</PageRef> and
+      <PageRef PageName="cobalt.marshalling.MarshalRet">Marshal::Ret</PageRef>. Direct use is possible, but is uncommon outside of custom library extension
+      code.
+    </Paragraph>
+  </Section>
+
+  <Section Title="Supported Forms">
+    <Paragraph>
+      Concrete specializations exist for the container families supported by the library, including general STL containers, <TypeRef>std::vector</TypeRef>,
+      <TypeRef>std::array</TypeRef>, <TypeRef>std::basic_string</TypeRef>, <TypeRef>std::pair</TypeRef>, and <TypeRef>std::tuple</TypeRef>. The exact
+      specialization selected depends on the type being marshalled and on whether move support is available.
+    </Paragraph>
+  </Section>
+
+  <Section Title="Usage">
+    <Paragraph>
+      Most code should not construct <TypeRef>MarshalSource</TypeRef> explicitly. When direct access is required, it acts as the source-side counterpart to
+      <PageRef PageName="cobalt.marshalling.MarshalTarget">MarshalTarget</PageRef>.
+    </Paragraph>
+  </Section>
+
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.marshalling.IMarshalSource">IMarshalSource</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.marshalling.MarshalIn">Marshal::In</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.marshalling.MarshalRet">Marshal::Ret</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.marshalling.MarshalTarget">MarshalTarget</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

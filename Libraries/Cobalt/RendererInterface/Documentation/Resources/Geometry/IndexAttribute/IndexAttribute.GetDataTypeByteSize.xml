@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IndexAttribute.GetDataTypeByteSize" Title="GetDataTypeByteSize method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IndexAttribute">IndexAttribute</PageRef> ->
+    GetDataTypeByteSize
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetDataTypeByteSize</TypeRef> method returns the size of a single index in bytes.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[constexpr static size_t GetDataTypeByteSize(DataType dataType);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="DataType" Name="dataType">
+          The attribute data type to query.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="constexpr static size_t">
+        The byte size of one scalar value of the specified data type.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IndexAttribute">IndexAttribute</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

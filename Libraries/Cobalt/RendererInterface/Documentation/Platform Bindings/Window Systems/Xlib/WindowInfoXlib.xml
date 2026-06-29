@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.WindowInfoXlib" Title="WindowInfoXlib structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef> ->
+    WindowInfoXlib
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[struct WindowInfoXlib : public IFrameBuffer::WindowInfoBase;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowInfoXlib</TypeRef> structure describes an Xlib window for framebuffer presentation.
+    </Paragraph>
+    <Paragraph>
+      Availability: Linux or compatible X11 platforms when <TypeRef>COBALT_RENDERER_XLIB_SUPPORT</TypeRef> is enabled. This is automatically enabled on Linux unless platform binding selection is manual.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <DataMemberList>
+      <DataMemberListEntry Visibility="Public" Type="::Display*" Name="display">
+        The Xlib display connection.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="::Window" Name="window">
+        The Xlib window.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="V2UInt32" Name="windowSizeInPixels">
+        The drawable window size in pixels.
+      </DataMemberListEntry>
+    </DataMemberList>
+  </Section>
+  <Section Title="Constructors">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Constructor" PageName="cobalt.graphics.WindowInfoXlib.Constructor">
+          Creates a WindowInfoXlib structure.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.WindowSystemInfoXlib">WindowSystemInfoXlib</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.BindWindow">IFrameBuffer.BindWindow</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

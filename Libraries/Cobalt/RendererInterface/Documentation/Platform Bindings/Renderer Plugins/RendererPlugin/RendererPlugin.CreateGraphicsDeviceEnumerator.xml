@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.RendererPlugin.CreateGraphicsDeviceEnumerator" Title="CreateGraphicsDeviceEnumerator method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.RendererPlugin">RendererPlugin</PageRef> ->
+    CreateGraphicsDeviceEnumerator
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>CreateGraphicsDeviceEnumerator</TypeRef> method creates a graphics device enumerator for the renderer plugin. The <TypeRef>RendererPlugin</TypeRef> object keeps the plugin module loaded through shared ownership.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        Keep the <TypeRef>RendererPlugin</TypeRef> object alive while the enumerator, devices, and renderers created from this plugin are in use. The plugin object itself owns the loaded module, so no separate module handle output is required.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[IGraphicsDeviceEnumerator::unique_ptr CreateGraphicsDeviceEnumerator(cobalt::logging::ILogger::unique_ptr log) const;]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="cobalt::logging::ILogger::unique_ptr" Name="log">
+          The logger transferred to the graphics device enumerator.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="IGraphicsDeviceEnumerator!cobalt.graphics.IGraphicsDeviceEnumerator">
+        A newly allocated graphics device enumerator for this renderer plugin.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IModuleHandle">IModuleHandle</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.RenderPluginEnumerator">RenderPluginEnumerator</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

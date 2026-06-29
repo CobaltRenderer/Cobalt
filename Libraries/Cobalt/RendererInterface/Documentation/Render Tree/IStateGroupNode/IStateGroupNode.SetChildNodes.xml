@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateGroupNode.SetChildNodes" Title="SetChildNodes method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> ->
+    SetChildNodes
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetChildNodes</TypeRef> method replaces any existing <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef>
+      objects which have been added to the list of child nods with the supplied set of objects. The result will be
+      equivalent to what would occur if <PageRef PageName="cobalt.graphics.IStateGroupNode.RemoveAllChildNodes">RemoveAllChildNodes</PageRef>
+      was called, followed by <PageRef PageName="cobalt.graphics.IStateGroupNode.AddChildNodes">AddChildNodes</PageRef>
+      with the supplied set of objects, except this method will perform the operation in a more efficient manner.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetChildNodes(IRenderableNode* const* childNodes, size_t childNodeCount);
+void SetChildNodes(IRenderableNode::unique_ptr const* childNodes, size_t childNodeCount);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IRenderableNode* const* / IRenderableNode::unique_ptr const*!cobalt.graphics.IRenderableNode" Name="childNodes">
+          The set of <TypeRef>IRenderableNode</TypeRef> objects to set as the list of child nodes
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="childNodeCount">
+          The number of <TypeRef>IRenderableNode</TypeRef> entries to read from the <TypeRef>childNodes</TypeRef> array
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

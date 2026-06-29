@@ -1,0 +1,742 @@
+{
+  "version": 5,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 21
+  },
+
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "enableClangTidyCodeAnalysis": true,
+          "enableMicrosoftCodeAnalysis": true,
+          "codeAnalysisRuleset": "CobaltAnalysisRules.ruleset",
+          "disableExternalAnalysis": true
+        }
+      }
+    },
+
+    {
+      "name": "win-msvc-x64-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchains/windows-msvc-x64.cmake"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [ "Windows" ]
+        }
+      }
+    },
+    {
+      "name": "win-msvc-x86-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchains/windows-msvc-x86.cmake"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [ "Windows" ]
+        }
+      }
+    },
+    {
+      "name": "win-msvc-arm64-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchains/windows-msvc-arm64.cmake"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [ "Windows" ]
+        }
+      }
+    },
+
+    {
+      "name": "win-msvc-x64-debug",
+      "displayName": "Win MSVC x64 Debug",
+      "inherits": ["win-msvc-x64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "win-msvc-x64-asan",
+      "displayName": "Win MSVC x64 Asan",
+      "inherits": ["win-msvc-x64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Asan"
+      }
+    },
+    {
+      "name": "win-msvc-x64-release",
+      "displayName": "Win MSVC x64 RelWithDebInfo",
+      "inherits": ["win-msvc-x64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+
+    {
+      "name": "win-msvc-x86-debug",
+      "displayName": "Win MSVC x86 Debug",
+      "inherits": ["win-msvc-x86-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "win-msvc-x86-asan",
+      "displayName": "Win MSVC x86 Asan",
+      "inherits": ["win-msvc-x86-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Asan"
+      }
+    },
+    {
+      "name": "win-msvc-x86-release",
+      "displayName": "Win MSVC x86 RelWithDebInfo",
+      "inherits": ["win-msvc-x86-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+
+    {
+      "name": "win-msvc-arm64-debug",
+      "displayName": "Win MSVC ARM64 Debug",
+      "inherits": ["win-msvc-arm64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "win-msvc-arm64-asan",
+      "displayName": "Win MSVC ARM64 Asan",
+      "inherits": ["win-msvc-arm64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Asan"
+      }
+    },
+    {
+      "name": "win-msvc-arm64-release",
+      "displayName": "Win MSVC ARM64 RelWithDebInfo",
+      "inherits": ["win-msvc-arm64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+
+    {
+      "name": "win-clangcl-x64-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchains/windows-clangcl-x64.cmake"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [ "Windows" ]
+        }
+      }
+    },
+    {
+      "name": "win-clangcl-x86-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchains/windows-clangcl-x86.cmake"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [ "Windows" ]
+        }
+      }
+    },
+    {
+      "name": "win-clangcl-arm64-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchains/windows-clangcl-arm64.cmake"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [ "Windows" ]
+        }
+      }
+    },
+
+    {
+      "name": "win-clangcl-x64-debug",
+      "displayName": "Win Clang-cl x64 Debug",
+      "inherits": ["win-clangcl-x64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "win-clangcl-x64-asan",
+      "displayName": "Win Clang-cl x64 Asan",
+      "inherits": ["win-clangcl-x64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Asan"
+      }
+    },
+    {
+      "name": "win-clangcl-x64-release",
+      "displayName": "Win Clang-cl x64 RelWithDebInfo",
+      "inherits": ["win-clangcl-x64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+
+    {
+      "name": "win-clangcl-x86-debug",
+      "displayName": "Win Clang-cl x86 Debug",
+      "inherits": ["win-clangcl-x86-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "win-clangcl-x86-asan",
+      "displayName": "Win Clang-cl x86 Asan",
+      "inherits": ["win-clangcl-x86-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Asan"
+      }
+    },
+    {
+      "name": "win-clangcl-x86-release",
+      "displayName": "Win Clang-cl x86 RelWithDebInfo",
+      "inherits": ["win-clangcl-x86-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+
+    {
+      "name": "win-clangcl-arm64-debug",
+      "displayName": "Win Clang-cl ARM64 Debug",
+      "inherits": ["win-clangcl-arm64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "win-clangcl-arm64-asan",
+      "displayName": "Win Clang-cl ARM64 Asan",
+      "inherits": ["win-clangcl-arm64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Asan"
+      }
+    },
+    {
+      "name": "win-clangcl-arm64-release",
+      "displayName": "Win Clang-cl ARM64 RelWithDebInfo",
+      "inherits": ["win-clangcl-arm64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+
+    {
+      "name": "macos-clang-x64-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchains/macos-clang-x64.cmake"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": ["macOS"]
+        }
+      }
+    },
+    {
+      "name": "macos-clang-arm64-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchains/macos-clang-arm64.cmake"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": ["macOS"]
+        }
+      }
+    },
+    {
+      "name": "macos-clang-x64-debug",
+      "displayName": "macOS Clang x64 Debug",
+      "inherits": ["macos-clang-x64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "macos-clang-x64-asan",
+      "displayName": "macOS Clang x64 Asan",
+      "inherits": ["macos-clang-x64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Asan"
+      }
+    },
+    {
+      "name": "macos-clang-x64-release",
+      "displayName": "macOS Clang x64 RelWithDebInfo",
+      "inherits": ["macos-clang-x64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+    {
+      "name": "macos-clang-arm64-debug",
+      "displayName": "macOS Clang ARM64 Debug",
+      "inherits": ["macos-clang-arm64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "macos-clang-arm64-asan",
+      "displayName": "macOS Clang ARM64 Asan",
+      "inherits": ["macos-clang-arm64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Asan"
+      }
+    },
+    {
+      "name": "macos-clang-arm64-release",
+      "displayName": "macOS Clang ARM64 RelWithDebInfo",
+      "inherits": ["macos-clang-arm64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+
+    {
+      "name": "linux-gcc-x64-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchains/linux-gcc-x64.cmake"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [ "Linux" ]
+        }
+      }
+    },
+    {
+      "name": "linux-gcc-arm64-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchains/linux-gcc-arm64.cmake"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [ "Linux" ]
+        }
+      }
+    },
+
+    {
+      "name": "linux-gcc-x64-debug",
+      "displayName": "Linux GCC x64 Debug",
+      "inherits": ["linux-gcc-x64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "linux-gcc-x64-asan",
+      "displayName": "Linux GCC x64 Asan",
+      "inherits": ["linux-gcc-x64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Asan"
+      }
+    },
+    {
+      "name": "linux-gcc-x64-release",
+      "displayName": "Linux GCC x64 RelWithDebInfo",
+      "inherits": ["linux-gcc-x64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+
+    {
+      "name": "linux-gcc-arm64-debug",
+      "displayName": "Linux GCC ARM64 Debug",
+      "inherits": ["linux-gcc-arm64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "linux-gcc-arm64-asan",
+      "displayName": "Linux GCC ARM64 Asan",
+      "inherits": ["linux-gcc-arm64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Asan"
+      }
+    },
+    {
+      "name": "linux-gcc-arm64-release",
+      "displayName": "Linux GCC ARM64 RelWithDebInfo",
+      "inherits": ["linux-gcc-arm64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+
+    {
+      "name": "linux-clang-x64-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchains/linux-clang-x64.cmake"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [ "Linux" ]
+        }
+      }
+    },
+    {
+      "name": "linux-clang-arm64-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchains/linux-clang-arm64.cmake"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [ "Linux" ]
+        }
+      }
+    },
+
+    {
+      "name": "linux-clang-x64-debug",
+      "displayName": "Linux Clang x64 Debug",
+      "inherits": ["linux-clang-x64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "linux-clang-x64-asan",
+      "displayName": "Linux Clang x64 Asan",
+      "inherits": ["linux-clang-x64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Asan"
+      }
+    },
+    {
+      "name": "linux-clang-x64-release",
+      "displayName": "Linux Clang x64 RelWithDebInfo",
+      "inherits": ["linux-clang-x64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+
+    {
+      "name": "linux-clang-arm64-debug",
+      "displayName": "Linux Clang ARM64 Debug",
+      "inherits": ["linux-clang-arm64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "linux-clang-arm64-asan",
+      "displayName": "Linux Clang ARM64 Asan",
+      "inherits": ["linux-clang-arm64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Asan"
+      }
+    },
+    {
+      "name": "linux-clang-arm64-release",
+      "displayName": "Linux Clang ARM64 RelWithDebInfo",
+      "inherits": ["linux-clang-arm64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+
+    {
+      "name": "wsl-gcc-x64-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchains/wsl-gcc-x64.cmake"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [ "Linux" ]
+        },
+        "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
+          "remoteMachineName": "WSL: Ubuntu",
+          "copySourcesOptions": {
+            "exclusionList": [
+              ".vs",
+              ".git",
+              "out",
+              "Output"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "wsl-gcc-arm64-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchains/wsl-gcc-arm64.cmake"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [ "Linux" ]
+        },
+        "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
+          "remoteMachineName": "WSL: Ubuntu",
+          "copySourcesOptions": {
+            "exclusionList": [
+              ".vs",
+              ".git",
+              "out",
+              "Output"
+            ]
+          }
+        }
+      }
+    },
+
+    {
+      "name": "wsl-gcc-x64-debug",
+      "displayName": "WSL GCC x64 Debug",
+      "inherits": ["wsl-gcc-x64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "wsl-gcc-x64-asan",
+      "displayName": "WSL GCC x64 Asan",
+      "inherits": ["wsl-gcc-x64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Asan"
+      }
+    },
+    {
+      "name": "wsl-gcc-x64-release",
+      "displayName": "WSL GCC x64 RelWithDebInfo",
+      "inherits": ["wsl-gcc-x64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+
+    {
+      "name": "wsl-gcc-arm64-debug",
+      "displayName": "WSL GCC ARM64 Debug",
+      "inherits": ["wsl-gcc-arm64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "wsl-gcc-arm64-asan",
+      "displayName": "WSL GCC ARM64 Asan",
+      "inherits": ["wsl-gcc-arm64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Asan"
+      }
+    },
+    {
+      "name": "wsl-gcc-arm64-release",
+      "displayName": "WSL GCC ARM64 RelWithDebInfo",
+      "inherits": ["wsl-gcc-arm64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+
+    {
+      "name": "wsl-clang-x64-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchains/wsl-clang-x64.cmake"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [ "Linux" ]
+        },
+        "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
+          "remoteMachineName": "WSL: Ubuntu",
+          "copySourcesOptions": {
+            "exclusionList": [
+              ".vs",
+              ".git",
+              "out",
+              "Output"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "wsl-clang-arm64-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchains/wsl-clang-arm64.cmake"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [ "Linux" ]
+        },
+        "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
+          "remoteMachineName": "WSL: Ubuntu",
+          "copySourcesOptions": {
+            "exclusionList": [
+              ".vs",
+              ".git",
+              "out",
+              "Output"
+            ]
+          }
+        }
+      }
+    },
+
+    {
+      "name": "wsl-clang-x64-debug",
+      "displayName": "WSL Clang x64 Debug",
+      "inherits": ["wsl-clang-x64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "wsl-clang-x64-asan",
+      "displayName": "WSL Clang x64 Asan",
+      "inherits": ["wsl-clang-x64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Asan"
+      }
+    },
+    {
+      "name": "wsl-clang-x64-release",
+      "displayName": "WSL Clang x64 RelWithDebInfo",
+      "inherits": ["wsl-clang-x64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+
+    {
+      "name": "wsl-clang-arm64-debug",
+      "displayName": "WSL Clang ARM64 Debug",
+      "inherits": ["wsl-clang-arm64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "wsl-clang-arm64-asan",
+      "displayName": "WSL Clang ARM64 Asan",
+      "inherits": ["wsl-clang-arm64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Asan"
+      }
+    },
+    {
+      "name": "wsl-clang-arm64-release",
+      "displayName": "WSL Clang ARM64 RelWithDebInfo",
+      "inherits": ["wsl-clang-arm64-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    }
+  ],
+
+  "buildPresets": [
+    { "name": "win-msvc-x64-debug",        "configurePreset": "win-msvc-x64-debug" },
+    { "name": "win-msvc-x64-asan",         "configurePreset": "win-msvc-x64-asan" },
+    { "name": "win-msvc-x64-release",      "configurePreset": "win-msvc-x64-release" },
+    { "name": "win-msvc-x86-debug",        "configurePreset": "win-msvc-x86-debug" },
+    { "name": "win-msvc-x86-asan",         "configurePreset": "win-msvc-x86-asan" },
+    { "name": "win-msvc-x86-release",      "configurePreset": "win-msvc-x86-release" },
+    { "name": "win-msvc-arm64-debug",      "configurePreset": "win-msvc-arm64-debug" },
+    { "name": "win-msvc-arm64-asan",       "configurePreset": "win-msvc-arm64-asan" },
+    { "name": "win-msvc-arm64-release",    "configurePreset": "win-msvc-arm64-release" },
+
+    { "name": "win-clangcl-x64-debug",     "configurePreset": "win-clangcl-x64-debug" },
+    { "name": "win-clangcl-x64-asan",      "configurePreset": "win-clangcl-x64-asan" },
+    { "name": "win-clangcl-x64-release",   "configurePreset": "win-clangcl-x64-release" },
+    { "name": "win-clangcl-x86-debug",     "configurePreset": "win-clangcl-x86-debug" },
+    { "name": "win-clangcl-x86-asan",      "configurePreset": "win-clangcl-x86-asan" },
+    { "name": "win-clangcl-x86-release",   "configurePreset": "win-clangcl-x86-release" },
+    { "name": "win-clangcl-arm64-debug",   "configurePreset": "win-clangcl-arm64-debug" },
+    { "name": "win-clangcl-arm64-asan",    "configurePreset": "win-clangcl-arm64-asan" },
+    { "name": "win-clangcl-arm64-release", "configurePreset": "win-clangcl-arm64-release" },
+
+    { "name": "macos-clang-x64-debug",     "configurePreset": "macos-clang-x64-debug" },
+    { "name": "macos-clang-x64-asan",      "configurePreset": "macos-clang-x64-asan" },
+    { "name": "macos-clang-x64-release",   "configurePreset": "macos-clang-x64-release" },
+    { "name": "macos-clang-arm64-debug",   "configurePreset": "macos-clang-arm64-debug" },
+    { "name": "macos-clang-arm64-asan",    "configurePreset": "macos-clang-arm64-asan" },
+    { "name": "macos-clang-arm64-release", "configurePreset": "macos-clang-arm64-release" },
+
+    { "name": "linux-gcc-x64-debug",       "configurePreset": "linux-gcc-x64-debug" },
+    { "name": "linux-gcc-x64-asan",        "configurePreset": "linux-gcc-x64-asan" },
+    { "name": "linux-gcc-x64-release",     "configurePreset": "linux-gcc-x64-release" },
+    { "name": "linux-gcc-arm64-debug",     "configurePreset": "linux-gcc-arm64-debug" },
+    { "name": "linux-gcc-arm64-asan",      "configurePreset": "linux-gcc-arm64-asan" },
+    { "name": "linux-gcc-arm64-release",   "configurePreset": "linux-gcc-arm64-release" },
+
+    { "name": "linux-clang-x64-debug",     "configurePreset": "linux-clang-x64-debug" },
+    { "name": "linux-clang-x64-asan",      "configurePreset": "linux-clang-x64-asan" },
+    { "name": "linux-clang-x64-release",   "configurePreset": "linux-clang-x64-release" },
+    { "name": "linux-clang-arm64-debug",   "configurePreset": "linux-clang-arm64-debug" },
+    { "name": "linux-clang-arm64-asan",    "configurePreset": "linux-clang-arm64-asan" },
+    { "name": "linux-clang-arm64-release", "configurePreset": "linux-clang-arm64-release" },
+
+    { "name": "wsl-gcc-x64-debug",         "configurePreset": "wsl-gcc-x64-debug" },
+    { "name": "wsl-gcc-x64-asan",          "configurePreset": "wsl-gcc-x64-asan" },
+    { "name": "wsl-gcc-x64-release",       "configurePreset": "wsl-gcc-x64-release" },
+    { "name": "wsl-gcc-arm64-debug",       "configurePreset": "wsl-gcc-arm64-debug" },
+    { "name": "wsl-gcc-arm64-asan",        "configurePreset": "wsl-gcc-arm64-asan" },
+    { "name": "wsl-gcc-arm64-release",     "configurePreset": "wsl-gcc-arm64-release" },
+
+    { "name": "wsl-clang-x64-debug",       "configurePreset": "wsl-clang-x64-debug" },
+    { "name": "wsl-clang-x64-asan",        "configurePreset": "wsl-clang-x64-asan" },
+    { "name": "wsl-clang-x64-release",     "configurePreset": "wsl-clang-x64-release" },
+    { "name": "wsl-clang-arm64-debug",     "configurePreset": "wsl-clang-arm64-debug" },
+    { "name": "wsl-clang-arm64-asan",      "configurePreset": "wsl-clang-arm64-asan" },
+    { "name": "wsl-clang-arm64-release",   "configurePreset": "wsl-clang-arm64-release" }
+  ]
+}

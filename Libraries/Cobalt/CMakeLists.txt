@@ -1,0 +1,7 @@
+add_subdirectory(CBindings)
+add_subdirectory(Debug)
+add_subdirectory(Logging)
+add_subdirectory(LoggingInterface)
+add_subdirectory(Marshalling)
+add_subdirectory(MathTypes)
+add_subdirectory(RendererInterface)

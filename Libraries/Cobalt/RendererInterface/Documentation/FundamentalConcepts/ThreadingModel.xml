@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.Concepts.ThreadingModel" Title="Threading Model" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    Threading Model
+  </Paragraph>
+  <Section Title="Threading Model">
+    <Paragraph>
+      The Cobalt Renderer API has some thread safety guarantees, however it does not offer complete thread safety for
+      all operations in all circumstances. As a guiding rule, a given object should only be built on one thread, or have
+      its modifications externally synchronized. IE, don't create an <PageRef PageName="cobalt.graphics.ITextureBuffer2D">ITextureBuffer2D</PageRef>
+      and call <PageRef PageName="cobalt.graphics.ITextureBuffer.SetInitialData">SetInitialData</PageRef> on one thread, then call
+      <PageRef PageName="cobalt.graphics.ITextureBuffer.AllocateMemory">AllocateMemory</PageRef> on another. In this
+      case, you would need to externally synchronize. When following this guidance, operations are thread safe, with
+      the following notable exceptions:
+    </Paragraph>
+    <List>
+      <ListEntry>
+        <TypeRef>Binding/unbinding resources.</TypeRef>
+        While calls to resource binding methods like <PageRef PageName="cobalt.graphics.IStateContainer.BindTexture">BindTexture</PageRef>
+        and <PageRef PageName="cobalt.graphics.IStateContainer.BindResourceArray">BindResourceArray</PageRef> can be
+        made on separate nodes concurrently, it is currently unsafe to call methods which modify the resource binding
+        state on a single node concurrently. This may be changed in the future.
+      </ListEntry>
+      <ListEntry>
+        <TypeRef>Modifying state values.</TypeRef>
+        While calls to state methods like <PageRef PageName="cobalt.graphics.IStateContainer.SetStateValue">SetStateValue</PageRef>
+        and <PageRef PageName="cobalt.graphics.IStateContainer.ResetStateValue">ResetStateValue</PageRef> can be made on
+        separate nodes concurrently, it is currently unsafe to call methods which modify state values on a single node
+        concurrently. This may be changed in the future.
+      </ListEntry>
+      <ListEntry>
+        <TypeRef>Modifying IRenderableNode state.</TypeRef>
+        It is currently unsafe to modify the vertex/index buffer bindings for the same <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef>
+        concurrently from two different threads. As this can only be done before an <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef>
+        is first added to the render tree, this will not typically be an issue, and is treated as a case of building an
+        object. Some updates can be performed after an <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef>
+        has been built and is in use however, such as through <PageRef PageName="cobalt.graphics.IRenderableNode.SetVertexCount">SetVertexCount</PageRef>.
+        Torn states may be created if this occurs concurrently from multiple threads, so the modification of an
+        <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef> should be externally synchronized.
+      </ListEntry>
+    </List>
+    <Paragraph>
+      Despite the threading rules given above, there is one important synchronization rule within the scope of a single
+      renderer. The <PageRef PageName="cobalt.graphics.IRenderer.StartNewFrame">StartNewFrame</PageRef> method must be
+      called in complete exclusion to all other calls on that renderer and all objects created from it. No other renderer
+      API call in that object tree should be in progress when <TypeRef>StartNewFrame</TypeRef> is called, and no other
+      call should begin until it returns. This allows the renderer to latch a coherent frame boundary efficiently.
+      Synchronization helpers to make this rule easier to follow are described below.
+    </Paragraph>
+  </Section>
+  <Section Title="Window System Calls">
+    <Paragraph>
+      Native window systems often impose their own threading requirements. Calls that bind or resize platform windows,
+      such as <PageRef PageName="cobalt.graphics.IFrameBuffer.BindWindow">BindWindow</PageRef> and
+      <PageRef PageName="cobalt.graphics.IFrameBuffer.NotifyWindowResized">NotifyWindowResized</PageRef>, must be made
+      on the UI thread required by the active platform or window framework. The exact UI-thread dispatch mechanism is
+      application-specific.
+    </Paragraph>
+    <Paragraph>
+      These calls still belong to the renderer object tree. If they can occur while another thread is advancing frames,
+      they must be synchronized with <TypeRef>StartNewFrame</TypeRef> in the same way as other renderer calls.
+    </Paragraph>
+  </Section>
+  <Section Title="Synchronization Helpers">
+    <Paragraph>
+      To assist with synchronization requirements, the <PageRef PageName="cobalt.graphics.ReadWriteMutex">ReadWriteMutex</PageRef>
+      helper class provides a reference implementation of a mutex that allows multiple concurrent readers and a single
+      exclusive writer. Pending write lock attempts take priority over later read lock requests, which helps a render
+      thread acquire the exclusive frame-advance lock without being starved by update threads.
+    </Paragraph>
+    <Paragraph>
+      Applications are free to use a different locking scheme. If the application design guarantees that no renderer API
+      calls can overlap <TypeRef>StartNewFrame</TypeRef>, no additional external synchronization is required.
+    </Paragraph>
+  </Section>
+  <Paragraph>
+    Next page, <PageRef PageName="cobalt.graphics.Concepts.AllocationModel">Allocation Model</PageRef>
+  </Paragraph>
+</XMLDocContent>

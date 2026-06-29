@@ -1,0 +1,57 @@
+# Disable end of line conversions by default for all files. We want to avoid any "surprise" conversions, and only
+# normalize files we specifically request to be normalized.
+* -text
+
+# Text-based data files forced to unix line endings. We also default .txt files to unix line endings here too.
+*.json text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.xml text eol=lf
+*.xsd text eol=lf
+*.xsl text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+
+# CMake files forced to unix line endings
+CMakeLists.txt text eol=lf
+*.cmake text eol=lf
+*.patch text eol=lf
+
+# Script files to their native/preferred line ending conventions
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.sh text eol=lf
+*.py text eol=lf
+
+# C++ source-related files forced to unix line endings, except for .rc and .manifest files forced to windows line
+# endings, which have seen to cause problems historically when defined with unix line endings.
+*.c text eol=lf
+*.c.in text eol=lf
+*.cpp text eol=lf
+*.cpp.in text eol=lf
+*.h text eol=lf
+*.h.in text eol=lf
+*.inl text eol=lf
+*.inl.in text eol=lf
+*.mm text eol=lf
+*.mm.in text eol=lf
+*.pkg.in text eol=lf
+*.rc text eol=crlf
+*.rc.in text eol=crlf
+*.manifest text eol=crlf
+*.manifest.in text eol=crlf
+
+# Web files forced to unix line endings
+*.css text eol=lf
+*.htm text eol=lf
+*.html text eol=lf
+*.js text eol=lf
+
+# Repo config files forced to unix line endings
+CODEOWNERS text eol=lf
+.clang-format text eol=lf
+.clang-tidy text eol=lf
+.editorconfig text eol=lf
+.gitattributes text eol=lf
+.gitignore text eol=lf
+*.ruleset text eol=lf

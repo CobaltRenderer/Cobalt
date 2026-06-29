@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureBuffer.SetTextureDimensions" Title="SetTextureDimensions method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef> ->
+    SetTextureDimensions
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetTextureDimensions</TypeRef> method specifies the dimensions of mipmap level zero and the number of
+      mipmap levels to allocate for a texture. The overload selected depends on the concrete texture type.
+    </Paragraph>
+    <Paragraph>
+      Mipmap dimensions are derived from the base dimensions by repeatedly halving each dimension down to a minimum of
+      one pixel. The created mipmap count and per-level dimensions can be queried after allocation with
+      <PageRef PageName="cobalt.graphics.ITextureBuffer.MipmapLevelCount">MipmapLevelCount</PageRef> and
+      <PageRef PageName="cobalt.graphics.ITextureBuffer.MipmapLevelDimensions">MipmapLevelDimensions</PageRef>.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        This method must be called before <PageRef PageName="cobalt.graphics.ITextureBuffer.AllocateMemory">AllocateMemory</PageRef>.
+        The requested dimensions must also fit within the relevant limits reported by <PageRef PageName="cobalt.graphics.IGraphicsDevice.GetImageLimits">GetImageLimits</PageRef>.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetTextureDimensions(const V1UInt32& imageDimensions, int mipmapLevelCount = 1);
+void SetTextureDimensions(const V1UInt32& imageDimensions, size_t arraySize, int mipmapLevelCount = 1);
+void SetTextureDimensions(const V2UInt32& imageDimensions, int mipmapLevelCount = 1);
+void SetTextureDimensions(const V2UInt32& imageDimensions, size_t arraySize, int mipmapLevelCount = 1);
+void SetTextureDimensions(const V3UInt32& imageDimensions, int mipmapLevelCount = 1);
+void SetTextureDimensions(uint32_t faceLength, int mipmapLevelCount = 1);
+void SetTextureDimensions(uint32_t faceLength, size_t arraySize, int mipmapLevelCount = 1);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="V1UInt32, V2UInt32, or V3UInt32" Name="imageDimensions">
+          The texture dimensions at mipmap level zero.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="uint32_t" Name="faceLength">
+          The width and height of each cubemap face at mipmap level zero.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="arraySize">
+          The number of array entries to allocate for array texture types.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="int" Name="mipmapLevelCount">
+          The number of mipmap levels to allocate. Use one for a texture without additional mipmap levels.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.MipmapLevelCount">ITextureBuffer.MipmapLevelCount</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.MipmapLevelDimensions">ITextureBuffer.MipmapLevelDimensions</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice.GetImageLimits">IGraphicsDevice.GetImageLimits</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

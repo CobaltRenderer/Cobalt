@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDevice.Vendor" Title="Vendor enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> ->
+    Vendor
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Vendor</TypeRef> enumeration is used to report the vendor associated with the graphics device
+      represented by a given <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef>, as returned
+      by the <PageRef PageName="cobalt.graphics.IGraphicsDevice.GetVendor">GetVendor</PageRef> method. In most cases,
+      this identifies the vendor who designed the graphics processor. In some cases, it may identify a software or
+      driver stack instead, such as a device exposed through Mesa.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        It is not recommended to alter the behaviour of your application in any meaningful way based on the vendor
+        alone. Instead, you should rely on reported characteristics of the device, such as supported features, in order
+        to make decisions on how your program uses the hardware, as new devices by a given vendor may be significantly
+        different to previous devices they have released. Information on vendor is provided for informational purposes
+        only, such as for reporting or displaying information to the user.
+      </Paragraph>
+    </Note>
+    <Note Type="Important">
+      <Paragraph>
+        As this enumeration is a fixed set of known vendors, it will not be able to return accurate vendor information
+        on exotic or custom graphics devices by unknown manufacturers. In these cases, the <PageRef PageName="cobalt.graphics.IGraphicsDevice.GetVendorName">GetVendorName</PageRef>
+        method may be able to provide more information.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="AMD">
+        The device is reported as using a graphics processor or driver stack from Advanced Micro Devices.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ImgTec">
+        The device is reported as using a graphics processor or driver stack from Imagination Technologies.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Nvidia">
+        The device is reported as using a graphics processor or driver stack from NVIDIA.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ARM">
+        The device is reported as using a graphics processor or driver stack from ARM.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Microsoft">
+        The device is reported as using a graphics processor or driver stack from Microsoft, such as a software or
+        platform-provided adapter.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Qualcomm">
+        The device is reported as using a graphics processor or driver stack from Qualcomm.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Intel">
+        The device is reported as using a graphics processor or driver stack from Intel.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Apple">
+        The device is reported as using a graphics processor or driver stack from Apple.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Mesa">
+        The device is reported as being exposed through the Mesa graphics stack.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Vivante">
+        The device is reported as using a graphics processor or driver stack from Vivante.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="VeriSilicon">
+        The device is reported as using a graphics processor or driver stack from VeriSilicon.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Unknown">
+        The vendor associated with the device couldn't be determined, or could not be matched to one of the known
+        entries in this enumeration. In this case, <PageRef PageName="cobalt.graphics.IGraphicsDevice.GetVendorName">GetVendorName</PageRef>
+        may still be able to return a textual vendor name reported by the graphics API or driver.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice.GetVendor">IGraphicsDevice.GetVendor</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice.GetVendorName">IGraphicsDevice.GetVendorName</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

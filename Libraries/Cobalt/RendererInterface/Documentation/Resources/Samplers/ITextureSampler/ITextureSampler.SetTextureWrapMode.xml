@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureSampler.SetTextureWrapMode" Title="SetTextureWrapMode method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITextureSampler">ITextureSampler</PageRef> ->
+    SetTextureWrapMode
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetTextureWrapMode</TypeRef> method specifies the wrap mode to use when sampling from the texture.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetTextureWrapMode(WrapMode wrapMode);
+void SetTextureWrapMode(WrapMode wrapModeHorizontal, WrapMode wrapModeVertical);
+void SetTextureWrapMode(WrapMode wrapModeHorizontal, WrapMode wrapModeVertical, WrapMode wrapModeDepth);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="WrapMode" Name="wrapMode">
+          The address mode to use when sampling outside the texture bounds.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureSampler">ITextureSampler</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

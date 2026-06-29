@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderer.CreateTextureBuffer1D" Title="CreateTextureBuffer1D method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> ->
+    CreateTextureBuffer1D
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>CreateTextureBuffer1D</TypeRef> method constructs and returns a new object which implements the <PageRef PageName="cobalt.graphics.ITextureBuffer1D">ITextureBuffer1D</PageRef>
+      interface.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[ITextureBuffer1D::unique_ptr CreateTextureBuffer1D();]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="ITextureBuffer1D!cobalt.graphics.ITextureBuffer1D">
+        A freshly constructed <TypeRef>ITextureBuffer1D</TypeRef> object, wrapped in a <TypeRef>unique_ptr</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer">IRenderer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer1D">ITextureBuffer1D</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

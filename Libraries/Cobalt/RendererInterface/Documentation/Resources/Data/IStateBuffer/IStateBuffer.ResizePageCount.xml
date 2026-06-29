@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateBuffer.ResizePageCount" Title="ResizePageCount method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateBuffer">IStateBuffer</PageRef> ->
+    ResizePageCount
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ResizePageCount</TypeRef> method if the state buffer allows resizing, this allows the number of pages in the buffer to be changed.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken ResizePageCount(uint32_t pageCount);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="uint32_t" Name="pageCount">
+          The new number of pages to allocate for the state buffer.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken">
+        True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateBuffer">IStateBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

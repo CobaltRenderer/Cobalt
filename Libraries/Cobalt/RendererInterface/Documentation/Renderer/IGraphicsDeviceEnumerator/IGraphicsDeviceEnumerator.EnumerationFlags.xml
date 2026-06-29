@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDeviceEnumerator.EnumerationFlags" Title="EnumerationFlags enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRef> ->
+    EnumerationFlags
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>EnumerationFlags</TypeRef> enumeration supplies optional flags to <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.EnumerateDevices">EnumerateDevices</PageRef>. These flags affect device enumeration and renderer setup before an <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> is selected.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="None">
+        Requests normal device enumeration with no additional validation or headless-only behaviour.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="NativeApiValidation">
+        Requests native validation or debug reporting from the underlying graphics API where the renderer supports it. This is useful while developing or debugging renderer integration, but can add overhead.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="HeadlessRendering">
+        Requests enumeration for a headless rendering environment where presentation to a normal operating system window is not required. Applications should use this when initializing a renderer with <PageRef PageName="cobalt.graphics.WindowSystemInfoHeadless">WindowSystemInfoHeadless</PageRef>.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDeviceEnumerator.EnumerateDevices">IGraphicsDeviceEnumerator.EnumerateDevices</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.WindowSystemInfoHeadless">WindowSystemInfoHeadless</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

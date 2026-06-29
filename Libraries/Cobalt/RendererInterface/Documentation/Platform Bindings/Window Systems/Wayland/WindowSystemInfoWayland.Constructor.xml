@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.WindowSystemInfoWayland.Constructor" Title="Constructor method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.WindowSystemInfoWayland">WindowSystemInfoWayland</PageRef> ->
+    Constructor
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowSystemInfoWayland</TypeRef> constructor creates a platform binding structure and initializes the inherited <TypeRef>structureSizeInBytes</TypeRef> and type discriminator fields.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[WindowSystemInfoWayland(wl_display* display);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="wl_display*" Name="display">
+          The Wayland display.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.WindowSystemInfoWayland">WindowSystemInfoWayland</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer.WindowSystemInfoBase">WindowSystemInfoBase</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

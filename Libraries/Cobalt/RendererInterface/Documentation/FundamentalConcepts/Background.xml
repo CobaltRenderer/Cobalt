@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.Concepts.Background" Title="Background" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    Background
+  </Paragraph>
+  <Section Title="Background">
+    <Paragraph>
+      Users should be familiar with the core concepts of modern computer graphics. Detailed knowledge of every native
+      graphics API is not required, but concepts such as vertex buffers, shaders, textures, framebuffers, render passes,
+      and pipeline state are important when working with the Cobalt Renderer API.
+    </Paragraph>
+    <Paragraph>
+      The following resources are useful introductions to modern graphics programming:
+    </Paragraph>
+    <List>
+      <ListEntry>Learn OpenGL: <URL>https://learnopengl.com</URL> (particularly the "Getting Started" and "Advanced OpenGL" sections)</ListEntry>
+      <ListEntry>Learning Modern 3D Graphics Programming: <URL>https://paroj.github.io/gltut/index.html</URL></ListEntry>
+    </List>
+  </Section>
+  <Section Title="Terminology">
+    <Paragraph>
+      Cobalt Renderer is built on several graphics APIs, and those APIs often use different names for similar concepts.
+      The table below gives a broad mapping for common terms. It is not intended to imply that each Cobalt object maps
+      to exactly one native object on every backend; the renderer may combine, split, or emulate concepts internally.
+    </Paragraph>
+    <XHTMLContent>
+      <table>
+        <tr>
+          <td>Cobalt Renderer</td>
+          <td>OpenGL</td>
+          <td>Vulkan</td>
+          <td>Direct3D</td>
+          <td>Metal</td>
+        </tr>
+        <tr>
+          <td>Shader Program</td>
+          <td>Program</td>
+          <td>Pipeline shader stages</td>
+          <td>Shader bytecode in pipeline state</td>
+          <td>Render or compute pipeline functions</td>
+        </tr>
+        <tr>
+          <td>State Value</td>
+          <td>Uniform</td>
+          <td>Push constant or uniform-backed value</td>
+          <td>Root constant or constant buffer value</td>
+          <td>Constant address-space value</td>
+        </tr>
+        <tr>
+          <td>Constant State Value</td>
+          <td>N/A</td>
+          <td>Specialization constant</td>
+          <td>N/A</td>
+          <td>Function constant</td>
+        </tr>
+        <tr>
+          <td>State Buffer</td>
+          <td>Uniform buffer</td>
+          <td>Uniform buffer</td>
+          <td>Constant buffer</td>
+          <td>Buffer in constant address space</td>
+        </tr>
+        <tr>
+          <td>Data Array</td>
+          <td>Shader storage buffer</td>
+          <td>Storage buffer</td>
+          <td>StructuredBuffer or RWStructuredBuffer</td>
+          <td>Buffer in device address space</td>
+        </tr>
+        <tr>
+          <td>Texel Array</td>
+          <td>Buffer texture or image buffer</td>
+          <td>Texel buffer or storage texel buffer</td>
+          <td>Buffer or RWBuffer</td>
+          <td>Typed buffer representation</td>
+        </tr>
+        <tr>
+          <td>Framebuffer</td>
+          <td>Framebuffer or default framebuffer</td>
+          <td>Render pass attachments</td>
+          <td>Render target and depth stencil views</td>
+          <td>Render pass descriptor attachments</td>
+        </tr>
+      </table>
+    </XHTMLContent>
+  </Section>
+  <Section Title="Graphics Pipeline">
+    <Paragraph>
+      The graphics pipeline is at the heart of real-time rendering. Most renderer resources either provide input data
+      to a pipeline, configure how the pipeline runs, or receive the pipeline output. A texture can be read by shaders,
+      a framebuffer receives colour or depth output, and a render pass describes a collection of work targeting those
+      outputs. Compute work is also supported, but it has a simpler pipeline because it does not rasterize primitives or
+      render into a framebuffer.
+    </Paragraph>
+    <Image>GraphicsPipeline</Image>
+    <Paragraph>
+      The most important pipeline inputs and configuration are:
+    </Paragraph>
+    <List>
+      <ListEntry>Shader program: The shader stages used by the pipeline. Draw pipelines require vertex and fragment stages. Geometry stages are optional, and compute pipelines use a compute stage instead.</ListEntry>
+      <ListEntry>Render pass and framebuffer: The output textures or windows for draw work, and the clear, load, and store behaviour for those attachments.</ListEntry>
+      <ListEntry>Vertex and index buffers: The geometry data processed by the vertex stage.</ListEntry>
+      <ListEntry>Primitive topology: The way vertex or index data is assembled into points, lines, or triangles.</ListEntry>
+      <ListEntry>Rasterization state: The way primitives are converted into fragments, including fill and culling options.</ListEntry>
+      <ListEntry>Depth, stencil, and blending state: The tests and merge operations applied to generated fragments.</ListEntry>
+      <ListEntry>Shader resources: State values, state buffers, textures, samplers, data arrays, and texel arrays visible to shaders.</ListEntry>
+    </List>
+    <Paragraph>
+      Many state changes can require a different native pipeline. Changing shader programs, attachment formats, sample
+      counts, primitive topology, or depth, stencil, blending, and rasterization settings may require the renderer to
+      create or bind a different pipeline. Updating the contents of a state value, buffer, or texture is usually much
+      cheaper than changing the pipeline structure itself.
+    </Paragraph>
+    <Paragraph>
+      The Cobalt Renderer render tree is designed to minimise unnecessary pipeline transitions while still allowing the
+      application to manage its own scene in whatever way fits. It is normal to keep a logical scene graph, entity
+      system, or application-specific object model separate from the render tree. The same logical scene object may map
+      to more than one renderable node when it is drawn into multiple windows, multiple render passes, or multiple
+      views.
+    </Paragraph>
+  </Section>
+  <Paragraph>
+    Next page, <PageRef PageName="cobalt.graphics.Concepts.RenderTree">Render Tree</PageRef>
+  </Paragraph>
+</XMLDocContent>

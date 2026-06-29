@@ -1,0 +1,46 @@
+diff --git forkSrcPrefix/CMakeLists.txt forkDstPrefix/CMakeLists.txt
+index 88ac2015d2ea0096ce6cd7685f4198182bd32096..7bf96e7ee885711f5449fa6a26e1e3f13bb4988d 100644
+--- forkSrcPrefix/CMakeLists.txt
++++ forkDstPrefix/CMakeLists.txt
+@@ -209,7 +209,7 @@ endif()
+ 
+ add_subdirectory(layers)
+ 
+-if(MSVC AND UPDATE_DEPS)
++if(FALSE)
+     set(SCRIPTS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/scripts")
+     file(GLOB_RECURSE SCRIPTS
+         "${SCRIPTS_DIR}/*.py"
+diff --git forkSrcPrefix/scripts/CMakeLists.txt forkDstPrefix/scripts/CMakeLists.txt
+index 24b5fe8e5e483460fd013a56a820f4e9fd4d11f6..72c3243bcbb863cad02c128be05cc330981e0a3f 100644
+--- forkSrcPrefix/scripts/CMakeLists.txt
++++ forkDstPrefix/scripts/CMakeLists.txt
+@@ -15,13 +15,17 @@
+ # ~~~
+ 
+ option(UPDATE_DEPS "Run update_deps.py for user")
++option(UPDATE_DEPS_ONCE "Fetch dependencies once, then freeze" OFF)
++set(VVL_DEPS_STAMP "${CMAKE_BINARY_DIR}/vvl_deps_fetched.stamp")
+ if (UPDATE_DEPS)
+     find_package(Python3 REQUIRED QUIET)
+ 
+     set(update_dep_py "${CMAKE_CURRENT_LIST_DIR}/update_deps.py")
+     set(known_good_json "${CMAKE_CURRENT_LIST_DIR}/known_good.json")
+ 
+-    set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${update_dep_py} ${known_good_json})
++    if(NOT UPDATE_DEPS_ONCE OR NOT EXISTS "${VVL_DEPS_STAMP}")
++        set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${update_dep_py} ${known_good_json})
++    endif()
+ 
+     list(APPEND update_dep_command "${update_dep_py}")
+     list(APPEND update_dep_command "--generator")
+@@ -133,6 +137,9 @@ if (UPDATE_DEPS)
+             message(FATAL_ERROR "Could not run update_deps.py which is necessary to download dependencies.")
+         endif()
+         set(UPDATE_DEPS_HASH ${md5_hash} CACHE STRING "Ensure we only run update_deps.py when we need to." FORCE)
++        if(UPDATE_DEPS_ONCE)
++            file(WRITE "${VVL_DEPS_STAMP}" "deps fetched\n")
++        endif()
+         include("${UPDATE_DEPS_DIR}/helper.cmake")
+     endif()
+ endif()

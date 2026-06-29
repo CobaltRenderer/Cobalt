@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderableNode.BindVertexAttribute" Title="BindVertexAttribute method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef> ->
+    BindVertexAttribute
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>BindVertexAttribute</TypeRef> method is used to bind a vertex attribute to the renderable. Multiple
+      vertex attributes can be bound of varying types, and they can be sourced from different underlying <PageRef PageName="cobalt.graphics.IVertexBuffer">IVertexBuffer</PageRef>
+      objects.
+    </Paragraph>
+  </Section>
+  <Note Type="Important">
+    <Paragraph>
+      A single vertex attribute can be bound to any number of <TypeRef>IRenderableNode</TypeRef> objects.
+    </Paragraph>
+  </Note>
+  <Note Type="Warning">
+    <Paragraph>
+      A vertex attribute can only be bound to a given slot once, cannot be unbound, and cannot be set after an <TypeRef>IRenderableNode</TypeRef>
+      has been added as a child of an <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef>.
+    </Paragraph>
+  </Note>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken BindVertexAttribute(IVertexAttribute& vertexAttribute, VertexAttributeId shaderAttributeID);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IVertexAttribute!cobalt.graphics.IVertexAttribute" Name="vertexAttribute">
+          The vertex attribute to bind to this renderable
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="VertexAttributeId!cobalt.graphics.VertexAttributeId" Name="shaderAttributeID">
+          The slot to bind this vertex attribute to, as returned by the <PageRef PageName="cobalt.graphics.IShaderProgram.GetVertexAttributeId">GetVertexAttributeId</PageRef>
+          method from the <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef> object.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken!cobalt.graphics.SuccessToken">
+        True if the attribute was successfully bound, false otherwise. An assertion will be raised in debug builds if
+        the result isn't tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

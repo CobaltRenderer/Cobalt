@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IFrameBuffer" Title="IFrameBuffer interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    IFrameBuffer
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class IFrameBuffer;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IFrameBuffer</TypeRef> interface represents a framebuffer, which receives the output from drawing
+      operations. Framebuffers are used by attaching them to an <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef>
+      A framebuffer doesn't hold storage by itself, it must be bound to something to write to. A framebuffer can be
+      bound directly to a window surface, allowing the result of drawing operations to appear on the screen and be shown
+      to the user. A framebuffer can also be bound to one or more texture targets. Within a pixel shader it is possible
+      to write to multiple independent output targets, which can be bound on the framebuffer as separate textures. These
+      textures can then be used as input resources for subsequent render passes or composite passes when performing
+      multi-pass rendering.
+    </Paragraph>
+    <Paragraph>
+      Generally speaking, the final contents of a rendering operation are not directly accessible to the program. Modern
+      graphics hardware is designed around producing images on the graphics card, and passing those images directly out
+      to the display or using them in subsequent drawing operations. If it is required to read back the results of
+      drawing operations, such as for producing screenshots, this can be done by attaching an
+      <PageRef PageName="cobalt.graphics.IFrameBufferOutput">IFrameBufferOutput</PageRef> object to the framebuffer,
+      using the <PageRef PageName="cobalt.graphics.IFrameBuffer.AddOutputCaptureTarget">AddOutputCaptureTarget</PageRef>
+      method. Please be aware that due to the inherent overhead in reading back resulting buffer contents from the
+      hardware, this may have a significant impact on render times, so it is advisable to only leave a <TypeRef>IFrameBufferOutput</TypeRef>
+      object attached for the shortest time required.
+    </Paragraph>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="AttachmentType" TypeCategory="Enumeration" PageName="cobalt.graphics.IFrameBuffer.AttachmentType" Visibility="Public">
+        The type of framebuffer attachment, such as colour, depth, stencil.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="WindowBindingFlags" TypeCategory="Enumeration" PageName="cobalt.graphics.IFrameBuffer.WindowBindingFlags" Visibility="Public">
+        Flags to specify additional options when binding to a window surface
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="WindowColorSpaceMode" TypeCategory="Enumeration" PageName="cobalt.graphics.IFrameBuffer.WindowColorSpaceMode" Visibility="Public">
+        The color space mode to use when binding to a window surface
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="WindowDepthStencilMode" TypeCategory="Enumeration" PageName="cobalt.graphics.IFrameBuffer.WindowDepthStencilMode" Visibility="Public">
+        The depth/stencil mode to use when binding to a window surface
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Structures">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="WindowInfoBase" TypeCategory="Struct" PageName="cobalt.graphics.IFrameBuffer.WindowInfoBase" Visibility="Public">
+        Base structure for platform-specific window information structures. See the <PageRef PageName="cobalt.graphics.IFrameBuffer.BindWindow">BindWindow</PageRef>
+        method for more information.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.IFrameBuffer.Delete">
+          Schedules the object for deletion. After calling this method, the object will be destroyed after the current
+          frame completes drawing.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Binding methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="BindTexture" PageName="cobalt.graphics.IFrameBuffer.BindTexture">
+          Binds the specified texture to the framebuffer
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="UnbindTexture" PageName="cobalt.graphics.IFrameBuffer.UnbindTexture">
+          Unbinds a preiously bound texture from the framebuffer
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindMultiSamplingResolveTexture" PageName="cobalt.graphics.IFrameBuffer.BindMultiSamplingResolveTexture">
+          Binds a texture to resolve a multisampled framebuffer attachment to
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="UnbindMultiSamplingResolveTexture" PageName="cobalt.graphics.IFrameBuffer.UnbindMultiSamplingResolveTexture">
+          Unbinds a preiously bound multisample resolve texture
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindWindow" PageName="cobalt.graphics.IFrameBuffer.BindWindow">
+          Binds the specified window to the framebuffer
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="NotifyWindowResized" PageName="cobalt.graphics.IFrameBuffer.NotifyWindowResized">
+          Notifies the framebuffer that the bound native window drawable size has changed.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Viewport methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="DefineViewportRegion" PageName="cobalt.graphics.IFrameBuffer.DefineViewportRegion">
+          Defines the position and size of the viewport to draw into within the bound texture or window
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="DefineScissorRegion" PageName="cobalt.graphics.IFrameBuffer.DefineScissorRegion">
+          Establishes a scissor region to restrict the region of the framebuffer that is drawn to
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="RemoveScissorRegion" PageName="cobalt.graphics.IFrameBuffer.RemoveScissorRegion">
+          Removes a previously defined scissor region
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Output capture methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="AddOutputCaptureTarget" PageName="cobalt.graphics.IFrameBuffer.AddOutputCaptureTarget">
+          Adds the specified output capture target to this framebuffer. This allows the results of rendering to a
+          framebuffer to be retrieved by the application.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="RemoveOutputCaptureTarget" PageName="cobalt.graphics.IFrameBuffer.RemoveOutputCaptureTarget">
+          Removes the specified output capture target from this framebuffer.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBufferOutput">IFrameBufferOutput</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderPassNode.SetIsEnabled" Title="SetIsEnabled method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef> ->
+    SetIsEnabled
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetIsEnabled</TypeRef> method allows the application to leave a render pass node as part of the
+      render tree, but disable it such that its presence has no impact on the render process. Additionally, the contents
+      of disabled render passes are not scanned, so disabled render passes have effectively no overhead. This is useful
+      for applications where special rendering targets or modes are only needed under certain circumstances, but it's
+      more convenient to leave the structure in place and quickly activate or deactivate them as required.
+    </Paragraph>
+  </Section>
+  <Note Type="Warning">
+    <Paragraph>
+      A disabled render pass has no impact on rendering at all, meaning other settings on the render pass, such as clear
+      operations defined by the <PageRef PageName="cobalt.graphics.IRenderPassNode.SetAttachmentClearData">SetAttachmentClearData</PageRef>
+      method, or resolve operations defined by the <PageRef PageName="cobalt.graphics.IRenderPassNode.EnableAttachmentMultiSamplingResolution">EnableAttachmentMultiSamplingResolution</PageRef>
+      method are not activated for disabled render passes.
+    </Paragraph>
+  </Note>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetIsEnabled(bool state);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="bool" Name="state">
+          The new enabled state for this render pass
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

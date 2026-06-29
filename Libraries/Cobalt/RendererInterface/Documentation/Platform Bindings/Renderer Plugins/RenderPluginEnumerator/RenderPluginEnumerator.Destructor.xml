@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.RenderPluginEnumerator.Destructor" Title="Destructor method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.RenderPluginEnumerator">RenderPluginEnumerator</PageRef> ->
+    Destructor
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>RenderPluginEnumerator</TypeRef> destructor clears all loaded plugins and releases the module handles owned by the enumerator.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        Destroying the enumerator can unload plugin libraries. Ensure that objects created by those plugins have already been destroyed, or keep an independent module handle alive.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[~RenderPluginEnumerator();]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.RenderPluginEnumerator.ClearAllPlugins">RenderPluginEnumerator.ClearAllPlugins</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

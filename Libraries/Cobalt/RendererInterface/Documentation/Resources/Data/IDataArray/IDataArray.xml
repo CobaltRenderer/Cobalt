@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IDataArray" Title="IDataArray interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    IDataArray
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class IDataArray;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IDataArray</TypeRef> interface defines an array of one or more data structures. This maps to the
+      concept of the <TypeRef>StructuredBuffer</TypeRef>/<TypeRef>RWStructuredBuffer</TypeRef> types in the HLSL shader
+      language. Additionally, an <TypeRef>IDataArray</TypeRef> supports an attached atomic counter value which can be
+      atomically modified within shaders, and easily reset and read back on the CPU. The <TypeRef>IDataArray</TypeRef>
+      type is also able to act as a source for indirect draw parameters, making it ideal as a buffer to write to from a
+      compute shader for indirect drawing. Low-level atomic operations are also supported on regions of an <TypeRef>IDataArray</TypeRef>.
+      When used with atomic operations or for indirect drawing, the <TypeRef>ByteAddressBuffer</TypeRef>/<TypeRef>RWByteAddressBuffer</TypeRef>
+      HLSL shader types must be used instead. It is also possible to schedule a transfer from one <TypeRef>IDataArray</TypeRef>
+      to another entirely on the GPU using the <PageRef PageName="cobalt.graphics.IDataArray.QueueDataTransfer">QueueDataTransfer</PageRef>
+      method.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        There are similarities between the <TypeRef>IDataArray</TypeRef> and the <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef>
+        type. Both define potentially very large buffers of data, which can be read and written from both shaders and the
+        CPU. There are distinct differences however. The <TypeRef>ITexelArray</TypeRef> type defines a regular array of
+        vectors, with a specific list of supported types. Because the type is explicit and known by the hardware,
+        automatic format conversion is supported for many data types when reading or writing from shaders. Additionally,
+        an <TypeRef>ITexelArray</TypeRef> is able to alias an <PageRef PageName="cobalt.graphics.IIndexBuffer">IIndexBuffer</PageRef>
+        or an <PageRef PageName="cobalt.graphics.IVertexBuffer">IVertexBuffer</PageRef>, allowing these buffers to be
+        written from a shader, such as a compute shader. The <TypeRef>IDataArray</TypeRef> type on the other hand contains
+        an array of structures, which are an arbitrary block of bytes. These data structures can be mapped to complex
+        struct types within your shader, allowing a potentially large collection of differing types of values to be easily
+        encoded in each entry of the array. The opaque nature of these structures to hardware however, means no automatic
+        format conversion is possible, nor is it possible to alias an <TypeRef>IIndexBuffer</TypeRef> or <TypeRef>IVertexBuffer</TypeRef>.
+        On the other hand, <TypeRef>IDataArray</TypeRef> can be used to perform indirect drawing, and atomic memory
+        operations within shaders. You should consider the structure of your data and the features required, and select
+        the array type which best fits your usage.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="UsageFlags" TypeCategory="Enumeration" PageName="cobalt.graphics.IDataArray.UsageFlags" Visibility="Public">
+        Flags to inform the renderer on how this data array will be used
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Enumerations (Inherited from IResourceArray)">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="PerformanceHint" TypeCategory="Enumeration" PageName="cobalt.graphics.IResourceArray.PerformanceHint" Visibility="Public">
+        Flags to provide hints to the graphics system about how the application will use this buffer. Correct use of
+        performance hints allows the renderer to optimize the way the data is stored and modified to give the best
+        performance.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="DataPersistenceFlags" TypeCategory="Enumeration" PageName="cobalt.graphics.IResourceArray.DataPersistenceFlags" Visibility="Public">
+        Flags to provide hints to the graphics system about the required lifetime of data stored in this buffer. These
+        flags can be used to reduce memory requirements or increase performance in some circumstances.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.IDataArray.Delete">
+          Schedules the object for deletion. After calling this method, the object will be destroyed after the current
+          frame completes drawing.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="AllocateMemory" PageName="cobalt.graphics.IDataArray.AllocateMemory">
+          Attempts to allocate memory for the buffer using the defined buffer layout and page settings
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetBufferLayout" PageName="cobalt.graphics.IDataArray.SetBufferLayout">
+          Defines the layout of the buffer, and whether it has an attached counter. Must be set before calling <PageRef PageName="cobalt.graphics.IDataArray.AllocateMemory">AllocateMemory</PageRef>.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Usage methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetUsageFlags" PageName="cobalt.graphics.IDataArray.SetUsageFlags">
+          Informs the renderer on how this buffer will be used. Certain operations are disallowed unless usage flags
+          have been set to inform the renderer in advance that those operations may be requested.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Usage methods (Inherited from IResourceArray)">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetPerformanceHints" PageName="cobalt.graphics.IResourceArray.SetPerformanceHints">
+          Provides hints to the renderer about how this object will be used. Correct use of hints is important to optimize performance.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetDataPersistenceFlags" PageName="cobalt.graphics.IResourceArray.SetDataPersistenceFlags">
+          Provides hints to the graphics system about the required lifetime of data stored in this buffer. This can be
+          used to reduce memory requirements or increase performance in some circumstances.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Data methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetInitialData" PageName="cobalt.graphics.IDataArray.SetInitialData">
+          Supplies initial data to use when allocating the buffer. Note that the supplied memory must remain valid and
+          accessible until the <TypeRef>AllocateMemory</TypeRef> method is called.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="QueueDataUpdate" PageName="cobalt.graphics.IDataArray.QueueDataUpdate">
+          Updates data in the buffer. Unlike the <TypeRef>SetInitialData</TypeRef> method, the provided memory can be
+          modified or deallocated immediately after this method returns.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="QueueDataTransfer" PageName="cobalt.graphics.IDataArray.QueueDataTransfer">
+          Schedules a transfer from one <TypeRef>IDataArray</TypeRef> to another, within GPU memory.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="UpdateCounterResetValue" PageName="cobalt.graphics.IDataArray.UpdateCounterResetValue">
+          Modifies the reset value to use for the counter, if the buffer has been created with one attached.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Output capture methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="AddOutputCaptureTarget" PageName="cobalt.graphics.IDataArray.AddOutputCaptureTarget">
+          Adds the specified output capture target to this data array. This allows data written to the array from within
+          shader programs to be retrieved by the application.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="RemoveOutputCaptureTarget" PageName="cobalt.graphics.IDataArray.RemoveOutputCaptureTarget">
+          Removes the specified output capture target from this data array.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IDataArrayOutput">IDataArrayOutput</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

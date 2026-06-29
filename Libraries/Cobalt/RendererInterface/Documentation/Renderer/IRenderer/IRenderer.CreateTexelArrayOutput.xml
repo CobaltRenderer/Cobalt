@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderer.CreateTexelArrayOutput" Title="CreateTexelArrayOutput method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> ->
+    CreateTexelArrayOutput
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>CreateTexelArrayOutput</TypeRef> method constructs and returns a new object which implements the <PageRef PageName="cobalt.graphics.ITexelArrayOutput">ITexelArrayOutput</PageRef>
+      interface.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[ITexelArrayOutput::unique_ptr CreateTexelArrayOutput();]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="ITexelArrayOutput!cobalt.graphics.ITexelArrayOutput">
+        A freshly constructed <TypeRef>ITexelArrayOutput</TypeRef> object, wrapped in a <TypeRef>unique_ptr</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer">IRenderer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITexelArrayOutput">ITexelArrayOutput</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

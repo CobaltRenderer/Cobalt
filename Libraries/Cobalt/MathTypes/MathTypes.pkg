@@ -1,0 +1,9 @@
+// Copyright (c) 2026 Maptek Pty Ltd
+// Licensed under the MIT License
+#pragma once
+
+// Public headers
+#include "BasicHalfFloat.h"
+#include "BasicMatrix.h"
+#include "BasicNormalizedInts.h"
+#include "BasicVector.h"

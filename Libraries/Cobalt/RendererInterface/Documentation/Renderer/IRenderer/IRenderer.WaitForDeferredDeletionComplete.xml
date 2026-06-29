@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderer.WaitForDeferredDeletionComplete" Title="WaitForDeferredDeletionComplete method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> ->
+    WaitForDeferredDeletionComplete
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WaitForDeferredDeletionComplete</TypeRef> method blocks the calling thread until no draw process is in progress, and any resources which became eligible for deletion during the current build process are fully removed. Note that this can be important when deleting a window you were drawing to in the previous frame.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void WaitForDeferredDeletionComplete() const;]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer">IRenderer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

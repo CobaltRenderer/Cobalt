@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderer.CreateTextureBufferCubeArray" Title="CreateTextureBufferCubeArray method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> ->
+    CreateTextureBufferCubeArray
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>CreateTextureBufferCubeArray</TypeRef> method constructs and returns a new object which implements the <PageRef PageName="cobalt.graphics.ITextureBufferCubeArray">ITextureBufferCubeArray</PageRef>
+      interface.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[ITextureBufferCubeArray::unique_ptr CreateTextureBufferCubeArray();]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="ITextureBufferCubeArray!cobalt.graphics.ITextureBufferCubeArray">
+        A freshly constructed <TypeRef>ITextureBufferCubeArray</TypeRef> object, wrapped in a <TypeRef>unique_ptr</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer">IRenderer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBufferCubeArray">ITextureBufferCubeArray</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.Logger" Title="Logger class" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    Logger
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class Logger : public ILogger;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Logger</TypeRef> class is the standard concrete implementation of <PageRef PageName="cobalt.logging.ILogger">ILogger</PageRef> used by <PageRef PageName="cobalt.logging.LogManager">LogManager</PageRef>.
+    </Paragraph>
+    <Paragraph>
+      Applications usually do not construct this type directly. The constructor is private to the logging implementation, and logger instances are created through <PageRef PageName="cobalt.logging.LogManager.GetLogger">LogManager.GetLogger</PageRef>, <PageRef PageName="cobalt.logging.ILogger.CloneLogger">ILogger.CloneLogger</PageRef>, or <PageRef PageName="cobalt.logging.ILogger.GetLoggerChildScope">ILogger.GetLoggerChildScope</PageRef>.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        A <TypeRef>Logger</TypeRef> stores a reference to its owning <PageRef PageName="cobalt.logging.LogManager">LogManager</PageRef>. The manager must outlive the logger.
+      </Paragraph>
+    </Note>
+    <Note Type="Important">
+      <Paragraph>
+        Logger instances are safe to use concurrently from multiple threads.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Lifetime methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.logging.Logger.Delete">
+          Deletes the logger object.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.ILogger">ILogger</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogManager.GetLogger">LogManager.GetLogger</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

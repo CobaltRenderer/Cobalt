@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITexelArray.ImageFormatsAreBinaryEquivalent" Title="ImageFormatsAreBinaryEquivalent method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef> ->
+    ImageFormatsAreBinaryEquivalent
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ImageFormatsAreBinaryEquivalent</TypeRef> method returns true if the supplied source and allocated image formats use binary compatible channel layouts.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[constexpr static bool ImageFormatsAreBinaryEquivalent(SourceImageFormat sourceImageFormat, ImageFormat imageFormat);
+constexpr static bool ImageFormatsAreBinaryEquivalent(ImageFormat sourceImageFormat, ImageFormat imageFormat);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="SourceImageFormat" Name="sourceImageFormat">
+          The source image format to compare.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="ImageFormat" Name="imageFormat">
+          The allocated image format to compare against.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="constexpr static bool">
+        True if the two image formats use the same binary channel layout, false otherwise.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

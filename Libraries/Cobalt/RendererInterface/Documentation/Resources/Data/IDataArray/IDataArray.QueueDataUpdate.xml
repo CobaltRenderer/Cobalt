@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IDataArray.QueueDataUpdate" Title="QueueDataUpdate method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IDataArray">IDataArray</PageRef> ->
+    QueueDataUpdate
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>QueueDataUpdate</TypeRef> method updates data in the buffer. Unlike the SetInitialData method, the provided memory can be modified or deallocated immediately after this method returns.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Data transfer operations are scheduled work. When an <PageRef PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRef> is supplied, the transfer follows the synchronization rules for that batch.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken QueueDataUpdate(const void* sourceBuffer, size_t sourceBufferSizeInBytes, size_t targetBufferOffsetInBytes = 0, ITransferBatch* transferBatch = nullptr);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const void*" Name="sourceBuffer">
+          The source data to copy into the resource.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="sourceBufferSizeInBytes">
+          The size, in bytes, of the source data.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="targetBufferOffsetInBytes">
+          The byte offset in the destination buffer where the update begins.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="ITransferBatch*" Name="transferBatch">
+          An optional transfer batch to schedule the update into. If null, the renderer schedules the update independently.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken">
+        True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IDataArray">IDataArray</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

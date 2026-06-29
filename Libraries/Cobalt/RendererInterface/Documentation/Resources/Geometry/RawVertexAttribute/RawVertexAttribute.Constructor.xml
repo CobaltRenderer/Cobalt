@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.RawVertexAttribute.Constructor" Title="Constructor method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph><PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> -> <PageRef PageName="cobalt.graphics.RawVertexAttribute">RawVertexAttribute</PageRef> -> Constructor</Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>RawVertexAttribute</TypeRef> constructor creates a vertex attribute description. The description records the data type, entry count, usage hints, and data persistence behaviour used when the attribute is later bound to a buffer and allocated.
+    </Paragraph>
+    <Paragraph>
+      The attribute description is immutable after construction. Create a new attribute object when the format, count, or storage behaviour needs to change.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage"><Code Language="C++"><![CDATA[RawVertexAttribute();
+RawVertexAttribute(DataType dataType, size_t elementCount, size_t vertexCount, PerformanceHint performanceHintCpu, PerformanceHint performanceHintGpu, DataPersistenceFlags dataPersistenceFlags = DataPersistenceFlags::PersistAlways);]]></Code><SubSection Title="Argument list"><ArgumentList><ArgumentListEntry Type="DataType" Name="dataType">The data type of each scalar element in the attribute.</ArgumentListEntry><ArgumentListEntry Type="size_t" Name="elementCount">The number of scalar elements in each vertex attribute entry.</ArgumentListEntry><ArgumentListEntry Type="size_t" Name="vertexCount">The number of vertex entries described by the attribute.</ArgumentListEntry><ArgumentListEntry Type="PerformanceHint" Name="performanceHintCpu">The hint describing how the CPU is expected to read from or write to the attribute data.</ArgumentListEntry><ArgumentListEntry Type="PerformanceHint" Name="performanceHintGpu">The hint describing how the GPU is expected to read from or write to the attribute data.</ArgumentListEntry><ArgumentListEntry Type="DataPersistenceFlags" Name="dataPersistenceFlags">The persistence flags that describe when existing attribute data may be discarded.</ArgumentListEntry></ArgumentList></SubSection></Section>
+  <Section Title="See also"><PageRefList><PageRefListEntry PageName="cobalt.graphics.RawVertexAttribute">RawVertexAttribute</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.IVertexBuffer">IVertexBuffer</PageRefListEntry></PageRefList></Section>
+</XMLDocContent>

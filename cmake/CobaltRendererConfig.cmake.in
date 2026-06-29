@@ -1,0 +1,177 @@
+@PACKAGE_INIT@
+
+# Version information
+set(CobaltRenderer_VERSION "@COBALT_PACKAGE_VERSION@")
+set(CobaltRenderer_VERSION_LABEL "@COBALT_VERSION_LABEL@")
+set(CobaltRenderer_VERSION_LABEL_FULL "@COBALT_VERSION_LABEL_FULL@")
+
+# Architecture selection
+set(CobaltRenderer_ARCH "" CACHE STRING "Cobalt Renderer SDK architecture to consume. Leave empty to infer from CMAKE_SYSTEM_PROCESSOR.")
+if(CobaltRenderer_ARCH)
+    string(TOLOWER "${CobaltRenderer_ARCH}" CobaltRenderer_ARCH)
+else()
+    string(TOLOWER "${CMAKE_SYSTEM_PROCESSOR}" _cobalt_renderer_system_processor)
+    if(_cobalt_renderer_system_processor STREQUAL "amd64" OR _cobalt_renderer_system_processor STREQUAL "x86_64" OR _cobalt_renderer_system_processor STREQUAL "x64")
+        set(CobaltRenderer_ARCH "x64")
+    elseif(_cobalt_renderer_system_processor STREQUAL "x86" OR _cobalt_renderer_system_processor STREQUAL "i686" OR _cobalt_renderer_system_processor STREQUAL "i386")
+        set(CobaltRenderer_ARCH "x86")
+    elseif(_cobalt_renderer_system_processor STREQUAL "aarch64" OR _cobalt_renderer_system_processor STREQUAL "arm64")
+        set(CobaltRenderer_ARCH "arm64")
+    elseif(_cobalt_renderer_system_processor MATCHES "^arm")
+        set(CobaltRenderer_ARCH "arm")
+    else()
+        message(WARNING "Unknown Cobalt Renderer SDK architecture '${CMAKE_SYSTEM_PROCESSOR}'")
+        set(CobaltRenderer_ARCH "${CMAKE_SYSTEM_PROCESSOR}")
+    endif()
+    unset(_cobalt_renderer_system_processor)
+endif()
+
+# Platform library naming from the SDK build
+set(_COBALT_STATIC_LIBRARY_PREFIX "@CMAKE_STATIC_LIBRARY_PREFIX@")
+set(_COBALT_STATIC_LIBRARY_SUFFIX "@CMAKE_STATIC_LIBRARY_SUFFIX@")
+set(_COBALT_SHARED_LIBRARY_PREFIX "@CMAKE_SHARED_LIBRARY_PREFIX@")
+set(_COBALT_SHARED_LIBRARY_SUFFIX "@CMAKE_SHARED_LIBRARY_SUFFIX@")
+set(_COBALT_IMPORT_LIBRARY_PREFIX "@CMAKE_IMPORT_LIBRARY_PREFIX@")
+set(_COBALT_IMPORT_LIBRARY_SUFFIX "@CMAKE_IMPORT_LIBRARY_SUFFIX@")
+
+# SDK layout
+get_filename_component(CobaltRenderer_SDK_ROOT "${CMAKE_CURRENT_LIST_DIR}/.." ABSOLUTE)
+set(CobaltRenderer_INCLUDE_ROOT "${CobaltRenderer_SDK_ROOT}/Include")
+set(CobaltRenderer_INCLUDE_DIR "${CobaltRenderer_INCLUDE_ROOT}")
+set(CobaltRenderer_INCLUDE_DIRS "${CobaltRenderer_INCLUDE_ROOT}")
+set(CobaltRenderer_BIN_DIR "${CobaltRenderer_SDK_ROOT}/Bin/${CobaltRenderer_ARCH}")
+set(CobaltRenderer_LIB_DIR "${CobaltRenderer_SDK_ROOT}/Lib/${CobaltRenderer_ARCH}")
+
+# Imported target helpers
+function(_cobalt_renderer_add_header_target target_name)
+    if(NOT TARGET "${target_name}")
+        add_library("${target_name}" INTERFACE IMPORTED)
+        set_target_properties("${target_name}" PROPERTIES
+            INTERFACE_INCLUDE_DIRECTORIES "${CobaltRenderer_INCLUDE_DIRS}"
+        )
+    endif()
+endfunction()
+
+function(_cobalt_renderer_add_static_library target_name library_output_name)
+    if(TARGET "${target_name}")
+        return()
+    endif()
+
+    set(_cobalt_renderer_library_file "${CobaltRenderer_LIB_DIR}/${_COBALT_STATIC_LIBRARY_PREFIX}${library_output_name}${_COBALT_STATIC_LIBRARY_SUFFIX}")
+    if(EXISTS "${_cobalt_renderer_library_file}")
+        add_library("${target_name}" STATIC IMPORTED)
+        set_target_properties("${target_name}" PROPERTIES
+            IMPORTED_LOCATION "${_cobalt_renderer_library_file}"
+            IMPORTED_LINK_INTERFACE_LANGUAGES CXX
+            INTERFACE_LINK_LIBRARIES Cobalt::Headers
+        )
+    endif()
+endfunction()
+
+function(_cobalt_renderer_add_shared_library target_name library_output_name)
+    if(TARGET "${target_name}")
+        return()
+    endif()
+
+    set(_cobalt_renderer_runtime_file "${CobaltRenderer_BIN_DIR}/${_COBALT_SHARED_LIBRARY_PREFIX}${library_output_name}${_COBALT_SHARED_LIBRARY_SUFFIX}")
+    if(NOT EXISTS "${_cobalt_renderer_runtime_file}")
+        return()
+    endif()
+
+    add_library("${target_name}" SHARED IMPORTED)
+    set_target_properties("${target_name}" PROPERTIES
+        IMPORTED_LOCATION "${_cobalt_renderer_runtime_file}"
+        INTERFACE_LINK_LIBRARIES Cobalt::Headers
+    )
+
+    if(_COBALT_IMPORT_LIBRARY_SUFFIX)
+        set(_cobalt_renderer_import_library_file "${CobaltRenderer_LIB_DIR}/${_COBALT_IMPORT_LIBRARY_PREFIX}${library_output_name}${_COBALT_IMPORT_LIBRARY_SUFFIX}")
+        if(EXISTS "${_cobalt_renderer_import_library_file}")
+            set_target_properties("${target_name}" PROPERTIES
+                IMPORTED_IMPLIB "${_cobalt_renderer_import_library_file}"
+            )
+        endif()
+    endif()
+endfunction()
+
+# Header-only SDK target
+_cobalt_renderer_add_header_target(Cobalt::Headers)
+
+# Optional link targets. Missing binaries are skipped for the selected architecture.
+_cobalt_renderer_add_shared_library(Cobalt::CobaltCBindings CobaltCBindings)
+_cobalt_renderer_add_static_library(Cobalt::CobaltCBindingsStatic CobaltCBindingsStatic)
+if(TARGET Cobalt::CobaltCBindingsStatic)
+    set_property(TARGET Cobalt::CobaltCBindingsStatic APPEND PROPERTY
+        INTERFACE_COMPILE_DEFINITIONS COBALT_CBINDINGS_STATIC=1
+    )
+endif()
+
+_cobalt_renderer_add_shared_library(Cobalt::Direct3D11Renderer Direct3D11Renderer)
+_cobalt_renderer_add_shared_library(Cobalt::Direct3D12Renderer Direct3D12Renderer)
+_cobalt_renderer_add_shared_library(Cobalt::OpenGL3Renderer OpenGL3Renderer)
+_cobalt_renderer_add_shared_library(Cobalt::OpenGL4Renderer OpenGL4Renderer)
+_cobalt_renderer_add_shared_library(Cobalt::VulkanRenderer VulkanRenderer)
+
+# Public target lists for consumers that want to inspect the SDK contents.
+set(CobaltRenderer_HEADER_TARGETS
+    Cobalt::Headers
+)
+set(CobaltRenderer_LINK_TARGETS "")
+foreach(_target IN ITEMS
+    Cobalt::CobaltCBindings
+    Cobalt::CobaltCBindingsStatic
+    Cobalt::Direct3D11Renderer
+    Cobalt::Direct3D12Renderer
+    Cobalt::OpenGL3Renderer
+    Cobalt::OpenGL4Renderer
+    Cobalt::VulkanRenderer
+)
+    if(TARGET "${_target}")
+        list(APPEND CobaltRenderer_LINK_TARGETS "${_target}")
+    endif()
+endforeach()
+set(CobaltRenderer_TARGETS ${CobaltRenderer_HEADER_TARGETS} ${CobaltRenderer_LINK_TARGETS})
+
+# Runtime files for the selected architecture
+file(GLOB CobaltRenderer_RUNTIME_FILES "${CobaltRenderer_BIN_DIR}/*")
+
+# Runtime deployment helpers
+function(cobalt_copy_runtime_binaries target_name)
+    if(NOT TARGET "${target_name}")
+        message(FATAL_ERROR "cobalt_copy_runtime_binaries(): target '${target_name}' does not exist")
+    endif()
+
+    cmake_parse_arguments(COBALT_COPY_RUNTIME "" "DESTINATION" "" ${ARGN})
+    if(COBALT_COPY_RUNTIME_UNPARSED_ARGUMENTS)
+        message(FATAL_ERROR "cobalt_copy_runtime_binaries(): unexpected arguments: ${COBALT_COPY_RUNTIME_UNPARSED_ARGUMENTS}")
+    endif()
+
+    if(NOT COBALT_COPY_RUNTIME_DESTINATION)
+        set(COBALT_COPY_RUNTIME_DESTINATION "$<TARGET_FILE_DIR:${target_name}>")
+    endif()
+
+    add_custom_command(TARGET "${target_name}" POST_BUILD
+        COMMAND "${CMAKE_COMMAND}" -E make_directory "${COBALT_COPY_RUNTIME_DESTINATION}"
+        COMMAND "${CMAKE_COMMAND}" -E copy_directory "${CobaltRenderer_BIN_DIR}" "${COBALT_COPY_RUNTIME_DESTINATION}"
+        COMMENT "Copying Cobalt Renderer runtime binaries for ${target_name}"
+        VERBATIM
+    )
+endfunction()
+
+function(cobalt_install_runtime_binaries)
+    cmake_parse_arguments(COBALT_INSTALL_RUNTIME "" "DESTINATION" "" ${ARGN})
+    if(COBALT_INSTALL_RUNTIME_UNPARSED_ARGUMENTS)
+        message(FATAL_ERROR "cobalt_install_runtime_binaries(): unexpected arguments: ${COBALT_INSTALL_RUNTIME_UNPARSED_ARGUMENTS}")
+    endif()
+    if(NOT COBALT_INSTALL_RUNTIME_DESTINATION)
+        message(FATAL_ERROR "cobalt_install_runtime_binaries(): DESTINATION is required")
+    endif()
+
+    install(
+        DIRECTORY "${CobaltRenderer_BIN_DIR}/"
+        DESTINATION "${COBALT_INSTALL_RUNTIME_DESTINATION}"
+        USE_SOURCE_PERMISSIONS
+    )
+endfunction()
+
+set(CobaltRenderer_FOUND TRUE)

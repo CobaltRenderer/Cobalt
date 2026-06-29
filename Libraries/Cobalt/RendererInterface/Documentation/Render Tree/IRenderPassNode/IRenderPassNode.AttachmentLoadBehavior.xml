@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderPassNode.AttachmentLoadBehavior" Title="AttachmentLoadBehavior enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef> ->
+    AttachmentLoadBehavior
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>AttachmentLoadBehavior</TypeRef> enumeration specifies whether existing attachment contents must be preserved when a render pass begins.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        Selecting UndefinedInitialData means shaders, blending, depth testing, stencil testing, and later draw operations must not depend on the previous attachment contents unless the render pass explicitly writes or clears them first.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="LoadExistingData">
+        Requires the renderer to preserve and load the previous contents of the selected attachment before drawing in this render pass.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UndefinedInitialData">
+        Allows the renderer to treat the initial attachment contents as undefined. This can be more efficient when the pass will clear or fully overwrite the attachment before the contents are read.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode.SetAttachmentLoadStoreBehavior">IRenderPassNode.SetAttachmentLoadStoreBehavior</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

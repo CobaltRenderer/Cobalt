@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IDataArray.UpdateCounterResetValue" Title="UpdateCounterResetValue method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IDataArray">IDataArray</PageRef> ->
+    UpdateCounterResetValue
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>UpdateCounterResetValue</TypeRef> method modifies the reset value to use for the counter, if the buffer has been created with one attached.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void UpdateCounterResetValue(uint32_t counterResetValue);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="uint32_t" Name="counterResetValue">
+          The new value to assign to the attached counter when the counter is reset.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IDataArray">IDataArray</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

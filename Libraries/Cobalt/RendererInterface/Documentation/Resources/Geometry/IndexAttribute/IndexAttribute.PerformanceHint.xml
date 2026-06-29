@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IndexAttribute.PerformanceHint" Title="PerformanceHint enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IndexAttribute">IndexAttribute</PageRef> ->
+    PerformanceHint
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>PerformanceHint</TypeRef> enumeration provides CPU and GPU read/write usage hints for index attribute data. The hints are supplied when an index attribute object is constructed.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Default">
+        Uses the renderer default storage and synchronization behaviour for this resource.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ReadNever">
+        Indicates that the application does not expect to read the resource from the CPU after creation or update.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ReadRarely">
+        Indicates that CPU reads are possible but uncommon, allowing the renderer to favour GPU efficient storage.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ReadOften">
+        Indicates that the resource may be read frequently by the CPU, allowing the renderer to choose storage or staging behaviour suited to repeated readback.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ReadFlagsMask">
+        Masks the CPU read behaviour bits. This value is intended for validation and bitwise operations rather than direct selection.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="WriteNever">
+        Indicates that the application does not expect to write new CPU data after initial contents are established.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="WriteRarely">
+        Indicates that CPU writes are possible but uncommon, allowing the renderer to favour storage that is efficient for normal GPU use.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="WriteOften">
+        Indicates that the application expects frequent CPU updates, allowing the renderer to use upload paths suited to repeated writes.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="WriteFlagsMask">
+        Masks the CPU write behaviour bits. This value is intended for validation and bitwise operations rather than direct selection.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IndexAttribute.Constructor">IndexAttribute.Constructor</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

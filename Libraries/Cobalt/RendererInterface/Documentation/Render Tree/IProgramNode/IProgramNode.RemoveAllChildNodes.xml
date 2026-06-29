@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IProgramNode.RemoveAllChildNodes" Title="RemoveAllChildNodes method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef> ->
+    RemoveAllChildNodes
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>RemoveAllChildNodes</TypeRef> method removes all previously added <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef>
+      objects from the list of child nodes.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void RemoveAllChildNodes();]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IDataArray.QueueDataTransfer" Title="QueueDataTransfer method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IDataArray">IDataArray</PageRef> ->
+    QueueDataTransfer
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>QueueDataTransfer</TypeRef> method schedules a transfer from one IDataArray to another, within GPU memory.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Data transfer operations are scheduled work. When an <PageRef PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRef> is supplied, the transfer follows the synchronization rules for that batch.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken QueueDataTransfer(IDataArray* targetBuffer, size_t transferCountInBytes, size_t sourceBufferOffsetInBytes = 0, size_t targetBufferOffsetInBytes = 0, ITransferBatch* transferBatch = nullptr);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IDataArray*" Name="targetBuffer">
+          The destination buffer for the GPU-side transfer.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="transferCountInBytes">
+          The number of bytes to transfer.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="sourceBufferOffsetInBytes">
+          The source byte offset where the transfer begins.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="targetBufferOffsetInBytes">
+          The destination byte offset where the transfer begins.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="ITransferBatch*" Name="transferBatch">
+          An optional transfer batch to schedule the transfer into. If null, the renderer schedules the transfer independently.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken">
+        True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IDataArray">IDataArray</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

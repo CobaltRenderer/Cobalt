@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDeviceEnumerator" Title="IGraphicsDeviceEnumerator interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    IGraphicsDeviceEnumerator
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class IGraphicsDeviceEnumerator;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IGraphicsDeviceEnumerator</TypeRef> interface is used to enumerate all graphics devices in the
+      system which are reported as being available for use by the renderer. In order to retrieve information on
+      available graphics devices, the application must call the <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.EnumerateDevices">EnumerateDevices</PageRef>
+      method. If the operation succeeds, the application can call the <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetAllDevices">GetAllDevices</PageRef>
+      method, which returns a list of <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef>
+      objects, through which additional information can be queried, and an <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef>
+      can be constructed. The <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetPreferredDevice">GetPreferredDevice</PageRef>
+      method can be used to obtain a recommendation on the preferred device to use for high performance rendering tasks.
+    </Paragraph>
+    <Paragraph>
+      The application can also call the filtering methods to filter out certain entries from the device list. While the
+      <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetAllDevices">GetAllDevices</PageRef> method will
+      always return the complete list of available devices, the <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetFilteredDevices">GetFilteredDevices</PageRef>
+      method returns a reduced subset of the available devices that pass the active filters. The <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetPreferredDevice">GetPreferredDevice</PageRef>
+      method also takes filtering into account, and will return the preferred device from the filtered set of devices.
+      Any combination of filtering methods can be called, with each filtering setting adding to the filters that have
+      been previously applied. The <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.ClearDeviceFilters">ClearDeviceFilters</PageRef>
+      method can be called to remove all filters.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        A successful call to <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.EnumerateDevices">EnumerateDevices</PageRef>
+        indicates that the enumeration process completed, but does not guarantee that any compatible graphics devices
+        were found. On systems without the required graphics API, driver, hardware capability, or requested enumeration
+        support, <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetAllDevices">GetAllDevices</PageRef> and
+        <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetFilteredDevices">GetFilteredDevices</PageRef> may
+        return empty lists, and <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetPreferredDevice">GetPreferredDevice</PageRef>
+        may return nullptr. Applications should always handle this case explicitly.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        Note that the <TypeRef>IGraphicsDeviceEnumerator</TypeRef> object retains ownership of all <TypeRef>IGraphicsDevice</TypeRef>
+        objects it returns. These objects are not owned by the caller, and will be deleted when the <TypeRef>IGraphicsDeviceEnumerator</TypeRef>
+        object is destroyed. For this reason, it is the responsibility of the caller to ensure that no <TypeRef>IGraphicsDevice</TypeRef>
+        objects are used after the owning <TypeRef>IGraphicsDeviceEnumerator</TypeRef> is destroyed.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="EnumerationFlags" TypeCategory="Enumeration" PageName="cobalt.graphics.IGraphicsDeviceEnumerator.EnumerationFlags" Visibility="Public">
+        Optional flags to control how the enumeration operation is performed
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.IGraphicsDeviceEnumerator.Delete">
+          Deletes the object. After calling this method, the object is destroyed.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Device methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="EnumerateDevices" PageName="cobalt.graphics.IGraphicsDeviceEnumerator.EnumerateDevices">
+          Scans the available devices on the system. When this method is called, any previously allocated <TypeRef>IGraphicsDevice</TypeRef>
+          objects are destroyed.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="FoundDevice" PageName="cobalt.graphics.IGraphicsDeviceEnumerator.FoundDevice">
+          Returns whether the most recent enumeration located at least one compatible graphics device.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetAllDevices" PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetAllDevices">
+          Returns a list of all compatible graphics devices detected on the system, which were identified as a result of
+          a previous call to <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.EnumerateDevices">EnumerateDevices</PageRef>. This list may be empty.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetFilteredDevices" PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetFilteredDevices">
+          Returns the current filtered set of compatible graphics devices detected on the system. This list may be empty.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetPreferredDevice" PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetPreferredDevice">
+          Returns the device from the filtered device list which has been selected as the best option for high performance rendering tasks, or nullptr if the filtered device list is empty.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Filtering methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="FilterDevice" PageName="cobalt.graphics.IGraphicsDeviceEnumerator.FilterDevice">
+          Removes the specific target device from the filtered device list
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="FilterDevicesOfType" PageName="cobalt.graphics.IGraphicsDeviceEnumerator.FilterDevicesOfType">
+          Removes all devices of the specified type from the filtered device list
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="FilterDevicesNotOfType" PageName="cobalt.graphics.IGraphicsDeviceEnumerator.FilterDevicesNotOfType">
+          Removes all devices which are not of the specified type from the filtered device list
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="FilterDevicesWithoutFeature" PageName="cobalt.graphics.IGraphicsDeviceEnumerator.FilterDevicesWithoutFeature">
+          Removes all devices which don't support the specified feature from the filtered device list
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="FilterDevicesWithoutAllFeatures" PageName="cobalt.graphics.IGraphicsDeviceEnumerator.FilterDevicesWithoutAllFeatures">
+          Removes all devices which don't support all features in the specified feature set from the filtered device list
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ClearDeviceFilters" PageName="cobalt.graphics.IGraphicsDeviceEnumerator.ClearDeviceFilters">
+          Removes all previously applied device filters
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

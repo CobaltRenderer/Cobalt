@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IProgramNode.BindShaderProgram" Title="BindShaderProgram method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef> ->
+    BindShaderProgram
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>BindShaderProgram</TypeRef> method specifies the <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef>
+      object to use as the shader program for all renderable content under this node. All binding commands or state
+      values which are set under this node must refer to IDs returned by the shader program specified here.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Changing the bound shader program used for rendering is an expensive operation, which is why this information is
+        set at a high level in the render tree. Applications should aim for the absolute minimum number of changes to
+        the shader program, so you should attempt to group all your content which shares the same shader program under
+        the one render pass in the same <TypeRef>IProgramNode</TypeRef> node, and rely on child <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef>
+        objects to divide content further if needed.
+      </Paragraph>
+    </Note>
+    <Note Type="Important">
+      <Paragraph>
+        It is strongly recommended to minimize the number of separate shaders your application uses. Shader programs can
+        be very large and involve many conditional tests, and still be much more efficient than using sets of separate
+        smaller shaders and having to change programs multiple times during the rendering process. For this reason, your
+        application should aim to use large shader programs which provide state values to enable different kinds of
+        operations as needed, such as texturing, stippling, lighting, or shading effects.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        The associated <TypeRef>IShaderProgram</TypeRef> for a program node can only be set once. Since all bindings and
+        state changes associated with a program depend on the particular program that has been bound, changing the
+        program would necessitate changing all the content which has been added to it in some way. If a new program is
+        required, a new node must be constructed to use it.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken BindShaderProgram(IShaderProgram* program);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IShaderProgram*!cobalt.graphics.IShaderProgram" Name="program">
+          The <TypeRef>IShaderProgram</TypeRef> to use for content under this node
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken!cobalt.graphics.SuccessToken">
+        True if the enumeration process was successful, false otherwise. An assertion will be raised in debug builds if
+        the result isn't tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

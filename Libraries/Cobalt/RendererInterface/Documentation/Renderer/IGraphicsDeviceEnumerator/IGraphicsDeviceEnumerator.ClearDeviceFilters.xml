@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDeviceEnumerator.ClearDeviceFilters" Title="ClearDeviceFilters method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRef> ->
+    ClearDeviceFilters
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ClearDeviceFilters</TypeRef> method removes all filters which have been applied to the filtered
+      device set returned by <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetFilteredDevices">GetFilteredDevices</PageRef>.
+      After calling this method, the <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetFilteredDevices">GetFilteredDevices</PageRef>
+      method will return the same set of devices as <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetAllDevices">GetAllDevices</PageRef>
+      until more filters are applied by calling one of the device filtering methods such as <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.FilterDevicesOfType">FilterDevicesOfType</PageRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void ClearDeviceFilters();]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetFilteredDevices">IGraphicsDeviceEnumerator.GetFilteredDevices</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

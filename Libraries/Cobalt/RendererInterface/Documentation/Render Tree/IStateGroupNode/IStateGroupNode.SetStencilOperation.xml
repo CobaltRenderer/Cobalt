@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateGroupNode.SetStencilOperation" Title="SetStencilOperation method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> ->
+    SetStencilOperation
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetStencilOperation</TypeRef> method configures how stencil testing will be performed, and the actions which will be taken in response.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetStencilOperation(StencilTargetFace targetFace, StencilComparisonFunction comparisonTest, StencilOperation passOperation, StencilOperation failOperation, StencilOperation depthFailOperation);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="StencilTargetFace" Name="targetFace">
+          The face or faces that the stencil operation configuration applies to.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="StencilComparisonFunction" Name="comparisonTest">
+          The comparison function used when stencil testing is enabled.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="StencilOperation" Name="passOperation">
+          The operation applied when both stencil and depth tests pass.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="StencilOperation" Name="failOperation">
+          The operation applied when the stencil test fails.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="StencilOperation" Name="depthFailOperation">
+          The operation applied when the stencil test passes but the depth test fails.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

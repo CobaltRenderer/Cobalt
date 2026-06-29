@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IndexAttribute.BuildReadOnlyAttribute" Title="BuildReadOnlyAttribute method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph><PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> -> <PageRef PageName="cobalt.graphics.IndexAttribute">IndexAttribute</PageRef> -> BuildReadOnlyAttribute</Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>BuildReadOnlyAttribute</TypeRef> method attempts to populate a <PageRef PageName="cobalt.graphics.ReadOnlyIndexAttribute">ReadOnlyIndexAttribute</PageRef> from this index attribute. The resulting read-only attribute references the same bound buffer allocation and layout information, but does not allow CPU data writes through the attribute object.
+    </Paragraph>
+    <Paragraph>
+      This is useful when the same underlying index data needs to be exposed through an immutable or restricted attribute view. The source attribute must already be bound to a buffer so the read-only view can capture the buffer binding metadata.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken BuildReadOnlyAttribute(ReadOnlyIndexAttribute& targetAttribute) const;]]></Code>
+    <SubSection Title="Argument list"><ArgumentList><ArgumentListEntry Type="ReadOnlyIndexAttribute" Name="targetAttribute">The read-only index attribute object to populate with this attribute's buffer binding information.</ArgumentListEntry></ArgumentList></SubSection>
+    <SubSection Title="Return value"><ReturnValue Type="SuccessToken">True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.</ReturnValue></SubSection>
+  </Section>
+  <Section Title="See also"><PageRefList><PageRefListEntry PageName="cobalt.graphics.IndexAttribute">IndexAttribute</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.ReadOnlyIndexAttribute">ReadOnlyIndexAttribute</PageRefListEntry></PageRefList></Section>
+</XMLDocContent>

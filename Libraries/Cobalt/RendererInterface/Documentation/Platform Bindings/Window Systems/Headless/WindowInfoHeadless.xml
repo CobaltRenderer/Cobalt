@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.WindowInfoHeadless" Title="WindowInfoHeadless structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef> ->
+    WindowInfoHeadless
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[struct WindowInfoHeadless : public IFrameBuffer::WindowInfoBase;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowInfoHeadless</TypeRef> structure describes a window-sized framebuffer target for <PageRef PageName="cobalt.graphics.IFrameBuffer.BindWindow">IFrameBuffer.BindWindow</PageRef> when rendering without a native operating system window.
+    </Paragraph>
+    <Paragraph>
+      A framebuffer bound with <TypeRef>WindowInfoHeadless</TypeRef> behaves like a window framebuffer for tests and server-side rendering workflows, but the renderer creates and owns the underlying offscreen color, depth, and stencil resources rather than presenting through a swap chain or native window surface.
+    </Paragraph>
+    <Paragraph>
+      Availability: All platforms. This structure is included unconditionally by <TypeRef>PlatformBindings.pkg</TypeRef>.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Device enumeration should request <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.EnumerationFlags">EnumerationFlags.HeadlessRendering</PageRef> before initializing a renderer with <PageRef PageName="cobalt.graphics.WindowSystemInfoHeadless">WindowSystemInfoHeadless</PageRef>.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <DataMemberList>
+      <DataMemberListEntry Visibility="Public" Type="V2UInt32" Name="windowSizeInPixels">
+        The drawable framebuffer size in pixels.
+      </DataMemberListEntry>
+    </DataMemberList>
+  </Section>
+  <Section Title="Constructors">
+    <FunctionMemberList>
+      <FunctionMemberListEntry Visibility="Public" Name="Constructor" PageName="cobalt.graphics.WindowInfoHeadless.Constructor">
+        Creates a WindowInfoHeadless structure.
+      </FunctionMemberListEntry>
+    </FunctionMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.WindowSystemInfoHeadless">WindowSystemInfoHeadless</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.BindWindow">IFrameBuffer.BindWindow</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.NotifyWindowResized">IFrameBuffer.NotifyWindowResized</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.WindowInfoBase">WindowInfoBase</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

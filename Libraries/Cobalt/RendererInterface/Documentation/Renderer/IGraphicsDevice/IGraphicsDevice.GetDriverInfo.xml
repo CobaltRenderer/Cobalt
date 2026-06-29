@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDevice.GetDriverInfo" Title="GetDriverInfo method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> ->
+      GetDriverInfo
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetDriverInfo</TypeRef> gives a best attempt at returning relevant information on the graphics driver
+      associated with this graphics device, ideally with a specific driver version number included. This method is
+      provided as a convenience to assist in reporting and identification of the host environment.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        There is no standard or consistent way this information is made available across operating systems, graphics
+        APIs, or vendors. You should not expect any particuar structure or kind of content will be returned in this
+        string, or that any information will be available at all. While potentially useful for human inspection, it is
+        not recommended to rely on the driver info string programmatically.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[std::string GetDriverInfo() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="std::string">
+        Identifying information on graphics driver (in UTF-8 encoding)
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice.GetVendorName">IGraphicsDevice.GetVendorName</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice.GetDeviceName">IGraphicsDevice.GetDeviceName</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderer.Options" Title="Options enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> ->
+    Options
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Options</TypeRef> enumeration defines renderer configuration options that are selected when an <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> is created. These options are not hardware feature flags. They control renderer behaviour such as diagnostic output and API marker emission, and remain fixed for the lifetime of the renderer.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="EnableDebugLogging">
+        Enables additional renderer diagnostic output where supported. This may include verbose messages from the renderer itself or from native graphics API validation layers.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="EnableRenderMarkers">
+        Enables renderer marker emission for supported native graphics APIs. Markers are useful when inspecting frames in tools such as RenderDoc or native GPU debuggers.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice.CreateRenderer">IGraphicsDevice.CreateRenderer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

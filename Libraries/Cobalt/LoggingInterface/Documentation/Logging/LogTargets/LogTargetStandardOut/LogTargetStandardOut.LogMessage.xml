@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogTargetStandardOut.LogMessage" Title="LogMessage method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.LogTargetStandardOut">LogTargetStandardOut</PageRef> ->
+    LogMessage
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>LogMessage</TypeRef> method writes a message line to <TypeRef>std::cout</TypeRef>.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Messages are written with the compact prefixes <TypeRef>C!</TypeRef>, <TypeRef>E:</TypeRef>, <TypeRef>W:</TypeRef>, <TypeRef>i:</TypeRef>, <TypeRef>d:</TypeRef>, or <TypeRef>t:</TypeRef> depending on severity.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void LogMessage(const char* scope, size_t scopeLength, ILogger::Severity severity, const char* message, size_t messageLength) override;]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const char*" Name="scope">A pointer to the UTF-8 scope string.</ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="scopeLength">The number of bytes in the scope string.</ArgumentListEntry>
+        <ArgumentListEntry Type="Severity!cobalt.logging.ILogger.Severity" Name="severity">The severity assigned to the message.</ArgumentListEntry>
+        <ArgumentListEntry Type="const char*" Name="message">A pointer to the UTF-8 message string.</ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="messageLength">The number of bytes in the message string.</ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetStandardOut">LogTargetStandardOut</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.ILogTarget.LogMessage">ILogTarget.LogMessage</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

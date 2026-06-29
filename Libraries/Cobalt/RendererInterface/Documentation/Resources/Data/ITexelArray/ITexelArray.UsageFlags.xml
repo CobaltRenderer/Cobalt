@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITexelArray.UsageFlags" Title="UsageFlags enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef> ->
+    UsageFlags
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>UsageFlags</TypeRef> enumeration declares how an <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef> may be used after allocation. These flags must be set before allocation so the renderer can create the correct native resource and binding permissions.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Default">
+        Requests the default texel array usage.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ShaderInput">
+        Allows the texel array to be bound for shader reads.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ShaderOutput">
+        Allows the texel array to be bound for shader writes.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="TransferSource">
+        Allows the texel array to be used as the source of a GPU-side transfer operation.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="TransferDestination">
+        Allows the texel array to be used as the destination of a GPU-side transfer operation.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITexelArray.SetUsageFlags">ITexelArray.SetUsageFlags</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDevice.GetDeviceType" Title="GetDeviceType method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> ->
+    GetDeviceType
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetDeviceType</TypeRef> method returns the type of the graphics device, as defined by the <PageRef PageName="cobalt.graphics.IGraphicsDevice.DeviceType">DeviceType</PageRef>
+      enumeration.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[DeviceType GetDeviceType() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="DeviceType!cobalt.graphics.IGraphicsDevice.DeviceType">
+        The type of this device
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

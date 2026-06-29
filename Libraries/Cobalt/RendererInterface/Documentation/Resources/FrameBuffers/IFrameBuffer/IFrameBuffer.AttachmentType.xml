@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IFrameBuffer.AttachmentType" Title="AttachmentType enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRef> ->
+    AttachmentType
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>AttachmentType</TypeRef> enumeration identifies the kind of framebuffer attachment affected by binding, render pass load/store, clear, resolve, and capture operations.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Color">
+        Selects a color attachment. Color attachments hold rendered color output from fragment shaders and may have multiple indexed attachments on a framebuffer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Depth">
+        Selects the depth attachment used by depth testing and depth writes.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Stencil">
+        Selects the stencil attachment used by stencil testing and stencil operations.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

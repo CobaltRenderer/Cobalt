@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderer.WaitForOutputCaptureComplete" Title="WaitForOutputCaptureComplete method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> ->
+    WaitForOutputCaptureComplete
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      This method performs the same synchronization as the <PageRef PageName="cobalt.graphics.IRenderer.WaitForDrawComplete">WaitForDrawComplete</PageRef>
+      method, however it will wait not just until the draw process is complete, but also until any attached framebufffer
+      output capture objects have received data, as well as any other intermediate data outputs generated during the
+      draw process. Without calling this method, the renderer will only make captured output available after a call is
+      made to <PageRef PageName="cobalt.graphics.IRenderer.StartNewFrame">StartNewFrame</PageRef>, however if the
+      application calls <TypeRef>WaitForOutputCaptureComplete</TypeRef> it explicitly synchronizes the application with
+      the capture process in the renderer, and as a result the renderer will make captured output immediately available
+      to the application when this method returns. This data will also continue to be available after <PageRef PageName="cobalt.graphics.IRenderer.StartNewFrame">StartNewFrame</PageRef>
+      is called like it normally would, but calling the <TypeRef>WaitForOutputCaptureComplete</TypeRef> method gives the
+      application earlier access to this data, and importantly allows it do to so without starting a new frame drawing.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        It is perfectly valid to call this method even if no <PageRef PageName="cobalt.graphics.IFrameBufferOutput">IFrameBufferOutput</PageRef>,
+        <PageRef PageName="cobalt.graphics.IDataArrayOutput">IDataArrayOutput</PageRef>, or <PageRef PageName="cobalt.graphics.ITexelArrayOutput">ITexelArrayOutput</PageRef>
+        objects have been attached to any framebuffers used in the last draw operation.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void WaitForOutputCaptureComplete();]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer">IRenderer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer.WaitForDrawComplete">IRenderer.WaitForDrawComplete</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

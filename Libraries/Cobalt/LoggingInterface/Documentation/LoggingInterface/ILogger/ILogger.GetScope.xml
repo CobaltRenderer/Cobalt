@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.ILogger.GetScope" Title="GetScope method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.ILogger">ILogger</PageRef> ->
+    GetScope
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetScope</TypeRef> method returns the scope string associated with the logger. Scopes are used by targets to identify which part of an application emitted a message.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[std::string GetScope() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="std::string">
+        The logger scope string.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.ILogger.GetLoggerChildScope">ILogger.GetLoggerChildScope</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogManager.GetLogger">LogManager.GetLogger</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

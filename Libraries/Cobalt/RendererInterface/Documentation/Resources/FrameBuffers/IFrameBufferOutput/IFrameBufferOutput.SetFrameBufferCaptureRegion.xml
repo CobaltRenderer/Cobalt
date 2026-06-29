@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IFrameBufferOutput.SetFrameBufferCaptureRegion" Title="SetFrameBufferCaptureRegion method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IFrameBufferOutput">IFrameBufferOutput</PageRef> ->
+    SetFrameBufferCaptureRegion
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetFrameBufferCaptureRegion</TypeRef> method specifies the region of the bound framebuffer image to capture.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetFrameBufferCaptureRegion(const V2UInt32& imageOffsetInPixels = V2UInt32(0, 0), const V2UInt32& imageRegionInPixels = V2UInt32(0, 0));]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const V2UInt32" Name="imageOffsetInPixels">
+          The top-left pixel offset of the framebuffer region to capture.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="const V2UInt32" Name="imageRegionInPixels">
+          The pixel dimensions of the framebuffer region to capture. A zero value captures the remaining image from the offset.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBufferOutput">IFrameBufferOutput</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

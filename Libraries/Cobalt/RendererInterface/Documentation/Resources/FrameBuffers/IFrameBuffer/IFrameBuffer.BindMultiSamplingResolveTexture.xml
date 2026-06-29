@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IFrameBuffer.BindMultiSamplingResolveTexture" Title="BindMultiSamplingResolveTexture method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRef> ->
+    BindMultiSamplingResolveTexture
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>BindMultiSamplingResolveTexture</TypeRef> method binds a texture to resolve a multisampled framebuffer attachment to.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken BindMultiSamplingResolveTexture(ITextureBuffer2D* texture, AttachmentType type, size_t index = 0);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="ITextureBuffer2D*" Name="texture">
+          The texture that receives resolved multisample data.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="AttachmentType" Name="type">
+          The attachment type to resolve.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="index">
+          The attachment index within the specified attachment type.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken">
+        True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

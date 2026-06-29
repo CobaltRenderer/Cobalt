@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRendererPlugin.GetRendererPluginFunctionType" Title="GetRendererPluginFunctionType typedef" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRendererPlugin">IRendererPlugin</PageRef> ->
+    GetRendererPluginFunctionType
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[using GetRendererPluginFunctionType = bool(unsigned int indexNo, IRendererPlugin& rendererPlugin);]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetRendererPluginFunctionType</TypeRef> typedef describes the exported function signature used by renderer plugin libraries.
+    </Paragraph>
+    <Paragraph>
+      Applications or helper classes should first resolve and call <PageRef PageName="cobalt.graphics.GetCobaltAPIVersion">GetCobaltAPIVersion</PageRef> to check Cobalt Renderer API compatibility. After compatibility is confirmed, they resolve the exported symbol named <TypeRef>GetRendererPlugin</TypeRef>, cast it to this function type, and call it with increasing index values to retrieve every renderer implementation exported by the plugin.
+    </Paragraph>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.GetCobaltAPIVersion">GetCobaltAPIVersion</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.GetRendererPlugin">GetRendererPlugin</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.RenderPluginEnumerator.AddPluginByPath">RenderPluginEnumerator.AddPluginByPath</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

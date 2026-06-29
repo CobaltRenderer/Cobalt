@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRendererPlugin.SetApiFamily" Title="SetApiFamily method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRendererPlugin">IRendererPlugin</PageRef> ->
+    SetApiFamily
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetApiFamily</TypeRef> method sets the graphics API family implemented by the renderer plugin.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[virtual void SetApiFamily(ApiFamily value) = 0;]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="ApiFamily!cobalt.graphics.IRendererPlugin.ApiFamily" Name="value">
+          The renderer API family.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRendererPlugin">IRendererPlugin</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.RendererPlugin">RendererPlugin</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

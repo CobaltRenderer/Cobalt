@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogTargetFile" Title="LogTargetFile class" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    LogTargetFile
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class LogTargetFile : public ILogTarget;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>LogTargetFile</TypeRef> class is an <PageRef PageName="cobalt.logging.ILogTarget">ILogTarget</PageRef> implementation that writes formatted log messages to a file.
+    </Paragraph>
+    <Paragraph>
+      The target must have a file opened with <PageRef PageName="cobalt.logging.LogTargetFile.OpenLogFile">OpenLogFile</PageRef> before messages are written. If no file is open, messages are ignored.
+    </Paragraph>
+    <Paragraph>
+      The target flushes after writes whose severity passes the configured flush filter. The default flush filter is <TypeRef>SeverityFilter::WarningOrHigher</TypeRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Constructors">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Constructor" PageName="cobalt.logging.LogTargetFile.Constructor">
+          Creates a file target with no file open.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="Create" PageName="cobalt.logging.LogTargetFile.Create">
+          Creates a file target wrapped in a smart pointer.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Lifetime methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.logging.LogTargetFile.Delete">
+          Deletes the file target.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="File methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="OpenLogFile" PageName="cobalt.logging.LogTargetFile.OpenLogFile">
+          Opens the target log file.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CloseLogFile" PageName="cobalt.logging.LogTargetFile.CloseLogFile">
+          Closes the target log file.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="FlushAfterWrite" PageName="cobalt.logging.LogTargetFile.FlushAfterWrite">
+          Sets the severity filter used to flush the file after a write.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Logging methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="LogMessage" PageName="cobalt.logging.LogTargetFile.LogMessage">
+          Writes a message to the open log file.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.ILogTarget">ILogTarget</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogManager.AddLogTarget">LogManager.AddLogTarget</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.ILogger.SeverityFilter">ILogger.SeverityFilter</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

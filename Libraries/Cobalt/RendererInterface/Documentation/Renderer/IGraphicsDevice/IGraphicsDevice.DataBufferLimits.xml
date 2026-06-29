@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDevice.DataBufferLimits" Title="DataBufferLimits structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> ->
+    DataBufferLimits
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>DataBufferLimits</TypeRef> structure reports information on limits an <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef>
+      object has which relate to state buffers, as returned by the <PageRef PageName="cobalt.graphics.IGraphicsDevice.GetDataBufferLimits">DataBufferLimits</PageRef>
+      method.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <DataMemberList>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="maxStateBufferPageSize">
+        The maximum size of a state buffer page in bytes.
+      </DataMemberListEntry>
+
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="stateBufferAlignmentFloatOrInt">
+        The alignment in bytes within a state buffer of float or integer data types.
+      </DataMemberListEntry>
+
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="stateBufferAlignmentVector4f">
+        The alignment in bytes of a 4 element vector of floats.
+
+        While vectors of other element counts are allowed, there are highly unusual packing rules that
+        greatly complicate things and vectors of 4 are preferred - just trim unneeded elements off.
+        (E.g. in Vulkan a float2 needs (address mod 8 == 0), in Direct3D 11 and 12 it
+        needs (address mod 16) to be either (0, 4, or 8), and OpenGL needs (address mod 16 == 0)).
+      </DataMemberListEntry>
+
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="stateBufferAlignmentMatrix4f">
+        The alignment in bytes of a 4 x 4 matrix of floats.
+
+        While matrices of other element counts are allowed, there are highly unusual packing rules that
+        greatly complicate things and matrices of 4 x 4 are preferred - just trim unneeded elements off.
+        (E.g. mat3x2 and mat2x3 often have different sizes and alignments on the same engine.
+        On Vulkan Size (24 vs 32) and Alignment (8 vs 16))
+      </DataMemberListEntry>
+
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="stateBufferAlignmentArrayWhole">
+        The minimum alignment of an entire array in addition to any other restriction on its type. E.g. Vulkan has
+        an entire array alignment rule of 16, so a float[1] array takes up 4 times the space as a single float.
+      </DataMemberListEntry>
+
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="stateBufferAlignmentArrayStride">
+        The minimum alignment of each element in the array. E.g. a float[2] and vec2f may not have identical alignment.
+        The 2 floats may not even be next to each other, an alignmentArrayStride of 16 means there's 3 floats
+        padding between the two elements.
+
+        For simplicitly and portable code it's recommended to avoid arrays of scalars and only have arrays of vec4s, mat4x4s,
+        other arrays, and structures. E.g. float[160] should be vec4f[40].
+
+      </DataMemberListEntry>
+
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="stateBufferAlignmentStruct">
+        The minimum alignment of a structure in addition to any other restriction, as "float a, b" and
+        "struct float_t {float my;}; float_t a, b" can have differing alignments for a and b (e.g. 4 vs 16 in Vulkan, but both are 4 in OpenGL 4.3).
+      </DataMemberListEntry>
+
+    </DataMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

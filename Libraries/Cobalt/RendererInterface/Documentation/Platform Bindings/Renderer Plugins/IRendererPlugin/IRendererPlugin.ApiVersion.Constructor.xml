@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRendererPlugin.ApiVersion.Constructor" Title="Constructor method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRendererPlugin.ApiVersion">ApiVersion</PageRef> ->
+    Constructor
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ApiVersion</TypeRef> constructor creates a version value used to describe a renderer plugin target API version.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[ApiVersion();
+ApiVersion(uint32_t major, uint32_t minor);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="uint32_t" Name="major">
+          The major API version number.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="uint32_t" Name="minor">
+          The minor API version number.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRendererPlugin.ApiVersion">IRendererPlugin.ApiVersion</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

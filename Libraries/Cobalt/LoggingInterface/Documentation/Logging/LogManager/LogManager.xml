@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogManager" Title="LogManager class" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    LogManager
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class LogManager;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>LogManager</TypeRef> class is the standard implementation object that creates loggers, owns log targets, and filters messages before forwarding them to those targets.
+    </Paragraph>
+    <Paragraph>
+      A manager-level <PageRef PageName="cobalt.logging.ILogger.SeverityFilter">SeverityFilter</PageRef> provides the first filtering stage. Each target added through <PageRef PageName="cobalt.logging.LogManager.AddLogTarget">AddLogTarget</PageRef> can also have its own filter, allowing different targets to receive different severities.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        A <PageRef PageName="cobalt.logging.Logger">Logger</PageRef> created by this object stores a reference to the manager. The manager must outlive every logger created from it.
+      </Paragraph>
+    </Note>
+    <Note Type="Important">
+      <Paragraph>
+        Logger instances are safe to use concurrently from multiple threads. The log manager serializes message delivery, and target registration and severity filter access are safe to use concurrently as well.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Constructors">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Constructor" PageName="cobalt.logging.LogManager.Constructor">
+          Creates an empty log manager with the include severity filter set to all severities.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Severity methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="GetIncludeSeverity" PageName="cobalt.logging.LogManager.GetIncludeSeverity">
+          Returns the manager-level severity filter.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetIncludeSeverity" PageName="cobalt.logging.LogManager.SetIncludeSeverity">
+          Sets the manager-level severity filter.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="IsLogSeverityEnabled" PageName="cobalt.logging.LogManager.IsLogSeverityEnabled">
+          Reports whether a severity passes the manager-level filter.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Logger creation methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="GetLogger" PageName="cobalt.logging.LogManager.GetLogger">
+          Creates a scoped logger that sends accepted messages to this log manager.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Log target methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="AddLogTarget" PageName="cobalt.logging.LogManager.AddLogTarget">
+          Adds a log target owned by the manager.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.ILogger">ILogger</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.ILogTarget">ILogTarget</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.Logger">Logger</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

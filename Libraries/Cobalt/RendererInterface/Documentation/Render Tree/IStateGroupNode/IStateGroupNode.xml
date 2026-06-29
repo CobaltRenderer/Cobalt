@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateGroupNode" Title="IStateGroupNode interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    IStateGroupNode
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class IStateGroupNode :public IStateContainer;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IStateGroupNode</TypeRef> interface represents a node under an <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef>
+      node in the render scene tree. This node is the primary node that is responsible for defining state settings
+      during the rendering process. State settings applied on this node will be inherited and used by the contained
+      <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef> child nodes. Some settings such as
+      blend state can only be defined on this node. Other state values, such as shader resource bindings and shader
+      state settings, can also be set on child <TypeRef>IRenderableNode</TypeRef> objects. In this case, the child node
+      values override the inherited values from a parent <TypeRef>IStateGroupNode</TypeRef> node for that object.
+      Setting state on <TypeRef>IStateGroupNode</TypeRef> objects allows state values to be set once and shared by a set
+      of individual objects, which is easier to manage, and slightly more efficient during rendering.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Note that as <TypeRef>IStateGroupNode</TypeRef> objects cannot be nested within themselves, only one level of
+        grouping is allowed for sharing state settings.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        Unlike other nodes in the render tree, the <TypeRef>IStateGroupNode</TypeRef> does not guarantee all child
+        <TypeRef>IRenderableNode</TypeRef> entries will be drawn in the order they are added. In order to minimize
+        expensive pipeline state changes, renderer plugins will group child nodes into sets that can be drawn with the
+        same pipeline state object. If you need to perform strictly ordered rendering tasks where each child
+        <TypeRef>IRenderableNode</TypeRef> node is drawn in a particular order, such as if you have depth testing
+        disabled, or are performing order-dependent transparency using blending operations, you must ensure all child
+        <TypeRef>IRenderableNode</TypeRef> nodes use the same primitive mode, including whether primitive restart is
+        enabled, as set by the <PageRef PageName="cobalt.graphics.IRenderableNode.SetPrimitiveMode">SetPrimitiveMode</PageRef> method.
+        Additionally, you must not enable instance rendering for any children using the the <PageRef PageName="cobalt.graphics.IRenderableNode.SetInstanceMode">SetInstanceMode</PageRef>
+        method. If you adhere to these requirements, strict ordering will be maintained, otherwise the order of
+        rendering is undefined.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="PolygonFillMode" TypeCategory="Enumeration" PageName="cobalt.graphics.IStateGroupNode.PolygonFillMode" Visibility="Public">
+        Specifies the available options for configuring the polygon fill mode, as set by the <PageRef PageName="cobalt.graphics.IStateGroupNode.SetPolygonFillMode">SetPolygonFillMode</PageRef> method.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="PolygonCullMode" TypeCategory="Enumeration" PageName="cobalt.graphics.IStateGroupNode.PolygonCullMode" Visibility="Public">
+        Specifies the available options for configuring the polygon cull mode, as set by the <PageRef PageName="cobalt.graphics.IStateGroupNode.SetPolygonCullMode">SetPolygonCullMode</PageRef> method.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="PolygonWindingOrder" TypeCategory="Enumeration" PageName="cobalt.graphics.IStateGroupNode.PolygonWindingOrder" Visibility="Public">
+        Specifies the available options for configuring the polygon winding order, as set by the <PageRef PageName="cobalt.graphics.IStateGroupNode.SetPolygonWindingOrder">SetPolygonWindingOrder</PageRef> method.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="DepthComparisonFunction" TypeCategory="Enumeration" PageName="cobalt.graphics.IStateGroupNode.DepthComparisonFunction" Visibility="Public">
+        Specifies the available depth comparison functions, as set by the <PageRef PageName="cobalt.graphics.IStateGroupNode.SetDepthComparisonFunction">SetDepthComparisonFunction</PageRef> method.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="StencilTargetFace" TypeCategory="Enumeration" PageName="cobalt.graphics.IStateGroupNode.StencilTargetFace" Visibility="Public">
+        Specifies the available target faces for stencil operations, as used by the <PageRef PageName="cobalt.graphics.IStateGroupNode.SetStencilOperation">SetStencilOperation</PageRef> method.
+    </TypeMemberListEntry>
+      <TypeMemberListEntry Name="StencilComparisonFunction" TypeCategory="Enumeration" PageName="cobalt.graphics.IStateGroupNode.StencilComparisonFunction" Visibility="Public">
+        Specifies the available stencil comparison functions, as set by the <PageRef PageName="cobalt.graphics.IStateGroupNode.SetStencilOperation">SetStencilOperation</PageRef> method.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="StencilOperation" TypeCategory="Enumeration" PageName="cobalt.graphics.IStateGroupNode.StencilOperation" Visibility="Public">
+        Specifies the available stencil operations, as set by the <PageRef PageName="cobalt.graphics.IStateGroupNode.SetStencilOperation">SetStencilOperation</PageRef> method.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="BlendOperation" TypeCategory="Enumeration" PageName="cobalt.graphics.IStateGroupNode.BlendOperation" Visibility="Public">
+        Specifies the available blend operations, as set by the <PageRef PageName="cobalt.graphics.IStateGroupNode.SetBlendMode">SetBlendMode</PageRef> method.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="BlendFactor" TypeCategory="Enumeration" PageName="cobalt.graphics.IStateGroupNode.BlendFactor" Visibility="Public">
+        Specifies the available blend factors, as set by the <PageRef PageName="cobalt.graphics.IStateGroupNode.SetBlendMode">SetBlendMode</PageRef> method.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.IStateGroupNode.Delete">
+          Schedules the object for deletion. After calling this method, the object will be destroyed after the current
+          frame completes drawing.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Child node methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="AddChildNode" PageName="cobalt.graphics.IStateGroupNode.AddChildNode">
+          Adds the specified <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef> as a child of this node
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="AddChildNodes" PageName="cobalt.graphics.IStateGroupNode.AddChildNodes">
+          Adds the specified set of <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef>
+          objects as children of this node
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="RemoveChildNode" PageName="cobalt.graphics.IStateGroupNode.RemoveChildNode">
+          Removes the specified <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef> as a child of this node
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="RemoveChildNodes" PageName="cobalt.graphics.IStateGroupNode.RemoveChildNodes">
+          Removes the specified set of <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef>
+          objects as children of this node
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="RemoveAllChildNodes" PageName="cobalt.graphics.IStateGroupNode.RemoveAllChildNodes">
+          Removes all current <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef> child nodes
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetChildNodes" PageName="cobalt.graphics.IStateGroupNode.SetChildNodes">
+          Sets the specified set of <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef>
+          objects as children of this node, removing any existing child nodes which may have been previously added.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Compute methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetComputeTask" PageName="cobalt.graphics.IStateGroupNode.SetComputeTask">
+          Defines a compute task to execute for this node. No child nodes or rendering state settings are valid when a
+          compute task is defined, and the parent <TypeRef>IShaderProgram</TypeRef> node must define a compute shader.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="RemoveComputeTask" PageName="cobalt.graphics.IStateGroupNode.RemoveComputeTask">
+          Removes the previously set compute task for this node
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Depth state methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetDepthTestEnabled" PageName="cobalt.graphics.IStateGroupNode.SetDepthTestEnabled">
+          Specifies whether fragments from rendered objects will be tested against the depth buffer
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetDepthWriteEnabled" PageName="cobalt.graphics.IStateGroupNode.SetDepthWriteEnabled">
+          Specifies whether rendered objects will update the depth buffer based on the generated fragment depth values
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetDepthComparisonFunction" PageName="cobalt.graphics.IStateGroupNode.SetDepthComparisonFunction">
+          Changes the comparison function used to perform depth testing
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetDepthBias" PageName="cobalt.graphics.IStateGroupNode.SetDepthBias">
+          Configures depth bias to offset generated depth values
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ClearDepthBias" PageName="cobalt.graphics.IStateGroupNode.ClearDepthBias">
+          Removes previously configured depth bias settings
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Stencil state methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetStencilTestEnabled" PageName="cobalt.graphics.IStateGroupNode.SetStencilTestEnabled">
+          Specifies whether stencil testing will be active, and configures some settings related to stencil testing.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetStencilOperation" PageName="cobalt.graphics.IStateGroupNode.SetStencilOperation">
+          Configures how stencil testing will be performed, and the actions which will be taken in response.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetStencilReferenceValue" PageName="cobalt.graphics.IStateGroupNode.SetStencilReferenceValue">
+          Sets the reference value which will be used when performing stencil testing
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Rasterization state methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetPolygonFillMode" PageName="cobalt.graphics.IStateGroupNode.SetPolygonFillMode">
+          Configures the fill mode for polygons, IE, whether they are drawn as lines or filled triangles.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetPolygonCullMode" PageName="cobalt.graphics.IStateGroupNode.SetPolygonCullMode">
+          Configures polygon culling, such as whether backface culling is enabled.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetPolygonWindingOrder" PageName="cobalt.graphics.IStateGroupNode.SetPolygonWindingOrder">
+          Specifies the vertex winding order, in order to determine the front and back of polygons.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Blend state methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetBlendEnabled" PageName="cobalt.graphics.IStateGroupNode.SetBlendEnabled">
+          Specifies whether blending is enabled for rendered objects
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetBlendMode" PageName="cobalt.graphics.IStateGroupNode.SetBlendMode">
+          Configures the blend mode settings to use if blending is enabled
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Resource binding methods (Inherited from IStateContainer)">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="BindTextureWithCombinedSampler" PageName="cobalt.graphics.IStateContainer.BindTextureWithCombinedSampler">
+          Creates a texture resource binding with a combined image sampler for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindTexture" PageName="cobalt.graphics.IStateContainer.BindTexture">
+          Creates a texture resource binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="UnbindTexture" PageName="cobalt.graphics.IStateContainer.UnbindTexture">
+          Removes a previously established texture resource binding, with or without a combined image sampler.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindSampler" PageName="cobalt.graphics.IStateContainer.BindSampler">
+          Creates a sampler resource binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="UnbindSampler" PageName="cobalt.graphics.IStateContainer.UnbindSampler">
+          Removes a previously established sampler binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindStateBuffer" PageName="cobalt.graphics.IStateContainer.BindStateBuffer">
+          Creates a state buffer resource binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="UnbindStateBuffer" PageName="cobalt.graphics.IStateContainer.UnbindStateBuffer">
+          Removes a previously established state buffer binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindResourceArray" PageName="cobalt.graphics.IStateContainer.BindResourceArray">
+          Creates a resource array binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="UnbindResourceArray" PageName="cobalt.graphics.IStateContainer.UnbindResourceArray">
+          Removes a previously established resource array binding for the current shader program
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="State value methods (Inherited from IStateContainer)">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetStateValue" PageName="cobalt.graphics.IStateContainer.SetStateValue">
+          Sets the current target shader state variable to the specified value for this node and any child nodes
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ResetStateValue" PageName="cobalt.graphics.IStateContainer.ResetStateValue">
+          Restores the target shader state variable to its default or inherited value
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Debug methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetDebugName" PageName="cobalt.graphics.IStateGroupNode.SetDebugName">
+          Sets a debug name for this state group node, where supported by the renderer and native graphics API.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateContainer">IStateContainer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

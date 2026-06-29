@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ResourceArrayId" Title="ResourceArrayId enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    ResourceArrayId
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ResourceArrayId</TypeRef> enumeration is an opaque token identifying a resource array binding reflected from an <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef>. It is used when binding <PageRef PageName="cobalt.graphics.IDataArray">IDataArray</PageRef> and <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef> resources.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        ID values are renderer-generated tokens. Applications should obtain them from shader reflection methods rather
+        than constructing arbitrary values.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Null">
+        Indicates that no matching resource array binding was found or that no resource array slot is selected.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram.GetResourceArrayId">IShaderProgram.GetResourceArrayId</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateContainer.BindResourceArray">IStateContainer.BindResourceArray</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IDataArray">IDataArray</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

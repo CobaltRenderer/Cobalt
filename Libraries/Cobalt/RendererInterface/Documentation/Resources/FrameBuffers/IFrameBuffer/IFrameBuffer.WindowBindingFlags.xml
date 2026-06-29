@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IFrameBuffer.WindowBindingFlags" Title="WindowBindingFlags enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRef> ->
+    WindowBindingFlags
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowBindingFlags</TypeRef> enumeration supplies optional presentation flags when an <PageRef PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRef> is bound to a platform window.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="None">
+        Requests the default presentation behaviour for the renderer and platform.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="LimitSwapToVSync">
+        Requests that presentation be synchronized to the display refresh where the platform supports it.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="AllowTearing">
+        Allows presentation without vertical synchronization where supported by the platform and renderer. This can reduce presentation latency but may produce visible tearing.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.BindWindow">IFrameBuffer.BindWindow</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

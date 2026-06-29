@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureBuffer.SetTextureFormat" Title="SetTextureFormat method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef> ->
+    SetTextureFormat
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetTextureFormat</TypeRef> method specifies the hardware image format and data format requested for a
+      texture allocation. The image format describes the component layout, while the data format describes how each
+      component or compressed block is encoded.
+    </Paragraph>
+    <Paragraph>
+      The requested format controls how the texture may be sampled, bound as a framebuffer attachment, used as a depth
+      or stencil target, and populated from CPU source data. Applications can query basic device support for a format
+      pair with <PageRef PageName="cobalt.graphics.IGraphicsDevice.IsTextureFormatSupported">IsTextureFormatSupported</PageRef>.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        This method must be called before <PageRef PageName="cobalt.graphics.ITextureBuffer.AllocateMemory">AllocateMemory</PageRef>.
+        After allocation, the actual created format can be queried with <PageRef PageName="cobalt.graphics.ITextureBuffer.AllocatedImageFormat">AllocatedImageFormat</PageRef>
+        and <PageRef PageName="cobalt.graphics.ITextureBuffer.AllocatedDataFormat">AllocatedDataFormat</PageRef>.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetTextureFormat(ImageFormat imageFormat, DataFormat dataFormat);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="ImageFormat!cobalt.graphics.ITextureBuffer.ImageFormat" Name="imageFormat">
+          The component layout and broad interpretation requested for the texture.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="DataFormat!cobalt.graphics.ITextureBuffer.DataFormat" Name="dataFormat">
+          The hardware data encoding requested for the texture.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.ImageFormat">ITextureBuffer.ImageFormat</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.DataFormat">ITextureBuffer.DataFormat</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice.IsTextureFormatSupported">IGraphicsDevice.IsTextureFormatSupported</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

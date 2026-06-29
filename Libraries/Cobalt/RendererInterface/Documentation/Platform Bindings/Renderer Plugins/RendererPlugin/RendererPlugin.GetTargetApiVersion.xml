@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.RendererPlugin.GetTargetApiVersion" Title="GetTargetApiVersion method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.RendererPlugin">RendererPlugin</PageRef> ->
+    GetTargetApiVersion
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetTargetApiVersion</TypeRef> method returns the target graphics API version implemented by the renderer.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[ApiVersion GetTargetApiVersion() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="ApiVersion!cobalt.graphics.IRendererPlugin.ApiVersion">
+        The target graphics API version.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.RendererPlugin">RendererPlugin</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

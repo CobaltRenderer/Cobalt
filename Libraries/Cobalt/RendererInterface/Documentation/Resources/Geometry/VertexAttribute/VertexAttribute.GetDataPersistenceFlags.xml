@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.VertexAttribute.GetDataPersistenceFlags" Title="GetDataPersistenceFlags method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.VertexAttribute">VertexAttribute</PageRef> ->
+    GetDataPersistenceFlags
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetDataPersistenceFlags</TypeRef> method returns the specified data persistence flags for this vertex attribute.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[DataPersistenceFlags GetDataPersistenceFlags() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="DataPersistenceFlags">
+        The data persistence flags configured for this attribute.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.VertexAttribute">VertexAttribute</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

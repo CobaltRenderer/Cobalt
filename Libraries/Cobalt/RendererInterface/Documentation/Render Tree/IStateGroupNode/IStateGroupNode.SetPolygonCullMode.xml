@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateGroupNode.SetPolygonCullMode" Title="SetPolygonCullMode method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> ->
+    SetPolygonCullMode
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetPolygonCullMode</TypeRef> method sets the <PageRef PageName="cobalt.graphics.IStateGroupNode.PolygonCullMode">PolygonCullMode</PageRef>
+      for the <TypeRef>IStateGroupNode</TypeRef>. All child renderable nodes will have their polygons culled according
+      to this mode. It is <TypeRef>PolygonCullMode::None</TypeRef> by default.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetPolygonCullMode(PolygonCullMode cullMode);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="PolygonCullMode!cobalt.graphics.IStateGroupNode.PolygonCullMode" Name="cullMode">
+          The polygon cull mode to use
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode.PolygonCullMode">IStateGroupNode.PolygonCullMode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

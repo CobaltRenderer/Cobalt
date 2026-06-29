@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IModuleHandle" Title="IModuleHandle interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef> ->
+    IModuleHandle
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class IModuleHandle;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IModuleHandle</TypeRef> interface represents an owning reference to a dynamically loaded renderer plugin module.
+    </Paragraph>
+    <Paragraph>
+      Renderer plugin loading helpers use module handles to keep a plugin library loaded while objects allocated by that plugin are still alive.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        Do not unload a renderer plugin library while its graphics device enumerator, devices, renderer, or resources are still alive. Keep the relevant <TypeRef>IModuleHandle::unique_ptr</TypeRef> alive until those objects have been destroyed.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Clone" PageName="cobalt.graphics.IModuleHandle.Clone">
+          Creates another owning handle to the same module.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.IModuleHandle.Delete">
+          Deletes the module handle object.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.RendererPlugin.CreateGraphicsDeviceEnumerator">RendererPlugin.CreateGraphicsDeviceEnumerator</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ModuleHandleWin32">ModuleHandleWin32</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ModuleHandlePosix">ModuleHandlePosix</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

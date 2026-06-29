@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateGroupNode.StencilTargetFace" Title="StencilTargetFace enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> ->
+    StencilTargetFace
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>StencilTargetFace</TypeRef> enumeration selects which polygon faces receive a stencil operation configuration when <PageRef PageName="cobalt.graphics.IStateGroupNode.SetStencilOperation">SetStencilOperation</PageRef> is called.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="FrontFace">
+        Applies the stencil operation configuration to front-facing polygons.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="BackFace">
+        Applies the stencil operation configuration to back-facing polygons.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="FrontAndBackFace">
+        Applies the stencil operation configuration to both front-facing and back-facing polygons.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode.SetStencilOperation">IStateGroupNode.SetStencilOperation</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

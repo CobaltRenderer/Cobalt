@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderer.CreateVertexBuffer" Title="CreateVertexBuffer method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> ->
+    CreateVertexBuffer
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>CreateVertexBuffer</TypeRef> method constructs and returns a new object which implements the <PageRef PageName="cobalt.graphics.IVertexBuffer">IVertexBuffer</PageRef>
+      interface.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[IVertexBuffer::unique_ptr CreateVertexBuffer();]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="IVertexBuffer!cobalt.graphics.IVertexBuffer">
+        A freshly constructed <TypeRef>IVertexBuffer</TypeRef> object, wrapped in a <TypeRef>unique_ptr</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer">IRenderer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IVertexBuffer">IVertexBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

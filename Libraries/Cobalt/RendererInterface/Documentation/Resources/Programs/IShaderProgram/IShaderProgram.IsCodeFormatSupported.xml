@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IShaderProgram.IsCodeFormatSupported" Title="IsCodeFormatSupported method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef> ->
+    IsCodeFormatSupported
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IsCodeFormatSupported</TypeRef> method reports whether the specified code format is supported by the target renderer.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[bool IsCodeFormatSupported(CodeFormat format) const;]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="CodeFormat" Name="format">
+          The shader code format to test.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="bool">
+        True if the renderer accepts shader code in the specified format, false otherwise.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

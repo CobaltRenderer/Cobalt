@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRendererPlugin.ApiVersion" Title="ApiVersion structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRendererPlugin">IRendererPlugin</PageRef> ->
+    ApiVersion
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[struct ApiVersion;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ApiVersion</TypeRef> structure stores the major and minor version of the graphics API targeted by a renderer plugin.
+    </Paragraph>
+    <Paragraph>
+      The default constructor initializes both fields to zero. The two-argument constructor initializes both fields explicitly.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <DataMemberList>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="major">
+        The major API version number.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="minor">
+        The minor API version number.
+      </DataMemberListEntry>
+    </DataMemberList>
+  </Section>
+  <Section Title="Constructors">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Constructor" PageName="cobalt.graphics.IRendererPlugin.ApiVersion.Constructor">
+          Creates an API version value.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRendererPlugin">IRendererPlugin</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

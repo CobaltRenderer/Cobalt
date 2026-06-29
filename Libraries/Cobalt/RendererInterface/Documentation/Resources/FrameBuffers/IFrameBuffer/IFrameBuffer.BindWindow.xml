@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IFrameBuffer.BindWindow" Title="BindWindow method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRef> ->
+    BindWindow
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>BindWindow</TypeRef> method binds a window-like target to the framebuffer, allowing the renderer to
+      present rendered color output to a native operating system window, or to a renderer-owned headless target when a
+      native window is not being used.
+    </Paragraph>
+    <Paragraph>
+      The <TypeRef>windowInfo</TypeRef> argument must be one of the platform-specific structures documented under
+      <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef>, such as
+      <PageRef PageName="cobalt.graphics.WindowInfoHeadless">WindowInfoHeadless</PageRef>,
+      <PageRef PageName="cobalt.graphics.WindowInfoWin32">WindowInfoWin32</PageRef>,
+      <PageRef PageName="cobalt.graphics.WindowInfoXlib">WindowInfoXlib</PageRef>,
+      <PageRef PageName="cobalt.graphics.WindowInfoWayland">WindowInfoWayland</PageRef>, or
+      <PageRef PageName="cobalt.graphics.WindowInfoAppKit">WindowInfoAppKit</PageRef>.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        The window information structure includes the current drawable size in pixels. When the drawable size changes,
+        call <PageRef PageName="cobalt.graphics.IFrameBuffer.NotifyWindowResized">NotifyWindowResized</PageRef> with
+        the updated pixel size.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken BindWindow(const WindowInfoBase& windowInfo, WindowDepthStencilMode depthStencilMode, WindowColorSpaceMode colorSpaceMode = WindowColorSpaceMode::Default, WindowBindingFlags bindingFlags = WindowBindingFlags::None);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const WindowInfoBase&amp;!cobalt.graphics.IFrameBuffer.WindowInfoBase" Name="windowInfo">
+          The platform-specific window information structure for the target window, or a <PageRef PageName="cobalt.graphics.WindowInfoHeadless">WindowInfoHeadless</PageRef> structure for a headless window-sized target.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="WindowDepthStencilMode!cobalt.graphics.IFrameBuffer.WindowDepthStencilMode" Name="depthStencilMode">
+          The depth and stencil attachment configuration to create for the window framebuffer.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="WindowColorSpaceMode!cobalt.graphics.IFrameBuffer.WindowColorSpaceMode" Name="colorSpaceMode">
+          The color space mode requested for the window color attachment.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="WindowBindingFlags!cobalt.graphics.IFrameBuffer.WindowBindingFlags" Name="bindingFlags">
+          Optional flags controlling presentation behavior for the window binding.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken">
+        True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.WindowInfoBase">IFrameBuffer.WindowInfoBase</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.NotifyWindowResized">IFrameBuffer.NotifyWindowResized</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.WindowInfoHeadless">WindowInfoHeadless</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

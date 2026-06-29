@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.marshalling.MarshallableDelete" Title="MarshallableDelete" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[template<class T>
+class MarshallableDelete;
+
+template<class T>
+class MarshallableDelete<T[]>;]]></Code>
+  </Section>
+
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>MarshallableDelete</TypeRef> helper provides a custom deleter suitable for use with <TypeRef>std::unique_ptr</TypeRef> when a pointer
+      needs to cross an assembly boundary but must still be deleted from the assembly that originally created it. The deleter stores a small shared
+      reference-counted helper object, which keeps the actual delete operation anchored to the originating module. The <TypeRef>MarshallableDelete&lt;T[]&gt;</TypeRef>
+      specialization performs the corresponding array deletion with <TypeRef>delete[]</TypeRef>.
+    </Paragraph>
+    <Paragraph>
+      This helper is only available when C++11 support is enabled, as it relies on <TypeRef>std::unique_ptr</TypeRef>. It is intended for the common case
+      where an interface or other marshallable object uses RAII ownership, but the allocation and destruction must still happen on the same heap.
+    </Paragraph>
+  </Section>
+
+  <Section Title="Members">
+    <SubSection Title="Constructors">
+      <Paragraph>
+        The helper is default-constructible and copyable. Copying the deleter shares ownership of the internal reference-counted helper object, so all
+        copies delete through the same originating assembly.
+      </Paragraph>
+    </SubSection>
+    <SubSection Title="Function operator">
+      <Paragraph>
+        Calling the function operator deletes the supplied pointer using the appropriate delete expression for the specialization being used.
+      </Paragraph>
+    </SubSection>
+  </Section>
+
+  <Section Title="Usage">
+    <Paragraph>
+      Use <TypeRef>MarshallableDelete</TypeRef> as the deleter argument for <TypeRef>std::unique_ptr</TypeRef> when returning ownership of marshallable
+      objects across a module boundary.
+    </Paragraph>
+    <Code Language="C++"><![CDATA[std::unique_ptr<IPalette, cobalt::marshalling::MarshallableDelete<IPalette>> CreatePaletteObject();]]></Code>
+  </Section>
+
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.marshalling.Concepts.InterfaceDesign">Interface Design</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.marshalling.Concepts.MarshallingSTL">Marshalling STL Types</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

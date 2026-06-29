@@ -1,0 +1,11 @@
+name: Install dependencies (macOS)
+description: Install build environment dependencies for macOS
+
+runs:
+  using: composite
+  steps:
+    - name: Installing dependencies (macos)
+      shell: bash
+      run: |
+        brew update
+        brew install clang-format llvm

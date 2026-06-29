@@ -1,0 +1,57 @@
+name: Install dependencies (Ubuntu)
+description: Install build environment dependencies for Ubuntu
+
+runs:
+  using: composite
+  steps:
+    - name: Installing dependencies (ubuntu)
+      shell: bash
+      run: |
+        sudo apt update
+        sudo apt install -y cmake
+        sudo apt install -y ninja-build
+        sudo apt install -y clang
+        sudo apt install -y libc++-dev libc++abi-dev
+        sudo apt install -y git
+        sudo apt install -y pkg-config
+        sudo apt install -y libxcb1 libxcb1-dev
+        sudo apt install -y libx11-dev
+        sudo apt install -y libx11-xcb-dev
+        sudo apt install -y libwayland-dev
+        sudo apt install -y libcairo-dev
+        sudo apt install -y libxrandr-dev
+        sudo apt install -y mesa-utils mesa-common-dev libgl1-mesa-dev libglu1-mesa-dev
+        sudo apt install -y xsltproc
+        sudo apt install -y libxcursor-dev
+        sudo apt install -y build-essential git make pkg-config cmake ninja-build gnome-desktop-testing libasound2-dev libpulse-dev libaudio-dev libfribidi-dev libjack-dev libsndio-dev libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxfixes-dev libxi-dev libxss-dev libxtst-dev libxkbcommon-dev libdrm-dev libgbm-dev libgl1-mesa-dev libgles2-mesa-dev libegl1-mesa-dev libdbus-1-dev libibus-1.0-dev libudev-dev libthai-dev
+        sudo apt install -y wayland-protocols
+
+        # Install and configure lavapipe for a software Vulkan driver
+        sudo apt install -y mesa-vulkan-drivers
+
+        machine="$(uname -m)"
+        if [ "$machine" = "arm64" ]; then
+          machine="aarch64"
+        elif [ "$machine" = "i386" ]; then
+          machine="i686"
+        fi
+
+        lavapipe_icd="/usr/share/vulkan/icd.d/lvp_icd.$machine.json"
+        if [ ! -f "$lavapipe_icd" ]; then
+          lavapipe_icd="$(find /usr/share/vulkan/icd.d -maxdepth 1 -name 'lvp_icd*.json' | sort | head -n 1)"
+        fi
+
+        if [ -z "${lavapipe_icd:-}" ] || [ ! -f "$lavapipe_icd" ]; then
+          echo "Lavapipe Vulkan ICD was not found." >&2
+          find /usr/share/vulkan/icd.d -maxdepth 1 -type f -print >&2 || true
+          exit 1
+        fi
+
+        echo "Using Lavapipe Vulkan ICD: $lavapipe_icd"
+        export VK_DRIVER_FILES="$lavapipe_icd"
+        export VK_ICD_FILENAMES="$lavapipe_icd"
+
+        {
+          echo "VK_DRIVER_FILES=$lavapipe_icd"
+          echo "VK_ICD_FILENAMES=$lavapipe_icd"
+        } >> "$GITHUB_ENV"

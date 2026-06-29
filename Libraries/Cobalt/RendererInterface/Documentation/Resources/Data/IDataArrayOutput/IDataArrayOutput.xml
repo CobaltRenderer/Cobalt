@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IDataArrayOutput" Title="IDataArrayOutput interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    IDataArrayOutput
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class IDataArrayOutput;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IDataArrayOutput</TypeRef> interface represents an object which is capable of retrieving content from
+      an <PageRef PageName="cobalt.graphics.IDataArray">IDataArray</PageRef>, and returning the contained data to the
+      application. This is useful when performing compute tasks in shaders, where the computed data needs to be returned
+      to the application. Multiple <TypeRef>IDataArrayOutput</TypeRef> objects can be attached to the one <PageRef PageName="cobalt.graphics.IDataArray">IDataArray</PageRef>
+      if required. If a counter has been attached to an <TypeRef>IDataArray</TypeRef>, the counter value can also be
+      captured and retrieved.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Only the final state of the target <PageRef PageName="cobalt.graphics.IDataArray">IDataArray</PageRef> can be
+        captured, representing its content when the frame completes drawing. It is not possible to capture intermediate
+        results from a buffer which are changed later in the same frame.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.IDataArrayOutput.Delete">
+          Schedules the object for deletion. After calling this method, the object will be destroyed after the current
+          frame completes drawing.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Configuration methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetDetachAfterCapture" PageName="cobalt.graphics.IDataArrayOutput.SetDetachAfterCapture">
+          Specifies whether this <TypeRef>IDataArrayOutput</TypeRef> object will be detached after a single frame.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetArrayCaptureRegion" PageName="cobalt.graphics.IDataArrayOutput.SetArrayCaptureRegion">
+          Specifies the region of the bound data array to capture, and whether any attached counter value should also be
+          captured.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Data methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="HasCapturedOutput" PageName="cobalt.graphics.IDataArrayOutput.HasCapturedOutput">
+          Returns true if there is captured data ready to be read from the output buffer
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="HasCapturedCounterValue" PageName="cobalt.graphics.IDataArrayOutput.HasCapturedCounterValue">
+          Returns true if there is a captured counter value ready to be read from the output
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ClearCapturedOutput" PageName="cobalt.graphics.IDataArrayOutput.ClearCapturedOutput">
+          Relases the captured data. Note that this doesn't need to be called to capture a new set of data.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetEntryCount" PageName="cobalt.graphics.IDataArrayOutput.GetEntryCount">
+          Returns the number of captured entries currently stored in the output buffer
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetEntrySizeInBytes" PageName="cobalt.graphics.IDataArrayOutput.GetEntrySizeInBytes">
+          Returns the size in bytes of each captured entry currently stored in the output buffer
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ReadBufferData" PageName="cobalt.graphics.IDataArrayOutput.ReadBufferData">
+          Attempts to read the requested portion of the captured output buffer and write it to the target buffer
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ReadCounterValue" PageName="cobalt.graphics.IDataArrayOutput.ReadCounterValue">
+          Attempts to read the captured counter value
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IDataArray">IDataArray</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateGroupNode.StencilComparisonFunction" Title="StencilComparisonFunction enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> ->
+    StencilComparisonFunction
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>StencilComparisonFunction</TypeRef> enumeration specifies the comparison operation used by the stencil test when stencil testing is enabled.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Never">
+        The stencil test always fails.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Equal">
+        The stencil test passes when the incoming value is equal to the stored or reference value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="NotEqual">
+        The stencil test passes when the incoming value is not equal to the stored or reference value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Less">
+        The stencil test passes when the incoming value is less than the stored or reference value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="LessOrEqual">
+        The stencil test passes when the incoming value is less than or equal to the stored or reference value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Greater">
+        The stencil test passes when the incoming value is greater than the stored or reference value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="GreaterOrEqual">
+        The stencil test passes when the incoming value is greater than or equal to the stored or reference value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Always">
+        The stencil test always passes.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode.SetStencilOperation">IStateGroupNode.SetStencilOperation</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateGroupNode.BlendOperation" Title="BlendOperation enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> ->
+    BlendOperation
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>BlendOperation</TypeRef> enumeration specifies the arithmetic operation used to combine source and destination values when color blending is enabled.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Add">
+        Adds the scaled source value and scaled destination value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Subtract">
+        Subtracts the scaled destination value from the scaled source value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ReverseSubtract">
+        Subtracts the scaled source value from the scaled destination value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Min">
+        Uses the component-wise minimum of the source and destination values.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Max">
+        Uses the component-wise maximum of the source and destination values.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode.SetBlendMode">IStateGroupNode.SetBlendMode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

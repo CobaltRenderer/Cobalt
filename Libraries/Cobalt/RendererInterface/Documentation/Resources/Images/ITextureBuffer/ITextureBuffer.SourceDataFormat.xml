@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureBuffer.SourceDataFormat" Title="SourceDataFormat enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef> ->
+    SourceDataFormat
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SourceDataFormat</TypeRef> enumeration describes the data encoding of image data supplied from CPU memory. It can differ from the allocated <PageRef PageName="cobalt.graphics.ITextureBuffer.DataFormat">DataFormat</PageRef> when the renderer supports conversion between the two encodings.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Int8">
+        Supplies each component as an 8-bit signed integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Int16">
+        Supplies each component as a 16-bit signed integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Int32">
+        Supplies each component as a 32-bit signed integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UInt8">
+        Supplies each component as an 8-bit unsigned integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UInt16">
+        Supplies each component as a 16-bit unsigned integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UInt32">
+        Supplies each component as a 32-bit unsigned integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Norm8">
+        Supplies each component as an 8-bit signed normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Norm16">
+        Supplies each component as a 16-bit signed normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Norm32">
+        Supplies each component as a 32-bit signed normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UNorm8">
+        Supplies each component as an 8-bit unsigned normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UNorm16">
+        Supplies each component as a 16-bit unsigned normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UNorm32">
+        Supplies each component as a 32-bit unsigned normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Float16">
+        Supplies each component as a 16-bit floating point value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Float32">
+        Supplies each component as a 32-bit floating point value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DXT1">
+        Supplies image data using DXT1 or BC1 block compression.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DXT3">
+        Supplies image data using DXT3 or BC2 block compression.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DXT5">
+        Supplies image data using DXT5 or BC3 block compression.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="BPTC">
+        Supplies image data using BPTC or BC7-style block compression where supported.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ETC2">
+        Supplies image data using ETC2 block compression where supported.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ASTC4x4">
+        Supplies image data using ASTC compression with 4 by 4 pixel blocks.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ASTC5x5">
+        Supplies image data using ASTC compression with 5 by 5 pixel blocks.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ASTC6x6">
+        Supplies image data using ASTC compression with 6 by 6 pixel blocks.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ASTC8x8">
+        Supplies image data using ASTC compression with 8 by 8 pixel blocks.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.SetInitialData">ITextureBuffer.SetInitialData</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.QueueDataUpdate">ITextureBuffer.QueueDataUpdate</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

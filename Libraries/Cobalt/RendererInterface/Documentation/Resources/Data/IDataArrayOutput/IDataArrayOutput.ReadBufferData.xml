@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IDataArrayOutput.ReadBufferData" Title="ReadBufferData method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IDataArrayOutput">IDataArrayOutput</PageRef> ->
+    ReadBufferData
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ReadBufferData</TypeRef> method attempts to read the requested portion of the captured output buffer and write it to the target buffer.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken ReadBufferData(void* targetBuffer, size_t targetBufferSizeInBytes) const;]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="void*" Name="targetBuffer">
+          The destination memory to receive the captured data.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="targetBufferSizeInBytes">
+          The size, in bytes, of the destination memory.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken">
+        True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IDataArrayOutput">IDataArrayOutput</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

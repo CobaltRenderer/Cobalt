@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IDataArrayOutput.SetDetachAfterCapture" Title="SetDetachAfterCapture method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IDataArrayOutput">IDataArrayOutput</PageRef> ->
+    SetDetachAfterCapture
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetDetachAfterCapture</TypeRef> method specifies whether this IDataArrayOutput object will be detached after a single frame.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetDetachAfterCapture(bool state = true);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="bool" Name="state">
+          True to automatically detach this capture target after a data-array capture completes, false to keep it attached.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IDataArrayOutput">IDataArrayOutput</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

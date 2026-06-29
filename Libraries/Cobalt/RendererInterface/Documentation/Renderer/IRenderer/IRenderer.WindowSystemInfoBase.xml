@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderer.WindowSystemInfoBase" Title="WindowSystemInfoBase structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> ->
+    WindowSystemInfoBase
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowSystemInfoBase</TypeRef> structure is the common base structure passed to <PageRef PageName="cobalt.graphics.IRenderer.Initialize">Initialize</PageRef>. Derived platform-specific structures identify the window system that the renderer will use for future window framebuffer bindings.
+    </Paragraph>
+    <Paragraph>
+      Applications do not normally create this base structure directly. Instead, they create the platform-specific structure that matches the windowing environment they are using.
+    </Paragraph>
+    <Paragraph>
+      The platform-specific structures are provided by <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="WindowSystemType" TypeCategory="Enumeration" PageName="cobalt.graphics.IRenderer.WindowSystemInfoBase.WindowSystemType" Visibility="Public">
+        Identifies the platform window system described by the concrete window system information structure.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <DataMemberList>
+      <DataMemberListEntry Visibility="Public" Type="size_t" Name="structureSizeInBytes">
+        Reports the byte size of the concrete structure supplied by the application, allowing the renderer to validate the structure version.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="WindowSystemType!cobalt.graphics.IRenderer.WindowSystemInfoBase.WindowSystemType" Name="windowSystemType">
+        Identifies the concrete window system information structure that has been supplied.
+      </DataMemberListEntry>
+    </DataMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer">IRenderer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer.Initialize">IRenderer.Initialize</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.WindowSystemInfoHeadless">WindowSystemInfoHeadless</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.WindowSystemInfoWin32">WindowSystemInfoWin32</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.WindowSystemInfoWayland">WindowSystemInfoWayland</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.WindowSystemInfoAppKit">WindowSystemInfoAppKit</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

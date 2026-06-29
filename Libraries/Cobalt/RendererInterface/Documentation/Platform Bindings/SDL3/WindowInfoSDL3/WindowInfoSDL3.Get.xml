@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.WindowInfoSDL3.Get" Title="Get method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.WindowInfoSDL3">WindowInfoSDL3</PageRef> ->
+    Get
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Get</TypeRef> method returns a pointer to the concrete platform-specific binding structure stored by the SDL helper.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        The returned pointer is owned by the SDL helper object and remains valid only while that helper object remains alive and unchanged.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[IFrameBuffer::WindowInfoBase* Get();]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="IFrameBuffer::WindowInfoBase*">
+        A pointer to the stored binding structure, or <TypeRef>nullptr</TypeRef> if no matching type is stored.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.WindowInfoSDL3">WindowInfoSDL3</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

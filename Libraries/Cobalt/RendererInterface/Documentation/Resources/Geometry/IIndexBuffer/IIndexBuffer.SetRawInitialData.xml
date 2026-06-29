@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IIndexBuffer.SetRawInitialData" Title="SetRawInitialData method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IIndexBuffer">IIndexBuffer</PageRef> ->
+    SetRawInitialData
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetRawInitialData</TypeRef> method allows initial data to be set directly for the buffer where manual layout attributes have been bound with the BindIndexAttributeManualLayout method.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken SetRawInitialData(const uint8_t* data, size_t dataSizeInBytes);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const uint8_t*" Name="data">
+          The source bytes to use when the manually laid out buffer is allocated.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="dataSizeInBytes">
+          The number of source bytes supplied.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken">
+        True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IIndexBuffer">IIndexBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

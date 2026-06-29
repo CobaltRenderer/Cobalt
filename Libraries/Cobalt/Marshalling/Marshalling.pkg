@@ -1,0 +1,17 @@
+// Copyright (c) 2013 Roger Sanders
+// Licensed under the MIT License
+#pragma once
+
+// Public headers
+#include "IMarshalSource.h"
+#include "IMarshalTarget.h"
+#include "IMarshallingObject.h"
+#include "MarshalIn.h"
+#include "MarshalInOut.h"
+#include "MarshalObjectTag.h"
+#include "MarshalOperators.h"
+#include "MarshalOut.h"
+#include "MarshalRet.h"
+#include "MarshalSource.h"
+#include "MarshalTarget.h"
+#include "MarshallableDelete.h"

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderer.WaitForDrawComplete" Title="WaitForDrawComplete method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> ->
+    WaitForDrawComplete
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      Calls to this method will block until the current draw process is complete. Note that this method doesn't
+      guarantee that the result of drawing operations have been made visible on the screen yet, or that any requested
+      framebuffer output capture processes are complete, but those operations will at least be pending or in progress at
+      the time this method returns.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Renderers are not required to make the results of any draw operations visible on screen until either the <TypeRef>WaitForDrawComplete</TypeRef>
+        method is called, or the <PageRef PageName="cobalt.graphics.IRenderer.WaitForOutputCaptureComplete">WaitForOutputCaptureComplete</PageRef>
+        or <PageRef PageName="cobalt.graphics.IRenderer.StartNewFrame">StartNewFrame</PageRef> methods are called. While
+        some renderers may make the image available without any of these methods being called, this is not guaranteed.
+        If you are not rendering continuously, you must call this method before idling to ensure the image is made
+        visible.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        Calling this method doesn't make the results of any framebuffer output capture operations from the draw process
+        that was just completed available to the application. If your application needs to read captured framebuffer
+        output from the frame which was just drawn, it must either call the <PageRef PageName="cobalt.graphics.IRenderer.WaitForOutputCaptureComplete">WaitForOutputCaptureComplete</PageRef>
+        method, or wait until the next frame begins drawing from a call to <PageRef PageName="cobalt.graphics.IRenderer.StartNewFrame">StartNewFrame</PageRef>.
+    </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void WaitForDrawComplete();]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer">IRenderer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer.WaitForOutputCaptureComplete">IRenderer.WaitForOutputCaptureComplete</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDevice.FrameBufferLimits" Title="FrameBufferLimits structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> ->
+    FrameBufferLimits
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>FrameBufferLimits</TypeRef> structure reports information on limits an <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef>
+      object has which relate to framebuffers, as returned by the <PageRef PageName="cobalt.graphics.IGraphicsDevice.GetFrameBufferLimits">GetFrameBufferLimits</PageRef>
+      method.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <DataMemberList>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="maxFrameBufferWidth">
+        Reports the maximum supported width of a drawable surface attached to a framebuffer, in pixels.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="maxFrameBufferHeight">
+        Reports the maximum supported height of a drawable surface attached to a framebuffer, in pixels.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="maxFrameBufferColorAttachments">
+        Reports the maximum number of colour output targets which can be bound in a fragment shader, or attached to a
+        <PageRef PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRef> object using the <PageRef PageName="cobalt.graphics.IFrameBuffer.BindTexture">BindTexture</PageRef>
+        method.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="DepthRange!cobalt.graphics.IGraphicsDevice.DepthRange" Name="depthRange">
+        Reports how depth values are mapped to numeric values by the underlying graphics API.
+      </DataMemberListEntry>
+    </DataMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

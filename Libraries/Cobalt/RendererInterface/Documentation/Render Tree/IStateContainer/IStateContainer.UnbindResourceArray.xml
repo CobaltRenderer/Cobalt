@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateContainer.UnbindResourceArray" Title="UnbindResourceArray method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateContainer">IStateContainer</PageRef> ->
+    UnbindResourceArray
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>UnbindResourceArray</TypeRef> method removes a previously defined binding to either an <PageRef PageName="cobalt.graphics.IDataArray">IDataArray</PageRef>
+      or <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef> object.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        In order to create or bind to a resource array, the <PageRef PageName="cobalt.graphics.IGraphicsDevice.Feature">ResourceArrays feature</PageRef>
+        must be supported on the <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef>, and
+        activated when the <PageRef PageName="cobalt.graphics.IGraphicsDevice.CreateRenderer">CreateRenderer</PageRef>
+        method is called.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void UnbindResourceArray(ResourceArrayId resourceArrayId);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="ResourceArrayId!cobalt.graphics.ResourceArrayId" Name="resourceArrayId">
+          The <TypeRef>ResourceArrayId</TypeRef> of the resource array to unbind
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateContainer">IStateContainer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IDataArray">IDataArray</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

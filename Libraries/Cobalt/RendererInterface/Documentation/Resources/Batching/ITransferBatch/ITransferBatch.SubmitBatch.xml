@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITransferBatch.SubmitBatch" Title="SubmitBatch method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRef> ->
+    SubmitBatch
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SubmitBatch</TypeRef> method submits the contents of this batch to the renderer for processing. Note that processing does not necessarily begin immediately. The StartTiming entry that was specified for the batch when it was created with the CreateTransferBatch method controls when the batch begins execution.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken SubmitBatch();]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken">
+        True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

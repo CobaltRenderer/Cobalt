@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IShaderProgram.ShaderSourceInfoBase.ShaderType" Title="ShaderType enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IShaderProgram.ShaderSourceInfoBase">ShaderSourceInfoBase</PageRef> ->
+    ShaderType
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ShaderType</TypeRef> enumeration identifies the concrete shader source information structure supplied through <PageRef PageName="cobalt.graphics.IShaderProgram.ShaderSourceInfoBase">ShaderSourceInfoBase</PageRef>. Its values correspond to <PageRef PageName="cobalt.graphics.IShaderProgram.CodeFormat">CodeFormat</PageRef> entries.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="HLSL">
+        Identifies HLSL source code text.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DXBC">
+        Identifies Direct3D bytecode produced by the legacy FXC compiler.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DXIL">
+        Identifies DirectX Intermediate Language bytecode produced by the DXC compiler.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="SPIRVAssembly">
+        Identifies SPIR-V assembly text.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="SPIRV">
+        Identifies binary SPIR-V shader code.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="GLSL">
+        Identifies GLSL source code text.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="MSL">
+        Identifies Metal Shading Language source code text.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="AIR">
+        Identifies Apple Intermediate Representation bytecode for Metal shaders.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram.CodeFormat">IShaderProgram.CodeFormat</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

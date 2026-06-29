@@ -1,0 +1,418 @@
+div.mainContent > :first-child { margin-top: 0 !important; }
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Verdana;
+	font-size: 80%;
+}
+h1 {
+	font-family: Verdana;
+	font-size: 130%;
+	margin-top: 35px;
+	margin-bottom: 4px;
+}
+h2 {
+	font-family: Verdana;
+	font-size: 110%;
+}
+p {
+	margin-top: 4px;
+}
+li.tocEntry {
+	margin-top: 0px;
+}
+li + li {
+	margin-top: 6px;
+}
+li > ul > li {
+	margin-top: 3px;
+}
+li > ol > li {
+	margin-top: 3px;
+}
+img {
+	max-width: 100%;
+}
+img.missingDownloadImage {
+	border: 2px solid red;
+}
+img.imgVerySmall {
+/*	width:100%;*/
+	height:auto;
+	max-width:100px;
+}
+img.imgSmall {
+/*	width:100%;*/
+	height:auto;
+	max-width:200px;
+}
+img.imgMedium {
+/*	width:100%;*/
+	height:auto;
+	max-width:400px;
+}
+img.imgMediumLarge {
+/*	width:100%;*/
+	height:auto;
+	max-width:600px;
+}
+img.imgLarge {
+/*	width:100%;*/
+	height:auto;
+	max-width:800px;
+}
+img.imgVeryLarge {
+/*	width:100%;*/
+	height:auto;
+	max-width:1200px;
+}
+div.thumbnails img {
+    width:100%;
+    height:auto;
+    max-width:200px;
+}
+table {
+	border-spacing: 0;
+	border-collapse: collapse;
+	}
+table tr:nth-child(2n) {
+	background-color: #f6f8fa;
+	}
+table tr {
+	border-top: 1px solid #c6cbd1;
+	}
+table th, table td {
+	padding: 6px 13px;
+	border: 1px solid #dfe2e5;
+}
+table th {
+	background-color: #f6f8fa;
+	font-weight: 600;
+}
+.warningBlock {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding-right: 5px;
+	padding-left: 5px;
+	border-color: rgb(226, 218, 241);
+	border-width: 2px;
+	border-style: solid;
+	border-radius: 7px;
+	background-color: rgb(226, 218, 241);
+}
+.warningBlock p img {
+	padding-right: 5px;
+}
+.importantBlock {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding-right: 5px;
+	padding-left: 5px;
+	border-color: rgb(224, 242, 255);
+	border-width: 2px;
+	border-style: solid;
+	border-radius: 7px;
+	background-color: rgb(224, 242, 255);
+}
+.importantBlock p img {
+	padding-right: 5px;
+}
+.tocRoot {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	font-size: 85%;
+}
+.tocGroupChildList  {
+	list-style-type: none;
+	margin: 0;
+	padding-left: 0.4cm;
+}
+.tocEntry, .tocGroupListEntry {
+	white-space:nowrap;
+}
+body, html {
+	width: 100%;
+	height: 100%;
+}
+.mainFrameSet {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	flex-direction: row;
+	overflow: hidden;
+}
+.tocFrameClass {
+	width: 7.5cm;
+	border: 0;
+	border-right: 1px solid gray;
+	background-color: rgb(235,235,235);
+}
+.docFrameClass {
+	flex-grow: 1;
+	border: none;
+	margin: 0;
+	padding: 0;
+	min-width: 500px;
+}
+.docBody {
+	position: absolute;
+	padding-left: 7cm;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+.docFrame {
+	position: relative;
+	top: 0;
+	left: 0;
+	border: 0;
+	height: 100%;
+	width: 100%;
+	min-width: 500px;
+}
+.mainContent {
+	margin-left: 1%;
+	margin-right: 1%;
+	margin-bottom: 1%;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	max-width: 1000px;
+}
+.mainSection {
+	padding-bottom: 20px;
+	margin-top: 10px;
+	margin-left: 15px;
+}
+.section {
+	margin-left: 0;
+	padding: 0px 15px 0px 15px;
+}
+.subSection {
+	margin-left: 0;
+	padding: 0px 15px 0px 15px;
+}
+.sourceCode {
+	color: rgb(0, 0, 100);
+	font-size: 125%;
+}
+.typeRef {
+	font-weight: bold;
+}
+.iconColumn {
+	padding: 2px;
+	width: 30px;
+	text-align: center;
+}
+.typeColumn {
+	padding: 2px;
+	width: 5cm;
+	/*width: 1px;*/
+	white-space:nowrap
+}
+.nameColumn {
+	padding: 2px;
+	width: 5cm;
+	/*width: 1px;*/
+	white-space:nowrap
+}
+.descriptionColumn {
+	padding: 2px;
+}
+.functionMembers {
+	width: 100%;
+	font-size: 100%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.functionMembersRow {
+	vertical-align: top;
+}
+.functionMembersData {
+	padding-right: 5px;
+	padding-left: 5px;
+	border-bottom-color: rgb(213, 213, 211);
+	border-left-color: rgb(213, 213, 211);
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-bottom-style: solid;
+	border-left-style: none;
+	background-color: rgb(247, 247, 255);
+}
+.functionMembersHeader {
+	text-align: left;
+	color: rgb(0, 0, 102);
+	padding-right: 5px;
+	padding-left: 5px;
+	border-bottom-color: rgb(200, 205, 222);
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-left-color: rgb(213, 213, 211);
+	border-left-width: 1px;
+	border-left-style: none;
+	background-color: rgb(239, 239, 247);
+}
+.dataMembers {
+	width: 100%;
+	font-size: 100%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.dataMembersRow {
+	vertical-align: top;
+}
+.dataMembersData {
+	padding-right: 5px;
+	padding-left: 5px;
+	border-bottom-color: rgb(213, 213, 211);
+	border-left-color: rgb(213, 213, 211);
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-bottom-style: solid;
+	border-left-style: none;
+	background-color: rgb(247, 247, 255);
+}
+.dataMembersHeader {
+	text-align: left;
+	color: rgb(0, 0, 102);
+	padding-right: 5px;
+	padding-left: 5px;
+	border-bottom-color: rgb(200, 205, 222);
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-left-color: rgb(213, 213, 211);
+	border-left-width: 1px;
+	border-left-style: none;
+	background-color: rgb(239, 239, 247);
+}
+.enumMembers {
+	width: 100%;
+	font-size: 100%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.enumMembersRow {
+	vertical-align: top;
+}
+.enumMembersData {
+	padding-right: 5px;
+	padding-left: 5px;
+	border-bottom-color: rgb(213, 213, 211);
+	border-left-color: rgb(213, 213, 211);
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-bottom-style: solid;
+	border-left-style: none;
+	background-color: rgb(247, 247, 255);
+}
+.enumMembersHeader {
+	text-align: left;
+	color: rgb(0, 0, 102);
+	padding-right: 5px;
+	padding-left: 5px;
+	border-bottom-color: rgb(200, 205, 222);
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-left-color: rgb(213, 213, 211);
+	border-left-width: 1px;
+	border-left-style: none;
+	background-color: rgb(239, 239, 247);
+}
+.typeMembers {
+	width: 100%;
+	font-size: 100%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.typeMembersRow {
+	vertical-align: top;
+}
+.typeMembersData {
+	padding-right: 5px;
+	padding-left: 5px;
+	border-bottom-color: rgb(213, 213, 211);
+	border-left-color: rgb(213, 213, 211);
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-bottom-style: solid;
+	border-left-style: none;
+	background-color: rgb(247, 247, 255);
+}
+.typeMembersHeader {
+	text-align: left;
+	color: rgb(0, 0, 102);
+	padding-right: 5px;
+	padding-left: 5px;
+	border-bottom-color: rgb(200, 205, 222);
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-left-color: rgb(213, 213, 211);
+	border-left-width: 1px;
+	border-left-style: none;
+	background-color: rgb(239, 239, 247);
+}
+.nolink {
+	font-weight: bold;
+}
+.tocGroupHeaderNoLink {
+	font-weight: bold;
+}
+.tocGroupHeaderWithLink {
+	font-weight: bold;
+}
+.contentsGroupHeaderNoLink {
+	font-weight: bold;
+}
+.contentsGroupHeaderWithLink {
+	font-weight: bold;
+}
+.missinglink {
+	font-weight: bold;
+	color: Red;
+}
+.missingDownload {
+	font-weight: bold;
+	color: Red;
+}
+.missingImage {
+	font-weight: bold;
+	color: Red;
+}
+.argumentName {
+	font-style:italic;
+	font-size: 110%;
+}
+.argumentListEntryType, .returnValueListEntryType {
+	padding-bottom: 2px;
+}
+.argumentListEntryDescription, .returnValueListEntryDescription {
+	padding-bottom: 5px;
+}
+ul.tocRoot li {
+    list-style-type: none;
+    position: relative;
+}ul.tocRoot li ul {
+    display: none;
+}
+ul.tocRoot li.open > ul {
+    display: block;
+}
+ul.tocRoot li span:before {
+    height: 1em;
+    padding:0 .1em;
+    font-size: 1.5em;
+    display: block;
+    position: absolute;
+    left: -.9em;
+    top: -.3em;
+}
+ul.tocRoot li > span:not(:last-child):before {
+    content: '\25B8';
+}
+ul.tocRoot li.open > span:not(:last-child):before {
+    content: '\25BC';
+    font-size: .8em;
+    left: -1.3em;
+    top: .2em;
+}

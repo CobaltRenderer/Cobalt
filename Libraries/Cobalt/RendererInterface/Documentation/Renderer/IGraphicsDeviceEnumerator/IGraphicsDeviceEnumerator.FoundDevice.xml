@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDeviceEnumerator.FoundDevice" Title="FoundDevice method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRef> ->
+    FoundDevice
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>FoundDevice</TypeRef> method returns whether the most recent successful call to
+      <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.EnumerateDevices">EnumerateDevices</PageRef> located
+      at least one graphics device compatible with the underlying renderer plugin.
+    </Paragraph>
+    <Paragraph>
+      This method reports the unfiltered enumeration result. It is not affected by calls to the filtering methods. A
+      call to <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetFilteredDevices">GetFilteredDevices</PageRef>
+      may return an empty list after filters have been applied, while this method still returns true because one or more
+      compatible devices were found during enumeration.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[bool FoundDevice() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="bool">
+        True if at least one compatible graphics device was found during the most recent enumeration, false otherwise.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDeviceEnumerator.EnumerateDevices">IGraphicsDeviceEnumerator.EnumerateDevices</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetAllDevices">IGraphicsDeviceEnumerator.GetAllDevices</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetFilteredDevices">IGraphicsDeviceEnumerator.GetFilteredDevices</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

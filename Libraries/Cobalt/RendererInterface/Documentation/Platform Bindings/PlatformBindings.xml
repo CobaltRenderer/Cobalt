@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.PlatformBindings" Title="PlatformBindings package" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    PlatformBindings
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>PlatformBindings.pkg</TypeRef> header provides the platform-specific pieces that are deliberately kept out of the core renderer interfaces. These pieces describe native window systems, native windows, SDL3 integration helpers, and renderer plugin loading helpers.
+    </Paragraph>
+    <Paragraph>
+      The core renderer APIs accept base structures such as <PageRef PageName="cobalt.graphics.IRenderer.WindowSystemInfoBase">IRenderer.WindowSystemInfoBase</PageRef> and <PageRef PageName="cobalt.graphics.IFrameBuffer.WindowInfoBase">IFrameBuffer.WindowInfoBase</PageRef>. The concrete structures documented in this section fill those base structures for Win32, Xlib, XCB, Wayland, AppKit, SDL3, and headless operation.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        If <TypeRef>COBALT_RENDERER_MANUAL_PLATFORM_BINDINGS</TypeRef> is not defined, <TypeRef>PlatformBindings.pkg</TypeRef> auto-selects bindings for the current platform. Windows enables Win32 bindings, Linux enables Wayland, XCB, and Xlib bindings, and macOS enables AppKit bindings.
+      </Paragraph>
+    </Note>
+    <Note Type="Important">
+      <Paragraph>
+        Headless window system and framebuffer window information structures are included on all platforms. They are used when rendering without a native operating system window or presentation surface.
+      </Paragraph>
+    </Note>
+    <Note Type="Important">
+      <Paragraph>
+        SDL3 helpers are enabled only when <TypeRef>COBALT_RENDERER_SDL3_SUPPORT</TypeRef> is defined. Automatic SDL3 detection is performed when <TypeRef>COBALT_RENDERER_NO_SDL_DETECTION</TypeRef> is not defined and <TypeRef>&lt;SDL3/SDL.h&gt;</TypeRef> is available.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        The <PageRef PageName="cobalt.graphics.RenderPluginEnumerator">RenderPluginEnumerator</PageRef> helper is included by <TypeRef>PlatformBindings.pkg</TypeRef> only for C++17 or newer builds, because it uses <TypeRef>std::filesystem</TypeRef>.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Platform selection macros">
+    <List>
+      <ListEntry><TypeRef>COBALT_RENDERER_WIN32_SUPPORT</TypeRef>: exposes Win32 window and module-handle bindings. Automatically enabled on Windows.</ListEntry>
+      <ListEntry><TypeRef>COBALT_RENDERER_XLIB_SUPPORT</TypeRef>: exposes Xlib window bindings. Automatically enabled on Linux.</ListEntry>
+      <ListEntry><TypeRef>COBALT_RENDERER_XCB_SUPPORT</TypeRef>: exposes XCB window bindings. Automatically enabled on Linux.</ListEntry>
+      <ListEntry><TypeRef>COBALT_RENDERER_WAYLAND_SUPPORT</TypeRef>: exposes Wayland window bindings. Automatically enabled on Linux.</ListEntry>
+      <ListEntry><TypeRef>COBALT_RENDERER_APPKIT_SUPPORT</TypeRef>: exposes AppKit window bindings. Automatically enabled on macOS.</ListEntry>
+      <ListEntry><TypeRef>COBALT_RENDERER_SDL3_SUPPORT</TypeRef>: exposes SDL3 window binding helpers when SDL3 support is selected or detected.</ListEntry>
+      <ListEntry><TypeRef>COBALT_RENDERER_MANUAL_PLATFORM_BINDINGS</TypeRef>: disables automatic platform selection so the application can define the binding macros it wants before including the package.</ListEntry>
+      <ListEntry><TypeRef>COBALT_RENDERER_STRIP_X11_PREPROCESSOR_MACROS</TypeRef>: controls whether X11 preprocessor macros are undefined after their values are copied to the wrapped constants in <TypeRef>X11Constants</TypeRef>. Defaults to enabled.</ListEntry>
+    </List>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[#include <Cobalt/RendererInterface/PlatformBindings.pkg>]]></Code>
+  </Section>
+  <Section Title="Types">
+    <SubSection Title="Renderer Plugins">
+      <TypeMemberList>
+        <TypeMemberListEntry Name="IRendererPlugin" TypeCategory="Interface" PageName="cobalt.graphics.IRendererPlugin" Visibility="Public">
+          Interface filled by renderer plugins to describe an available renderer implementation before it is wrapped by a RendererPlugin.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Name="RendererPlugin" TypeCategory="Class" PageName="cobalt.graphics.RendererPlugin" Visibility="Public">
+          Strong owning renderer plugin object used by applications and plugin loading helpers.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Name="RenderPluginEnumerator" TypeCategory="Class" PageName="cobalt.graphics.RenderPluginEnumerator" Visibility="Public">
+          Helper for finding renderer plugin libraries, reading renderer plugin records, and selecting a preferred plugin.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Name="IModuleHandle" TypeCategory="Interface" PageName="cobalt.graphics.IModuleHandle" Visibility="Public">
+          Reference-counted module handle interface used to keep renderer plugin libraries loaded.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Name="ModuleHandleWin32" TypeCategory="Class" PageName="cobalt.graphics.ModuleHandleWin32" Visibility="Public">
+          Windows module handle implementation used to keep renderer plugin DLLs loaded.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Name="ModuleHandlePosix" TypeCategory="Class" PageName="cobalt.graphics.ModuleHandlePosix" Visibility="Public">
+          POSIX module handle implementation used to keep renderer plugin shared libraries loaded.
+        </TypeMemberListEntry>
+      </TypeMemberList>
+    </SubSection>
+    <SubSection Title="Window System Info">
+      <TypeMemberList>
+        <TypeMemberListEntry Name="WindowSystemInfoHeadless" TypeCategory="Struct" PageName="cobalt.graphics.WindowSystemInfoHeadless" Visibility="Public">
+          Window system information for renderer initialization with no native window system.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Name="WindowSystemInfoWin32" TypeCategory="Struct" PageName="cobalt.graphics.WindowSystemInfoWin32" Visibility="Public">
+          Window system information for Win32 renderer initialization.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Name="WindowSystemInfoXlib" TypeCategory="Struct" PageName="cobalt.graphics.WindowSystemInfoXlib" Visibility="Public">
+          Window system information for Xlib renderer initialization.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Name="WindowSystemInfoXCB" TypeCategory="Struct" PageName="cobalt.graphics.WindowSystemInfoXCB" Visibility="Public">
+          Window system information for XCB renderer initialization.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Name="WindowSystemInfoWayland" TypeCategory="Struct" PageName="cobalt.graphics.WindowSystemInfoWayland" Visibility="Public">
+          Window system information for Wayland renderer initialization.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Name="WindowSystemInfoAppKit" TypeCategory="Struct" PageName="cobalt.graphics.WindowSystemInfoAppKit" Visibility="Public">
+          Window system information for AppKit renderer initialization on macOS.
+        </TypeMemberListEntry>
+      </TypeMemberList>
+    </SubSection>
+    <SubSection Title="Window Info">
+      <TypeMemberList>
+        <TypeMemberListEntry Name="WindowInfoHeadless" TypeCategory="Struct" PageName="cobalt.graphics.WindowInfoHeadless" Visibility="Public">
+          Window-sized framebuffer binding information for headless rendering.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Name="WindowInfoWin32" TypeCategory="Struct" PageName="cobalt.graphics.WindowInfoWin32" Visibility="Public">
+          Native Win32 window information for framebuffer window binding.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Name="WindowInfoXlib" TypeCategory="Struct" PageName="cobalt.graphics.WindowInfoXlib" Visibility="Public">
+          Native Xlib window information for framebuffer window binding.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Name="X11Constants" TypeCategory="Struct" PageName="cobalt.graphics.X11Constants" Visibility="Public">
+          Wrapped constants for selected X11 macro values retained by the Xlib wrapper header.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Name="WindowInfoXCB" TypeCategory="Struct" PageName="cobalt.graphics.WindowInfoXCB" Visibility="Public">
+          Native XCB window information for framebuffer window binding.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Name="WindowInfoWayland" TypeCategory="Struct" PageName="cobalt.graphics.WindowInfoWayland" Visibility="Public">
+          Native Wayland window information for framebuffer window binding.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Name="WindowInfoAppKit" TypeCategory="Struct" PageName="cobalt.graphics.WindowInfoAppKit" Visibility="Public">
+          Native AppKit view information for framebuffer window binding on macOS.
+        </TypeMemberListEntry>
+      </TypeMemberList>
+    </SubSection>
+    <SubSection Title="SDL3 Helpers">
+      <TypeMemberList>
+        <TypeMemberListEntry Name="WindowSystemInfoSDL3" TypeCategory="Class" PageName="cobalt.graphics.WindowSystemInfoSDL3" Visibility="Public">
+          SDL3 helper that builds the appropriate renderer window system information structure.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Name="WindowInfoSDL3" TypeCategory="Class" PageName="cobalt.graphics.WindowInfoSDL3" Visibility="Public">
+          SDL3 helper that builds the appropriate framebuffer window information structure.
+        </TypeMemberListEntry>
+      </TypeMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="Functions">
+    <SubSection Title="Renderer Plugins">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="GetCobaltAPIVersion" PageName="cobalt.graphics.GetCobaltAPIVersion">
+          Renderer plugin export used to check Cobalt Renderer API compatibility before renderer plugin records are queried.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetRendererPlugin" PageName="cobalt.graphics.GetRendererPlugin">
+          Renderer plugin export used to retrieve a renderer plugin record from a loaded plugin library.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="SDL3 Helpers">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="CobaltSDLCreateWindow" PageName="cobalt.graphics.CobaltSDLCreateWindow">
+          Creates an SDL3 window configured for use with Cobalt-managed graphics contexts.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer.Initialize">IRenderer.Initialize</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.BindWindow">IFrameBuffer.BindWindow</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

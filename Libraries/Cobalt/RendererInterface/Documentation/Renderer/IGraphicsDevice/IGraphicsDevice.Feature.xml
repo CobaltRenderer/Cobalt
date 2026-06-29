@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDevice.Feature" Title="Feature enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> ->
+    Feature
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Feature</TypeRef> enumeration defines optional capabilities which an <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> object may or may not support. Applications can query individual features with <PageRef PageName="cobalt.graphics.IGraphicsDevice.IsFeatureSupported">IsFeatureSupported</PageRef>, test a complete set with <PageRef PageName="cobalt.graphics.IGraphicsDevice.AreAllFeaturesSupported">AreAllFeaturesSupported</PageRef>, or retrieve the complete supported set with <PageRef PageName="cobalt.graphics.IGraphicsDevice.GetAllSupportedFeatures">GetAllSupportedFeatures</PageRef>.
+    </Paragraph>
+    <Paragraph>
+      Support and activation are separate. A feature must be reported by the device before it can be requested, and features that affect renderer creation must be included in the enabled feature set passed to <PageRef PageName="cobalt.graphics.IGraphicsDevice.CreateRenderer">CreateRenderer</PageRef>.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        If an application cannot function without a feature, filter devices before selection using <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.FilterDevicesWithoutFeature">FilterDevicesWithoutFeature</PageRef> or <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.FilterDevicesWithoutAllFeatures">FilterDevicesWithoutAllFeatures</PageRef>.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        Requesting a renderer without enabling a supported optional feature leaves that feature inactive for the lifetime of the renderer.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="AnisotropicFiltering">
+        Specifies whether samplers can use anisotropic texture filtering through <PageRef PageName="cobalt.graphics.ITextureSampler.SetAnisotropicFilterMode">SetAnisotropicFilterMode</PageRef>.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="GeometryShaders">
+        Specifies whether shader programs may include a geometry shader stage. Applications must only load geometry shader code when this feature is supported and enabled.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ComputeShaders">
+        Specifies whether shader programs may include a compute shader stage and whether compute tasks may be configured on <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> objects.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="MeshShaders">
+        Specifies whether the underlying device reports support for mesh shader style functionality. This flag describes device capability; mesh shader stages are not represented by <PageRef PageName="cobalt.graphics.IShaderProgram.ShaderStage">IShaderProgram.ShaderStage</PageRef> in the current renderer interface.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DepthBiasClamp">
+        Specifies whether the clamp parameter of <PageRef PageName="cobalt.graphics.IStateGroupNode.SetDepthBias">SetDepthBias</PageRef> can be used. If this feature is not enabled, the clamp argument must remain at its default value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="IndirectDraw">
+        Specifies whether <PageRef PageName="cobalt.graphics.IRenderableNode.SetIndirectDraw">SetIndirectDraw</PageRef> can source draw parameters from an <PageRef PageName="cobalt.graphics.IDataArray">IDataArray</PageRef>.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="IndirectMultiDrawNative">
+        Specifies whether indirect multi-draw is supported natively by the device and renderer. Renderers may emulate multi-draw when only IndirectDraw is available, but native support avoids issuing an equivalent CPU-side draw loop.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="InstanceOffset">
+        Specifies whether <PageRef PageName="cobalt.graphics.IRenderableNode.SetInstanceMode">SetInstanceMode</PageRef> may use a non-zero instance offset. If this feature is not enabled, the instance offset argument must remain at its default value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="PolygonWireframeFillMode">
+        Specifies whether <PageRef PageName="cobalt.graphics.IStateGroupNode.SetPolygonFillMode">SetPolygonFillMode</PageRef> may select wireframe rendering for polygon primitives.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ResourceArrays">
+        Specifies whether <PageRef PageName="cobalt.graphics.IDataArray">IDataArray</PageRef> and <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef> resources can be created and bound to shaders.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ShaderArraysOfArrays">
+        Specifies whether shader reflection and state binding can support array-of-array constructs in shader state data.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="SeparateBlendModePerTarget">
+        Specifies whether <PageRef PageName="cobalt.graphics.IStateGroupNode.SetBlendMode">SetBlendMode</PageRef> can configure blend state separately for individual framebuffer color attachments.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="SeparateTextureSamplers">
+        Specifies whether textures and samplers may be represented as separate shader resources through <PageRef PageName="cobalt.graphics.IShaderProgram.GetSamplerId">GetSamplerId</PageRef> and <PageRef PageName="cobalt.graphics.IStateContainer.BindSampler">BindSampler</PageRef>.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="TextureCubeArray">
+        Specifies whether cube map array texture buffers and samplers can be created and sampled by shaders.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="MipmapLevelBias">
+        Specifies whether a non-zero mipmap level bias may be supplied to <PageRef PageName="cobalt.graphics.ITextureSampler.SetMipmapLevelMapping">SetMipmapLevelMapping</PageRef>. Some renderer back ends or portability layers do not expose this capability.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice.CreateRenderer">IGraphicsDevice.CreateRenderer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

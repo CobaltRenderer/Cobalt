@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderer.CreateProgramNode" Title="CreateProgramNode method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> ->
+    CreateProgramNode
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>CreateProgramNode</TypeRef> method constructs and returns a new object which implements the <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef>
+      interface.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[IProgramNode::unique_ptr CreateProgramNode();]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="IProgramNode!cobalt.graphics.IProgramNode">
+        A freshly constructed <TypeRef>IProgramNode</TypeRef> object, wrapped in a <TypeRef>unique_ptr</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer">IRenderer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

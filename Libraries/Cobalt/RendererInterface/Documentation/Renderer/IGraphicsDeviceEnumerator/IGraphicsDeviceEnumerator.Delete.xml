@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDeviceEnumerator.Delete" Title="Delete method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRef> ->
+    Delete
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Delete</TypeRef> method destroys the object. Note that unlike all created objects from the <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef>
+      interface, deleting the renderer does not perform deferred destruction, and fully destroys the object before it
+      returns. Also note that <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> objects
+      returned through this interface are owned by the enumerator, and are destroyed when the enumerator is destroyed.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        While you must keep the <TypeRef>IGraphicsDeviceEnumerator</TypeRef> around in order to be able to retain access
+        to the <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> objects returned through
+        it, deleting the <TypeRef>IGraphicsDeviceEnumerator</TypeRef> and its owned <TypeRef>IGraphicsDevice</TypeRef>
+        objects has no impact on <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> objects which have
+        been created. It is perfectly valid to keep an <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef>
+        object alive after the device it was created from has been destroyed.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        Under normal circumstances, this method should never need to be called directly. The <TypeRef>unique_ptr</TypeRef>
+        which is returned when this object is constructed will call this method itself when the pointer is released. You
+        must not call this method if the object lifetime is still being managed by the <TypeRef>unique_ptr</TypeRef>
+        object, otherwise the method will be called more than once. If this occurs the behaviour is undefined, and it may
+        result in runtime errors.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void Delete();]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

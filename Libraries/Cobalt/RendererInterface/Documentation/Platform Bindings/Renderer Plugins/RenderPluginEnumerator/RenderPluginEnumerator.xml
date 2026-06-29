@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.RenderPluginEnumerator" Title="RenderPluginEnumerator class" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef> ->
+    RenderPluginEnumerator
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class RenderPluginEnumerator;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>RenderPluginEnumerator</TypeRef> class is a C++17 helper for loading renderer plugin libraries, checking their exported <PageRef PageName="cobalt.graphics.GetCobaltAPIVersion">GetCobaltAPIVersion</PageRef> function, retrieving <PageRef PageName="cobalt.graphics.RendererPlugin">RendererPlugin</PageRef> values from the exported <PageRef PageName="cobalt.graphics.GetRendererPlugin">GetRendererPlugin</PageRef> function, filtering the discovered renderers, and selecting a preferred renderer.
+    </Paragraph>
+    <Paragraph>
+      Availability: This helper is included by <TypeRef>PlatformBindings.pkg</TypeRef> only for C++17 or newer builds. It uses Win32 dynamic library APIs on Windows and POSIX <TypeRef>dlopen</TypeRef> APIs on Linux and macOS.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        The enumerator owns module handles for every loaded renderer plugin. Returned <TypeRef>RendererPlugin</TypeRef> values share ownership of those modules, so they remain valid as long as any copy of the returned object exists.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        Keep the selected <TypeRef>RendererPlugin</TypeRef> object alive while using objects created by the selected plugin. Copies of the object share ownership of the loaded module, so any copy is sufficient.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Constructors">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Constructor" PageName="cobalt.graphics.RenderPluginEnumerator.Constructor">
+          Creates a renderer plugin enumerator.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="Destructor" PageName="cobalt.graphics.RenderPluginEnumerator.Destructor">
+          Clears all loaded plugin entries and releases module handles.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Plugin methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="EnumeratePluginsInDirectory" PageName="cobalt.graphics.RenderPluginEnumerator.EnumeratePluginsInDirectory">
+          Searches a directory for renderer plugin libraries.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="AddPluginByPath" PageName="cobalt.graphics.RenderPluginEnumerator.AddPluginByPath">
+          Loads one plugin library and adds all renderer implementations it exports.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetAllPlugins" PageName="cobalt.graphics.RenderPluginEnumerator.GetAllPlugins">
+          Returns all loaded renderer plugins.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetFilteredPlugins" PageName="cobalt.graphics.RenderPluginEnumerator.GetFilteredPlugins">
+          Returns the plugins remaining after filters have been applied.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetPreferredPlugin" PageName="cobalt.graphics.RenderPluginEnumerator.GetPreferredPlugin">
+          Returns the preferred plugin from the filtered set.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ClearAllPlugins" PageName="cobalt.graphics.RenderPluginEnumerator.ClearAllPlugins">
+          Clears every loaded plugin and releases their module handles.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Filtering methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="FilterPlugin" PageName="cobalt.graphics.RenderPluginEnumerator.FilterPlugin">
+          Removes a specific plugin from the filtered set.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="FilterPluginsOfFamily" PageName="cobalt.graphics.RenderPluginEnumerator.FilterPluginsOfFamily">
+          Removes plugins of a specific API family from the filtered set.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="FilterPluginsNotOfFamily" PageName="cobalt.graphics.RenderPluginEnumerator.FilterPluginsNotOfFamily">
+          Removes plugins that are not of a specific API family from the filtered set.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="FilterPluginsOfFamilyBelowVersion" PageName="cobalt.graphics.RenderPluginEnumerator.FilterPluginsOfFamilyBelowVersion">
+          Removes plugins of a family below a required API version.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ClearPluginFilters" PageName="cobalt.graphics.RenderPluginEnumerator.ClearPluginFilters">
+          Restores the filtered set to all loaded plugins.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Helper methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="GetProcessDirectory" PageName="cobalt.graphics.RenderPluginEnumerator.GetProcessDirectory">
+          Returns the directory containing the current executable.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.GetCobaltAPIVersion">GetCobaltAPIVersion</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.RendererPlugin">RendererPlugin</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.GetRendererPlugin">GetRendererPlugin</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

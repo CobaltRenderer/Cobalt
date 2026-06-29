@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.RendererPlugin.SetModuleHandle" Title="SetModuleHandle method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.RendererPlugin">RendererPlugin</PageRef> ->
+    SetModuleHandle
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetModuleHandle</TypeRef> method stores an owning handle for the renderer plugin module and shares it with copies of the renderer plugin object.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        This method is normally called by plugin loading code. Applications using <PageRef PageName="cobalt.graphics.RenderPluginEnumerator">RenderPluginEnumerator</PageRef> do not need to call it directly.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetModuleHandle(IModuleHandle::unique_ptr moduleHandle);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IModuleHandle!cobalt.graphics.IModuleHandle" Name="moduleHandle">
+          The module handle to store on the renderer plugin object.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IModuleHandle">IModuleHandle</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.RendererPlugin.CreateGraphicsDeviceEnumerator">RendererPlugin.CreateGraphicsDeviceEnumerator</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

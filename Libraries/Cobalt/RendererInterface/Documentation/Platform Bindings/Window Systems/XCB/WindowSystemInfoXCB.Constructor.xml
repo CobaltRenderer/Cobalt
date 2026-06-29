@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.WindowSystemInfoXCB.Constructor" Title="Constructor method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.WindowSystemInfoXCB">WindowSystemInfoXCB</PageRef> ->
+    Constructor
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowSystemInfoXCB</TypeRef> constructor creates a platform binding structure and initializes the inherited <TypeRef>structureSizeInBytes</TypeRef> and type discriminator fields.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[WindowSystemInfoXCB(xcb_connection_t* connection);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="xcb_connection_t*" Name="connection">
+          The XCB connection.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.WindowSystemInfoXCB">WindowSystemInfoXCB</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer.WindowSystemInfoBase">WindowSystemInfoBase</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITexelArrayOutput.GetOptimalDataFormat" Title="GetOptimalDataFormat method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITexelArrayOutput">ITexelArrayOutput</PageRef> ->
+    GetOptimalDataFormat
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetOptimalDataFormat</TypeRef> method returns the SourceDataFormat that most closely matches the format of the captured texel data.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[ITexelArray::SourceDataFormat GetOptimalDataFormat() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="ITexelArray::SourceDataFormat">
+        The source data format that can read the captured output without unnecessary conversion.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITexelArrayOutput">ITexelArrayOutput</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

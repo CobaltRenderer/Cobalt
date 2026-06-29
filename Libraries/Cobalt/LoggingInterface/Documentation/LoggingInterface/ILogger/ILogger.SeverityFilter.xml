@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.ILogger.SeverityFilter" Title="SeverityFilter enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.ILogger">ILogger</PageRef> ->
+    SeverityFilter
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SeverityFilter</TypeRef> enumeration defines bit-mask filters used by <PageRef PageName="cobalt.logging.LogManager">LogManager</PageRef> and log targets to decide which severities should be included.
+    </Paragraph>
+    <Paragraph>
+      The values ending in <TypeRef>OrHigher</TypeRef> include all severities at that priority or above it. For example, <TypeRef>WarningOrHigher</TypeRef> includes Critical, Error, and Warning messages. Exact severity values such as <TypeRef>Warning</TypeRef> include only that one severity.
+    </Paragraph>
+    <Paragraph>
+      Bitwise <TypeRef>operator|</TypeRef>, <TypeRef>operator|=</TypeRef>, <TypeRef>operator&amp;</TypeRef>, and <TypeRef>operator&amp;=</TypeRef> overloads are provided for combining or testing filter masks.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="None">
+        Specifies that no severity should pass the filter.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="CriticalOrHigher">
+        Includes only critical messages.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ErrorOrHigher">
+        Includes critical and error messages.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="WarningOrHigher">
+        Includes critical, error, and warning messages.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="InfoOrHigher">
+        Includes critical, error, warning, and informational messages.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DebugOrHigher">
+        Includes critical, error, warning, informational, and debug messages.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="TraceOrHigher">
+        Includes every defined severity value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Critical">
+        Includes only critical messages.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Error">
+        Includes only error messages.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Warning">
+        Includes only warning messages.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Info">
+        Includes only informational messages.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Debug">
+        Includes only debug messages.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Trace">
+        Includes only trace messages.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="All">
+        Includes all severities represented by the filter mask.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.ILogger.Severity">ILogger.Severity</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogManager.SetIncludeSeverity">LogManager.SetIncludeSeverity</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogManager.AddLogTarget">LogManager.AddLogTarget</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderer" Title="IRenderer interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    IRenderer
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class IRenderer;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IRenderer</TypeRef> interface is responsible for the creation of all objects related to building and
+      rendering tasks in the shared renderer. In addition to this, it holds the root content for the render tree to use
+      when drawing, and provides methods to advance and synchronize with the draw process.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Resources created under the <TypeRef>IRenderer</TypeRef> interface can only be used with the same
+        <TypeRef>IRenderer</TypeRef> that created them. Although more than one instance of a renderer can exist at any
+        one time, resources must not be mixed between different renderer instances.
+      </Paragraph>
+    </Note>
+    <Note Type="Important">
+      <Paragraph>
+        All objects which are created through the <TypeRef>IRenderer</TypeRef> interface can be freed by the application
+        at any time, even if they are currently being used by the draw process for a previously submitted frame. The
+        renderer performs deferred destruction of all objects internally, so there is no requirement for the application
+        to hold onto objects which are no longer required. The renderer will keep the objects alive until any previously
+        submitted frame is complete before the objects are destroyed.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        Although the <TypeRef>IRenderer</TypeRef> interface itself has a <TypeRef>unique_ptr</TypeRef> object returned
+        to the application to manage its lifetime, all objects allocated through the <TypeRef>IRenderer</TypeRef>
+        interface must be destroyed before the <TypeRef>IRenderer</TypeRef> object itself is destroyed. It is up to the
+        application to ensure this occurs. You must only dispose of the <TypeRef>IRenderer</TypeRef> object after
+        all objects created through it are destroyed.
+    </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="InitializationFlags" TypeCategory="Enumeration" PageName="cobalt.graphics.IRenderer.InitializationFlags" Visibility="Public">
+        Optional flags to control the renderer initialization process
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="Options" TypeCategory="Enumeration" PageName="cobalt.graphics.IRenderer.Options" Visibility="Public">
+        Optional renderer features, which can be requested at the time the renderer is created.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Structures">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="WindowSystemInfoBase" TypeCategory="Struct" PageName="cobalt.graphics.IRenderer.WindowSystemInfoBase" Visibility="Public">
+        Base structure for platform-specific window system information structures. See the <PageRef PageName="cobalt.graphics.IRenderer.Initialize">Initialize</PageRef>
+        method for more information.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Initialize" PageName="cobalt.graphics.IRenderer.Initialize">
+          Initializes the renderer. This method must be called before any other methods are called.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.IRenderer.Delete">
+          Deletes the object. After calling this method, the object is destroyed.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Geometry buffer methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateVertexBuffer" PageName="cobalt.graphics.IRenderer.CreateVertexBuffer">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.IVertexBuffer">IVertexBuffer</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateIndexBuffer" PageName="cobalt.graphics.IRenderer.CreateIndexBuffer">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.IIndexBuffer">IIndexBuffer</PageRef> object
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Image buffer methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateTextureBuffer1D" PageName="cobalt.graphics.IRenderer.CreateTextureBuffer1D">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.ITextureBuffer1D">ITextureBuffer1D</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateTextureBuffer2D" PageName="cobalt.graphics.IRenderer.CreateTextureBuffer2D">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.ITextureBuffer2D">ITextureBuffer2D</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateTextureBuffer3D" PageName="cobalt.graphics.IRenderer.CreateTextureBuffer3D">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.ITextureBuffer3D">ITextureBuffer3D</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateTextureBufferCube" PageName="cobalt.graphics.IRenderer.CreateTextureBufferCube">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.ITextureBufferCube">ITextureBufferCube</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateTextureBuffer1DArray" PageName="cobalt.graphics.IRenderer.CreateTextureBuffer1DArray">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.ITextureBuffer1DArray">ITextureBuffer1DArray</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateTextureBuffer2DArray" PageName="cobalt.graphics.IRenderer.CreateTextureBuffer2DArray">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.ITextureBuffer2DArray">ITextureBuffer2DArray</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateTextureBufferCubeArray" PageName="cobalt.graphics.IRenderer.CreateTextureBufferCubeArray">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.ITextureBufferCubeArray">ITextureBufferCubeArray</PageRef> object
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Image sampler methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateTextureSampler1D" PageName="cobalt.graphics.IRenderer.CreateTextureSampler1D">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.ITextureSampler1D">ITextureSampler1D</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateTextureSampler2D" PageName="cobalt.graphics.IRenderer.CreateTextureSampler2D">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.ITextureSampler2D">ITextureSampler2D</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateTextureSampler3D" PageName="cobalt.graphics.IRenderer.CreateTextureSampler3D">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.ITextureSampler3D">ITextureSampler3D</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateTextureSamplerCube" PageName="cobalt.graphics.IRenderer.CreateTextureSamplerCube">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.ITextureSamplerCube">ITextureSamplerCube</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateTextureSampler1DArray" PageName="cobalt.graphics.IRenderer.CreateTextureSampler1DArray">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.ITextureSampler1DArray">ITextureSampler1DArray</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateTextureSampler2DArray" PageName="cobalt.graphics.IRenderer.CreateTextureSampler2DArray">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.ITextureSampler2DArray">ITextureSampler2DArray</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateTextureSamplerCubeArray" PageName="cobalt.graphics.IRenderer.CreateTextureSamplerCubeArray">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.ITextureSamplerCubeArray">ITextureSamplerCubeArray</PageRef> object
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Data array methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateDataArray" PageName="cobalt.graphics.IRenderer.CreateDataArray">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.IDataArray">IDataArray</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateDataArrayOutput" PageName="cobalt.graphics.IRenderer.CreateDataArrayOutput">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.IDataArrayOutput">IDataArrayOutput</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateTexelArray" PageName="cobalt.graphics.IRenderer.CreateTexelArray">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateTexelArrayOutput" PageName="cobalt.graphics.IRenderer.CreateTexelArrayOutput">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.ITexelArrayOutput">ITexelArrayOutput</PageRef> object
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Batch methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateTransferBatch" PageName="cobalt.graphics.IRenderer.CreateTransferBatch">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRef> object
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Frame buffer methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateFrameBuffer" PageName="cobalt.graphics.IRenderer.CreateFrameBuffer">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateFrameBufferOutput" PageName="cobalt.graphics.IRenderer.CreateFrameBufferOutput">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.IFrameBufferOutput">IFrameBufferOutput</PageRef> object
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="State buffer methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateStateBuffer" PageName="cobalt.graphics.IRenderer.CreateStateBuffer">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.IStateBuffer">IStateBuffer</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateStateBufferLayout" PageName="cobalt.graphics.IRenderer.CreateStateBufferLayout">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.IStateBufferLayout">IStateBufferLayout</PageRef> object
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Render tree node methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateRenderPassNode" PageName="cobalt.graphics.IRenderer.CreateRenderPassNode">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateProgramNode" PageName="cobalt.graphics.IRenderer.CreateProgramNode">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateStateGroupNode" PageName="cobalt.graphics.IRenderer.CreateStateGroupNode">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateRenderableNode" PageName="cobalt.graphics.IRenderer.CreateRenderableNode">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef> object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateDefaultState" PageName="cobalt.graphics.IRenderer.CreateDefaultState">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.IDefaultState">IDefaultState</PageRef> object
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Program methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateShaderProgram" PageName="cobalt.graphics.IRenderer.CreateShaderProgram">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef> object
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Scene content methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetRenderPasses" PageName="cobalt.graphics.IRenderer.SetRenderPasses">
+          Sets the scene content for the next frame to the set of supplied <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef> objects
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="RemoveAllRenderPasses" PageName="cobalt.graphics.IRenderer.RemoveAllRenderPasses">
+          Removes all <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef> objects currently assigned as scene content for the next frame
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Render methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="StartNewFrame" PageName="cobalt.graphics.IRenderer.StartNewFrame">
+          Begins the process of drawing the next frame
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="WaitForDrawComplete" PageName="cobalt.graphics.IRenderer.WaitForDrawComplete">
+          Blocks the calling thread until no draw operation is in progress
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="WaitForOutputCaptureComplete" PageName="cobalt.graphics.IRenderer.WaitForOutputCaptureComplete">
+          Blocks the calling thread until no draw process is in progress, and any output capture processes from the previous frame are complete.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="WaitForDeferredDeletionComplete" PageName="cobalt.graphics.IRenderer.WaitForDeferredDeletionComplete">
+          Blocks the calling thread until no draw process is in progress, and any resources which became eligible for deletion during the current
+          build process are fully removed. Note that this can be important when deleting a window you were drawing to in the previous frame.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

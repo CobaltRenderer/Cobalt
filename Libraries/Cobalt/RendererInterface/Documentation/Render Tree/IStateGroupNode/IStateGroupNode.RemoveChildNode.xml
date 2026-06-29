@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateGroupNode.RemoveChildNode" Title="RemoveChildNode method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> ->
+    RemoveChildNode
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>RemoveChildNode</TypeRef> method removes the specified <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef>
+      from the list of child nodes if it is present.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void RemoveChildNode(IRenderableNode* childNode);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IRenderableNode*!cobalt.graphics.IRenderableNode" Name="childNode">
+          The <TypeRef>IRenderableNode</TypeRef> node to remove from the list of child nodes
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

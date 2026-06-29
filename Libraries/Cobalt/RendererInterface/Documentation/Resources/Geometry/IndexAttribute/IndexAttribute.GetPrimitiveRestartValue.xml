@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IndexAttribute.GetPrimitiveRestartValue" Title="GetPrimitiveRestartValue method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IndexAttribute">IndexAttribute</PageRef> ->
+    GetPrimitiveRestartValue
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetPrimitiveRestartValue</TypeRef> method returns the index value used to represent a primitive restart for the instantiated type.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[static T GetPrimitiveRestartValue();]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="static T">
+        The primitive restart value for this index attribute data type.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IndexAttribute">IndexAttribute</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

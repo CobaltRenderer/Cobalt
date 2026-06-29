@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderableNode.PrimitiveMode" Title="PrimitiveMode enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef> ->
+    PrimitiveMode
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>PrimitiveMode</TypeRef> enumeration defines how vertex or index streams are assembled into geometric primitives for an <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef>. It is set with <PageRef PageName="cobalt.graphics.IRenderableNode.SetPrimitiveMode">SetPrimitiveMode</PageRef> and affects how <PageRef PageName="cobalt.graphics.IRenderableNode.SetVertexCount">SetVertexCount</PageRef> counts are interpreted.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Points">
+        Each vertex produces a separate point primitive.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Lines">
+        Each pair of vertices produces an independent line segment.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Triangles">
+        Each group of three vertices produces an independent triangle.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="LineStrip">
+        The first two vertices produce a line segment, and each additional vertex produces a new line segment connected to the previous vertex.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="TriangleStrip">
+        The first three vertices produce a triangle, and each additional vertex produces a new triangle using the previous two vertices.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderableNode.SetPrimitiveMode">IRenderableNode.SetPrimitiveMode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderPassNode" Title="IRenderPassNode interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    IRenderPassNode
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class IRenderPassNode;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IRenderPassNode</TypeRef> interface represents the lowest level node in the rendering tree. This node
+      is responsible for providing all the content and state involved in a single logical render pass during the
+      rendering process, however most of this content and state information comes from child nodes. The only direct
+      responsibility the <TypeRef>IRenderPassNode</TypeRef> object has is to specify the <PageRef PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRef>
+      object which will be used when performing draw operations and various settings associated with it, and to define
+      the list of child <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef> objects to draw, with an
+      optional <PageRef PageName="cobalt.graphics.IDefaultState">IDefaultState</PageRef> object associated with each
+      <TypeRef>IProgramNode</TypeRef>.
+    </Paragraph>
+    <Paragraph>
+      In addition to specifying the framebuffer to use, the <TypeRef>IRenderPassNode</TypeRef> also defines whether
+      content in the framebuffer should be cleared when this render pass is bound during rendering, through the
+      <PageRef PageName="cobalt.graphics.IRenderPassNode.SetAttachmentClearData">SetAttachmentClearData</PageRef>
+      method. It is also possible to configure whether existing content in the framebuffer must be preserved when the
+      render pass begins, or whether the written content must be preserved after it completes using the
+      <PageRef PageName="cobalt.graphics.IRenderPassNode.SetAttachmentLoadStoreBehavior">SetAttachmentLoadStoreBehavior</PageRef>
+      method. The render pass node is also used when multisample anti-aliasing (MSAA) is in use, with multisample
+      framebuffer attachments being able to be resolved to single-sample textures when the render pass completes,
+      through the <PageRef PageName="cobalt.graphics.IRenderPassNode.EnableAttachmentMultiSamplingResolution">EnableAttachmentMultiSamplingResolution</PageRef>
+      method.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        The <TypeRef>IRenderPassNode</TypeRef> node is unique on the render tree, in that it contains child nodes which
+        are allowed to be added to the render tree more than once. This can allow simple duplication of large areas of
+        the scene, such as when drawing to multiple windows, without the need to create separate scene nodes for each
+        version. This is done by providing an associated <PageRef PageName="cobalt.graphics.IDefaultState">IDefaultState</PageRef>
+        object for a <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef> child node, which provides
+        default bindings and state values which are used for all content under the <TypeRef>IProgramNode</TypeRef>. By
+        varying these defaults for each use, it is possible to reuse content with different view and projection matrices
+        for example, or potentially a wide variety of state settings which affect the way the content is drawn.
+      </Paragraph>
+      <Paragraph>
+        Where different shader programs are required, perhaps for techniques such as shadow generation, it would still
+        generally be necessary to create separate scene nodes for these cases, however <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef>
+        objects are free to share the underlying <PageRef PageName="cobalt.graphics.IIndexBuffer">IIndexBuffer</PageRef>
+        and <PageRef PageName="cobalt.graphics.IVertexBuffer">IVertexBuffer</PageRef> objects which contain the scene
+        data, so redefining the scene nodes themselves will not lead to a significant increase in system or graphics
+        memory usage.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        An <TypeRef>IFrameBuffer</TypeRef> object must be bound to an <TypeRef>IRenderPassNode</TypeRef> in order for
+        the node to be ready for use in the rendering tree. It is an error to attach an <TypeRef>IRenderPassNode</TypeRef>
+        to the render tree where no <TypeRef>IFrameBuffer</TypeRef> has been bound, however it is permitted to change
+        the bound <TypeRef>IFrameBuffer</TypeRef> while the node is attached to the tree.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="AttachmentLoadBehavior" TypeCategory="Enumeration" PageName="cobalt.graphics.IRenderPassNode.AttachmentLoadBehavior" Visibility="Public">
+        Specifies whether previous attachment contents must be preserved when the render pass begins.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="AttachmentStoreBehavior" TypeCategory="Enumeration" PageName="cobalt.graphics.IRenderPassNode.AttachmentStoreBehavior" Visibility="Public">
+        Specifies whether final attachment contents must be preserved when the render pass completes.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.IRenderPassNode.Delete">
+          Schedules the object for deletion. After calling this method, the object will be destroyed after the current
+          frame completes drawing.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Child node methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="AddChildNode" PageName="cobalt.graphics.IRenderPassNode.AddChildNode">
+          Adds the specified <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef> as a child of this
+          node, with an optional associated <PageRef PageName="cobalt.graphics.IDefaultState">IDefaultState</PageRef>
+          object.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="AddChildNodes" PageName="cobalt.graphics.IRenderPassNode.AddChildNodes">
+          Adds the specified set of <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef> objects as
+          children of this node, with optional associated <PageRef PageName="cobalt.graphics.IDefaultState">IDefaultState</PageRef>
+          objects for each one.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="RemoveChildNode" PageName="cobalt.graphics.IRenderPassNode.RemoveChildNode">
+          Removes the specified <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef> as a child of this node
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="RemoveChildNodes" PageName="cobalt.graphics.IRenderPassNode.RemoveChildNodes">
+          Removes the specified set of <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef> objects as children of this node
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="RemoveAllChildNodes" PageName="cobalt.graphics.IRenderPassNode.RemoveAllChildNodes">
+          Removes all current <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef> child nodes
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetChildNodes" PageName="cobalt.graphics.IRenderPassNode.SetChildNodes">
+          Sets the specified set of <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef> objects as
+          children of this node, removing any existing child nodes which may have been previously added.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Framebuffer methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="BindFrameBuffer" PageName="cobalt.graphics.IRenderPassNode.BindFrameBuffer">
+          Binds the specified <PageRef PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRef> to this node
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetAttachmentLoadStoreBehavior" PageName="cobalt.graphics.IRenderPassNode.SetAttachmentLoadStoreBehavior">
+          Allows the application to relax requirements around whether framebuffer contents must be retained before or after this render pass is drawn
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetAttachmentClearData" PageName="cobalt.graphics.IRenderPassNode.SetAttachmentClearData">
+          Instructs the renderer to clear the specified framebuffer target with the supplied data when this pass begins rendering
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="RemoveAttachmentClearData" PageName="cobalt.graphics.IRenderPassNode.RemoveAttachmentClearData">
+          Removes a previously added instruction to clear a framebuffer target when this pass begins rendering
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="EnableAttachmentMultiSamplingResolution" PageName="cobalt.graphics.IRenderPassNode.EnableAttachmentMultiSamplingResolution">
+          Instructs the renderer to resolve a multisampled framebuffer attachment down to the specified single-sampled
+          target texture when this render pass completes rendering
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="DisableAttachmentMultiSamplingResolution" PageName="cobalt.graphics.IRenderPassNode.DisableAttachmentMultiSamplingResolution">
+          Removes a multisampled framebuffer attachment resolution operation previously set by the <PageRef PageName="cobalt.graphics.IRenderPassNode.EnableAttachmentMultiSamplingResolution">EnableAttachmentMultiSamplingResolution</PageRef>
+          method.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Enabled state methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetIsEnabled" PageName="cobalt.graphics.IRenderPassNode.SetIsEnabled">
+          Sets the enabled state of this node to the specified value. If this node is disabled, it will be ignored
+          during rendering. No child nodes will be evaluated, and no defined framebuffer operations will occur.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Debug methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetDebugName" PageName="cobalt.graphics.IRenderPassNode.SetDebugName">
+          Sets a debug name for this render pass node, where supported by the renderer and native graphics API.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

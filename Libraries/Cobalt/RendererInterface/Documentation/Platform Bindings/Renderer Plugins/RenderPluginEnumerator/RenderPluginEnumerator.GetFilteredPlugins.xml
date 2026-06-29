@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.RenderPluginEnumerator.GetFilteredPlugins" Title="GetFilteredPlugins method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.RenderPluginEnumerator">RenderPluginEnumerator</PageRef> ->
+    GetFilteredPlugins
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetFilteredPlugins</TypeRef> method returns the renderer plugins that remain after the current filters have been applied, sorted by display name.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        The returned <TypeRef>RendererPlugin</TypeRef> values share ownership of the loaded modules and remain valid as long as at least one copy exists.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[std::vector<RendererPlugin> GetFilteredPlugins() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="std::vector&lt;RendererPlugin&gt;">
+        A sorted list of filtered renderer plugin records. Each value shares ownership of the loaded module.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.RenderPluginEnumerator">RenderPluginEnumerator</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.RendererPlugin">RendererPlugin</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

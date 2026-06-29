@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IShaderProgram.ShaderStage" Title="ShaderStage enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef> ->
+    ShaderStage
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ShaderStage</TypeRef> enumeration identifies the shader pipeline stage being loaded into an <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef>. It is supplied to <PageRef PageName="cobalt.graphics.IShaderProgram.LoadShaderStage">LoadShaderStage</PageRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Vertex">
+        Selects the vertex shader stage, which consumes vertex attributes and produces per-vertex outputs for later graphics pipeline stages.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Fragment">
+        Selects the fragment shader stage, which computes color and other per-fragment outputs during rasterization.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Geometry">
+        Selects the optional geometry shader stage, which consumes primitives from the vertex stage and emits new primitives before rasterization. This requires the GeometryShaders device feature.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Compute">
+        Selects the optional compute shader stage, which is dispatched as a compute task rather than as part of a graphics draw pipeline. This requires the ComputeShaders device feature.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram.LoadShaderStage">IShaderProgram.LoadShaderStage</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice.Feature">IGraphicsDevice.Feature</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateBuffer" Title="IStateBuffer interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    IStateBuffer
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class IStateBuffer;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IStateBuffer</TypeRef> interface defines a state buffer for use in a shader program. State buffers
+      are a block of memory that can contain multiple state values, and can be mapped into multiple shaders at once.
+      Although like global state values they are still read-only within a shader, it is possible to load more data
+      into a state buffer that can be set in individual global state values. The ability to map them into multiple
+      shaders also simplifies state management, as updates to state values in a state buffer only need to be performed
+      once in order to provide new values to all shaders where they are used.
+    </Paragraph>
+    <Paragraph>
+      A very valuable use of state buffers is to store scene-wide common state values, such as the view and project
+      matrices, the screen size in pixels, scene light positions and characteristics, and so on. By defining these state
+      values in state buffers, the application can manage a single set of state values for these settings, and apply
+      changes to these settings to all shaders in the program at once.
+    </Paragraph>
+    <Paragraph>
+      A useful property of state buffers is the ability to define "pages", which are separate sets of values within the
+      one state buffer. Each page of the state buffer shares the same layout, or in other words has the same number and
+      type of fields in it, but each page can hold a distinct set of values for those fields. Separate pages of the
+      state buffer can be bound at different times, even to the point of providing a unique state buffer page per
+      renderable object if desired. Through the use of the <PageRef PageName="cobalt.graphics.IStateBuffer.SetPageSettings">SetPageSettings</PageRef>
+      method, it is also possible to allow the number of pages in the state buffer to be modified after creation, by
+      calling the <PageRef PageName="cobalt.graphics.IStateBuffer.ResizePageCount">ResizePageCount</PageRef> method. This is well
+      suited to using paged state buffers to provide large sets of per-object state. The application can allocate page
+      numbers to each renderable object, and update each page with the correct state values per object prior to drawing,
+      with the number of pages growing or shrinking as required as the content of the scene changes.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Note that before a state buffer can be used, memory must be allocated for it by calling the <PageRef PageName="cobalt.graphics.IStateBuffer.AllocateMemory">AllocateMemory</PageRef>
+        method. This method cannot be called however until the layout for the state buffer has been defined. The
+        recommended way to do this is by calling the <PageRef PageName="cobalt.graphics.IStateBuffer.BindBufferLayout">BindBufferLayout</PageRef>
+        method, which defines the names, types, and locations of the individual state fields within the buffer. For more
+        information on how to create a state buffer layout, please refer to the documentation on the <PageRef PageName="cobalt.graphics.IStateBufferLayout">IStateBufferLayout</PageRef>
+        type. Alternatively, the <PageRef PageName="cobalt.graphics.IStateBuffer.SetManualPageSize">SetManualPageSize</PageRef>
+        method can be called, which allows an opaque buffer layout with a specific page size to be allocated. In this
+        mode, state data can only be updated in a raw form using the <PageRef PageName="cobalt.graphics.IStateBuffer.SetRawPageData">SetRawPageData</PageRef>
+        method, but this may be more suitable if the renderer is used behind a higher level state management framework
+        in a larger application.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="PerformanceHint" TypeCategory="Enumeration" PageName="cobalt.graphics.IStateBuffer.PerformanceHint" Visibility="Public">
+        Flags to provide hints to the graphics system about how the application will use this buffer. Correct use of
+        performance hints allows the renderer to optimize the way the data is stored and modified to give the best
+        performance.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.IStateBuffer.Delete">
+          Schedules the object for deletion. After calling this method, the object will be destroyed after the current
+          frame completes drawing.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="AllocateMemory" PageName="cobalt.graphics.IStateBuffer.AllocateMemory">
+          Attempts to allocate memory for the buffer using the defined buffer layout and page settings
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Usage methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetPerformanceHints" PageName="cobalt.graphics.IStateBuffer.SetPerformanceHints">
+          Provides hints to the renderer about how this object will be used. Correct use of hints is important to optimize performance.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Format methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetManualPageSize" PageName="cobalt.graphics.IStateBuffer.SetManualPageSize">
+          Defines a manual page size for the buffer. This can be used instead of calling <PageRef PageName="cobalt.graphics.IStateBuffer.BindBufferLayout">BindBufferLayout</PageRef>.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindBufferLayout" PageName="cobalt.graphics.IStateBuffer.BindBufferLayout">
+          Binds the specified state buffer layout to the state buffer. A layout must be defined using this method or <PageRef PageName="cobalt.graphics.IStateBuffer.SetManualPageSize">SetManualPageSize</PageRef>
+          before calling <TypeRef>AllocateMemory</TypeRef>, and cannot be changed afterwards.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetPageSettings" PageName="cobalt.graphics.IStateBuffer.SetPageSettings">
+          Sets the page settings to use for the state buffer
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ResizePageCount" PageName="cobalt.graphics.IStateBuffer.ResizePageCount">
+          If the state buffer allows resizing, this allows the number of pages in the buffer to be changed.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="State value methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="GetStateValueId" PageName="cobalt.graphics.IStateBuffer.GetStateValueId">
+          Retrieves an ID for the given state value
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetStateValue" PageName="cobalt.graphics.IStateBuffer.SetStateValue">
+          Updates the target state variable in the first page of the buffer with the supplied value
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetStateValueForPage" PageName="cobalt.graphics.IStateBuffer.SetStateValueForPage">
+          Updates the target state variable in the specified page of the buffer with the supplied value
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetRawPageData" PageName="cobalt.graphics.IStateBuffer.SetRawPageData">
+          Writes the specified raw byte data directly into the state buffer at the specified location
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateBufferLayout">IStateBufferLayout</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

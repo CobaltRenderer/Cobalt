@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IFrameBuffer.WindowInfoBase" Title="WindowInfoBase structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRef> ->
+    WindowInfoBase
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowInfoBase</TypeRef> structure is the common base structure passed to <PageRef PageName="cobalt.graphics.IFrameBuffer.BindWindow">BindWindow</PageRef>. Derived structures either contain the native window handles required to bind a framebuffer to a window for presentation, or describe a renderer-owned headless target with a window-like size.
+    </Paragraph>
+    <Paragraph>
+      The base fields allow the renderer to validate the structure and dispatch to the correct native window binding path.
+    </Paragraph>
+    <Paragraph>
+      The platform-specific structures are provided by <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="WindowType" TypeCategory="Enumeration" PageName="cobalt.graphics.IFrameBuffer.WindowInfoBase.WindowType" Visibility="Public">
+        Identifies the native platform window handle type described by the concrete window information structure.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <DataMemberList>
+      <DataMemberListEntry Visibility="Public" Type="size_t" Name="structureSizeInBytes">
+        Reports the byte size of the concrete window information structure supplied by the application.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="WindowType!cobalt.graphics.IFrameBuffer.WindowInfoBase.WindowType" Name="windowType">
+        Identifies the concrete platform window information structure supplied to BindWindow.
+      </DataMemberListEntry>
+    </DataMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.BindWindow">IFrameBuffer.BindWindow</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.WindowInfoHeadless">WindowInfoHeadless</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.WindowInfoWin32">WindowInfoWin32</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.WindowInfoXlib">WindowInfoXlib</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.WindowInfoWayland">WindowInfoWayland</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.WindowInfoAppKit">WindowInfoAppKit</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

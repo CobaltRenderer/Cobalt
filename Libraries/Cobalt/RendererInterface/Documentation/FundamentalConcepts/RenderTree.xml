@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.Concepts.RenderTree" Title="The Render Tree" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    Render Tree
+  </Paragraph>
+  <Section Title="The Render Tree">
+    <Paragraph>
+      The render tree is the structure Cobalt Renderer uses to describe the work required to render a frame. It is not
+      intended to replace an application's own scene graph. Instead, it groups rendering work by the expensive state
+      changes that graphics APIs care about: render pass outputs, shader programs, fixed-function state, resource
+      bindings, and draw inputs. Keeping these groups explicit lets the renderer create and reuse efficient native
+      pipelines while avoiding unnecessary transitions between them.
+    </Paragraph>
+    <Paragraph>
+      The tree has four levels. A render pass node describes where work is rendered. A program node describes the shader
+      program. A state group node describes fixed-function state and inherited shader resources. A renderable node
+      describes the geometry or indirect draw that is submitted. The diagram below illustrates the four levels and the
+      resources associated with each level.
+    </Paragraph>
+    <Image>RenderTree</Image>
+  </Section>
+  <Section Title="Render Pass Node">
+    <Paragraph>
+      The top level of the tree is the <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef>.
+      For draw work, a render pass node is bound to an <PageRef PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRef>
+      that describes the window or texture attachments being rendered into. It also records attachment clear values and
+      load/store behaviour. For compute work, no framebuffer is bound, but a render pass node is still used to place
+      the work in the frame order.
+    </Paragraph>
+    <Paragraph>
+      Render pass nodes are submitted to the renderer as an ordered list through
+      <PageRef PageName="cobalt.graphics.IRenderer.SetRenderPasses">SetRenderPasses</PageRef>. That list is the root of
+      the render tree for the next submitted frame.
+    </Paragraph>
+  </Section>
+  <Section Title="Program Node">
+    <Paragraph>
+      A <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef> groups work that uses the same
+      <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef>. Shader programs define the shader
+      stages, shader inputs, and resource names used by child state groups and renderables. Constant state values are
+      also associated with the program, because they can affect native shader compilation or pipeline creation.
+    </Paragraph>
+    <Paragraph>
+      A program node can be the child of more than one render pass node. This allows the same shader and child tree to
+      be rendered into multiple passes or windows. Other render tree node types are more restrictive and should be
+      treated as having a single active parent.
+    </Paragraph>
+  </Section>
+  <Section Title="State Group Node">
+    <Paragraph>
+      A <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> describes fixed-function state
+      such as rasterization, depth and stencil tests, culling, polygon fill mode, and blending. It is the usual place to
+      put state that is shared by a set of renderables using the same shader program.
+    </Paragraph>
+    <Paragraph>
+      A state group node is added under one program node. Many state group nodes can be added under the same program
+      node, but the same state group node should not be added under multiple parents at the same time. Create another
+      node when the same logical content needs different parentage or state.
+    </Paragraph>
+  </Section>
+  <Section Title="Renderable Node">
+    <Paragraph>
+      A <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef> is the final draw node. It binds
+      vertex attributes and optional index data to the shader inputs, selects the primitive mode, and may use instance
+      or indirect drawing settings. A renderable is the render tree node that most closely maps to a draw call.
+    </Paragraph>
+    <Paragraph>
+      A renderable node is added under one state group node. Many renderables can be added under the same state group,
+      but a renderable cannot be the child of more than one parent concurrently. If the same geometry needs to appear in
+      two branches of the render tree, create a second renderable node that references the same buffers and shader input
+      IDs.
+    </Paragraph>
+  </Section>
+  <Section Title="Shader Resources">
+    <Paragraph>
+      Shader resources such as state values, state buffers, data arrays, texel arrays, textures, and texture samplers
+      can be bound at different levels of the render tree. Shared values are usually bound high in the tree, such as on
+      a default state object or state group node. More specific values can be bound on a renderable node. When a
+      renderable is drawn, the more specific binding overrides the inherited binding for the same shader resource ID.
+    </Paragraph>
+    <Paragraph>
+      Resource names should normally be resolved from the shader program once during setup. Store the returned IDs and
+      use those IDs when changing bindings or values. This keeps the render loop independent from text lookups and makes
+      resource binding failures easier to detect early.
+    </Paragraph>
+  </Section>
+  <Section Title="Summary">
+    <Paragraph>
+      To recap the basic purpose of each node:
+    </Paragraph>
+    <List>
+      <ListEntry>The render pass node describes the output target and pass order.</ListEntry>
+      <ListEntry>The program node describes the shader program used by child work.</ListEntry>
+      <ListEntry>The state group node describes fixed-function state and shared resource bindings.</ListEntry>
+      <ListEntry>The renderable node describes the geometry, topology, and draw settings.</ListEntry>
+    </List>
+    <Paragraph>
+      Nodes can be added, removed, and modified while building future frames. When <PageRef PageName="cobalt.graphics.IRenderer.StartNewFrame">StartNewFrame</PageRef>
+      is called, the current tree state is latched for drawing and subsequent changes apply to later frames.
+    </Paragraph>
+  </Section>
+  <Paragraph>
+    Next page, <PageRef PageName="cobalt.graphics.Concepts.HelloWorld">Hello World</PageRef>
+  </Paragraph>
+</XMLDocContent>

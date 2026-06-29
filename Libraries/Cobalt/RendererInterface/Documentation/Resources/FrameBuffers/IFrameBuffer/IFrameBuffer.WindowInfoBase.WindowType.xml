@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IFrameBuffer.WindowInfoBase.WindowType" Title="WindowType enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IFrameBuffer.WindowInfoBase">WindowInfoBase</PageRef> ->
+    WindowType
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowType</TypeRef> enumeration identifies the concrete window information structure supplied to <PageRef PageName="cobalt.graphics.IFrameBuffer.BindWindow">BindWindow</PageRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Headless">
+        Identifies a headless window-sized framebuffer target with no native operating system window handle.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Win32">
+        Identifies a Win32 window handle structure.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Xlib">
+        Identifies an Xlib window handle structure.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="XCB">
+        Identifies an XCB window handle structure.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Wayland">
+        Identifies a Wayland window handle structure.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="AppKit">
+        Identifies an AppKit window handle structure on macOS.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.BindWindow">IFrameBuffer.BindWindow</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.WindowInfoHeadless">WindowInfoHeadless</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

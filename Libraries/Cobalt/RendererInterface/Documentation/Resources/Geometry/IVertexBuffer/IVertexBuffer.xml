@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IVertexBuffer" Title="IVertexBuffer interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    IVertexBuffer
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class IVertexBuffer;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IVertexBuffer</TypeRef> interface represents a buffer containing a set of vertex attributes, suitable
+      to be bound as vertex shader inputs. Vertex attributes are specified by binding <PageRef PageName="cobalt.graphics.VertexAttribute">VertexAttribute</PageRef>
+      objects to the buffer through the <TypeRef>BindVertexAttribute</TypeRef> method, prior to calling the <TypeRef>AllocateMemory</TypeRef>
+      method. Once the <TypeRef>AllocateMemory</TypeRef> method has been called, the layout and size of the buffer has
+      been fixed, and cannot be changed. Multiple vertex attributes can be bound to the same buffer. Renderable objects
+      can use any attributes from any set of buffers, there is no requirement that all vertex attributes for a single
+      object must come from a single buffer.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Buffers may be created either in automatic or manual layout mode. Automatic layout buffers are free to allocate
+        memory using whatever memory layout the renderer determines is optimal, and are easiest for applications to work
+        with. Automatic layout buffers cannot be modified directly, instead the contents of the buffer are set and
+        updated through the <PageRef PageName="cobalt.graphics.VertexAttribute.SetInitialData">SetInitialData</PageRef> and
+        <PageRef PageName="cobalt.graphics.VertexAttribute.QueueDataUpdate">QueueDataUpdate</PageRef> methods on the <PageRef PageName="cobalt.graphics.VertexAttribute">VertexAttribute</PageRef>
+        objects which are bound to them. Manual layout buffers on the other hand require the application to explicitly
+        specify starting location and stride of each attribute. With the layout explicitly defined however, applications
+        are able to manually write to the buffer using the <PageRef PageName="cobalt.graphics.IVertexBuffer.SetRawInitialData">SetRawInitialData</PageRef>
+        and <PageRef PageName="cobalt.graphics.IVertexBuffer.QueueRawDataUpdate">QueueRawDataUpdate</PageRef> methods,
+        potentially updating the contents of multiple attributes at once. Additionally, an alias of the buffer can be
+        created using the <PageRef PageName="cobalt.graphics.IVertexBuffer.AllocateMemoryWithAlias">AllocateMemoryWithAlias</PageRef>
+        method, allowing the buffer to be directly written to in shaders, such as a compute shader. To allocate a buffer
+        in automatic layout mode, attach attributes using the <PageRef PageName="cobalt.graphics.IVertexBuffer.BindVertexAttribute">BindVertexAttribute</PageRef>
+        method. To allocate a buffer in manual layout mode, attach attributes using the <PageRef PageName="cobalt.graphics.IVertexBuffer.BindVertexAttributeManualLayout">BindVertexAttributeManualLayout</PageRef>
+        method. Unless you require the features provided by manual layout mode, it is recommended to use automatic
+        layout buffers.
+      </Paragraph>
+    </Note>
+    <Note Type="Important">
+      <Paragraph>
+        Note that a single vertex buffer does not necessarily correspond with a single block of allocated memory of the
+        requested size in hardware. Renderers are free to manage physical memory allocation in any way they see fit, and
+        may split or combine buffers, or create multiple buffers for purposes such as staging changes or swapping buffers
+        between frames. From the application perspective, buffers should be defined that group sets of vertex attributes
+        together that are logically related, and that are expected to be used together, and especially modified together
+        or deleted together.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.IVertexBuffer.Delete">
+          Schedules the object for deletion. After calling this method, the object will be destroyed after the current
+          frame completes drawing.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="AllocateMemory" PageName="cobalt.graphics.IVertexBuffer.AllocateMemory">
+          Attempts to allocate memory for the buffer using the supplied set of vertex attributes
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="AllocateMemoryWithAlias" PageName="cobalt.graphics.IVertexBuffer.AllocateMemoryWithAlias">
+          Attempts to allocate memory for the buffer, and alias it with an <PageRef PageName ="cobalt.graphics.ITexelArray">ITexelArray</PageRef>.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Binding methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="BindVertexAttribute" PageName="cobalt.graphics.IVertexBuffer.BindVertexAttribute">
+          Binds the specified <PageRef PageName="cobalt.graphics.VertexAttribute">VertexAttribute</PageRef> as a member of the buffer
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindVertexAttributeManualLayout" PageName="cobalt.graphics.IVertexBuffer.BindVertexAttributeManualLayout">
+          Binds the specified <PageRef PageName="cobalt.graphics.VertexAttribute">VertexAttribute</PageRef> as a member
+          of the buffer, with a manually defined buffer offset and stride.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Data methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetRawInitialData" PageName="cobalt.graphics.IVertexBuffer.SetRawInitialData">
+          Allows initial data to be set directly for the buffer where manual layout attributes have been bound with the
+          <PageRef PageName="cobalt.graphics.IVertexBuffer.BindVertexAttributeManualLayout">BindVertexAttributeManualLayout</PageRef> method.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="QueueRawDataUpdate" PageName="cobalt.graphics.IVertexBuffer.QueueRawDataUpdate">
+          Allows data to be written directly to the buffer where manual layout attributes have been bound with the
+          <PageRef PageName="cobalt.graphics.IVertexBuffer.BindVertexAttributeManualLayout">BindVertexAttributeManualLayout</PageRef> method.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.VertexAttribute">VertexAttribute</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IIndexBuffer">IIndexBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

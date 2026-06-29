@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogTargetConsole" Title="LogTargetConsole class" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    LogTargetConsole
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class LogTargetConsole : public ILogTarget;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>LogTargetConsole</TypeRef> class is a Windows console <PageRef PageName="cobalt.logging.ILogTarget">ILogTarget</PageRef> implementation. It writes messages to the attached console and changes the console text colour based on message severity.
+    </Paragraph>
+    <Paragraph>
+      This target is compiled only when the <TypeRef>INCLUDE_LOGTARGETCONSOLE</TypeRef> preprocessor symbol is enabled. It opens the attached console through <TypeRef>CONOUT$</TypeRef> rather than assuming the standard output handle is a console.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Call <PageRef PageName="cobalt.logging.LogTargetConsole.OpenConsoleHandle">OpenConsoleHandle</PageRef> before expecting messages to appear. If no console handle is open, <PageRef PageName="cobalt.logging.LogTargetConsole.LogMessage">LogMessage</PageRef> returns without writing output.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Constructors">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Constructor" PageName="cobalt.logging.LogTargetConsole.Constructor">
+          Creates a console target with no console handle open.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="Create" PageName="cobalt.logging.LogTargetConsole.Create">
+          Creates a console target wrapped in a smart pointer.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Lifetime methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.logging.LogTargetConsole.Delete">
+          Deletes the console target.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Open methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="OpenConsoleHandle" PageName="cobalt.logging.LogTargetConsole.OpenConsoleHandle">
+          Opens a handle to the attached console.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CloseConsoleHandle" PageName="cobalt.logging.LogTargetConsole.CloseConsoleHandle">
+          Closes the console handle if one is open.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Logging methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="LogMessage" PageName="cobalt.logging.LogTargetConsole.LogMessage">
+          Writes a message to the attached console.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.ILogTarget">ILogTarget</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogManager.AddLogTarget">LogManager.AddLogTarget</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateGroupNode.PolygonWindingOrder" Title="PolygonWindingOrder enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> ->
+    PolygonWindingOrder
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>PolygonWindingOrder</TypeRef> enumeration specifies which vertex winding order is treated as front-facing by an <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Clockwise">
+        Treats triangles whose vertices wind clockwise in framebuffer space as front-facing.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="CounterClockwise">
+        Treats triangles whose vertices wind counter-clockwise in framebuffer space as front-facing.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode.SetPolygonWindingOrder">IStateGroupNode.SetPolygonWindingOrder</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

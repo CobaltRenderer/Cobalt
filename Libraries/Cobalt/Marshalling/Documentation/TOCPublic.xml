@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocTOC Name="cobalt.marshalling.TOCPublic" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <TOCFragment Name="cobalt.marshalling.TOCPublic">
+    <TOCEntry Title="Home" PageName="cobalt.marshalling.Welcome" />
+    <TOCGroup Title="Fundamental Concepts">
+      <TOCEntry Title="Understanding the Problem" PageName="cobalt.marshalling.Concepts.Problem" />
+      <TOCEntry Title="Understanding the Solution" PageName="cobalt.marshalling.Concepts.Solution" />
+      <TOCEntry Title="Marshalling STL Types" PageName="cobalt.marshalling.Concepts.MarshallingSTL" />
+      <TOCEntry Title="Marshalling Custom Types" PageName="cobalt.marshalling.Concepts.MarshallingCustom" />
+      <TOCEntry Title="Interface Design" PageName="cobalt.marshalling.Concepts.InterfaceDesign" />
+    </TOCGroup>
+    <TOCGroup Title="API Reference">
+      <TOCGroup Title="Marshal Operators">
+        <TOCEntry Title="Marshal::In" PageName="cobalt.marshalling.MarshalIn" />
+        <TOCEntry Title="Marshal::Out" PageName="cobalt.marshalling.MarshalOut" />
+        <TOCEntry Title="Marshal::InOut" PageName="cobalt.marshalling.MarshalInOut" />
+        <TOCEntry Title="Marshal::Ret" PageName="cobalt.marshalling.MarshalRet" />
+      </TOCGroup>
+      <TOCGroup Title="Namespace Aliases">
+        <TOCEntry Title="Marshal Namespace Aliases" PageName="cobalt.marshalling.MarshalOperators" />
+      </TOCGroup>
+      <TOCGroup Title="Constructor Helpers">
+        <TOCEntry Title="marshal_object_tag" PageName="cobalt.marshalling.marshal_object_tag" />
+        <TOCEntry Title="IMarshallingObject" PageName="cobalt.marshalling.IMarshallingObject" />
+      </TOCGroup>
+      <TOCGroup Title="Ownership Helpers">
+        <TOCEntry Title="MarshallableDelete" PageName="cobalt.marshalling.MarshallableDelete" />
+      </TOCGroup>
+      <TOCGroup Title="Low-level Types">
+        <TOCEntry Title="IMarshalSource" PageName="cobalt.marshalling.IMarshalSource" />
+        <TOCEntry Title="MarshalSource" PageName="cobalt.marshalling.MarshalSource" />
+        <TOCEntry Title="IMarshalTarget" PageName="cobalt.marshalling.IMarshalTarget" />
+        <TOCEntry Title="MarshalTarget" PageName="cobalt.marshalling.MarshalTarget" />
+      </TOCGroup>
+    </TOCGroup>
+  </TOCFragment>
+</XMLDocTOC>

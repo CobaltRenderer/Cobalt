@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IVertexBuffer.Delete" Title="Delete method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IVertexBuffer">IVertexBuffer</PageRef> ->
+    Delete
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Delete</TypeRef> method schedules the object for deletion. After calling this method, the object will be destroyed after the current frame completes drawing.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Objects created by an <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> use deferred deletion and remain alive until any frame that is already drawing no longer needs them.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void Delete();]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IVertexBuffer">IVertexBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

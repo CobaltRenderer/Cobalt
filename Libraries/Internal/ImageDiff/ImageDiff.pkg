@@ -1,0 +1,11 @@
+// Copyright (c) 2026 Maptek Pty Ltd
+// Licensed under the MIT License
+#pragma once
+
+// Package dependencies
+#include <Cobalt/LoggingInterface/LoggingInterface.pkg>
+#include <Cobalt/Marshalling/Marshalling.pkg>
+
+// Public headers
+#include "IImageDiff.h"
+#include "IImageRGBA.h"

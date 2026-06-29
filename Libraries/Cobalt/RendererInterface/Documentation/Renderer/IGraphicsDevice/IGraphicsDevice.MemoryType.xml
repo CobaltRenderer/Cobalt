@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDevice.MemoryType" Title="MemoryType enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> ->
+    MemoryType
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>MemoryType</TypeRef> enumeration is used to distinguish between different classes of memory available
+      to a <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> object, as used when calling
+      the <PageRef PageName="cobalt.graphics.IGraphicsDevice.GetMemorySizeInBytes">GetMemorySizeInBytes</PageRef>
+      method.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Dedicated">
+        This category includes all physical memory which is exclusively owned by the graphics device itself, such that
+        if the graphics device was removed this memory would also no longer be available. It is important to note that
+        dedicated memory is not necessarily totally unaccessible to other parts of the system, as graphics devices
+        commonly have ways of mapping at least parts of their dedicated memory in a manner that makes it accessible to
+        the rest of the system, to help facilitate data transfers, but if the graphics device physically holds or
+        contains the memory, or is exclusively responsible for making it available to other devices in the system, the
+        memory is considered dedicated memory.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Shared">
+        Shared memory is any memory which is not exclusively owned by the graphics device. Integrated graphics devices
+        typically make extensive use of shared memory, such as being apportioned a section of general system memory by
+        the memory controller in a fixed manner, or in a configurable manner via the BIOS. Note however that integrated
+        devices may also have dedicated physical memory on-die. Under some system environments, dedicated graphics
+        devices also make extensive or exclusive use of shared memory. This has occurred on some major game console such
+        as the original Xbox, and is also common on mobile and embedded systems, however generally discrete graphics
+        devices will make use of dedicated memory, as this is often capable of yielding better rendering performance,
+        perhaps with a trade-off of increased times upload data to the graphics device.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice.GetMemorySizeInBytes">IGraphicsDevice.GetMemorySizeInBytes</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

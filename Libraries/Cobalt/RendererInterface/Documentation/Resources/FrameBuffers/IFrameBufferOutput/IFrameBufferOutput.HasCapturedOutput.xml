@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IFrameBufferOutput.HasCapturedOutput" Title="HasCapturedOutput method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IFrameBufferOutput">IFrameBufferOutput</PageRef> ->
+    HasCapturedOutput
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>HasCapturedOutput</TypeRef> method returns true if there is image data ready to be read from the output buffer.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[bool HasCapturedOutput() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="bool">
+        True if output has been captured and can be read, false otherwise.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBufferOutput">IFrameBufferOutput</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocTOC name="cobalt.graphics.TOCPublic" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <TOCFragment Name="cobalt.graphics.TOCPublic">
+    <TOCEntry Title="Home" PageName="cobalt.graphics.Welcome" />
+    <TOCGroup Title="Fundamental Concepts">
+      <TOCEntry Title="Background" PageName="cobalt.graphics.Concepts.Background" />
+      <TOCEntry Title="Render Tree" PageName="cobalt.graphics.Concepts.RenderTree" />
+      <TOCEntry Title="Hello World" PageName="cobalt.graphics.Concepts.HelloWorld" />
+      <TOCEntry Title="Draw and Build Phases" PageName="cobalt.graphics.Concepts.DrawBuildPhases" />
+      <TOCEntry Title="Threading Model" PageName="cobalt.graphics.Concepts.ThreadingModel" />
+      <TOCEntry Title="Allocation Model" PageName="cobalt.graphics.Concepts.AllocationModel" />
+      <TOCEntry Title="Shaders" PageName="cobalt.graphics.Concepts.Shaders" />
+      <TOCEntry Title="Best Practices" PageName="cobalt.graphics.Concepts.BestPractices" />
+    </TOCGroup>
+    <TOCGroup Title="API Reference">
+      <TOCEntry Title="RendererInterface package" PageName="cobalt.graphics.RendererInterface" />
+      <TOCGroup Title="Platform Bindings">
+        <TOCEntry Title="PlatformBindings package" PageName="cobalt.graphics.PlatformBindings" />
+        <TOCGroup Title="Renderer Plugins">
+          <TOCEntry Title="GetCobaltAPIVersion" PageName="cobalt.graphics.GetCobaltAPIVersion" />
+          <TOCEntry Title="GetRendererPlugin" PageName="cobalt.graphics.GetRendererPlugin" />
+          <TOCEntry Title="IRendererPlugin" PageName="cobalt.graphics.IRendererPlugin" />
+          <TOCEntry Title="RendererPlugin" PageName="cobalt.graphics.RendererPlugin" />
+          <TOCEntry Title="IModuleHandle" PageName="cobalt.graphics.IModuleHandle" />
+          <TOCEntry Title="ModuleHandleWin32" PageName="cobalt.graphics.ModuleHandleWin32" />
+          <TOCEntry Title="ModuleHandlePosix" PageName="cobalt.graphics.ModuleHandlePosix" />
+          <TOCEntry Title="RenderPluginEnumerator" PageName="cobalt.graphics.RenderPluginEnumerator" />
+        </TOCGroup>
+        <TOCGroup Title="Window System Info">
+          <TOCEntry Title="WindowSystemInfoHeadless" PageName="cobalt.graphics.WindowSystemInfoHeadless" />
+          <TOCEntry Title="WindowSystemInfoWin32" PageName="cobalt.graphics.WindowSystemInfoWin32" />
+          <TOCEntry Title="WindowSystemInfoXlib" PageName="cobalt.graphics.WindowSystemInfoXlib" />
+          <TOCEntry Title="WindowSystemInfoXCB" PageName="cobalt.graphics.WindowSystemInfoXCB" />
+          <TOCEntry Title="WindowSystemInfoWayland" PageName="cobalt.graphics.WindowSystemInfoWayland" />
+          <TOCEntry Title="WindowSystemInfoAppKit" PageName="cobalt.graphics.WindowSystemInfoAppKit" />
+        </TOCGroup>
+        <TOCGroup Title="Window Info">
+          <TOCEntry Title="WindowInfoHeadless" PageName="cobalt.graphics.WindowInfoHeadless" />
+          <TOCEntry Title="WindowInfoWin32" PageName="cobalt.graphics.WindowInfoWin32" />
+          <TOCEntry Title="WindowInfoXlib" PageName="cobalt.graphics.WindowInfoXlib" />
+          <TOCEntry Title="X11Constants" PageName="cobalt.graphics.X11Constants" />
+          <TOCEntry Title="WindowInfoXCB" PageName="cobalt.graphics.WindowInfoXCB" />
+          <TOCEntry Title="WindowInfoWayland" PageName="cobalt.graphics.WindowInfoWayland" />
+          <TOCEntry Title="WindowInfoAppKit" PageName="cobalt.graphics.WindowInfoAppKit" />
+        </TOCGroup>
+        <TOCGroup Title="SDL3 Helpers">
+          <TOCEntry Title="CobaltSDLCreateWindow" PageName="cobalt.graphics.CobaltSDLCreateWindow" />
+          <TOCEntry Title="WindowSystemInfoSDL3" PageName="cobalt.graphics.WindowSystemInfoSDL3" />
+          <TOCEntry Title="WindowInfoSDL3" PageName="cobalt.graphics.WindowInfoSDL3" />
+        </TOCGroup>
+      </TOCGroup>
+      <TOCGroup Title="Renderer Types">
+        <TOCEntry Title="IGraphicsDeviceEnumerator" PageName="cobalt.graphics.IGraphicsDeviceEnumerator" />
+        <TOCEntry Title="IGraphicsDevice"           PageName="cobalt.graphics.IGraphicsDevice" />
+        <TOCEntry Title="IRenderer"                 PageName="cobalt.graphics.IRenderer" />
+      </TOCGroup>
+      <TOCGroup Title="Render Tree Types">
+        <TOCEntry Title="IRenderPassNode"           PageName="cobalt.graphics.IRenderPassNode" />
+        <TOCEntry Title="IProgramNode"              PageName="cobalt.graphics.IProgramNode" />
+        <TOCEntry Title="IStateGroupNode"           PageName="cobalt.graphics.IStateGroupNode" />
+        <TOCEntry Title="IRenderableNode"           PageName="cobalt.graphics.IRenderableNode" />
+        <TOCEntry Title="IStateContainer"           PageName="cobalt.graphics.IStateContainer" />
+        <TOCEntry Title="IDefaultState"             PageName="cobalt.graphics.IDefaultState" />
+      </TOCGroup>
+      <TOCGroup Title="Resource Types">
+        <TOCGroup Title="Geometry Types">
+          <TOCEntry Title="IIndexBuffer"            PageName="cobalt.graphics.IIndexBuffer" />
+          <TOCEntry Title="IVertexBuffer"           PageName="cobalt.graphics.IVertexBuffer" />
+          <TOCEntry Title="IndexAttribute"          PageName="cobalt.graphics.IndexAttribute" />
+          <TOCEntry Title="RawIndexAttribute"       PageName="cobalt.graphics.RawIndexAttribute" />
+          <TOCEntry Title="ReadOnlyIndexAttribute"  PageName="cobalt.graphics.ReadOnlyIndexAttribute" />
+          <TOCEntry Title="VertexAttribute"         PageName="cobalt.graphics.VertexAttribute" />
+          <TOCEntry Title="RawVertexAttribute"      PageName="cobalt.graphics.RawVertexAttribute" />
+          <TOCEntry Title="ReadOnlyVertexAttribute" PageName="cobalt.graphics.ReadOnlyVertexAttribute" />
+        </TOCGroup>
+        <TOCGroup Title="Image Types">
+          <TOCEntry Title="ITextureBuffer"          PageName="cobalt.graphics.ITextureBuffer" />
+          <TOCEntry Title="ITextureBuffer1D"        PageName="cobalt.graphics.ITextureBuffer1D" />
+          <TOCEntry Title="ITextureBuffer2D"        PageName="cobalt.graphics.ITextureBuffer2D" />
+          <TOCEntry Title="ITextureBuffer3D"        PageName="cobalt.graphics.ITextureBuffer3D" />
+          <TOCEntry Title="ITextureBufferCube"      PageName="cobalt.graphics.ITextureBufferCube" />
+          <TOCEntry Title="ITextureBuffer1DArray"   PageName="cobalt.graphics.ITextureBuffer1DArray" />
+          <TOCEntry Title="ITextureBuffer2DArray"   PageName="cobalt.graphics.ITextureBuffer2DArray" />
+          <TOCEntry Title="ITextureBufferCubeArray" PageName="cobalt.graphics.ITextureBufferCubeArray" />
+        </TOCGroup>
+        <TOCGroup Title="Sampler Types">
+          <TOCEntry Title="ITextureSampler"         PageName="cobalt.graphics.ITextureSampler" />
+          <TOCEntry Title="ITextureSampler1D"       PageName="cobalt.graphics.ITextureSampler1D" />
+          <TOCEntry Title="ITextureSampler2D"       PageName="cobalt.graphics.ITextureSampler2D" />
+          <TOCEntry Title="ITextureSampler3D"       PageName="cobalt.graphics.ITextureSampler3D" />
+          <TOCEntry Title="ITextureSamplerCube"     PageName="cobalt.graphics.ITextureSamplerCube" />
+          <TOCEntry Title="ITextureSampler1DArray"  PageName="cobalt.graphics.ITextureSampler1DArray" />
+          <TOCEntry Title="ITextureSampler2DArray"  PageName="cobalt.graphics.ITextureSampler2DArray" />
+          <TOCEntry Title="ITextureSamplerCubeArray" PageName="cobalt.graphics.ITextureSamplerCubeArray" />
+        </TOCGroup>
+        <TOCGroup Title="Data Types">
+          <TOCEntry Title="IResourceArray"          PageName="cobalt.graphics.IResourceArray" />
+          <TOCEntry Title="IDataArray"              PageName="cobalt.graphics.IDataArray" />
+          <TOCEntry Title="IDataArrayOutput"        PageName="cobalt.graphics.IDataArrayOutput" />
+          <TOCEntry Title="ITexelArray"             PageName="cobalt.graphics.ITexelArray" />
+          <TOCEntry Title="ITexelArrayOutput"       PageName="cobalt.graphics.ITexelArrayOutput" />
+          <TOCEntry Title="IStateBuffer"            PageName="cobalt.graphics.IStateBuffer" />
+          <TOCEntry Title="IStateBufferLayout"      PageName="cobalt.graphics.IStateBufferLayout" />
+        </TOCGroup>
+        <TOCGroup Title="Batch Types">
+          <TOCEntry Title="ITransferBatch"          PageName="cobalt.graphics.ITransferBatch" />
+        </TOCGroup>
+        <TOCGroup Title="FrameBuffer Types">
+          <TOCEntry Title="IFrameBuffer"            PageName="cobalt.graphics.IFrameBuffer" />
+          <TOCEntry Title="IFrameBufferOutput"      PageName="cobalt.graphics.IFrameBufferOutput" />
+        </TOCGroup>
+        <TOCGroup Title="Program Types">
+          <TOCEntry Title="IShaderProgram"          PageName="cobalt.graphics.IShaderProgram" />
+        </TOCGroup>
+      </TOCGroup>
+      <TOCGroup Title="Helper Types">
+        <TOCEntry Title="SuccessToken"              PageName="cobalt.graphics.SuccessToken" />
+        <TOCEntry Title="ReadWriteMutex"            PageName="cobalt.graphics.ReadWriteMutex" />
+        <TOCGroup Title="Token Types">
+          <TOCEntry Title="VertexAttributeId"       PageName="cobalt.graphics.VertexAttributeId" />
+          <TOCEntry Title="TextureId"               PageName="cobalt.graphics.TextureId" />
+          <TOCEntry Title="SamplerId"               PageName="cobalt.graphics.SamplerId" />
+          <TOCEntry Title="StateValueId"            PageName="cobalt.graphics.StateValueId" />
+          <TOCEntry Title="StateBufferId"           PageName="cobalt.graphics.StateBufferId" />
+          <TOCEntry Title="ResourceArrayId"         PageName="cobalt.graphics.ResourceArrayId" />
+        </TOCGroup>
+      </TOCGroup>
+    </TOCGroup>
+  </TOCFragment>
+</XMLDocTOC>

@@ -1,0 +1,82 @@
+diff --git forkSrcPrefix/loader/unknown_ext_chain_gas_aarch64.S forkDstPrefix/loader/unknown_ext_chain_gas_aarch64.S
+index a4078e4e339dad3752ffec9bbcdc4a955c13c844..3b40d33fcd1a53c82385c3f90d6497010096c1dc 100644
+--- forkSrcPrefix/loader/unknown_ext_chain_gas_aarch64.S
++++ forkDstPrefix/loader/unknown_ext_chain_gas_aarch64.S
+@@ -23,7 +23,7 @@
+ 
+ .include "gen_defines.asm"
+ 
+-.if AARCH_64
++// .if AARCH_64
+ 
+ .macro PhysDevExtTramp num
+ .global vkPhysDevExtTramp\num
+@@ -78,7 +78,7 @@ vkdev_ext\num:
+     br      x11
+ .endm
+ 
+-.endif
++// .endif
+ 
+ #if defined(__ELF__)
+ .section .note.GNU-stack,"",%progbits
+diff --git forkSrcPrefix/loader/CMakeLists.txt forkDstPrefix/loader/CMakeLists.txt
+index 2d0ec20756c7bc89c51209c964553f9e341aeb77..408c1660a90e14c0913ae915d0e37923ca6accd2 100644
+--- forkSrcPrefix/loader/CMakeLists.txt
++++ forkDstPrefix/loader/CMakeLists.txt
+@@ -130,10 +130,16 @@ if(WIN32)
+         endif()
+     endif()
+     option(USE_MASM "Use MASM" ON)
++    string(TOLOWER "${CMAKE_SYSTEM_PROCESSOR}" LOADER_TARGET_PROCESSOR)
++    if(LOADER_TARGET_PROCESSOR STREQUAL "arm64" OR LOADER_TARGET_PROCESSOR STREQUAL "aarch64")
++        # The MASM source is x86/x64 only, so Windows ARM64 needs to use the C fallback.
++        set(USE_MASM OFF)
++    endif()
++
+     if (USE_MASM)
+       enable_language(ASM_MASM)
+     endif ()
+-    if(CMAKE_ASM_MASM_COMPILER_WORKS OR JWASM_FOUND)
++    if(USE_MASM AND (CMAKE_ASM_MASM_COMPILER_WORKS OR JWASM_FOUND))
+         if(MINGW)
+             set(CMAKE_ASM_MASM_FLAGS ${CMAKE_ASM_MASM_FLAGS} ${JWASM_FLAGS})
+         elseif(NOT CMAKE_CL_64 AND NOT JWASM_FOUND)
+@@ -220,6 +220,8 @@ elseif(UNIX) # i.e.: Linux & Apple
+                 set(ASM_OFFSET_INTERMEDIATE_LOCATION "$<TARGET_FILE_DIR:asm_offset>/CMakeFiles/asm_offset.dir/asm_offset.c.s")
+             elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+                 set(ASM_OFFSET_INTERMEDIATE_LOCATION "$<TARGET_FILE_DIR:asm_offset>/CMakeFiles/asm_offset.dir/asm_offset.s")
++            elseif(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
++                set(ASM_OFFSET_INTERMEDIATE_LOCATION "$<TARGET_FILE_DIR:asm_offset>/CMakeFiles/asm_offset.dir/asm_offset.s")
+             endif()
+ 
+             find_package(Python3 REQUIRED QUIET)
+@@ -432,8 +434,3 @@ endif()
+ 
+ target_link_libraries(vulkan PRIVATE Vulkan::Headers)
+ add_library(Vulkan::Vulkan ALIAS vulkan)
+-
+-install(TARGETS vulkan
+-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+diff --git forkSrcPrefix/scripts/parse_asm_values.py forkDstPrefix/scripts/parse_asm_values.py
+index df7a0460c20c2fcade4fec8a8a895f32ded9d8aa..3605cd19614aec3c664544a4926b5661765bbc3c 100644
+--- forkSrcPrefix/scripts/parse_asm_values.py
++++ forkDstPrefix/scripts/parse_asm_values.py
+@@ -80,13 +80,13 @@ with open(destination_file, "w", encoding="utf-8") as dest:
+             if d == "VULKAN_LOADER_ERROR_BIT":
+                 continue # skip due to special case
+             match = re.search(d + " DD [ ]*([0-9a-f]+)H", asm_intermediate_file)
+-        elif compiler == "Clang" or compiler == "GNU":
++        elif compiler == "Clang" or compiler == "AppleClang" or compiler == "GNU":
+             match = re.search(d + " = ([0-9]+)", asm_intermediate_file)
+ 
+         if match:
+             if compiler == "MSVC":
+                 value = str(int(match.group(1), 16))
+-            elif compiler == "Clang" or compiler == "GNU":
++            elif compiler == "Clang" or compiler == "AppleClang" or compiler == "GNU":
+                 value = match.group(1)
+             if assembler_type == "MASM":
+             # MASM uses hex values, decode them here

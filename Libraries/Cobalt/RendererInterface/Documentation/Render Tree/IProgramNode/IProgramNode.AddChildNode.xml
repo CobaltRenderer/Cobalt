@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IProgramNode.AddChildNode" Title="IProgramNode method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef> ->
+    AddChildNode
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>AddChildNode</TypeRef> method adds the specified <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef>
+      to the list of child nodes. During the rendering process, each <TypeRef>IStateGroupNode</TypeRef> is processed in
+      the order it was added. This method adds the specified <TypeRef>IStateGroupNode</TypeRef> to the end of the
+      current set of child nodes.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void AddChildNode(IStateGroupNode* childNode);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IStateGroupNode*!cobalt.graphics.IStateGroupNode" Name="childNode">
+          The <TypeRef>IStateGroupNode</TypeRef> node to add to the list of child nodes
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

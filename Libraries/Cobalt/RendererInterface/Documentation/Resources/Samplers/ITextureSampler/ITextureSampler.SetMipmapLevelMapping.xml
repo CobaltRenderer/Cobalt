@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureSampler.SetMipmapLevelMapping" Title="SetMipmapLevelMapping method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITextureSampler">ITextureSampler</PageRef> ->
+    SetMipmapLevelMapping
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetMipmapLevelMapping</TypeRef> method restricts and biases the mipmap levels that a sampler may use
+      when sampling a texture. The minimum and maximum levels clamp the calculated level-of-detail range, while the bias
+      shifts the calculated mipmap level before filtering between levels.
+    </Paragraph>
+    <Paragraph>
+      This method is useful when only a subset of mipmap levels should be visible, when a texture streaming system has
+      not populated every level, or when a deliberate mipmap level bias is needed to sharpen or soften texture sampling.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        A non-zero mipmap level bias requires the <TypeRef>MipmapLevelBias</TypeRef> device feature to be supported by
+        the graphics device and enabled when the renderer is created. Use a zero bias when the feature is unavailable.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetMipmapLevelMapping(float minLevel = 0, float maxLevel = 0, float levelBias = 0);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="float" Name="minLevel">
+          The minimum mipmap level that may be sampled.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="float" Name="maxLevel">
+          The maximum mipmap level that may be sampled. Use zero to allow the renderer to use the texture's last mipmap level.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="float" Name="levelBias">
+          The mipmap level bias applied during sampling.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureSampler.MipmapMode">ITextureSampler.MipmapMode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureSampler.SetTextureMipmapMode">ITextureSampler.SetTextureMipmapMode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice.Feature">IGraphicsDevice.Feature</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

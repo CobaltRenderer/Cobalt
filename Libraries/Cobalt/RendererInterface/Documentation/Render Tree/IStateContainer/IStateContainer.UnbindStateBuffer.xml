@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateContainer.UnbindStateBuffer" Title="UnbindStateBuffer method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateContainer">IStateContainer</PageRef> ->
+    UnbindStateBuffer
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>UnbindStateBuffer</TypeRef> method removes a previously defined binding to an <PageRef PageName="cobalt.graphics.IStateBuffer">IStateBuffer</PageRef>
+      object.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void UnbindStateBuffer(StateBufferId stateBufferId);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="StateBufferId!cobalt.graphics.StateBufferId" Name="stateBufferId">
+          The <TypeRef>StateBufferId</TypeRef> of the state buffer to unbind
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateContainer">IStateContainer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateBuffer">IStateBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogTargetFile.FlushAfterWrite" Title="FlushAfterWrite method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.LogTargetFile">LogTargetFile</PageRef> ->
+    FlushAfterWrite
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>FlushAfterWrite</TypeRef> method sets the severity filter used to decide whether the file stream should be flushed immediately after a message is written.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Use <TypeRef>SeverityFilter::None</TypeRef> to prevent automatic flushing, or <TypeRef>SeverityFilter::All</TypeRef> to flush after every written message.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void FlushAfterWrite(ILogger::SeverityFilter FlushFilter);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="SeverityFilter!cobalt.logging.ILogger.SeverityFilter" Name="FlushFilter">The filter used to decide which severities trigger a flush after writing.</ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetFile">LogTargetFile</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.ILogger.SeverityFilter">ILogger.SeverityFilter</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

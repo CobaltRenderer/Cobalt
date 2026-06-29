@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IFrameBufferOutput" Title="IFrameBufferOutput interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    IFrameBufferOutput
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class IFrameBufferOutput;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IFrameBufferOutput</TypeRef> interface represents an object which is capable of retrieving the output
+      of a single framebuffer target, such as a colour, depth, or stencil buffer, and returning the contained data to
+      the application. This is useful for creating screenshots, or potentially for recording a video of every rendered
+      frame produced. Multiple <TypeRef>IFrameBufferOutput</TypeRef> objects can be attached to the one
+      <PageRef PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRef>, to capture multiple output targets, or
+      potentially to capture the same output target into multiple <TypeRef>IFrameBufferOutput</TypeRef> objects. It is
+      also possible to attach an <TypeRef>IFrameBufferOutput</TypeRef> object to intermediate framebuffers, which aren't
+      displayed directly to the screen, but are used to write to textures that are fed into later stages of rendering.
+      This can be useful for debugging issues during development.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Please be aware that due to the inherent overhead in reading back resulting buffer contents from the hardware,
+        attaching an <TypeRef>IFrameBufferOutput</TypeRef> object may have a significant impact on render times, so it is
+        advisable to only leave an <TypeRef>IFrameBufferOutput</TypeRef> object attached for the shortest time required.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.IFrameBufferOutput.Delete">
+          Schedules the object for deletion. After calling this method, the object will be destroyed after the current
+          frame completes drawing.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Configuration methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetDetachAfterCapture" PageName="cobalt.graphics.IFrameBufferOutput.SetDetachAfterCapture">
+          Specifies whether this <TypeRef>IFrameBufferOutput</TypeRef> object will be detached after capturing a single
+          image.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetFrameBufferCaptureRegion" PageName="cobalt.graphics.IFrameBufferOutput.SetFrameBufferCaptureRegion">
+          Specifies the region of the bound framebuffer image to capture
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Data methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="HasCapturedOutput" PageName="cobalt.graphics.IFrameBufferOutput.HasCapturedOutput">
+          Returns true if there is image data ready to be read from the output buffer
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ClearCapturedOutput" PageName="cobalt.graphics.IFrameBufferOutput.ClearCapturedOutput">
+          Relases the captured image data. Note that this doesn't need to be called to capture a new frame.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetImageDimensions" PageName="cobalt.graphics.IFrameBufferOutput.GetImageDimensions">
+          Returns the size in pixels of the image data in the output buffer
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetCroppedImageDimensions" PageName="cobalt.graphics.IFrameBufferOutput.GetCroppedImageDimensions">
+          Returns the resulting image size if the specified offset and maximum region size are applied to the actual
+          image data in the output buffer. This can be used to appropriately size a buffer to pass into the
+          <PageRef PageName="cobalt.graphics.IFrameBufferOutput.ReadBufferData">ReadBufferData</PageRef> method.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetOptimalImageFormat" PageName="cobalt.graphics.IFrameBufferOutput.GetOptimalImageFormat">
+          Returns the <PageRef PageName="cobalt.graphics.ITextureBuffer.SourceImageFormat">SourceImageFormat</PageRef>
+          that most closely matches the format of the captured image data.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetOptimalDataFormat" PageName="cobalt.graphics.IFrameBufferOutput.GetOptimalDataFormat">
+          Returns the <PageRef PageName="cobalt.graphics.ITextureBuffer.SourceDataFormat">SourceDataFormat</PageRef>
+          that most closely matches the format of the captured image data.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ReadBufferData" PageName="cobalt.graphics.IFrameBufferOutput.ReadBufferData">
+          Attempts to read the requested portion of the captured image output and write it to the target buffer
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

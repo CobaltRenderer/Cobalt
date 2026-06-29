@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureBuffer.SetPerformanceHints" Title="SetPerformanceHints method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef> ->
+    SetPerformanceHints
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetPerformanceHints</TypeRef> method provides hints to the renderer about how this texture buffer will be read and written.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetPerformanceHints(PerformanceHint performanceHintCpu, PerformanceHint performanceHintGpu);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="PerformanceHint" Name="performanceHintCpu">
+          The hint describing how the CPU is expected to read from or write to the resource.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="PerformanceHint" Name="performanceHintGpu">
+          The hint describing how the GPU is expected to read from or write to the resource.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogTargetCallback.Constructor" Title="Constructor method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.LogTargetCallback">LogTargetCallback</PageRef> ->
+    Constructor
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>LogTargetCallback</TypeRef> constructor creates a target that invokes the supplied callback for each received message.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        Supplying an empty callback can cause logging to fail when the target attempts to invoke it.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[LogTargetCallback(std::function<void(const std::string&, ILogger::Severity, const std::string&)> callback);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="std::function" Name="callback">The callback to invoke with the message scope, severity, and text.</ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetCallback">LogTargetCallback</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetCallback.Create">LogTargetCallback.Create</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

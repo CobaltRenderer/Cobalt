@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.marshalling.IMarshallingObject" Title="IMarshallingObject" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class IMarshallingObject
+{
+protected:
+    inline ~IMarshallingObject()
+    { }
+};]]></Code>
+  </Section>
+
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IMarshallingObject</TypeRef> type is an empty marker base class used for compatibility with compilers that do not provide the C++11 type
+      traits required to detect marshalling constructors automatically. It is only needed on older configurations, and is generally unnecessary when
+      C++11 support is available.
+    </Paragraph>
+    <Paragraph>
+      The protected destructor prevents deletion through the base type, and mirrors the pattern used elsewhere in the marshalling library for small helper
+      types that are intended only to participate in compile-time detection.
+    </Paragraph>
+  </Section>
+
+  <Section Title="Usage">
+    <Paragraph>
+      When targeting a compiler without the type-trait support used by the marshalling library, derive your marshallable types from
+      <TypeRef>IMarshallingObject</TypeRef> so the library can identify them as participating in marshalling.
+    </Paragraph>
+  </Section>
+
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.marshalling.Concepts.MarshallingCustom">Marshalling Custom Types</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.marshalling.marshal_object_tag">marshal_object_tag</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

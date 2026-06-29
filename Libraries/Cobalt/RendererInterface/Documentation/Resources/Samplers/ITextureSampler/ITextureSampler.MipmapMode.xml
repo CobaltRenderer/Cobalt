@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureSampler.MipmapMode" Title="MipmapMode enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITextureSampler">ITextureSampler</PageRef> ->
+    MipmapMode
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>MipmapMode</TypeRef> enumeration defines how a sampler selects between mipmap levels when a texture is minified. It is configured with <PageRef PageName="cobalt.graphics.ITextureSampler.SetTextureMipmapMode">SetTextureMipmapMode</PageRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="None">
+        Disables mipmap level selection and samples from the base level.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Nearest">
+        Selects the nearest mipmap level for the calculated level of detail.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Linear">
+        Interpolates between neighbouring mipmap levels for the calculated level of detail.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureSampler.SetTextureMipmapMode">ITextureSampler.SetTextureMipmapMode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

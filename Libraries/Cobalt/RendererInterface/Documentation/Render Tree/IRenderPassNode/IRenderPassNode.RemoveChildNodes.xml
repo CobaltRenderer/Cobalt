@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderPassNode.RemoveChildNodes" Title="RemoveChildNodes method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef> ->
+    RemoveChildNodes
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>RemoveChildNodes</TypeRef> method removes the specified set of <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef>
+      objects from the list of child nodes if present.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void RemoveChildNodes(IProgramNode* const* childNodes, size_t childNodeCount);
+void RemoveChildNodes(IProgramNode::unique_ptr const* childNodes, size_t childNodeCount);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IProgramNode* const* / IProgramNode::unique_ptr const*!cobalt.graphics.IProgramNode" Name="childNodes">
+          The set of <TypeRef>IProgramNode</TypeRef> objects to remove from the list of child nodes
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="childNodeCount">
+          The number of <TypeRef>IProgramNode</TypeRef> entries to read from the <TypeRef>childNodes</TypeRef> array
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

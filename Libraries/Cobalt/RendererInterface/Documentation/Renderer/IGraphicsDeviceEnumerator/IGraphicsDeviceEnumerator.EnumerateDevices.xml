@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDeviceEnumerator.EnumerateDevices" Title="EnumerateDevices method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRef> ->
+    EnumerateDevices
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>EnumerateDevices</TypeRef> method scans for available graphics devices on the system, which implement
+      the required version of the underlying rendering API used by this renderer plugin. Although information on located
+      devices is not returned directly by this method, after successfully completing, the available devices can be
+      enumerated by calling other methods on the <TypeRef>IGraphicsDeviceEnumerator</TypeRef> object, such as
+      <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetAllDevices">GetAllDevices</PageRef> and
+      <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetPreferredDevice">GetPreferredDevice</PageRef>.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        A successful call to this method means that the enumeration operation completed, not that at least one compatible
+        device was found. It is valid for this method to return true while
+        <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetAllDevices">GetAllDevices</PageRef> returns an
+        empty list, for example on a system without a compatible graphics driver, without the requested renderer API, or
+        without a device compatible with the supplied <TypeRef>EnumerationFlags</TypeRef>. Applications should explicitly
+        check <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.FoundDevice">FoundDevice</PageRef> or the
+        returned device list before attempting to select or create a renderer from a device.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        Calling this method destroys any previously allocated <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef>
+        objects returned by this object, even if the same devices are located again during the enumeration process.
+        Generally this method should only ever need to be called once, but this method is called after a previous
+        successful call, it is the responsibility of the calling application to ensure any previously returned
+        <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> references are not retained or
+        accessed after this method is called.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken EnumerateDevices(EnumerationFlags flags = EnumerationFlags::None);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="DeviceType!cobalt.graphics.IGraphicsDeviceEnumerator.EnumerationFlags" Name="flags">
+          Optional flags to control the enumeration process
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken!cobalt.graphics.SuccessToken">
+        True if the enumeration process completed, false if enumeration itself failed. A true result does not guarantee
+        that any compatible devices were found.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

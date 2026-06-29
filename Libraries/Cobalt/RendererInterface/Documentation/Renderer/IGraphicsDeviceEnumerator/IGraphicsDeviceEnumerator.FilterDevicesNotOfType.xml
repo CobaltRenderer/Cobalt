@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDeviceEnumerator.FilterDevicesNotOfType" Title="FilterDevicesNotOfType method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRef> ->
+    FilterDevicesNotOfType
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>FilterDevicesNotOfType</TypeRef> method removes all devices which are not of the specified type from the filtered device list.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void FilterDevicesNotOfType(IGraphicsDevice::DeviceType type);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IGraphicsDevice::DeviceType" Name="type">
+          The device type to remove from the filtered device list.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

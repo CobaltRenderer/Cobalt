@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderer.CreateTransferBatch" Title="CreateTransferBatch method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> ->
+    CreateTransferBatch
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>CreateTransferBatch</TypeRef> method constructs and returns a new object which implements the <PageRef PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRef>
+      interface.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[ITransferBatch::unique_ptr CreateTransferBatch(ITransferBatch::StartTiming startTiming, ITransferBatch::EndTiming endTiming);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="StartTiming!cobalt.graphics.ITransferBatch.StartTiming" Name="startTiming">
+          Specifies the time when this transfer batch is requested to start processing after being submitted. The batch
+          may begin processing later than this point, but it will not begin processing before this point.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="EndTiming!cobalt.graphics.ITransferBatch.EndTiming" Name="endTiming">
+          Specifies the time when this transfer batch is requested to end processing after being submitted. The batch
+          may finish processing earlier than this point, but it will finish by this point.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="ITransferBatch!cobalt.graphics.ITransferBatch">
+        A freshly constructed <TypeRef>ITransferBatch</TypeRef> object, wrapped in a <TypeRef>unique_ptr</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer">IRenderer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

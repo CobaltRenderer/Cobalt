@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateBuffer.BindBufferLayout" Title="BindBufferLayout method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateBuffer">IStateBuffer</PageRef> ->
+    BindBufferLayout
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>BindBufferLayout</TypeRef> method binds the specified state buffer layout to the state buffer. A layout must be defined using this method or SetManualPageSize before calling AllocateMemory, and cannot be changed afterwards.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken BindBufferLayout(IStateBufferLayout* stateBufferLayout);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IStateBufferLayout*" Name="stateBufferLayout">
+          The state buffer layout object that defines the page layout for this buffer.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken">
+        True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateBuffer">IStateBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

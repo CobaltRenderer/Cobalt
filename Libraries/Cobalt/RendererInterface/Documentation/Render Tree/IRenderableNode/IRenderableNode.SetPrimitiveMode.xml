@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderableNode.SetPrimitiveMode" Title="SetPrimitiveMode method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef> ->
+    SetPrimitiveMode
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetPrimitiveMode</TypeRef> method specifies how vertex data is interpreted to form geometric
+      primitives. The <PageRef PageName="cobalt.graphics.IRenderableNode.PrimitiveMode">PrimitiveMode</PageRef>
+      enumeration specifies the valid list of primitive modes.
+    </Paragraph>
+  </Section>
+  <Note Type="Important">
+    <Paragraph>
+      There is no default value for the primitive mode, and it must be set before this node is added to the tree.
+      Attempts to add an <TypeRef>IRenderableNode</TypeRef> as a child to an <TypeRef>IStateGroupNode</TypeRef>
+      without the primitive mode being set will be ignored, and an error will be logged.
+    </Paragraph>
+  </Note>
+  <Note Type="Warning">
+    <Paragraph>
+      Once the <TypeRef>IRenderableNode</TypeRef> has been added as a child node, the primitive mode can no longer be
+      changed, and calling the <TypeRef>SetPrimitiveMode</TypeRef> will return false. Removing the node as a child later
+      will also not allow the primitive mode to be modified. If you want to change the primitive mode for a renderable
+      which has been added as a child, you need to create a new <TypeRef>IRenderableNode</TypeRef> object.
+    </Paragraph>
+  </Note>
+  <Note Type="Warning">
+    <Paragraph>
+      Due to API limitations, primitive restart is always enabled under Direct3D 11 renderers, and cannot be turned off.
+      To avoid issues, you should consider the primitive restart index values to be reserved, and avoid their use
+      regardless of whether primitive restart is enabled or not.
+    </Paragraph>
+  </Note>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken SetPrimitiveMode(PrimitiveMode primitiveMode, bool primitiveRestartEnabled = false);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="PrimitiveMode!cobalt.graphics.IRenderableNode.PrimitiveMode" Name="primitiveMode">
+          The <TypeRef>PrimitiveMode</TypeRef> to use when drawing this object
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="bool" Name="primitiveRestartEnabled">
+          For <TypeRef>LineStrip</TypeRef> and <TypeRef>TriangleStrip</TypeRef> primitive modes, specifies whether
+          primitive restart is enabled.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken!cobalt.graphics.SuccessToken">
+        True if the primitive mode was successfully modified, false otherwise. This method will only fail if the
+        renderable node has already been added as a child node. An assertion will be raised in debug builds if the
+        result isn't tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

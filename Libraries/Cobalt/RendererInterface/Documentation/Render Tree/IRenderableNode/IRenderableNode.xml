@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderableNode" Title="IRenderableNode interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    IRenderableNode
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class IRenderableNode :public IStateContainer;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IRenderableNode</TypeRef> interface represents a renderable object in the render tree. Renderable
+      objects can only be added as children an <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef>.
+      This node is responsible for defining an object to be drawn during the rendering process. Without at least one
+      renderable node in the tree, the scene contains no content.
+    </Paragraph>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="PrimitiveMode" TypeCategory="Enumeration" PageName="cobalt.graphics.IRenderableNode.PrimitiveMode" Visibility="Public">
+        Specifies the available options for configuring the primitive drawing mode, as set by the <PageRef PageName="cobalt.graphics.IRenderableNode.SetPrimitiveMode">SetPrimitiveMode</PageRef> method.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Structures">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="IndirectDrawParams" TypeCategory="Struct" PageName="cobalt.graphics.IRenderableNode.IndirectDrawParams" Visibility="Public">
+        Defines the command structure consumed for non-indexed indirect drawing.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="IndexedIndirectDrawParams" TypeCategory="Struct" PageName="cobalt.graphics.IRenderableNode.IndexedIndirectDrawParams" Visibility="Public">
+        Defines the command structure consumed for indexed indirect drawing.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.IRenderableNode.Delete">
+          Schedules the object for deletion. After calling this method, the object will be destroyed after the current
+          frame completes drawing.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Binding methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="BindVertexAttribute" PageName="cobalt.graphics.IRenderableNode.BindVertexAttribute">
+          Binds the specified vertex attribute to this renderable object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindVertexInstanceAttribute" PageName="cobalt.graphics.IRenderableNode.BindVertexInstanceAttribute">
+          Binds the specified vertex instance attribute to this renderable object
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindIndexAttribute" PageName="cobalt.graphics.IRenderableNode.BindIndexAttribute">
+          Binds the specified index attribute to this renderable object
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Primitive mode methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetPrimitiveMode" PageName="cobalt.graphics.IRenderableNode.SetPrimitiveMode">
+          Sets the primitive mode and associated settings
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetVertexCount" PageName="cobalt.graphics.IRenderableNode.SetVertexCount">
+          Sets the vertex count and associated vertex and index settings
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetInstanceMode" PageName="cobalt.graphics.IRenderableNode.SetInstanceMode">
+          Configures the instance mode rendering for this object, allowing it to be drawn more than once.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetIndirectDraw" PageName="cobalt.graphics.IRenderableNode.SetIndirectDraw">
+          Configures indirect drawing for this object, allowing draw settings to be sourced from an <PageRef PageName="cobalt.graphics.IDataArray">IDataArray</PageRef>
+          rather than set directly by application code.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Resource binding methods (Inherited from IStateContainer)">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="BindTextureWithCombinedSampler" PageName="cobalt.graphics.IStateContainer.BindTextureWithCombinedSampler">
+          Creates a texture resource binding with a combined image sampler for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindTexture" PageName="cobalt.graphics.IStateContainer.BindTexture">
+          Creates a texture resource binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="UnbindTexture" PageName="cobalt.graphics.IStateContainer.UnbindTexture">
+          Removes a previously established texture resource binding, with or without a combined image sampler.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindSampler" PageName="cobalt.graphics.IStateContainer.BindSampler">
+          Creates a sampler resource binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="UnbindSampler" PageName="cobalt.graphics.IStateContainer.UnbindSampler">
+          Removes a previously established sampler binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindStateBuffer" PageName="cobalt.graphics.IStateContainer.BindStateBuffer">
+          Creates a state buffer resource binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="UnbindStateBuffer" PageName="cobalt.graphics.IStateContainer.UnbindStateBuffer">
+          Removes a previously established state buffer binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindResourceArray" PageName="cobalt.graphics.IStateContainer.BindResourceArray">
+          Creates a resource array binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="UnbindResourceArray" PageName="cobalt.graphics.IStateContainer.UnbindResourceArray">
+          Removes a previously established resource array binding for the current shader program
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="State value methods (Inherited from IStateContainer)">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetStateValue" PageName="cobalt.graphics.IStateContainer.SetStateValue">
+          Sets the current target shader state variable to the specified value for this node and any child nodes
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ResetStateValue" PageName="cobalt.graphics.IStateContainer.ResetStateValue">
+          Restores the target shader state variable to its default or inherited value
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Debug methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetDebugName" PageName="cobalt.graphics.IRenderableNode.SetDebugName">
+          Sets a debug name for this renderable node, where supported by the renderer and native graphics API.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateContainer">IStateContainer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

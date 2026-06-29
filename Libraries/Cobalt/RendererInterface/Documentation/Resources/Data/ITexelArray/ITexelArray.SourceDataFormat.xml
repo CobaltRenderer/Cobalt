@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITexelArray.SourceDataFormat" Title="SourceDataFormat enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef> ->
+    SourceDataFormat
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SourceDataFormat</TypeRef> enumeration describes the per-component encoding of texel array data supplied from CPU memory. The renderer converts the source encoding into the allocated DataFormat where conversion is supported.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Int8">
+        Supplies each component as an 8-bit signed integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Int16">
+        Supplies each component as a 16-bit signed integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Int32">
+        Supplies each component as a 32-bit signed integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UInt8">
+        Supplies each component as an 8-bit unsigned integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UInt16">
+        Supplies each component as a 16-bit unsigned integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UInt32">
+        Supplies each component as a 32-bit unsigned integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Norm8">
+        Supplies each component as an 8-bit signed normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Norm16">
+        Supplies each component as a 16-bit signed normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Norm32">
+        Supplies each component as a 32-bit signed normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UNorm8">
+        Supplies each component as an 8-bit unsigned normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UNorm16">
+        Supplies each component as a 16-bit unsigned normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UNorm32">
+        Supplies each component as a 32-bit unsigned normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Float16">
+        Supplies each component as a 16-bit floating point value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Float32">
+        Supplies each component as a 32-bit floating point value.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITexelArray.SetInitialData">ITexelArray.SetInitialData</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITexelArray.QueueDataUpdate">ITexelArray.QueueDataUpdate</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

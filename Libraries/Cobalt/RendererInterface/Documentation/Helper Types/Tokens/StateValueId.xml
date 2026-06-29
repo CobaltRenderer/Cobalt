@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.StateValueId" Title="StateValueId enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    StateValueId
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>StateValueId</TypeRef> enumeration is an opaque token identifying an individual state value reflected from an <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef> or <PageRef PageName="cobalt.graphics.IStateBuffer">IStateBuffer</PageRef>. It is used when setting or resetting scalar, vector, matrix, or array state data.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        ID values are renderer-generated tokens. Applications should obtain them from shader reflection methods rather
+        than constructing arbitrary values.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Null">
+        Indicates that no matching state value was found or that no state value slot is selected.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram.GetStateValueId">IShaderProgram.GetStateValueId</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateBuffer.GetStateValueId">IStateBuffer.GetStateValueId</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateContainer.SetStateValue">IStateContainer.SetStateValue</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

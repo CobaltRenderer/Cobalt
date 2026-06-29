@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogTargetConsole.OpenConsoleHandle" Title="OpenConsoleHandle method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.LogTargetConsole">LogTargetConsole</PageRef> ->
+    OpenConsoleHandle
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>OpenConsoleHandle</TypeRef> method opens a handle to the attached Windows console output device.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        This method opens <TypeRef>CONOUT$</TypeRef>. It does not allocate a new console for the process.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[bool OpenConsoleHandle();]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="bool">
+        <TypeRef>true</TypeRef> if a console handle is already open or was opened successfully; otherwise <TypeRef>false</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetConsole">LogTargetConsole</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetConsole.CloseConsoleHandle">LogTargetConsole.CloseConsoleHandle</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

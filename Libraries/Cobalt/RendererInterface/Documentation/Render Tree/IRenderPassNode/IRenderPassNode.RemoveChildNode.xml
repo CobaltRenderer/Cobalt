@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderPassNode.RemoveChildNode" Title="RemoveChildNode method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef> ->
+    RemoveChildNode
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>RemoveChildNode</TypeRef> method removes the specified <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef>
+      from the list of child nodes if it is present.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        It is possible to add the same <TypeRef>IProgramNode</TypeRef> as a child more than once to the same <TypeRef>IRenderPassNode</TypeRef>.
+        If this is done, for performance reasons, the <TypeRef>RemoveChildNode</TypeRef> method removes the first
+        instance of the child node only. As an alternative, the <PageRef PageName="cobalt.graphics.IRenderPassNode.RemoveChildNodes">RemoveChildNodes</PageRef>
+        method will remove all instances of the child node in this case.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void RemoveChildNode(IProgramNode* childNode);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IProgramNode*!cobalt.graphics.IProgramNode" Name="childNode">
+          The <TypeRef>IProgramNode</TypeRef> node to remove from the list of child nodes
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

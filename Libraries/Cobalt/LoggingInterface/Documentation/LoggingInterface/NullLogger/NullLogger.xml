@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.NullLogger" Title="NullLogger class" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    NullLogger
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class NullLogger : public ILogger;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>NullLogger</TypeRef> class is an <PageRef PageName="cobalt.logging.ILogger">ILogger</PageRef> implementation that discards every log message.
+    </Paragraph>
+    <Paragraph>
+      A null logger reports an empty scope, reports every severity as disabled, and creates new null loggers when cloned or when a child scope is requested. This makes it useful as a default object where code expects a logger but no output should be produced.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Constructors">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Constructor" PageName="cobalt.logging.NullLogger.Constructor">
+          Creates a logger that discards all messages.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Lifetime methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.logging.NullLogger.Delete">
+          Deletes the null logger object.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.ILogger">ILogger</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

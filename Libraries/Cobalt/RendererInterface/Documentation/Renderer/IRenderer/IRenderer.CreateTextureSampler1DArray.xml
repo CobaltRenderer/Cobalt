@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderer.CreateTextureSampler1DArray" Title="CreateTextureSampler1DArray method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> ->
+    CreateTextureSampler1DArray
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>CreateTextureSampler1DArray</TypeRef> method constructs and returns a new object which implements the <PageRef PageName="cobalt.graphics.ITextureSampler1DArray">ITextureSampler1DArray</PageRef>
+      interface.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[ITextureSampler1DArray::unique_ptr CreateTextureSampler1DArray();]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="ITextureSampler1DArray!cobalt.graphics.ITextureSampler1DArray">
+        A freshly constructed <TypeRef>ITextureSampler1DArray</TypeRef> object, wrapped in a <TypeRef>unique_ptr</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer">IRenderer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureSampler1DArray">ITextureSampler1DArray</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITransferBatch.StartTiming" Title="StartTiming enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRef> ->
+    StartTiming
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>StartTiming</TypeRef> enumeration specifies when a submitted <PageRef PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRef> is allowed to begin execution relative to frame rendering work.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="AfterCurrentFrame">
+        Allows the transfer batch to begin after work for the current frame has been submitted or completed as required by the renderer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Immediately">
+        Allows the transfer batch to begin as soon as possible, subject to resource synchronization and renderer scheduling constraints.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer.CreateTransferBatch">IRenderer.CreateTransferBatch</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

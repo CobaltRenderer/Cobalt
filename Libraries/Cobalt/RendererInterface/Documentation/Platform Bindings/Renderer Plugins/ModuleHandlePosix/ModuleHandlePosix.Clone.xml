@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ModuleHandlePosix.Clone" Title="Clone method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ModuleHandlePosix">ModuleHandlePosix</PageRef> ->
+    Clone
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Clone</TypeRef> method creates another owning handle to the same loaded module.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[IModuleHandle::unique_ptr Clone() const override;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="IModuleHandle!cobalt.graphics.IModuleHandle">
+        A new module handle object referencing the same loaded module.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ModuleHandlePosix">ModuleHandlePosix</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IModuleHandle.Clone">IModuleHandle.Clone</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

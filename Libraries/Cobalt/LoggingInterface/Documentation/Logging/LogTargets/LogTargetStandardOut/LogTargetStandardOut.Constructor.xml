@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogTargetStandardOut.Constructor" Title="Constructor method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.LogTargetStandardOut">LogTargetStandardOut</PageRef> ->
+    Constructor
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>LogTargetStandardOut</TypeRef> constructor creates a target that writes messages to <TypeRef>std::cout</TypeRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[LogTargetStandardOut(bool flushAfterOutput);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="bool" Name="flushAfterOutput">If <TypeRef>true</TypeRef>, the target flushes <TypeRef>std::cout</TypeRef> after every message.</ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetStandardOut">LogTargetStandardOut</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetStandardOut.Create">LogTargetStandardOut.Create</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

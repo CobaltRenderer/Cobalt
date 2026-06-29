@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateGroupNode.SetPolygonFillMode" Title="SetPolygonFillMode method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> ->
+    SetPolygonFillMode
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetPolygonFillMode</TypeRef> method sets the <PageRef PageName="cobalt.graphics.IStateGroupNode.PolygonFillMode">PolygonFillMode</PageRef> for the <TypeRef>IStateGroupNode</TypeRef>. All child renderable nodes will be drawn with the specified fill mode. It is <TypeRef>PolygonFillMode::Solid</TypeRef> by default.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetPolygonFillMode(PolygonFillMode fillMode);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="PolygonFillMode!cobalt.graphics.IStateGroupNode.PolygonFillMode" Name="fillMode">
+          The polygon fill mode to use
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode.PolygonFillMode">IStateGroupNode.PolygonFillMode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateGroupNode.SetBlendMode" Title="SetBlendMode method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> ->
+    SetBlendMode
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetBlendMode</TypeRef> method configures the blend mode settings to use if blending is enabled.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetBlendMode(BlendOperation blendOperationRGB, BlendFactor blendFactorSourceRGB, BlendFactor blendFactorDestinationRGB, BlendOperation blendOperationA, BlendFactor blendFactorSourceA, BlendFactor blendFactorDestinationA);
+void SetBlendMode(IFrameBuffer::AttachmentType type, size_t index, BlendOperation blendOperationRGB, BlendFactor blendFactorSourceRGB, BlendFactor blendFactorDestinationRGB, BlendOperation blendOperationA, BlendFactor blendFactorSourceA, BlendFactor blendFactorDestinationA);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="BlendOperation" Name="blendOperationRGB">
+          The operation used to combine the source and destination RGB values.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="BlendFactor" Name="blendFactorSourceRGB">
+          The multiplier applied to the source RGB value before the blend operation.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="BlendFactor" Name="blendFactorDestinationRGB">
+          The multiplier applied to the destination RGB value before the blend operation.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="BlendOperation" Name="blendOperationA">
+          The operation used to combine the source and destination alpha values.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="BlendFactor" Name="blendFactorSourceA">
+          The multiplier applied to the source alpha value before the blend operation.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="BlendFactor" Name="blendFactorDestinationA">
+          The multiplier applied to the destination alpha value before the blend operation.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

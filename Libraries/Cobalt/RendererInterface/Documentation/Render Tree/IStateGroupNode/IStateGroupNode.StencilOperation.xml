@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateGroupNode.StencilOperation" Title="StencilOperation enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> ->
+    StencilOperation
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>StencilOperation</TypeRef> enumeration specifies how a stored stencil value is modified when a stencil-related test path is taken.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Keep">
+        Leaves the stored stencil value unchanged.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Zero">
+        Sets the stored stencil value to zero.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Replace">
+        Replaces the stored stencil value with the current stencil reference value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="IncrementAndClamp">
+        Increments the stored stencil value and clamps it at the maximum representable value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DecrementAndClamp">
+        Decrements the stored stencil value and clamps it at zero.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="IncrementAndWrap">
+        Increments the stored stencil value and wraps to zero if the maximum representable value is exceeded.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DecrementAndWrap">
+        Decrements the stored stencil value and wraps to the maximum representable value if zero is decremented.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Invert">
+        Bitwise inverts the stored stencil value.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode.SetStencilOperation">IStateGroupNode.SetStencilOperation</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

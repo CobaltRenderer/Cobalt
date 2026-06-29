@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.ILogger.Log" Title="Log method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.ILogger">ILogger</PageRef> ->
+    Log
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Log</TypeRef> method writes a message using the severity supplied by the caller.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        The formatting overloads check whether the severity is enabled before resolving the argument list.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void Log(Severity severity, const std::string& message) const;
+void Log(Severity severity, const std::wstring& message) const;
+template<class... Args>
+void Log(Severity severity, const std::string& formatString, Args&&... args) const;
+template<class... Args>
+void Log(Severity severity, const std::wstring& formatString, Args&&... args) const;]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="Severity!cobalt.logging.ILogger.Severity" Name="severity">The severity assigned to the message.</ArgumentListEntry>
+        <ArgumentListEntry Type="const std::string&amp;" Name="message">The UTF-8 message string to log.</ArgumentListEntry>
+        <ArgumentListEntry Type="const std::wstring&amp;" Name="message">The native wide string message to convert to UTF-8 and log.</ArgumentListEntry>
+        <ArgumentListEntry Type="const std::string&amp;" Name="formatString">The UTF-8 format string containing positional placeholders such as {0}.</ArgumentListEntry>
+        <ArgumentListEntry Type="const std::wstring&amp;" Name="formatString">The native wide string format string to convert to UTF-8 before resolving placeholders.</ArgumentListEntry>
+        <ArgumentListEntry Type="Args&amp;&amp;..." Name="args">The values used to replace positional placeholders in the format string.</ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.ILogger.Severity">ILogger.Severity</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.ILogger.IsLogSeverityEnabled">ILogger.IsLogSeverityEnabled</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

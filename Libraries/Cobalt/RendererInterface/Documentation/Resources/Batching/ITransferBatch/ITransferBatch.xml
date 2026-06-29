@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITransferBatch" Title="ITransferBatch interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    ITransferBatch
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class ITransferBatch;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      By default, all calls to <TypeRef>QueueDataUpdate</TypeRef> and <TypeRef>QueueDataTransfer</TypeRef> methods are
+      scheduled for processing after the current frame completes drawing, and before draw operations for the next frame
+      begin. This allows for data changes to be scheduled which are guaranteed to be fully applied before the next
+      frame, without interfering with the current frame being drawn. The <TypeRef>ITransferBatch</TypeRef> interface
+      allows these operations to be scheduled differently, potentially starting immediately when the batch is submitted
+      in parallel with the current frame being drawn, or being allowed to continue to execute past the start of the next
+      frame. The application also has the ability to synchronize with the batch, being able to inspect completion state,
+      or suspend the calling thread until all transfers in the batch are complete.
+    </Paragraph>
+    <Paragraph>
+      You should only use transfer batches when you have a case that can benefit from them. There are two main scenarios
+      where this is likely to be the case. One is where you have highly dynamic content that changes each frame. In this
+      case, you may want to keep two separate sets of buffers, one for displaying in the current frame, and one for
+      updating for use in the next frame, and switch the buffers each frame. By using transfer batches, the renderer may
+      be able to perform the data updates "for free" during the drawing of the current frame. The second scenario where
+      transfer batches may be useful is if you need to perform pontentially very large and long running transfers. In
+      this case, the use of a transfer batch may allow the application to begin the transfer without holding up the
+      start of subsequent frames.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        It is not guaranteed for transfer batches to have any impact on the timing of transfers whatsoever. Unless the
+        underlying graphics API supports multiple command queues, it is not possible to implement this feature. OpenGL
+        renderers, and Direct3D renderers prior to Direct3D 12 are unable to improve performance using transfer batches.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        When using transfer batches, it is the responsibility of the application to ensure that any buffers being
+        accessed are not in use for any other operations, including drawing, from the time the <PageRef PageName="cobalt.graphics.ITransferBatch.SubmitBatch">SubmitBatch</PageRef>
+        method is called until the transfer is complete. This includes a previously submitted frame that has not
+        completed drawing yet.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        When setting a transfer batch to start immediately, all existing buffer contents are invalidated and become
+        undefined. This means you cannot do partial updates to an existing buffer if you schedule a transfer batch to
+        start immediately. If you require partial buffer updates, you must set the transfer to start after the end of
+        the current frame, or the results are undefined.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="StartTiming" TypeCategory="Enumeration" PageName="cobalt.graphics.ITransferBatch.StartTiming" Visibility="Public">
+        The start timing for a transfer batch, set when the batch is created through the <PageRef PageName="cobalt.graphics.IRenderer.CreateTransferBatch">CreateTransferBatch</PageRef> method.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="EndTiming" TypeCategory="Enumeration" PageName="cobalt.graphics.ITransferBatch.EndTiming" Visibility="Public">
+        The end timing for a transfer batch, set when the batch is created through the <PageRef PageName="cobalt.graphics.IRenderer.CreateTransferBatch">CreateTransferBatch</PageRef> method.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.ITransferBatch.Delete">
+          Schedules the object for deletion. After calling this method, the object will be destroyed after the current
+          frame completes drawing.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Submission methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SubmitBatch" PageName="cobalt.graphics.ITransferBatch.SubmitBatch">
+          Submits the contents of this batch to the renderer for processing. Note that processing does not necessarily
+          begin immediately. The <PageRef PageName="cobalt.graphics.ITransferBatch.StartTiming">StartTiming</PageRef>
+          entry that was specified for the batch when it was created with the <PageRef PageName="cobalt.graphics.IRenderer.CreateTransferBatch">CreateTransferBatch</PageRef>
+          method controls when the batch begins execution.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="IsSubmitted" PageName="cobalt.graphics.ITransferBatch.IsSubmitted">
+          Returns true if the batch has been submitted for processing
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="IsComplete" PageName="cobalt.graphics.ITransferBatch.IsComplete">
+          Returns true if the batch has completed processing
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="WaitForComplete" PageName="cobalt.graphics.ITransferBatch.WaitForComplete">
+          Blocks execution of the calling thread until the batch has completed processing
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IIndexBuffer">IIndexBuffer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IVertexBuffer">IVertexBuffer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IndexAttribute">IndexAttribute</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.VertexAttribute">VertexAttribute</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IDataArray">IDataArray</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

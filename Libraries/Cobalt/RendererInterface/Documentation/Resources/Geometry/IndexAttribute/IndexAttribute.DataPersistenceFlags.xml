@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IndexAttribute.DataPersistenceFlags" Title="DataPersistenceFlags enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IndexAttribute">IndexAttribute</PageRef> ->
+    DataPersistenceFlags
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>DataPersistenceFlags</TypeRef> enumeration describes how long existing index attribute data must remain valid after writes or draws. The flags are supplied when an index attribute object is constructed.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="PersistAlways">
+        Requires existing resource contents to remain valid until explicitly overwritten or the resource is destroyed.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="InvalidateExistingDataOnWrite">
+        Allows the renderer to discard previous contents when new data is written, which can reduce synchronization or copy costs when old contents are no longer needed.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="InvalidateExistingDataAfterDrawComplete">
+        Allows the renderer to discard resource contents after draw work that uses the data has completed, which can reduce memory pressure for transient data.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IndexAttribute.Constructor">IndexAttribute.Constructor</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

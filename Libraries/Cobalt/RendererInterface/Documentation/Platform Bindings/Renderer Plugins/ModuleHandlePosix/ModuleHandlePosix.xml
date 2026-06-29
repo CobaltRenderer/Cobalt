@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ModuleHandlePosix" Title="ModuleHandlePosix class" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef> ->
+    ModuleHandlePosix
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class ModuleHandlePosix : public IModuleHandle;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ModuleHandlePosix</TypeRef> class is an <PageRef PageName="cobalt.graphics.IModuleHandle">IModuleHandle</PageRef> implementation.
+    </Paragraph>
+    <Paragraph>
+      Availability: Linux and macOS. This type is used by non-Windows builds and owns modules opened with <TypeRef>dlopen</TypeRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Create" PageName="cobalt.graphics.ModuleHandlePosix.Create">
+          Creates a module handle object.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="Clone" PageName="cobalt.graphics.ModuleHandlePosix.Clone">
+          Creates another owning handle to the same module.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.ModuleHandlePosix.Delete">
+          Deletes the module handle object.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IModuleHandle">IModuleHandle</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

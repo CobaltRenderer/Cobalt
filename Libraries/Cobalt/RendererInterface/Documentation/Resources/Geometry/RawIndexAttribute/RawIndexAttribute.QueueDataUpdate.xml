@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.RawIndexAttribute.QueueDataUpdate" Title="QueueDataUpdate method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph><PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> -> <PageRef PageName="cobalt.graphics.RawIndexAttribute">RawIndexAttribute</PageRef> -> QueueDataUpdate</Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>QueueDataUpdate</TypeRef> method schedules an update to raw index data in the buffer this attribute is assigned to. The update uses the raw attribute layout supplied at construction time and may target an offset within the bound buffer data.
+    </Paragraph>
+    <Paragraph>
+      Unlike initial data, the provided CPU memory may be modified or deallocated immediately after this method returns. The renderer copies or stages the data needed for the scheduled transfer.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+      Queued updates are scheduled GPU work. When an <PageRef PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRef> is supplied, completion and visibility follow that batch.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage"><Code Language="C++"><![CDATA[SuccessToken QueueDataUpdate(const uint8_t* data, size_t entryCount, size_t initialIndexNo, size_t entryStrideInBytes, ITransferBatch* transferBatch = nullptr);]]></Code><SubSection Title="Argument list"><ArgumentList><ArgumentListEntry Type="const uint8_t*" Name="data">The source bytes to copy into the attribute buffer.</ArgumentListEntry><ArgumentListEntry Type="size_t" Name="entryCount">The number of index entries to update.</ArgumentListEntry><ArgumentListEntry Type="size_t" Name="initialIndexNo">The first index entry to update.</ArgumentListEntry><ArgumentListEntry Type="size_t" Name="entryStrideInBytes">The byte stride between consecutive source entries.</ArgumentListEntry><ArgumentListEntry Type="ITransferBatch*" Name="transferBatch">An optional transfer batch to schedule the update into. If null, the renderer schedules the update independently.</ArgumentListEntry></ArgumentList></SubSection><SubSection Title="Return value"><ReturnValue Type="SuccessToken">True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.</ReturnValue></SubSection></Section>
+  <Section Title="See also"><PageRefList><PageRefListEntry PageName="cobalt.graphics.RawIndexAttribute">RawIndexAttribute</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.IIndexBuffer">IIndexBuffer</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRefListEntry></PageRefList></Section>
+</XMLDocContent>

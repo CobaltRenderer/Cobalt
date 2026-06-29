@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureBuffer.ImageFormat" Title="ImageFormat enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef> ->
+    ImageFormat
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ImageFormat</TypeRef> enumeration defines the component layout and broad interpretation of pixels allocated for an <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef>. It is paired with a <PageRef PageName="cobalt.graphics.ITextureBuffer.DataFormat">DataFormat</PageRef> when <PageRef PageName="cobalt.graphics.ITextureBuffer.SetTextureFormat">SetTextureFormat</PageRef> is called.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="R">
+        Allocates one color component conventionally interpreted as red.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="RG">
+        Allocates two color components conventionally interpreted as red and green.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="RGB">
+        Allocates three color components conventionally interpreted as red, green, and blue.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="RGBA">
+        Allocates four color components conventionally interpreted as red, green, blue, and alpha.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="BGR">
+        Allocates three color components in blue, green, red order.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="BGRA">
+        Allocates four color components in blue, green, red, alpha order.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="X">
+        Allocates one generic component where color channel naming is not meaningful.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="XY">
+        Allocates two generic components.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="XYZ">
+        Allocates three generic components.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="XYZW">
+        Allocates four generic components.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Depth">
+        Allocates a depth-only image format suitable for depth framebuffer attachments and depth sampling where supported.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DepthAndStencil">
+        Allocates a combined depth and stencil image format suitable for depth-stencil framebuffer attachments where supported.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.SetTextureFormat">ITextureBuffer.SetTextureFormat</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

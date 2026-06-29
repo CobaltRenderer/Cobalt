@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateContainer.UnbindTexture" Title="UnbindTexture method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateContainer">IStateContainer</PageRef> ->
+    UnbindTexture
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>UnbindTexture</TypeRef> method removes a previously defined binding to an <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef>
+      object, whether that binding was established by the <PageRef PageName="cobalt.graphics.IStateContainer.BindTexture">BindTexture</PageRef>
+      or the <PageRef PageName="cobalt.graphics.IStateContainer.BindTextureWithCombinedSampler">BindTextureWithCombinedSampler</PageRef>
+      method.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void UnbindTexture(TextureId textureId);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="TextureId!cobalt.graphics.TextureId" Name="textureId">
+          The <TypeRef>TextureId</TypeRef> of the named texture object to unbind
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateContainer">IStateContainer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer1D">ITextureBuffer1D</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer2D">ITextureBuffer2D</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer3D">ITextureBuffer3D</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBufferCube">ITextureBufferCube</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer1DArray">ITextureBuffer1DArray</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer2DArray">ITextureBuffer2DArray</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBufferCubeArray">ITextureBufferCubeArray</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

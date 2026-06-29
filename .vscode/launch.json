@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "CMake Launch Target (CodeLLDB)",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${command:cmake.launchTargetPath}",
+            "args": [],
+            "cwd": "${command:cmake.launchTargetDirectory}"
+        },
+        {
+            "name": "CMake Launch Target (vsdbg)",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${command:cmake.launchTargetPath}",
+            "args": [],
+            "cwd": "${command:cmake.launchTargetDirectory}",
+            "console": "integratedTerminal"
+        }
+    ]
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IDataArray.SetBufferLayout" Title="SetBufferLayout method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IDataArray">IDataArray</PageRef> ->
+    SetBufferLayout
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetBufferLayout</TypeRef> method defines the layout of the buffer, and whether it has an attached counter. Must be set before calling AllocateMemory.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetBufferLayout(size_t entryStrideInBytes, size_t entryCount, bool hasCounter = false, uint32_t counterResetValue = 0);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="size_t" Name="entryStrideInBytes">
+          The byte stride of each structured data entry.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="entryCount">
+          The number of entries to allocate in the array.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="bool" Name="hasCounter">
+          True to allocate an attached counter value for shader use, false to allocate only the data array.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="uint32_t" Name="counterResetValue">
+          The value assigned to the attached counter when it is reset.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IDataArray">IDataArray</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

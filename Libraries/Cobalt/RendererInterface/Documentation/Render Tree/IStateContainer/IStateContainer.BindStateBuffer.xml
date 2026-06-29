@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateContainer.BindStateBuffer" Title="BindStateBuffer method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateContainer">IStateContainer</PageRef> ->
+    BindStateBuffer
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>BindStateBuffer</TypeRef> method sets up a binding to an <PageRef PageName="cobalt.graphics.IStateBuffer">IStateBuffer</PageRef>
+      object. Where the target state buffer contains multiple pages, only a single page can be bound per binding.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void BindStateBuffer(StateBufferId stateBufferId, IStateBuffer* stateBuffer, uint32_t stateBufferPageNo = 0);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="StateBufferId!cobalt.graphics.StateBufferId" Name="stateBufferId">
+          The <TypeRef>StateBufferId</TypeRef> of the state buffer to bind
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="IStateBuffer*!cobalt.graphics.IStateBuffer" Name="stateBuffer">
+          The <TypeRef>IStateBuffer</TypeRef> to bind
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="uint32_t" Name="stateBufferPageNo">
+          The page in the target state buffer to bind. If the state buffer doesn't contain multiple pages, this must be set to 0.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateContainer">IStateContainer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateBuffer">IStateBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

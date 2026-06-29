@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDevice.DrawLimits" Title="DrawLimits structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> ->
+    DrawLimits
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>DrawLimits</TypeRef> structure reports information on limits an <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef>
+      object has which relate to the draw process, as returned by the <PageRef PageName="cobalt.graphics.IGraphicsDevice.GetDrawLimits">GetDrawLimits</PageRef>
+      method.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <DataMemberList>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="maxVertexCountPerDraw">
+        Reports the maximum number of vertices which can be drawn by an <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef>
+        object. Buffers containing a larger number of vertices than this limit may be bound, but where a vertex count is
+        specified manually using the <PageRef PageName="cobalt.graphics.IRenderableNode.SetVertexCount">SetVertexCount</PageRef>
+        method, or where the vertex count is inferred automatically from the bound <PageRef PageName="cobalt.graphics.IVertexAttribute">IVertexAttribute</PageRef>
+        or <PageRef PageName="cobalt.graphics.IIndexAttribute">IIndexAttribute</PageRef> objects, the vertex count must
+        not exceed this limit.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="maxIndexValue">
+        Reports the maximum 32-bit index value which is valid to use in an <PageRef PageName="cobalt.graphics.IIndexAttribute">IIndexAttribute</PageRef>
+        which is bound to an <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef> object. Note
+        that the special primitive restart index, as returned by the <PageRef PageName="cobalt.graphics.IndexAttribute.GetPrimitiveRestartValue">GetPrimitiveRestartValue</PageRef>
+        method, is expected to be outside this limit. Also note that this limit is not reporting the maximum number of
+        indices which may be drawn. Index values are not required to start at 0, and this limit specifies the maximum
+        numeric value that may be used. If only a single index value is supplied to a draw operation, but that index
+        value exceeds this stated maximum, it is not supported.
+      </DataMemberListEntry>
+
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="maxTextureResourcesPerDraw">
+        Reports the maximum number of textures which can be read from cuncurrently in a single draw call / shader execution.
+      </DataMemberListEntry>
+
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="maxResourcesPerDraw">
+        Reports the maximum number of resources which be used cuncurrently in a single draw call / shader execution. Resources include
+        textures, state buffers and data arrays.
+      </DataMemberListEntry>
+    </DataMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.ILogger.GetLoggerChildScope" Title="GetLoggerChildScope method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.ILogger">ILogger</PageRef> ->
+    GetLoggerChildScope
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetLoggerChildScope</TypeRef> method creates a new logger object for a scope below the current logger scope.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        The standard <PageRef PageName="cobalt.logging.Logger">Logger</PageRef> implementation joins parent and child scopes using a period, so a child named <TypeRef>Render</TypeRef> below <TypeRef>Application</TypeRef> becomes <TypeRef>Application.Render</TypeRef>.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[ILogger::unique_ptr GetLoggerChildScope(const std::string& childScopeName) const;]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const std::string&amp;" Name="childScopeName">The child scope name to append to the current scope.</ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="ILogger!cobalt.logging.ILogger">
+        A new <TypeRef>ILogger</TypeRef> object for the child scope, wrapped in <TypeRef>ILogger::unique_ptr</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.ILogger.GetScope">ILogger.GetScope</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogManager.GetLogger">LogManager.GetLogger</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

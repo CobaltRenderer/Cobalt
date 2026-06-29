@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.WindowInfoWayland.Constructor" Title="Constructor method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.WindowInfoWayland">WindowInfoWayland</PageRef> ->
+    Constructor
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowInfoWayland</TypeRef> constructor creates a platform binding structure and initializes the inherited <TypeRef>structureSizeInBytes</TypeRef> and type discriminator fields.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[WindowInfoWayland(wl_display* display, wl_surface* surface, const V2UInt32& windowSizeInPixels);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="wl_display*" Name="display">
+          The Wayland display.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="wl_surface*" Name="surface">
+          The Wayland surface to bind.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="const V2UInt32&amp;" Name="windowSizeInPixels">
+          The current drawable window size in pixels.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.WindowInfoWayland">WindowInfoWayland</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.WindowInfoBase">WindowInfoBase</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

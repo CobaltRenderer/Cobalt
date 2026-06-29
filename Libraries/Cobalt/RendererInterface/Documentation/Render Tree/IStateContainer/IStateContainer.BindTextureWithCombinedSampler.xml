@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateContainer.BindTextureWithCombinedSampler" Title="BindTextureWithCombinedSampler method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateContainer">IStateContainer</PageRef> ->
+    BindTextureWithCombinedSampler
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>BindTextureWithCombinedSampler</TypeRef> method sets up a binding to an <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef>
+      object, which has an associated combined <PageRef PageName="cobalt.graphics.ITextureSampler">ITextureSampler</PageRef>.
+      Alternatively, the <PageRef PageName="cobalt.graphics.IStateContainer.BindTexture">BindTexture</PageRef> and
+      <PageRef PageName="cobalt.graphics.IStateContainer.BindSampler">BindSampler</PageRef> methods allow textures and
+      samplers to be separately bound, if this is supported by the renderer.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        In order to bind textures and samplers separately, the <PageRef PageName="cobalt.graphics.IGraphicsDevice.Feature">SeparateTextureSamplers feature</PageRef>
+        must be supported on the <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef>, and
+        activated when the <PageRef PageName="cobalt.graphics.IGraphicsDevice.CreateRenderer">CreateRenderer</PageRef>
+        method is called.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        Separate texture samplers are supported by all underlying rendering APIs other than OpenGL. If you care about
+        OpenGL support, you must not use separate texture samplers. The <PageRef PageName="cobalt.graphics.IStateContainer.BindTextureWithCombinedSampler">BindTextureWithCombinedSampler</PageRef>
+        method is portable across all renderers, and provides the same functionality as separate texture samplers, with
+        the restriction that each separately bound texture requires the sampler to be bound with it. <PageRef PageName="cobalt.graphics.ITextureSampler">ITextureSampler</PageRef>
+        objects can still be shared between textures even when they are bound separately, so unless you have a case
+        where there is a significant advantage to separately binding samplers, it is recommended to use combined image
+        samplers.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void BindTextureWithCombinedSampler(TextureId textureId, ITextureBuffer1D* texture, ITextureSampler1D* sampler);
+void BindTextureWithCombinedSampler(TextureId textureId, ITextureBuffer2D* texture, ITextureSampler2D* sampler);
+void BindTextureWithCombinedSampler(TextureId textureId, ITextureBuffer3D* texture, ITextureSampler3D* sampler);
+void BindTextureWithCombinedSampler(TextureId textureId, ITextureBufferCube* texture, ITextureSamplerCube* sampler);
+void BindTextureWithCombinedSampler(TextureId textureId, ITextureBuffer1DArray* texture, ITextureSampler1DArray* sampler);
+void BindTextureWithCombinedSampler(TextureId textureId, ITextureBuffer2DArray* texture, ITextureSampler2DArray* sampler);
+void BindTextureWithCombinedSampler(TextureId textureId, ITextureBufferCubeArray* texture, ITextureSamplerCubeArray* sampler);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="TextureId!cobalt.graphics.TextureId" Name="textureId">
+          The <TypeRef>TextureId</TypeRef> of the named texture object to bind
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="ITextureBuffer*!cobalt.graphics.ITextureBuffer" Name="texture">
+          The <TypeRef>ITextureBuffer</TypeRef> to bind
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="ITextureSampler*!cobalt.graphics.ITextureSampler" Name="sampler">
+          The <TypeRef>ITextureSampler</TypeRef> to bind
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Shader-side code">
+      <Paragraph>
+        In HLSL, define a SamplerState and a Texture with the same name, with the sampler suffixed with _CombinedSampler. Eg:
+      </Paragraph>
+      <Code Language="hlsl"><![CDATA[
+Texture2D objectTexture;
+SamplerState objectTexture_CombinedSampler;]]>
+      </Code>
+      <Paragraph>
+        In GLSL, define a single variable with the desired name Eg:
+      </Paragraph>
+      <Code Language="glsl"><![CDATA[
+uniform sampler2D objectTexture;]]></Code>
+      <Paragraph>
+        In SPIRV, use OpName to annotate the pointer to the OpTypeSampledImage with a name.
+      </Paragraph>
+      <Paragraph>
+        Several tools from Khronos force the use of  "textureName" and "_textureName_sampler" naming convention for splitting up combined samplers,
+        without allowing customisation. These are also supported for convenience.
+      </Paragraph>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateContainer">IStateContainer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer1D">ITextureBuffer1D</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer2D">ITextureBuffer2D</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer3D">ITextureBuffer3D</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBufferCube">ITextureBufferCube</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer1DArray">ITextureBuffer1DArray</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer2DArray">ITextureBuffer2DArray</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBufferCubeArray">ITextureBufferCubeArray</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureSampler">ITextureSampler</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureSampler1D">ITextureSampler1D</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureSampler2D">ITextureSampler2D</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureSampler3D">ITextureSampler3D</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureSamplerCube">ITextureSamplerCube</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureSampler1DArray">ITextureSampler1DArray</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureSampler2DArray">ITextureSampler2DArray</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureSamplerCubeArray">ITextureSamplerCubeArray</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

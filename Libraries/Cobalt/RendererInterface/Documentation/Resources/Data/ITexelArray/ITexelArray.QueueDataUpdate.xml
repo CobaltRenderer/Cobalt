@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITexelArray.QueueDataUpdate" Title="QueueDataUpdate method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph><PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> -> <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef> -> QueueDataUpdate</Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>QueueDataUpdate</TypeRef> method schedules an update to data in an allocated texel array. Unlike <PageRef PageName="cobalt.graphics.ITexelArray.SetInitialData">SetInitialData</PageRef>, the provided CPU memory may be modified or deallocated immediately after this method returns.
+    </Paragraph>
+    <Paragraph>
+      Updates may target an offset within the array and may be attached to an <PageRef PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRef> so multiple resource updates are submitted and synchronized together. The source image and data format arguments describe the CPU data and allow the renderer to perform supported format conversion.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+      Queued updates are scheduled GPU work. If a transfer batch is supplied, completion and visibility follow that batch. Without an explicit batch, the renderer schedules the update using its default transfer path.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[template<class T> SuccessToken QueueDataUpdate(const std::vector<T>& sourceBuffer, size_t targetBufferOffset = 0, ITransferBatch* transferBatch = nullptr);
+SuccessToken QueueDataUpdate(const void* sourceBuffer, size_t sourceBufferSizeInBytes, SourceImageFormat imageFormat, SourceDataFormat dataFormat, size_t targetBufferOffset = 0, ITransferBatch* transferBatch = nullptr);]]></Code>
+    <SubSection Title="Argument list"><ArgumentList>
+      <ArgumentListEntry Type="const std::vector&lt;T&gt; or const void*" Name="sourceBuffer">The source data to copy into the texel array.</ArgumentListEntry>
+      
+      <ArgumentListEntry Type="size_t" Name="sourceBufferSizeInBytes">The size, in bytes, of the source data.</ArgumentListEntry>
+      <ArgumentListEntry Type="SourceImageFormat" Name="imageFormat">The image channel layout of the source data.</ArgumentListEntry>
+      <ArgumentListEntry Type="SourceDataFormat" Name="dataFormat">The data encoding of the source data.</ArgumentListEntry>
+      <ArgumentListEntry Type="size_t" Name="targetBufferOffset">The destination texel offset where the update begins.</ArgumentListEntry>
+      <ArgumentListEntry Type="ITransferBatch*" Name="transferBatch">An optional transfer batch to schedule the update into. If null, the renderer schedules the update independently.</ArgumentListEntry>
+    </ArgumentList></SubSection>
+    <SubSection Title="Return value"><ReturnValue Type="SuccessToken">True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.</ReturnValue></SubSection>
+  </Section>
+  <Section Title="See also"><PageRefList><PageRefListEntry PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.ITexelArray.SetInitialData">SetInitialData</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRefListEntry></PageRefList></Section>
+</XMLDocContent>

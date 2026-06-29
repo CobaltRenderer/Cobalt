@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogTargetFile.Delete" Title="Delete method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.LogTargetFile">LogTargetFile</PageRef> ->
+    Delete
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Delete</TypeRef> method destroys the file target object.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Destroying the target closes the file stream if it is still open.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void Delete() override;]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetFile">LogTargetFile</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.ILogTarget.Delete">ILogTarget.Delete</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

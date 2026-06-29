@@ -1,0 +1,144 @@
+// Copyright (c) 2026 Maptek Pty Ltd
+// Licensed under the MIT License
+#pragma once
+#include "FrameBuffer.h"
+#include "Macros.h"
+#include "RenderableNode.h"
+#include <stddef.h>
+#include <stdint.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef struct Cobalt_StateGroupNode_Internal* Cobalt_StateGroupNode;
+
+// Enumerations
+typedef enum
+{
+	Cobalt_PolygonFillMode_Solid,
+	Cobalt_PolygonFillMode_Wireframe,
+} Cobalt_PolygonFillMode;
+
+typedef enum
+{
+	Cobalt_PolygonCullMode_None,
+	Cobalt_PolygonCullMode_Front,
+	Cobalt_PolygonCullMode_Back,
+} Cobalt_PolygonCullMode;
+
+typedef enum
+{
+	Cobalt_PolygonWindingOrder_Clockwise,
+	Cobalt_PolygonWindingOrder_CounterClockwise,
+} Cobalt_PolygonWindingOrder;
+
+typedef enum
+{
+	Cobalt_DepthComparisonFunction_Never,
+	Cobalt_DepthComparisonFunction_Equal,
+	Cobalt_DepthComparisonFunction_NotEqual,
+	Cobalt_DepthComparisonFunction_Less,
+	Cobalt_DepthComparisonFunction_LessOrEqual,
+	Cobalt_DepthComparisonFunction_Greater,
+	Cobalt_DepthComparisonFunction_GreaterOrEqual,
+	Cobalt_DepthComparisonFunction_Always,
+} Cobalt_DepthComparisonFunction;
+
+typedef enum
+{
+	Cobalt_StencilTargetFace_FrontFace,
+	Cobalt_StencilTargetFace_BackFace,
+	Cobalt_StencilTargetFace_FrontAndBackFace,
+} Cobalt_StencilTargetFace;
+
+typedef enum
+{
+	Cobalt_StencilComparisonFunction_Never,
+	Cobalt_StencilComparisonFunction_Equal,
+	Cobalt_StencilComparisonFunction_NotEqual,
+	Cobalt_StencilComparisonFunction_Less,
+	Cobalt_StencilComparisonFunction_LessOrEqual,
+	Cobalt_StencilComparisonFunction_Greater,
+	Cobalt_StencilComparisonFunction_GreaterOrEqual,
+	Cobalt_StencilComparisonFunction_Always,
+} Cobalt_StencilComparisonFunction;
+
+typedef enum
+{
+	Cobalt_StencilOperation_Keep,
+	Cobalt_StencilOperation_Zero,
+	Cobalt_StencilOperation_Replace,
+	Cobalt_StencilOperation_IncrementAndClamp,
+	Cobalt_StencilOperation_DecrementAndClamp,
+	Cobalt_StencilOperation_IncrementAndWrap,
+	Cobalt_StencilOperation_DecrementAndWrap,
+	Cobalt_StencilOperation_Invert,
+} Cobalt_StencilOperation;
+
+typedef enum
+{
+	Cobalt_BlendOperation_Add,
+	Cobalt_BlendOperation_Subtract,
+	Cobalt_BlendOperation_ReverseSubtract,
+	Cobalt_BlendOperation_Min,
+	Cobalt_BlendOperation_Max,
+} Cobalt_BlendOperation;
+
+typedef enum
+{
+	Cobalt_BlendFactor_Zero,
+	Cobalt_BlendFactor_One,
+	Cobalt_BlendFactor_SourceColor,
+	Cobalt_BlendFactor_OneMinusSourceColor,
+	Cobalt_BlendFactor_DestinationColor,
+	Cobalt_BlendFactor_OneMinusDestinationColor,
+	Cobalt_BlendFactor_SourceAlpha,
+	Cobalt_BlendFactor_OneMinusSourceAlpha,
+	Cobalt_BlendFactor_DestinationAlpha,
+	Cobalt_BlendFactor_OneMinusDestinationAlpha,
+} Cobalt_BlendFactor;
+
+// Child node methods
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_AddChildNode(Cobalt_StateGroupNode stateGroupNode, Cobalt_RenderableNode childNode);
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_AddChildNodes(Cobalt_StateGroupNode stateGroupNode, const Cobalt_RenderableNode* childNodes, size_t childNodeCount);
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_RemoveChildNode(Cobalt_StateGroupNode stateGroupNode, Cobalt_RenderableNode childNode);
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_RemoveChildNodes(Cobalt_StateGroupNode stateGroupNode, const Cobalt_RenderableNode* childNodes, size_t childNodeCount);
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_RemoveAllChildNodes(Cobalt_StateGroupNode stateGroupNode);
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_SetChildNodes(Cobalt_StateGroupNode stateGroupNode, const Cobalt_RenderableNode* childNodes, size_t childNodeCount);
+
+// Compute methods
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_SetComputeTask(Cobalt_StateGroupNode stateGroupNode, const uint32_t threadGroupCounts[3]);
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_RemoveComputeTask(Cobalt_StateGroupNode stateGroupNode);
+
+// Depth state methods
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_SetDepthTestEnabled(Cobalt_StateGroupNode stateGroupNode, char state);
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_SetDepthWriteEnabled(Cobalt_StateGroupNode stateGroupNode, char state);
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_SetDepthComparisonFunction(Cobalt_StateGroupNode stateGroupNode, Cobalt_DepthComparisonFunction comparisonTest);
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_SetDepthBias(Cobalt_StateGroupNode stateGroupNode, float constantFactor, float slopeFactor, float clamp);
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_ClearDepthBias(Cobalt_StateGroupNode stateGroupNode);
+
+// Stencil state methods
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_SetStencilTestEnabled(Cobalt_StateGroupNode stateGroupNode, char state, uint32_t compareMask, uint32_t writeMask);
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_SetStencilOperation(Cobalt_StateGroupNode stateGroupNode, Cobalt_StencilTargetFace targetFace, Cobalt_StencilComparisonFunction comparisonTest, Cobalt_StencilOperation passOperation, Cobalt_StencilOperation failOperation, Cobalt_StencilOperation depthFailOperation);
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_SetStencilReferenceValue(Cobalt_StateGroupNode stateGroupNode, uint32_t referenceValue);
+
+// Rasterization state methods
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_SetPolygonFillMode(Cobalt_StateGroupNode stateGroupNode, Cobalt_PolygonFillMode fillMode);
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_SetPolygonCullMode(Cobalt_StateGroupNode stateGroupNode, Cobalt_PolygonCullMode cullMode);
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_SetPolygonWindingOrder(Cobalt_StateGroupNode stateGroupNode, Cobalt_PolygonWindingOrder windingOrder);
+
+// Blend state methods
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_SetBlendEnabled(Cobalt_StateGroupNode stateGroupNode, char state);
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_SetSharedBlendMode(Cobalt_StateGroupNode stateGroupNode, Cobalt_BlendOperation blendOperationRGB, Cobalt_BlendFactor blendFactorSourceRGB, Cobalt_BlendFactor blendFactorDestinationRGB, Cobalt_BlendOperation blendOperationA, Cobalt_BlendFactor blendFactorSourceA, Cobalt_BlendFactor blendFactorDestinationA);
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_SetBlendMode(Cobalt_StateGroupNode stateGroupNode, Cobalt_AttachmentType type, size_t index, Cobalt_BlendOperation blendOperationRGB, Cobalt_BlendFactor blendFactorSourceRGB, Cobalt_BlendFactor blendFactorDestinationRGB, Cobalt_BlendOperation blendOperationA, Cobalt_BlendFactor blendFactorSourceA, Cobalt_BlendFactor blendFactorDestinationA);
+
+// Debug methods
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_SetDebugName(Cobalt_StateGroupNode stateGroupNode, const char* name, size_t nameLength);
+
+// Initialization methods
+COBALT_FUNCTION_EXPORT void Cobalt_StateGroupNode_Delete(Cobalt_StateGroupNode stateGroupNode);
+
+#ifdef __cplusplus
+}
+#endif

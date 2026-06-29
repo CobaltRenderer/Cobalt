@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDeviceEnumerator.FilterDevicesOfType" Title="FilterDevicesOfType method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRef> ->
+    FilterDevicesOfType
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>FilterDevicesOfType</TypeRef> method removes all <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef>
+      objects from the current filtered device set, which have a <PageRef PageName="cobalt.graphics.IGraphicsDevice.DeviceType">DeviceType</PageRef>
+      that matches the specified device type.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void FilterDevicesOfType(IGraphicsDevice::DeviceType type);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="DeviceType!cobalt.graphics.IGraphicsDevice.DeviceType" Name="type">
+          The type of devices you want to remove from the filtered device set
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetFilteredDevices">IGraphicsDeviceEnumerator.GetFilteredDevices</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

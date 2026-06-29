@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITexelArray.ImageFormat" Title="ImageFormat enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef> ->
+    ImageFormat
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ImageFormat</TypeRef> enumeration defines the component layout used for each element of an <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef> on the graphics device.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="R">
+        Allocates one component conventionally interpreted as red.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="RG">
+        Allocates two components conventionally interpreted as red and green.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="RGBA">
+        Allocates four components conventionally interpreted as red, green, blue, and alpha.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="X">
+        Allocates one generic component where color channel naming is not meaningful.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="XY">
+        Allocates two generic components.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="XYZW">
+        Allocates four generic components.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITexelArray.SetBufferLayout">ITexelArray.SetBufferLayout</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

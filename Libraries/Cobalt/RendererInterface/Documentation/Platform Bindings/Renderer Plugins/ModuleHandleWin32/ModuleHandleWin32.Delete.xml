@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ModuleHandleWin32.Delete" Title="Delete method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ModuleHandleWin32">ModuleHandleWin32</PageRef> ->
+    Delete
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Delete</TypeRef> method destroys the module handle object and releases its owning reference to the loaded module.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void Delete() override;]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ModuleHandleWin32">ModuleHandleWin32</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IModuleHandle.Delete">IModuleHandle.Delete</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

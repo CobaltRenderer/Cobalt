@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDeviceEnumerator.FilterDevicesWithoutAllFeatures" Title="FilterDevicesWithoutAllFeatures method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRef> ->
+    FilterDevicesWithoutAllFeatures
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>FilterDevicesWithoutAllFeatures</TypeRef> method removes all <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef>
+      objects from the current filtered device set, which do not support all the specified <PageRef PageName="cobalt.graphics.IGraphicsDevice.Feature">Feature</PageRef>s.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void FilterDevicesWithoutAllFeatures(const std::set<IGraphicsDevice::Feature>& featureSet);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="std::set&lt;IGraphicsDevice::Feature&gt;!cobalt.graphics.IGraphicsDevice.Feature" Name="featureSet">
+          The set of features to test for support for in the filtered device set
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetFilteredDevices">IGraphicsDeviceEnumerator.GetFilteredDevices</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

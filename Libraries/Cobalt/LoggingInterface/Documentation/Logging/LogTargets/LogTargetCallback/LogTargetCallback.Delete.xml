@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogTargetCallback.Delete" Title="Delete method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.LogTargetCallback">LogTargetCallback</PageRef> ->
+    Delete
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Delete</TypeRef> method destroys the callback target object.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Targets are normally destroyed through <TypeRef>ILogTarget::unique_ptr</TypeRef> or the owning <PageRef PageName="cobalt.logging.LogManager">LogManager</PageRef>.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void Delete() override;]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetCallback">LogTargetCallback</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.ILogTarget.Delete">ILogTarget.Delete</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateBufferLayout.DataType" Title="DataType enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateBufferLayout">IStateBufferLayout</PageRef> ->
+    DataType
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>DataType</TypeRef> enumeration identifies the scalar type of fields, vectors, and matrices appended to an <PageRef PageName="cobalt.graphics.IStateBufferLayout">IStateBufferLayout</PageRef> during manual layout construction.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Null">
+        Represents no data type. This is not a valid type for a real field and is used only as a sentinel value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Boolean">
+        Represents a boolean value in a state buffer layout.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Int32">
+        Represents a 32-bit signed integer value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UInt32">
+        Represents a 32-bit unsigned integer value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Float32">
+        Represents a 32-bit floating point value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Float64">
+        Represents a 64-bit floating point value.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateBufferLayout.AppendField">IStateBufferLayout.AppendField</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.GetCobaltAPIVersion" Title="GetCobaltAPIVersion function" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef> ->
+    GetCobaltAPIVersion
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[extern "C" void GetCobaltAPIVersion(unsigned int& major, unsigned int& minor, unsigned int& patch);]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetCobaltAPIVersion</TypeRef> function is exported by renderer plugin libraries. It reports the Cobalt Renderer API version that the plugin was built against.
+    </Paragraph>
+    <Paragraph>
+      Plugin loaders should resolve and call this function before calling <PageRef PageName="cobalt.graphics.GetRendererPlugin">GetRendererPlugin</PageRef>. This allows the loader to reject libraries built against an incompatible Cobalt Renderer API before passing SDK interface objects across the plugin boundary.
+    </Paragraph>
+    <Paragraph>
+      The version values should match the <TypeRef>COBALT_RENDERER_API_VERSION_MAJOR</TypeRef>, <TypeRef>COBALT_RENDERER_API_VERSION_MINOR</TypeRef>, and <TypeRef>COBALT_RENDERER_API_VERSION_PATCH</TypeRef> macros from <TypeRef>CobaltVersionInfo.h</TypeRef>. The SDK plugin enumerator currently requires the major and minor values to match the consuming application. The patch value is reported for diagnostics and does not affect compatibility.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[using GetCobaltAPIVersionFunctionType = void(unsigned int& major, unsigned int& minor, unsigned int& patch);
+
+auto getCobaltAPIVersion = reinterpret_cast<GetCobaltAPIVersionFunctionType*>(resolvedSymbol);
+unsigned int pluginMajor = 0;
+unsigned int pluginMinor = 0;
+unsigned int pluginPatch = 0;
+getCobaltAPIVersion(pluginMajor, pluginMinor, pluginPatch);
+
+if ((pluginMajor != COBALT_RENDERER_API_VERSION_MAJOR) || (pluginMinor != COBALT_RENDERER_API_VERSION_MINOR))
+{
+    // Reject the plugin before calling GetRendererInfo
+}]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.GetRendererPlugin">GetRendererPlugin</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.RenderPluginEnumerator">RenderPluginEnumerator</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,494 @@
+name: CI Build
+
+on:
+  push:
+    branches: [ "main" ]
+    paths-ignore:
+      - 'CHANGELOG.md'
+      - 'README.md'
+      - 'VersionInfo/version.yml'
+  pull_request:
+    branches: [ "main" ]
+    paths-ignore:
+      - 'README.md'
+
+permissions:
+  contents: read
+
+# Cancel any previously running instance of this workflow when a new commit is pushed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Perform our debug and release builds on each supported platform/architecture/toolset combination
+  build:
+    strategy:
+      # We want to know all the targets that are going to fail, not just the first one.
+      fail-fast: false
+      matrix:
+        # Define our matrix of build targets. Note that due to the heavy template use in TextureFormatConversion, we
+        # need to boost virtual memory for clang targets to avoid out of memory errors.
+        buildPlatform: [windows, ubuntu, macos]
+        buildArchitecture: [x86, x64, arm64]
+        buildToolset: [msvc, clangcl, clang, gcc]
+        buildConfiguration: [debug, release]
+        openglUseEGL: [true, false]
+        exclude:
+          - buildPlatform: windows
+            openglUseEGL: false
+          - buildPlatform: macos
+            openglUseEGL: false
+          - buildPlatform: windows
+            buildToolset: gcc
+          - buildPlatform: windows
+            buildToolset: clang
+          - buildPlatform: ubuntu
+            buildToolset: msvc
+          - buildPlatform: ubuntu
+            buildToolset: clangcl
+          - buildPlatform: macos
+            buildToolset: msvc
+          - buildPlatform: macos
+            buildToolset: clangcl
+          - buildPlatform: macos
+            buildToolset: gcc
+          - buildPlatform: ubuntu
+            buildArchitecture: x86
+          - buildPlatform: macos
+            buildArchitecture: x86
+        include:
+          # Windows x86
+          - buildPlatform: windows
+            buildArchitecture: x86
+            buildToolset: msvc
+            presetPrefix: win-msvc-x86-
+            runner: windows-latest
+          - buildPlatform: windows
+            buildArchitecture: x86
+            buildToolset: clangcl
+            presetPrefix: win-clangcl-x86-
+            runner: windows-latest
+            increasePageSize: true
+
+          # Windows x64
+          - buildPlatform: windows
+            buildArchitecture: x64
+            buildToolset: msvc
+            presetPrefix: win-msvc-x64-
+            runner: windows-latest
+          - buildPlatform: windows
+            buildArchitecture: x64
+            buildToolset: clangcl
+            presetPrefix: win-clangcl-x64-
+            runner: windows-latest
+            increasePageSize: true
+
+          # Windows arm64
+          - buildPlatform: windows
+            buildArchitecture: arm64
+            buildToolset: msvc
+            presetPrefix: win-msvc-arm64-
+            runner: windows-11-arm
+          - buildPlatform: windows
+            buildArchitecture: arm64
+            buildToolset: clangcl
+            presetPrefix: win-clangcl-arm64-
+            runner: windows-11-arm
+            increasePageSize: true
+
+          # Linux x64
+          - buildPlatform: ubuntu
+            buildArchitecture: x64
+            buildToolset: gcc
+            presetPrefix: linux-gcc-x64-
+            runner: ubuntu-latest
+          - buildPlatform: ubuntu
+            buildArchitecture: x64
+            buildToolset: clang
+            presetPrefix: linux-clang-x64-
+            runner: ubuntu-latest
+            increasePageSize: true
+
+          # Linux arm64
+          - buildPlatform: ubuntu
+            buildArchitecture: arm64
+            buildToolset: gcc
+            presetPrefix: linux-gcc-arm64-
+            runner: ubuntu-24.04-arm
+          - buildPlatform: ubuntu
+            buildArchitecture: arm64
+            buildToolset: clang
+            presetPrefix: linux-clang-arm64-
+            runner: ubuntu-24.04-arm
+            increasePageSize: true
+
+          # macOS x64
+          - buildPlatform: macos
+            buildArchitecture: x64
+            buildToolset: clang
+            presetPrefix: macos-clang-x64-
+            runner: macos-15-intel
+
+          # macOS arm64
+          - buildPlatform: macos
+            buildArchitecture: arm64
+            buildToolset: clang
+            presetPrefix: macos-clang-arm64-
+            runner: macos-latest
+
+    runs-on: ${{ matrix.runner }}
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Set output folder config name
+      shell: pwsh
+      run: |
+        if ("${{ matrix.buildConfiguration }}" -eq "debug") {
+          "OUTPUT_DIR_CONFIG_NAME=Debug" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        } else {
+          "OUTPUT_DIR_CONFIG_NAME=RelWithDebInfo" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        }
+
+    - name: Configure Pagefile (windows)
+      if: ${{ matrix.buildPlatform == 'windows' && matrix.increasePageSize == true && matrix.buildArchitecture != 'arm64' }}
+      uses: al-cheb/configure-pagefile-action@v1.5
+      with:
+        minimum-size: 4GB
+        maximum-size: 20GB
+
+    - name: Configure Pagefile (linux)
+      if: ${{ matrix.buildPlatform == 'ubuntu' && matrix.increasePageSize == true }}
+      uses: get-bridge/swap-space-action@v1
+      with:
+        swap-size-mb: 8192
+
+    - name: Installing dependencies (windows)
+      if: ${{ matrix.buildPlatform == 'windows' }}
+      uses: ./.github/actions/install-deps-windows
+      with:
+        build-architecture: ${{ matrix.buildArchitecture }}
+        build-toolset: ${{ matrix.buildToolset }}
+
+    - name: Installing dependencies (linux)
+      if: ${{ matrix.buildPlatform == 'ubuntu' }}
+      uses: ./.github/actions/install-deps-ubuntu
+
+    - name: Installing dependencies (macos)
+      if: ${{ matrix.buildPlatform == 'macos' }}
+      uses: ./.github/actions/install-deps-macos
+
+    - name: Configure ${{matrix.presetPrefix}}${{matrix.buildConfiguration}}${{ matrix.openglUseEGL == false && '_NoEGL' || '' }}
+      run: cmake --preset ${{matrix.presetPrefix}}${{matrix.buildConfiguration}} -DCOBALT_CLANG_FORMAT_ON_ALL=OFF ${{ matrix.openglUseEGL == false && '-DCOBALT_OPENGL_USE_EGL=OFF' || '' }}
+
+    - name: Build ${{matrix.presetPrefix}}${{matrix.buildConfiguration}}${{ matrix.openglUseEGL == false && '_NoEGL' || '' }}
+      run: cmake --build --preset ${{matrix.presetPrefix}}${{matrix.buildConfiguration}} --target install
+
+    - name: Build standalone examples ${{matrix.presetPrefix}}${{matrix.buildConfiguration}}${{ matrix.openglUseEGL == false && '_NoEGL' || '' }}
+      run: cmake --build --preset ${{matrix.presetPrefix}}${{matrix.buildConfiguration}} --target build-standalone-examples
+
+    - name: BuildDoco ${{matrix.presetPrefix}}${{matrix.buildConfiguration}}${{ matrix.openglUseEGL == false && '_NoEGL' || '' }}
+      run: cmake --build --preset ${{matrix.presetPrefix}}${{matrix.buildConfiguration}} --target documentation
+
+    - name: Upload RendererSDK ${{matrix.presetPrefix}}${{matrix.buildConfiguration}}${{ matrix.openglUseEGL == false && '_NoEGL' || '' }}
+      uses: actions/upload-artifact@v7
+      with:
+        name: RendererSDK_${{matrix.presetPrefix}}${{matrix.buildConfiguration}}${{ matrix.openglUseEGL == false && '_NoEGL' || '' }}
+        path: Output/SDK_${{env.OUTPUT_DIR_CONFIG_NAME}}/
+        if-no-files-found: error
+
+    - name: Upload AutomatedTests ${{matrix.presetPrefix}}${{matrix.buildConfiguration}}${{ matrix.openglUseEGL == false && '_NoEGL' || '' }}
+      uses: actions/upload-artifact@v7
+      with:
+        name: AutomatedTests_${{matrix.presetPrefix}}${{matrix.buildConfiguration}}${{ matrix.openglUseEGL == false && '_NoEGL' || '' }}
+        path: Output/AutomatedTests_${{matrix.buildArchitecture}}_${{env.OUTPUT_DIR_CONFIG_NAME}}/
+        if-no-files-found: error
+
+    - name: Upload Examples ${{matrix.presetPrefix}}${{matrix.buildConfiguration}}${{ matrix.openglUseEGL == false && '_NoEGL' || '' }}
+      uses: actions/upload-artifact@v7
+      with:
+        name: Examples_${{matrix.presetPrefix}}${{matrix.buildConfiguration}}${{ matrix.openglUseEGL == false && '_NoEGL' || '' }}
+        path: Output/Examples/
+        if-no-files-found: error
+
+  # Build our SDK documentation separately to produce a standalone version as a build artifact
+  buildDoco:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        buildConfiguration: [debug]
+        outputDirConfigName: [Debug]
+        buildPlatform: [ubuntu]
+        buildArchitecture: [x64]
+        presetPrefix: [linux-clang-x64-]
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Installing dependencies (linux)
+      if: ${{ matrix.buildPlatform == 'ubuntu' }}
+      uses: ./.github/actions/install-deps-ubuntu
+
+    - name: Configure BuildDoco
+      run: cmake --preset ${{matrix.presetPrefix}}${{matrix.buildConfiguration}}
+
+    - name: BuildDoco
+      run: cmake --build --preset ${{matrix.presetPrefix}}${{matrix.buildConfiguration}} --target documentation
+
+    - name: Upload SDKDocumentation
+      uses: actions/upload-artifact@v7
+      with:
+        name: SDKDocumentation
+        path: Output/SDK_${{matrix.outputDirConfigName}}/Documentation/
+        if-no-files-found: error
+
+  # Run clang-format as a standalone source formatting check
+  clangFormatCheck:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        buildConfiguration: [debug]
+        buildPlatform: [ubuntu]
+        buildArchitecture: [x64]
+        presetPrefix: [linux-clang-x64-]
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Installing dependencies (linux)
+      if: ${{ matrix.buildPlatform == 'ubuntu' }}
+      uses: ./.github/actions/install-deps-ubuntu
+
+    - name: Configure ClangFormatCheck
+      run: cmake --preset ${{matrix.presetPrefix}}${{matrix.buildConfiguration}}
+
+    - name: ClangFormatCheck
+      run: cmake --build --preset ${{matrix.presetPrefix}}${{matrix.buildConfiguration}} --target clang-format-check
+
+  # Run clang-tidy as a standalone static analysis check
+  clangTidyCheck:
+    strategy:
+      # We want to know all the targets that are going to fail, not just the first one.
+      fail-fast: false
+      matrix:
+        buildPlatform: [windows, ubuntu, macos]
+        buildToolset: [clangcl, clang]
+        buildConfiguration: [debug]
+        buildArchitecture: [x64]
+        openglUseEGL: [true, false]
+        exclude:
+          - buildPlatform: windows
+            buildToolset: clang
+          - buildPlatform: ubuntu
+            buildToolset: clangcl
+          - buildPlatform: macos
+            buildToolset: clangcl
+          - buildPlatform: windows
+            openglUseEGL: false
+          - buildPlatform: macos
+            openglUseEGL: false
+        include:
+          # Windows x64
+          - buildPlatform: windows
+            buildArchitecture: x64
+            buildToolset: clangcl
+            presetPrefix: win-clangcl-x64-
+            runner: windows-latest
+
+          # Linux x64
+          - buildPlatform: ubuntu
+            buildArchitecture: x64
+            buildToolset: clang
+            presetPrefix: linux-clang-x64-
+            runner: ubuntu-latest
+
+          # macOS x64
+          - buildPlatform: macos
+            buildArchitecture: x64
+            buildToolset: clang
+            presetPrefix: macos-clang-x64-
+            runner: macos-15-intel
+
+    runs-on: ${{ matrix.runner }}
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Installing dependencies (windows)
+      if: ${{ matrix.buildPlatform == 'windows' }}
+      uses: ./.github/actions/install-deps-windows
+      with:
+        build-architecture: ${{ matrix.buildArchitecture }}
+        build-toolset: ${{ matrix.buildToolset }}
+
+    - name: Installing dependencies (linux)
+      if: ${{ matrix.buildPlatform == 'ubuntu' }}
+      uses: ./.github/actions/install-deps-ubuntu
+
+    - name: Installing dependencies (macos)
+      if: ${{ matrix.buildPlatform == 'macos' }}
+      uses: ./.github/actions/install-deps-macos
+
+    - name: Configure ClangTidyCheck ${{matrix.presetPrefix}}${{matrix.buildConfiguration}}${{ matrix.openglUseEGL == false && '_NoEGL' || '' }}
+      run: cmake --preset ${{matrix.presetPrefix}}${{matrix.buildConfiguration}} ${{ matrix.openglUseEGL == false && '-DCOBALT_OPENGL_USE_EGL=OFF' || '' }}
+
+    - name: ClangTidyCheck ${{matrix.presetPrefix}}${{matrix.buildConfiguration}}${{ matrix.openglUseEGL == false && '_NoEGL' || '' }}
+      run: cmake --build --preset ${{matrix.presetPrefix}}${{matrix.buildConfiguration}} --target clang-tidy-check
+
+  # Run Visual Studio Code Analysis as a standalone static analysis check
+  visualStudioCodeAnalysis:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        buildConfiguration: [debug]
+        buildPlatform: [windows]
+        buildArchitecture: [x64]
+        buildToolset: [msvc]
+        presetPrefix: [win-msvc-x64-]
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Installing dependencies (windows)
+      if: ${{ matrix.buildPlatform == 'windows' }}
+      uses: ./.github/actions/install-deps-windows
+      with:
+        build-architecture: ${{ matrix.buildArchitecture }}
+        build-toolset: ${{ matrix.buildToolset }}
+
+    - name: Configure VisualStudioCodeAnalysis
+      run: cmake --preset ${{matrix.presetPrefix}}${{matrix.buildConfiguration}}
+
+    - name: VisualStudioCodeAnalysis
+      run: cmake --build --preset ${{matrix.presetPrefix}}${{matrix.buildConfiguration}} --target msvc-code-analysis
+
+  # Run our automated tests using cloud hosted runners and software rendering
+  test:
+    needs: build
+    strategy:
+      # We want to know all the targets that are going to fail, not just the first one.
+      fail-fast: false
+      matrix:
+        buildPlatform: [windows, ubuntu]
+        buildArchitecture: [x64, arm64]
+        buildToolset: [msvc, clang]
+        buildConfiguration: [release]
+        openglUseEGL: [true]
+        exclude:
+          - buildPlatform: windows
+            buildToolset: clang
+          - buildPlatform: ubuntu
+            buildToolset: msvc
+        include:
+          # Windows x64
+          - buildPlatform: windows
+            buildArchitecture: x64
+            buildToolset: msvc
+            presetPrefix: win-msvc-x64-
+            runner: windows-latest
+
+          # Windows arm64
+          - buildPlatform: windows
+            buildArchitecture: arm64
+            buildToolset: msvc
+            presetPrefix: win-msvc-arm64-
+            runner: windows-11-arm
+
+          # Linux x64
+          - buildPlatform: ubuntu
+            buildArchitecture: x64
+            buildToolset: clang
+            presetPrefix: linux-clang-x64-
+            runner: ubuntu-latest
+
+          # Linux arm64
+          - buildPlatform: ubuntu
+            buildArchitecture: arm64
+            buildToolset: clang
+            presetPrefix: linux-clang-arm64-
+            runner: ubuntu-24.04-arm
+
+    runs-on: ${{ matrix.runner }}
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Set output folder config name
+      shell: pwsh
+      run: |
+        if ("${{ matrix.buildConfiguration }}" -eq "debug") {
+          "OUTPUT_DIR_CONFIG_NAME=Debug" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        } else {
+          "OUTPUT_DIR_CONFIG_NAME=RelWithDebInfo" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        }
+
+    - name: Installing dependencies (windows)
+      if: ${{ matrix.buildPlatform == 'windows' }}
+      uses: ./.github/actions/install-deps-windows
+      with:
+        build-architecture: ${{ matrix.buildArchitecture }}
+        build-toolset: ${{ matrix.buildToolset }}
+
+    - name: Installing dependencies (linux)
+      if: ${{ matrix.buildPlatform == 'ubuntu' }}
+      uses: ./.github/actions/install-deps-ubuntu
+
+    - name: Download automated test suite
+      uses: actions/download-artifact@v8
+      with:
+        name: AutomatedTests_${{matrix.presetPrefix}}${{matrix.buildConfiguration}}${{ matrix.openglUseEGL == false && '_NoEGL' || '' }}
+        path: Output/AutomatedTests_${{matrix.buildArchitecture}}_${{env.OUTPUT_DIR_CONFIG_NAME}}
+
+    # By default the Windows github runners currently have a display resolution of 1024x768, which is the same size
+    # as the screenshots we try and generate. This results in Windows limiting the vertical height of the window and
+    # causing aspect ratio differences, which cause the tests to fail. We resize the virtual display here to a larger
+    # size, which allows the window to be created at the requested size and the tests to pass.
+    - name: Set display resolution (Windows x86/x64)
+      if: ${{ matrix.buildPlatform == 'windows' && matrix.buildArchitecture != 'arm64' }}
+      shell: pwsh
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Set display resolution (Windows arm64)
+      if: ${{ matrix.buildPlatform == 'windows' && matrix.buildArchitecture == 'arm64' }}
+      shell: pwsh
+      run: |
+        Install-Module -Name DisplayConfig -RequiredVersion 6.0.0 -Scope CurrentUser -Force
+        $display = Get-DisplayInfo | Where-Object { $_.IsActive } | Select-Object -First 1
+        if ($null -eq $display) {
+          $display = Get-DisplayInfo | Select-Object -First 1
+        }
+        if ($null -eq $display) {
+          throw "No display was reported by DisplayConfig."
+        }
+        Set-DisplayResolution -DisplayId $display.DisplayId -Width 1920 -Height 1080
+
+    - name: Restore execute permissions (Linux/macOS)
+      if: runner.os != 'Windows'
+      # Surprisingly, it's a known limitation of download-artifact that permissions are not restored, despite being
+      # present in the zip file. We restore execute permission here so we can run our payload.
+      run: chmod +x "Output/AutomatedTests_${{ matrix.buildArchitecture }}_${{ env.OUTPUT_DIR_CONFIG_NAME }}/AutomatedTests"
+
+    - name: Run AutomatedTests (Windows)
+      if: runner.os == 'Windows'
+      id: runTestsWin
+      # We still want to upload the test results artifact if the test fails. In fact, we need to in this case most of all.
+      continue-on-error: true
+      run: ./Scripts/RunAllUnitTests.cmd "Output/AutomatedTests_${{ matrix.buildArchitecture }}_${{ env.OUTPUT_DIR_CONFIG_NAME }}" "Output/TestResults/UnitTestResults"
+
+    - name: Run AutomatedTests (Linux/macOS)
+      if: runner.os != 'Windows'
+      id: runTestsOther
+      # We still want to upload the test results artifact if the test fails. In fact, we need to in this case most of all.
+      continue-on-error: true
+      run: ./Scripts/RunAllUnitTests.sh "Output/AutomatedTests_${{ matrix.buildArchitecture }}_${{ env.OUTPUT_DIR_CONFIG_NAME }}" "Output/TestResults/UnitTestResults" --no-interface
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v7
+      with:
+        name: TestResults_${{matrix.presetPrefix}}${{matrix.buildConfiguration}}${{ matrix.openglUseEGL == false && '_NoEGL' || '' }}
+        path: Output/TestResults/UnitTestResults/
+        if-no-files-found: error
+
+    - name: Fail test on error
+      if: ${{ (steps.runTestsWin.outcome == 'failure') || (steps.runTestsOther.outcome == 'failure') }}
+      run: exit 1

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogManager.Constructor" Title="Constructor method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.LogManager">LogManager</PageRef> ->
+    Constructor
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>LogManager</TypeRef> constructor creates a manager with no log targets and a manager-level include severity filter of <TypeRef>SeverityFilter::All</TypeRef>.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        A newly constructed manager has no output destinations. Add at least one target with <PageRef PageName="cobalt.logging.LogManager.AddLogTarget">AddLogTarget</PageRef> before expecting messages to be written anywhere.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[LogManager();]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.LogManager">LogManager</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogManager.AddLogTarget">LogManager.AddLogTarget</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

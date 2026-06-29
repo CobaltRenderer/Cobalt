@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureSampler1D" Title="ITextureSampler1D interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    ITextureSampler1D
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class ITextureSampler1D :public ITextureSampler;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ITextureSampler1D</TypeRef> interface represents a sampler for performing texture lookups from <PageRef PageName="cobalt.graphics.ITextureBuffer1D">ITextureBuffer1D</PageRef>
+      resources in a shader.
+    </Paragraph>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="WrapMode" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureSampler.WrapMode" Visibility="Public">
+        Defines the way texture coordinates are wrapped during sampling
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="FilterMode" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureSampler.FilterMode" Visibility="Public">
+        Defines the filter mode to use during sampling
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="MipmapMode" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureSampler.MipmapMode" Visibility="Public">
+        Defines the mipmap mode to use during sampling
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.ITextureSampler.Delete">
+          Schedules the object for deletion. After calling this method, the object will be destroyed after the current
+          frame completes drawing.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Format methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetTextureWrapMode" PageName="cobalt.graphics.ITextureSampler.SetTextureWrapMode">
+          Specifies the wrap mode to use when sampling from the texture
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetTextureFilterMode" PageName="cobalt.graphics.ITextureSampler.SetTextureFilterMode">
+          Specifies the filter mode to use when sampling from the texture
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetTextureMipmapMode" PageName="cobalt.graphics.ITextureSampler.SetTextureMipmapMode">
+          Specifies the filter mode to use when sampling from the texture
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetMipmapLevelMapping" PageName="cobalt.graphics.ITextureSampler.SetMipmapLevelMapping">
+          Adjusts the way mipmap levels are used by the sampler
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer1D">ITextureBuffer1D</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

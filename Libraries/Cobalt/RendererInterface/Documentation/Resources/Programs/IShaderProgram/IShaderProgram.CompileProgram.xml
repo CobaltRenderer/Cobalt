@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IShaderProgram.CompileProgram" Title="CompileProgram method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef> ->
+    CompileProgram
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>CompileProgram</TypeRef> method attempts to compile the code supplied by the <PageRef PageName="cobalt.graphics.IShaderProgram.LoadShaderStage">LoadShaderStage</PageRef> method. Prior to calling this method, the shader program cannot be bound to an <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef>, and no information about the shader program can be queried.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken CompileProgram();]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken">
+        True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

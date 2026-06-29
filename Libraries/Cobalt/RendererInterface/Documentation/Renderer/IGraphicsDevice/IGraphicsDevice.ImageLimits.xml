@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDevice.ImageLimits" Title="ImageLimits structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> ->
+    ImageLimits
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ImageLimits</TypeRef> structure reports information on limits an <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef>
+      object has which relate to images, as returned by the <PageRef PageName="cobalt.graphics.IGraphicsDevice.GetImageLimits">GetImageLimits</PageRef>
+      method.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <DataMemberList>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="maxImageDimensionTexture1D">
+        Reports the maximum supported value of any one image dimension in an <PageRef PageName="cobalt.graphics.ITextureBuffer1D">ITextureBuffer1D</PageRef>
+        object.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="maxImageDimensionTexture2D">
+        Reports the maximum supported value of any one image dimension in an <PageRef PageName="cobalt.graphics.ITextureBuffer2D">ITextureBuffer2D</PageRef>
+        object.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="maxImageDimensionTexture3D">
+        Reports the maximum supported value of any one image dimension in an <PageRef PageName="cobalt.graphics.ITextureBuffer3D">ITextureBuffer3D</PageRef>
+        object.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="maxImageDimensionTextureCube">
+        Reports the maximum supported value of any one image dimension in an <PageRef PageName="cobalt.graphics.ITextureBufferCube">ITextureBufferCube</PageRef>
+        object.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="maxImageArraySizeTexture1D">
+        Reports the maximum number of array entries in an <PageRef PageName="cobalt.graphics.ITextureBuffer1DArray">ITextureBuffer1DArray</PageRef>
+        object.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="maxImageArraySizeTexture2D">
+        Reports the maximum number of array entries in an <PageRef PageName="cobalt.graphics.ITextureBuffer2DArray">ITextureBuffer2DArray</PageRef>
+        object.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="int" Name="maxSamplerAnisotropicFilteringLevel">
+        Reports the maximum supported anisotropic filtering level supported by the <PageRef PageName="cobalt.graphics.ITextureSampler.SetAnisotropicFilterMode">SetAnisotropicFilterMode</PageRef>
+        method on <PageRef PageName="cobalt.graphics.ITextureSampler2D">ITextureSampler2D</PageRef> and <PageRef PageName="cobalt.graphics.ITextureSampler2DArray">ITextureSampler2DArray</PageRef>
+        objects.
+      </DataMemberListEntry>
+    </DataMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

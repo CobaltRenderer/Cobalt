@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.SuccessToken.Constructor" Title="Constructor method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph><PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> -> <PageRef PageName="cobalt.graphics.SuccessToken">SuccessToken</PageRef> -> Constructor</Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SuccessToken</TypeRef> constructor creates a token representing the result of an operation that may fail. Renderer API methods return this type when the application is expected to observe success or failure rather than assuming the operation completed.
+    </Paragraph>
+    <Paragraph>
+      In debug builds, a token whose result is never inspected can raise an assertion. This is deliberate: many renderer setup and resource allocation failures are recoverable only if the application checks the returned token and reacts appropriately.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+      Use <PageRef PageName="cobalt.graphics.SuccessToken.IgnoreResult">IgnoreResult</PageRef> only when failure has intentionally been accepted and no response is required.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken(bool success);
+SuccessToken(SuccessToken&& source);
+SuccessToken(const SuccessToken& source);]]></Code>
+    <SubSection Title="Argument list"><ArgumentList>
+      <ArgumentListEntry Type="bool" Name="success">True if the operation succeeded, false otherwise.</ArgumentListEntry>
+      <ArgumentListEntry Type="SuccessToken&amp;&amp;" Name="source">The source token to move from. The source token is marked as observed.</ArgumentListEntry>
+      <ArgumentListEntry Type="const SuccessToken&amp;" Name="source">The source token to copy from. The source token is marked as observed.</ArgumentListEntry>
+    </ArgumentList></SubSection>
+  </Section>
+  <Section Title="See also"><PageRefList><PageRefListEntry PageName="cobalt.graphics.SuccessToken">SuccessToken</PageRefListEntry></PageRefList></Section>
+</XMLDocContent>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateBufferLayout.AppendMatrix" Title="AppendMatrix method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateBufferLayout">IStateBufferLayout</PageRef> ->
+    AppendMatrix
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>AppendMatrix</TypeRef> method appends a matrix field to the state buffer layout.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void AppendMatrix(const Marshal::In<std::string>& fieldName, DataType type, size_t width, size_t height, size_t arraySize = 0);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const Marshal::In&lt;std::string&gt;" Name="fieldName">
+          The name to assign to the matrix field in the state buffer layout.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="DataType" Name="type">
+          The scalar data type of each matrix component.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="width">
+          The number of columns in the matrix.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="height">
+          The number of rows in the matrix.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="arraySize">
+          The optional array element count. Use 0 for a non-array field.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateBufferLayout">IStateBufferLayout</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

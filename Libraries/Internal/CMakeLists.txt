@@ -1,0 +1,5 @@
+add_subdirectory(CrashHandling)
+add_subdirectory(ImageDiff)
+add_subdirectory(RendererSupport)
+add_subdirectory(ShaderSupport)
+add_subdirectory(TextureFormatConversion)

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.marshalling.MarshalOperators" Title="Marshal Namespace Aliases" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Section Title="Overview">
+    <Paragraph>
+      The <TypeRef>cobalt::marshalling::operators</TypeRef> namespace contains a small set of alias templates which provide the short
+      <TypeRef>Marshal::In</TypeRef>, <TypeRef>Marshal::Out</TypeRef>, <TypeRef>Marshal::InOut</TypeRef>, and <TypeRef>Marshal::Ret</TypeRef> names used
+      throughout the marshalling documentation. These aliases are only available when compiling with C++11 or later, as they rely on alias templates.
+    </Paragraph>
+    <Paragraph>
+      The intended usage is to import the operator namespace into a header and then refer to the helper types through the <TypeRef>Marshal</TypeRef>
+      namespace, as follows:
+    </Paragraph>
+    <Code Language="C++"><![CDATA[using namespace cobalt::marshalling::operators;
+
+virtual void SomeMethod(const Marshal::In<std::string>& input) = 0;
+virtual void SomeOtherMethod(const Marshal::Out<std::vector<int>>& output) = 0;]]></Code>
+  </Section>
+
+  <Section Title="Members">
+    <SubSection Title="Alias templates">
+      <List>
+        <ListEntry>
+          <TypeRef>Marshal::In</TypeRef> - Alias for <TypeRef>cobalt::marshalling::Marshal::In</TypeRef>.
+        </ListEntry>
+        <ListEntry>
+          <TypeRef>Marshal::Out</TypeRef> - Alias for <TypeRef>cobalt::marshalling::Marshal::Out</TypeRef>.
+        </ListEntry>
+        <ListEntry>
+          <TypeRef>Marshal::InOut</TypeRef> - Alias for <TypeRef>cobalt::marshalling::Marshal::InOut</TypeRef>.
+        </ListEntry>
+        <ListEntry>
+          <TypeRef>Marshal::Ret</TypeRef> - Alias for <TypeRef>cobalt::marshalling::Marshal::Ret</TypeRef>.
+        </ListEntry>
+      </List>
+    </SubSection>
+  </Section>
+
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.marshalling.Welcome">Marshalling Library Overview</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.marshalling.MarshalIn">Marshal::In</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.marshalling.MarshalOut">Marshal::Out</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.marshalling.MarshalInOut">Marshal::InOut</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.marshalling.MarshalRet">Marshal::Ret</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,115 @@
+<XMLDocContent PageName="cobalt.graphics.ITextureBufferCube" Title="ITextureBufferCube interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    ITextureBufferCube
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class ITextureBufferCube :public ITextureBuffer;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ITextureBufferCube</TypeRef> interface represents a texture mapped onto a cube, suitable for binding as an
+      input resource to a shader, and sampling by orientation rather than texture coordinates. Typically used for skyboxes,
+      reflection, refraction, or to texture imposter-based-LOD.
+    </Paragraph>
+  </Section>
+  <Section Title="Enumerations (Inherited from ITextureBuffer)">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="ImageFormat" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureBuffer.ImageFormat" Visibility="Public">
+        The image format of the texture on hardware, which represents the number of channels and use of those channels in the image.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="DataFormat" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureBuffer.DataFormat" Visibility="Public">
+        The data format of the texture on hardware, which represents the physical data encoding used for the channel data.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="SourceImageFormat" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureBuffer.SourceImageFormat" Visibility="Public">
+        The image format of texture data in CPU memory, which represents the number of channels and use of those channels in the image.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="SourceDataFormat" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureBuffer.SourceDataFormat" Visibility="Public">
+        The data format of texture data in CPU memory, which represents the physical data encoding used for the channel data.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="CubeMapFace" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureBuffer.CubeMapFace" Visibility="Public">
+        Defines each face of an <PageRef PageName="cobalt.graphics.ITextureBufferCube">ITextureBufferCube</PageRef> and
+        <PageRef PageName="cobalt.graphics.ITextureBufferCubeArray">ITextureBufferCubeArray</PageRef>.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="UsageFlags" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureBuffer.UsageFlags" Visibility="Public">
+        Flags to inform the renderer on how this texture buffer will be used
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="PerformanceHint" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureBuffer.PerformanceHint" Visibility="Public">
+        Flags to provide hints to the graphics system about how the application will use this texture. Correct use of
+        performance hints allows the renderer to optimize the way the data is stored and modified to give the best
+        performance.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="DataPersistenceFlags" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureBuffer.DataPersistenceFlags" Visibility="Public">
+        Flags to provide hints to the graphics system about the required lifetime of data stored in this texture. These
+        flags can be used to reduce memory requirements or increase performance in some circumstances.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.ITextureBuffer.Delete">
+          Schedules the object for deletion. After calling this method, the object will be destroyed after the current
+          frame completes drawing.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="AllocateMemory" PageName="cobalt.graphics.ITextureBuffer.AllocateMemory">
+          Attempts to allocate memory for the texture
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Usage methods (Inherited from ITextureBuffer)">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetUsageFlags" PageName="cobalt.graphics.ITextureBuffer.SetUsageFlags">
+          Informs the renderer on how this buffer will be used. Certain operations are disallowed unless usage flags
+          have been set to inform the renderer in advance that those operations may be requested.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetPerformanceHints" PageName="cobalt.graphics.ITextureBuffer.SetPerformanceHints">
+          Provides hints to the renderer about how this object will be used. Correct use of hints is important to optimize performance.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetDataPersistenceFlags" PageName="cobalt.graphics.ITextureBuffer.SetDataPersistenceFlags">
+          Provides hints to the graphics system about the required lifetime of data stored in this texture. This can be
+          used to reduce memory requirements or increase performance in some circumstances.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Format methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetTextureFormat" PageName="cobalt.graphics.ITextureBuffer.SetTextureFormat">
+          Specifies the format of the texture. This must be defined prior to calling the <TypeRef>AllocateMemory</TypeRef> method.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetTextureDimensions" PageName="cobalt.graphics.ITextureBuffer.SetTextureDimensions">
+          Specifies the dimensions and mipmap level count of the texture. This must be defined prior to calling the <TypeRef>AllocateMemory</TypeRef> method.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="AllocatedImageFormat" PageName="cobalt.graphics.ITextureBuffer.AllocatedImageFormat">
+          Returns the <PageRef PageName="cobalt.graphics.ITextureBuffer.ImageFormat">ImageFormat</PageRef> of the buffer that was actually created after calling the <TypeRef>AllocateMemory</TypeRef> method.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="AllocatedDataFormat" PageName="cobalt.graphics.ITextureBuffer.AllocatedDataFormat">
+          Returns the <PageRef PageName="cobalt.graphics.ITextureBuffer.DataFormat">DataFormat</PageRef> of the buffer that was actually created after calling the <TypeRef>AllocateMemory</TypeRef> method.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="MipmapLevelCount" PageName="cobalt.graphics.ITextureBuffer.MipmapLevelCount">
+          Returns the number of texture mipmap levels that were created after calling the <TypeRef>AllocateMemory</TypeRef> method.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="MipmapLevelDimensions" PageName="cobalt.graphics.ITextureBuffer.MipmapLevelDimensions">
+          Returns the dimensions of the specified texture mipmap level that was created after calling the <TypeRef>AllocateMemory</TypeRef> method.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Data methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetInitialData" PageName="cobalt.graphics.ITextureBuffer.SetInitialData">
+          Supplies initial data to use when allocating the texture. Note that the supplied memory must remain valid and
+          accessible until the <TypeRef>AllocateMemory</TypeRef> method is called.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="QueueDataUpdate" PageName="cobalt.graphics.ITextureBuffer.QueueDataUpdate">
+          Updates data in the associated buffer. Unlike the <TypeRef>SetInitialData</TypeRef> method, the provided
+          memory can be modified or deallocated immediately after this method returns.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureSamplerCube">ITextureSamplerCube</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

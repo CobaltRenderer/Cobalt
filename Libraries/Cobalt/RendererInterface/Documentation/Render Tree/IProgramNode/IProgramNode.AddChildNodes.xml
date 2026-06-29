@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IProgramNode.AddChildNodes" Title="AddChildNodes method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef> ->
+    AddChildNodes
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>AddChildNodes</TypeRef> method adds the specified set of <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef>
+      objects to the list of child nodes. During the rendering process, each <TypeRef>IStateGroupNode</TypeRef> is
+      processed in the order it was added. This method adds the specified set of <TypeRef>IStateGroupNode</TypeRef>
+      objects to the end of the current set of child nodes.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void AddChildNodes(IStateGroupNode* const* childNodes, size_t childNodeCount);
+void AddChildNodes(IStateGroupNode::unique_ptr const* childNodes, size_t childNodeCount);]]></Code>
+  <SubSection Title="Argument list">
+    <ArgumentList>
+      <ArgumentListEntry Type="IStateGroupNode* const* / IStateGroupNode::unique_ptr const*!cobalt.graphics.IStateGroupNode" Name="childNodes">
+        The set of <TypeRef>IStateGroupNode</TypeRef> objects to add to the list of child nodes
+      </ArgumentListEntry>
+      <ArgumentListEntry Type="size_t" Name="childNodeCount">
+        The number of <TypeRef>IStateGroupNode</TypeRef> entries to read from the <TypeRef>childNodes</TypeRef> array
+      </ArgumentListEntry>
+    </ArgumentList>
+  </SubSection>
+</Section>
+<Section Title="See also">
+  <PageRefList>
+    <PageRefListEntry PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRefListEntry>
+    <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

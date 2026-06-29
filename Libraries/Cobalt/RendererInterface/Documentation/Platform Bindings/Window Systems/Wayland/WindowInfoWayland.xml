@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.WindowInfoWayland" Title="WindowInfoWayland structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef> ->
+    WindowInfoWayland
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[struct WindowInfoWayland : public IFrameBuffer::WindowInfoBase;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowInfoWayland</TypeRef> structure describes a Wayland surface for framebuffer presentation.
+    </Paragraph>
+    <Paragraph>
+      Availability: Linux or compatible Wayland platforms when <TypeRef>COBALT_RENDERER_WAYLAND_SUPPORT</TypeRef> is enabled. This is automatically enabled on Linux unless platform binding selection is manual.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <DataMemberList>
+      <DataMemberListEntry Visibility="Public" Type="wl_display*" Name="display">
+        The Wayland display.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="wl_surface*" Name="surface">
+        The Wayland surface.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="V2UInt32" Name="windowSizeInPixels">
+        The drawable window size in pixels.
+      </DataMemberListEntry>
+    </DataMemberList>
+  </Section>
+  <Section Title="Constructors">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Constructor" PageName="cobalt.graphics.WindowInfoWayland.Constructor">
+          Creates a WindowInfoWayland structure.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.WindowSystemInfoWayland">WindowSystemInfoWayland</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.BindWindow">IFrameBuffer.BindWindow</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateBuffer.SetRawPageData" Title="SetRawPageData method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateBuffer">IStateBuffer</PageRef> ->
+    SetRawPageData
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetRawPageData</TypeRef> method writes the specified raw byte data directly into the state buffer at the specified location.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetRawPageData(uint32_t pageNo, const uint8_t* data, size_t dataSizeInBytes, size_t dataOffsetInBytes = 0);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="uint32_t" Name="pageNo">
+          The state buffer page to update.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="const uint8_t*" Name="data">
+          The source bytes to copy into the page.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="dataSizeInBytes">
+          The number of bytes to copy.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="dataOffsetInBytes">
+          The byte offset into the page where the copy begins.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateBuffer">IStateBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

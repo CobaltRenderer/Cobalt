@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateBufferLayout.AppendVector" Title="AppendVector method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateBufferLayout">IStateBufferLayout</PageRef> ->
+    AppendVector
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>AppendVector</TypeRef> method appends a vector field to the state buffer layout.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void AppendVector(const Marshal::In<std::string>& fieldName, DataType type, size_t elementCount, size_t arraySize = 0);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const Marshal::In&lt;std::string&gt;" Name="fieldName">
+          The name to assign to the vector field in the state buffer layout.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="DataType" Name="type">
+          The scalar data type of each vector component.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="elementCount">
+          The number of scalar components in the vector.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="arraySize">
+          The optional array element count. Use 0 for a non-array field.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateBufferLayout">IStateBufferLayout</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

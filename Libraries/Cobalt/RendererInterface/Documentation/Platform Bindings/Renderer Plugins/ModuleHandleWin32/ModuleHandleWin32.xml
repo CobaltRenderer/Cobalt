@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ModuleHandleWin32" Title="ModuleHandleWin32 class" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef> ->
+    ModuleHandleWin32
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class ModuleHandleWin32 : public IModuleHandle;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ModuleHandleWin32</TypeRef> class is an <PageRef PageName="cobalt.graphics.IModuleHandle">IModuleHandle</PageRef> implementation.
+    </Paragraph>
+    <Paragraph>
+      Availability: Windows. This type is used when <TypeRef>COBALT_RENDERER_WIN32_SUPPORT</TypeRef> is enabled and the implementation is compiled on Windows.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Create" PageName="cobalt.graphics.ModuleHandleWin32.Create">
+          Creates a module handle object.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="Clone" PageName="cobalt.graphics.ModuleHandleWin32.Clone">
+          Creates another owning handle to the same module.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.ModuleHandleWin32.Delete">
+          Deletes the module handle object.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IModuleHandle">IModuleHandle</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

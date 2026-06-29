@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.RenderPluginEnumerator.FilterPluginsOfFamilyBelowVersion" Title="FilterPluginsOfFamilyBelowVersion method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.RenderPluginEnumerator">RenderPluginEnumerator</PageRef> ->
+    FilterPluginsOfFamilyBelowVersion
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>FilterPluginsOfFamilyBelowVersion</TypeRef> method removes renderer plugins of the specified API family whose target version is below the supplied version.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void FilterPluginsOfFamilyBelowVersion(IRendererPlugin::ApiFamily apiFamily, IRendererPlugin::ApiVersion apiVersion);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="ApiFamily!cobalt.graphics.IRendererPlugin.ApiFamily" Name="apiFamily">
+          The API family to test.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="ApiVersion!cobalt.graphics.IRendererPlugin.ApiVersion" Name="apiVersion">
+          The minimum version to keep for that family.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.RenderPluginEnumerator">RenderPluginEnumerator</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.RendererPlugin">RendererPlugin</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

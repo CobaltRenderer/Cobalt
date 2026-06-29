@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureBuffer.SetInitialData" Title="SetInitialData method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph><PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> -> <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef> -> SetInitialData</Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetInitialData</TypeRef> method supplies texture data to upload during allocation. The exact overload used depends on texture dimensionality and whether the texture is a cubemap or array texture, but every overload describes source data for a specific mipmap level, face, array entry, or region as appropriate.
+    </Paragraph>
+    <Paragraph>
+      Initial data is useful for static textures or for fully populated mipmap chains known before allocation. The source image and data formats describe CPU memory and may differ from the allocated texture format when conversion is supported.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+      Initial data is consumed when memory is allocated. The source memory must remain valid and unmodified until <PageRef PageName="cobalt.graphics.ITextureBuffer.AllocateMemory">AllocateMemory</PageRef> is called.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[template<class T> SuccessToken SetInitialData(const std::vector<T>& sourceBuffer, int mipmapLevel = 0);
+template<class T> SuccessToken SetInitialData(const std::vector<T>& sourceBuffer, CubeMapFace targetFace, int mipmapLevel = 0);
+template<class T> SuccessToken SetInitialData(const std::vector<T>& sourceBuffer, size_t arrayIndex = 0, int mipmapLevel = 0);
+template<class T> SuccessToken SetInitialData(const std::vector<T>& sourceBuffer, CubeMapFace targetFace, size_t arrayIndex = 0, int mipmapLevel = 0);
+SuccessToken SetInitialData(const void* sourceBuffer, size_t sourceBufferSizeInBytes, SourceImageFormat imageFormat, SourceDataFormat dataFormat, int mipmapLevel = 0);
+SuccessToken SetInitialData(const void* sourceBuffer, size_t sourceBufferSizeInBytes, SourceImageFormat imageFormat, SourceDataFormat dataFormat, CubeMapFace targetFace, int mipmapLevel = 0);
+SuccessToken SetInitialData(const void* sourceBuffer, size_t sourceBufferSizeInBytes, SourceImageFormat imageFormat, SourceDataFormat dataFormat, size_t arrayIndex = 0, int mipmapLevel = 0);
+SuccessToken SetInitialData(const void* sourceBuffer, size_t sourceBufferSizeInBytes, SourceImageFormat imageFormat, SourceDataFormat dataFormat, CubeMapFace targetFace, size_t arrayIndex = 0, int mipmapLevel = 0);]]></Code>
+    <SubSection Title="Argument list"><ArgumentList>
+      <ArgumentListEntry Type="const std::vector&lt;T&gt; or const void*" Name="sourceBuffer">The source data to use when the texture is allocated.</ArgumentListEntry>
+      <ArgumentListEntry Type="size_t" Name="sourceBufferSizeInBytes">The size, in bytes, of the source data.</ArgumentListEntry>
+      <ArgumentListEntry Type="SourceImageFormat" Name="imageFormat">The image channel layout of the source data.</ArgumentListEntry>
+      <ArgumentListEntry Type="SourceDataFormat" Name="dataFormat">The data encoding of the source data.</ArgumentListEntry>
+      <ArgumentListEntry Type="CubeMapFace" Name="targetFace">The cubemap face to initialize for cubemap texture types.</ArgumentListEntry>
+      <ArgumentListEntry Type="size_t" Name="arrayIndex">The array element to initialize for array texture types.</ArgumentListEntry>
+      <ArgumentListEntry Type="int" Name="mipmapLevel">The mipmap level to initialize.</ArgumentListEntry>
+    </ArgumentList></SubSection>
+    <SubSection Title="Return value"><ReturnValue Type="SuccessToken">True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.</ReturnValue></SubSection>
+  </Section>
+  <Section Title="See also"><PageRefList><PageRefListEntry PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.AllocateMemory">AllocateMemory</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.QueueDataUpdate">QueueDataUpdate</PageRefListEntry></PageRefList></Section>
+</XMLDocContent>

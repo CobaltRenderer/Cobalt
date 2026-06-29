@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.WindowSystemInfoSDL3" Title="WindowSystemInfoSDL3 class" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef> ->
+    WindowSystemInfoSDL3
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class WindowSystemInfoSDL3;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowSystemInfoSDL3</TypeRef> class is an SDL3 helper that detects SDL's active video driver and builds the matching platform-specific <PageRef PageName="cobalt.graphics.IRenderer.WindowSystemInfoBase">IRenderer.WindowSystemInfoBase</PageRef> derived structure for renderer initialization.
+    </Paragraph>
+    <Paragraph>
+      Availability: Builds where <TypeRef>COBALT_RENDERER_SDL3_SUPPORT</TypeRef> is enabled.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        On Linux with both Xlib and XCB support compiled in, the SDL helper selects Xlib for the SDL <TypeRef>x11</TypeRef> video driver because the Xlib branch is tested first.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Initialize" PageName="cobalt.graphics.WindowSystemInfoSDL3.Initialize">
+          Builds the platform-specific binding information from SDL state.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Data access methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="GetType" PageName="cobalt.graphics.WindowSystemInfoSDL3.GetType">
+          Returns the concrete platform binding type.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="Get" PageName="cobalt.graphics.WindowSystemInfoSDL3.Get">
+          Returns a pointer to the concrete platform binding structure.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer.WindowSystemInfoBase">WindowSystemInfoBase</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.CobaltSDLCreateWindow">CobaltSDLCreateWindow</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

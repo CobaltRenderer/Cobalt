@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderPassNode.SetAttachmentClearData" Title="SetAttachmentClearData method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef> ->
+    SetAttachmentClearData
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetAttachmentClearData</TypeRef> method instructs the renderer to clear the specified framebuffer
+      target with the supplied data when this pass begins rendering. If a clear operation has not been defined,
+      framebuffer attachments have undefined content for regions that have not been drawn to previously in the current
+      frame.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Several overloads are provided to supply clear data in different data formats. All of them will work for any
+        attachment target, and the type doesn't need to match the storage format used for the attachment. To make things
+        simpler for the application however, and to avoid precision issues where unusual values are used, it is best to
+        use the overload that most closely matches the actual storage format. Also note that where an attachment has
+        less than four vector components, the supplied values in the excess vector components will be ignored.
+      </Paragraph>
+    </Note>
+    <Note Type="Important">
+      <Paragraph>
+        Clearing framebuffer attachments does incur a performance penalty, so it's advisable to avoid clearing buffers
+        where possible. If you have a compositing pass for example which is guaranteed to generate new content for every
+        fragment, a clear operation would not be required. In cases where only part of the image is being populated
+        however, or for special buffers such as depth buffers, at least one clear operation should generally be defined
+        per frame.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        When a render pass is disabled using the <PageRef PageName="cobalt.graphics.IRenderPassNode.SetIsEnabled">SetIsEnabled</PageRef>
+        method, attachment clear operations don't execute either. Where you are conditionally enabling render passes for
+        a frame, it may be appropriate to use empty render passes that you leave enabled at the start of your frame to
+        perform attachment clear operations. Empty render passes still perform clear operations, as long as the render
+        pass has not been disabled.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetAttachmentClearData(IFrameBuffer::AttachmentType type, size_t index, const V4Float32& data);
+void SetAttachmentClearData(IFrameBuffer::AttachmentType type, size_t index, const V4Int32& data);
+void SetAttachmentClearData(IFrameBuffer::AttachmentType type, size_t index, const V4UInt32& data);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IFrameBuffer::AttachmentType!cobalt.graphics.IFrameBuffer.AttachmentType" Name="type">
+          The type of the target framebuffer attachment
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="index">
+          The index of the target framebuffer attachment within the selected attachment type
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="V4Float32/V4Int32/V4UInt32" Name="data">
+          The values to use to fill the target framebuffer attachment
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

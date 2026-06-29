@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IShaderProgram.ShaderTargetInfoBase" Title="ShaderTargetInfoBase structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef> ->
+    ShaderTargetInfoBase
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ShaderTargetInfoBase</TypeRef> structure is the base structure passed to <PageRef PageName="cobalt.graphics.IShaderProgram.ConfigureShaderTarget">ConfigureShaderTarget</PageRef>. Concrete target information structures describe optional compiler or translation settings for a specific renderer target.
+    </Paragraph>
+    <Paragraph>
+      Supplying target information is optional. Applications only need to configure a shader target when they require behaviour other than the renderer default shader compiler and translation settings.
+    </Paragraph>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="ShaderTarget" TypeCategory="Enumeration" PageName="cobalt.graphics.IShaderProgram.ShaderTargetInfoBase.ShaderTarget" Visibility="Public">
+        Identifies the renderer target described by the concrete shader target information structure.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <DataMemberList>
+      <DataMemberListEntry Visibility="Public" Type="ShaderTarget!cobalt.graphics.IShaderProgram.ShaderTargetInfoBase.ShaderTarget" Name="shaderTarget">
+        Identifies the renderer target described by the concrete shader target information structure.
+      </DataMemberListEntry>
+    </DataMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram.ConfigureShaderTarget">IShaderProgram.ConfigureShaderTarget</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

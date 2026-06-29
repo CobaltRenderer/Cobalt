@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderPassNode.SetDebugName" Title="SetDebugName method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef> ->
+    SetDebugName
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetDebugName</TypeRef> method sets a debug name for this render pass node, where supported by the renderer and native graphics API.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Debug names are intended for diagnostics only. They do not affect rendering behaviour, resource identity, sorting, or lifetime.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetDebugName(const Marshal::In<std::string>& name);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const Marshal::In&lt;std::string&gt;" Name="name">
+          The debug name to associate with this object for native API diagnostics, render markers, and renderer log output.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

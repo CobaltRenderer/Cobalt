@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IFrameBufferOutput.GetOptimalImageFormat" Title="GetOptimalImageFormat method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IFrameBufferOutput">IFrameBufferOutput</PageRef> ->
+    GetOptimalImageFormat
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetOptimalImageFormat</TypeRef> method returns the SourceImageFormat that most closely matches the format of the captured image data.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[ITextureBuffer::SourceImageFormat GetOptimalImageFormat() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="ITextureBuffer::SourceImageFormat">
+        The source image format that can read the captured output without unnecessary conversion.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBufferOutput">IFrameBufferOutput</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

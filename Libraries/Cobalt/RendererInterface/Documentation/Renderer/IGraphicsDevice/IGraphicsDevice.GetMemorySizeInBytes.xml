@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDevice.GetMemorySizeInBytes" Title="GetMemorySizeInBytes method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> ->
+    GetMemorySizeInBytes
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetMemorySizeInBytes</TypeRef> method returns the size of the requested type of memory in bytes, as
+      reported by the graphics driver.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        The renderer is entirely dependent on request features in the underlying graphics API to retrieve this
+        information, and that is in tern entirely dependent on the reported values from the graphics driver. It has been
+        observed that is frequent for graphics drivers to report inaccurate information about their memory totals. This
+        may have been done deliberately under older APIs where 32-bit integer limits started presenting problems for
+        devices as memory sizes reached the 2GB and 4GB thresholds. The various graphics APIs also have problems with
+        ambiguities on how memory totals should be reported, especially where there are different types of dedicated
+        memory, such as a dedicated upload heap. It is common to see significant variation between reported memory
+        totals for the same device between different graphics APIs. The totals reported on newer generation APIs such
+        as Vulkan and Direct3D 12 are generally more reliable than older APIs such as OpenGL, however it is advised not
+        to rely on these numbers too heavily in your application. It may be appropriate to examine the reported memory
+        totals when making relative judgements on the best graphics device to select, however caution is advised when
+        attempting to use these numbers for anything other than reporting purposes.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[size_t GetMemorySizeInBytes(MemoryType memoryType) const;]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="MemoryType!cobalt.graphics.IGraphicsDevice.MemoryType" Name="type">
+          The type of the memory to query the size of
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="size_t">
+        The size of the requested memory type in 8-bit bytes
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice.GetVendorName">IGraphicsDevice.GetVendorName</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

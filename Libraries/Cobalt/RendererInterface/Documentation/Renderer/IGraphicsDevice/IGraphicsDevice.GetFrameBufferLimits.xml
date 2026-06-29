@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDevice.GetFrameBufferLimits" Title="GetFrameBufferLimits method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> ->
+    GetFrameBufferLimits
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetFrameBufferLimits</TypeRef> method returns a structure containing information on the limits this
+      graphics device has around framebuffers, in the form of the <PageRef PageName="cobalt.graphics.IGraphicsDevice.FrameBufferLimits">FrameBufferLimits</PageRef>
+      structure. These limits are fixed for the graphics device, and must not be exceeded by the application.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[FrameBufferLimits GetFrameBufferLimits() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="FrameBufferLimits!cobalt.graphics.IGraphicsDevice.FrameBufferLimits">
+        A structure containing information on the limits this graphics device has around framebuffers
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

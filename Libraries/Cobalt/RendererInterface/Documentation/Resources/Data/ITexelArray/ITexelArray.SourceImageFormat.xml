@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITexelArray.SourceImageFormat" Title="SourceImageFormat enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef> ->
+    SourceImageFormat
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SourceImageFormat</TypeRef> enumeration describes the component layout of texel array data supplied from CPU memory.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="R">
+        Supplies one component conventionally interpreted as red.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="RG">
+        Supplies two components conventionally interpreted as red and green.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="RGBA">
+        Supplies four components conventionally interpreted as red, green, blue, and alpha.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="X">
+        Supplies one generic component where color channel naming is not meaningful.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="XY">
+        Supplies two generic components.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="XYZW">
+        Supplies four generic components.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITexelArray.SetInitialData">ITexelArray.SetInitialData</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITexelArray.QueueDataUpdate">ITexelArray.QueueDataUpdate</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

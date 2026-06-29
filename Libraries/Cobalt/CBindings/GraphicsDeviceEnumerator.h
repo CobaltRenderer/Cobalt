@@ -1,0 +1,42 @@
+// Copyright (c) 2026 Maptek Pty Ltd
+// Licensed under the MIT License
+#pragma once
+#include "GraphicsDevice.h"
+#include "Macros.h"
+#include "Result.h"
+#include <stddef.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef struct Cobalt_GraphicsDeviceEnumerator_Internal* Cobalt_GraphicsDeviceEnumerator;
+
+// Enumerations
+typedef enum
+{
+	Cobalt_DeviceEnumerationFlags_None = 0,
+	Cobalt_DeviceEnumerationFlags_NativeApiValidation = 0x00000001,
+	Cobalt_DeviceEnumerationFlags_HeadlessRendering = 0x00000002,
+} Cobalt_DeviceEnumerationFlags;
+
+// Device methods
+COBALT_FUNCTION_EXPORT Cobalt_Result Cobalt_GraphicsDeviceEnumerator_EnumerateDevices(Cobalt_GraphicsDeviceEnumerator enumerator, Cobalt_DeviceEnumerationFlags enumerationFlags);
+COBALT_FUNCTION_EXPORT char Cobalt_GraphicsDeviceEnumerator_FoundDevice(Cobalt_GraphicsDeviceEnumerator enumerator);
+COBALT_FUNCTION_EXPORT void Cobalt_GraphicsDeviceEnumerator_GetAllDevices(Cobalt_GraphicsDeviceEnumerator enumerator, Cobalt_GraphicsDevice* devices, size_t* devicesLength);
+COBALT_FUNCTION_EXPORT void Cobalt_GraphicsDeviceEnumerator_GetFilteredDevices(Cobalt_GraphicsDeviceEnumerator enumerator, Cobalt_GraphicsDevice* devices, size_t* devicesLength);
+COBALT_FUNCTION_EXPORT void Cobalt_GraphicsDeviceEnumerator_GetPreferredDevice(Cobalt_GraphicsDeviceEnumerator enumerator, Cobalt_GraphicsDevice* preferredDevice);
+
+// Filtering methods
+COBALT_FUNCTION_EXPORT void Cobalt_GraphicsDeviceEnumerator_FilterDevice(Cobalt_GraphicsDeviceEnumerator enumerator, Cobalt_GraphicsDevice targetDevice);
+COBALT_FUNCTION_EXPORT void Cobalt_GraphicsDeviceEnumerator_FilterDevicesOfType(Cobalt_GraphicsDeviceEnumerator enumerator, Cobalt_DeviceType type);
+COBALT_FUNCTION_EXPORT void Cobalt_GraphicsDeviceEnumerator_FilterDevicesNotOfType(Cobalt_GraphicsDeviceEnumerator enumerator, Cobalt_DeviceType type);
+COBALT_FUNCTION_EXPORT void Cobalt_GraphicsDeviceEnumerator_FilterDevicesWithoutFeature(Cobalt_GraphicsDeviceEnumerator enumerator, Cobalt_Feature feature);
+COBALT_FUNCTION_EXPORT void Cobalt_GraphicsDeviceEnumerator_FilterDevicesWithoutAllFeatures(Cobalt_GraphicsDeviceEnumerator enumerator, const Cobalt_Feature* featureSet, size_t featureSetLength);
+COBALT_FUNCTION_EXPORT void Cobalt_GraphicsDeviceEnumerator_ClearDeviceFilters(Cobalt_GraphicsDeviceEnumerator enumerator);
+
+COBALT_FUNCTION_EXPORT void Cobalt_GraphicsDeviceEnumerator_Delete(Cobalt_GraphicsDeviceEnumerator enumerator);
+
+#ifdef __cplusplus
+}
+#endif

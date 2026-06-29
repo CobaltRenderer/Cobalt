@@ -1,0 +1,6 @@
+if (WIN32)
+    add_subdirectory(Direct3D11Renderer)
+    add_subdirectory(Direct3D12Renderer)
+endif()
+add_subdirectory(OpenGLRenderer)
+add_subdirectory(VulkanRenderer)

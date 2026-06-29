@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IVertexBuffer.QueueRawDataUpdate" Title="QueueRawDataUpdate method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IVertexBuffer">IVertexBuffer</PageRef> ->
+    QueueRawDataUpdate
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>QueueRawDataUpdate</TypeRef> method allows data to be written directly to the buffer where manual layout attributes have been bound with the BindVertexAttributeManualLayout method.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Data transfer operations are scheduled work. When an <PageRef PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRef> is supplied, the transfer follows the synchronization rules for that batch.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken QueueRawDataUpdate(const uint8_t* data, size_t dataSizeInBytes, size_t bufferOffsetInBytes, ITransferBatch* transferBatch = nullptr);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const uint8_t*" Name="data">
+          The source bytes to copy into the manually laid out buffer.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="dataSizeInBytes">
+          The number of bytes to copy.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="bufferOffsetInBytes">
+          The byte offset in the destination buffer where the update begins.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="ITransferBatch*" Name="transferBatch">
+          An optional transfer batch to schedule the update into. If null, the renderer schedules the update independently.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken">
+        True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IVertexBuffer">IVertexBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogTargetStandardOut.Create" Title="Create method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.LogTargetStandardOut">LogTargetStandardOut</PageRef> ->
+    Create
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Create</TypeRef> method creates a standard output target and returns it wrapped in a smart pointer compatible with <PageRef PageName="cobalt.logging.LogManager.AddLogTarget">LogManager.AddLogTarget</PageRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[static std::unique_ptr<LogTargetStandardOut, ILogTarget::Deleter> Create(bool flushAfterOutput);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="bool" Name="flushAfterOutput">If <TypeRef>true</TypeRef>, the target flushes <TypeRef>std::cout</TypeRef> after every message.</ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="LogTargetStandardOut!cobalt.logging.LogTargetStandardOut">
+        A newly constructed <TypeRef>LogTargetStandardOut</TypeRef> object wrapped in a smart pointer that uses <TypeRef>ILogTarget::Deleter</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetStandardOut">LogTargetStandardOut</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogManager.AddLogTarget">LogManager.AddLogTarget</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

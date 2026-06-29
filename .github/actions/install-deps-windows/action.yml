@@ -1,0 +1,30 @@
+name: Install dependencies (windows)
+description: Install build environment dependencies for Windows
+
+inputs:
+  build-architecture:
+    description: "Target build architecture: x86, x64, or arm64"
+    required: true
+  build-toolset:
+    description: "Compiler toolset being used: msvc or clangcl"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Installing dependencies (windows)
+      uses: TheMrMilchmann/setup-msvc-dev@v4
+      with:
+        # The hosted x86 jobs run on x64 machines, so use the x64-host/x86-target
+        # developer prompt instead of the native x86 tool prompt.
+        arch: ${{ inputs.build-architecture == 'x86' && 'amd64_x86' || inputs.build-architecture == 'x64' && 'x64' || 'arm64' }}
+
+    - name: Configure clang-cl x86 target
+      if: ${{ inputs.build-toolset == 'clangcl' && inputs.build-architecture == 'x86' }}
+      shell: pwsh
+      run: |
+        # CMake's Ninja generator identifies clang-cl's target by compiling its probe source.
+        # The hosted runners use standalone LLVM, which defaults to x64 unless the process
+        # environment supplies -m32 before configure starts.
+        "CFLAGS=-m32" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        "CXXFLAGS=-m32" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append

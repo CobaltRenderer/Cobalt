@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureBuffer.CellDimensionsInPixelsFromFormat" Title="CellDimensionsInPixelsFromFormat method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef> ->
+    CellDimensionsInPixelsFromFormat
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>CellDimensionsInPixelsFromFormat</TypeRef> method returns the pixel dimensions of each encoded cell for the specified data format.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[static V2UInt32 CellDimensionsInPixelsFromFormat(SourceDataFormat dataFormat);
+static V2UInt32 CellDimensionsInPixelsFromFormat(DataFormat dataFormat);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="SourceDataFormat" Name="dataFormat">
+          The data format to query.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="static V2UInt32">
+        The pixel dimensions of one compressed texture cell for the specified data format, or 1x1 for uncompressed formats.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

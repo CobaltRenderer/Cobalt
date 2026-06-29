@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderPassNode.BindFrameBuffer" Title="BindFrameBuffer method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef> ->
+    BindFrameBuffer
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>BindFrameBuffer</TypeRef> method sets the <PageRef PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRef>
+      object to use for this render pass during the rendering process.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        It is possible to change the bound <TypeRef>IFrameBuffer</TypeRef> after one has been associated, even while an
+        <TypeRef>IRenderPassNode</TypeRef> is currently bound to the scene tree. Like all object state changes, this
+        modification will not affect the frame currently being drawn, but will take effect next frame.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        You must ensure a <TypeRef>IFrameBuffer</TypeRef> object has been associated with a <TypeRef>IRenderPassNode</TypeRef>
+        before it is attempted to be used in the rendering process, or an error will result.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void BindFrameBuffer(IFrameBuffer* frameBuffer);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IFrameBuffer*!cobalt.graphics.IFrameBuffer" Name="frameBuffer">
+          The <TypeRef>IFrameBuffer</TypeRef> object to use when rendering this render pass
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

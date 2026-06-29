@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ReadOnlyIndexAttribute" Title="ReadOnlyIndexAttribute class" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    ReadOnlyIndexAttribute
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class ReadOnlyIndexAttribute :public IIndexAttribute;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ReadOnlyIndexAttribute</TypeRef> class represents an index attribute which has already been bound
+      to a buffer and been populated with data, and only needs to be used from this point on but no longer needs to be
+      modified. <TypeRef>ReadOnlyIndexAttribute</TypeRef> objects can only be initialized from an existing
+      <PageRef PageName="cobalt.graphics.IndexAttribute">IndexAttribute</PageRef> or <PageRef PageName="cobalt.graphics.RawIndexAttribute">RawIndexAttribute</PageRef>
+      object. The original attribute remains valid, and both are equivalent for use.
+    </Paragraph>
+    <Paragraph>
+      The intended purpose of the <TypeRef>ReadOnlyIndexAttribute</TypeRef> class is for ownership of an attribute to
+      be transferred to another entity within the application, where there is no requirement to be able to modify or
+      update the attribute, it simply needs to be bindable. This can be useful where attributes are aggregated into
+      application-specific object types, and need to be able to be bound by the object type, but only the caller needs
+      to be able to modify the data contained in the attributes.
+    </Paragraph>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="DataType" TypeCategory="Enumeration" PageName="cobalt.graphics.IndexAttribute.DataType" Visibility="Public">
+        Indicates the fundamental type of the data contained in this attribute
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="PerformanceHint" TypeCategory="Enumeration" PageName="cobalt.graphics.IndexAttribute.PerformanceHint" Visibility="Public">
+        Flags to provide hints to the graphics system about how the application will use this attribute. Correct use of
+        performance hints allows the renderer to optimize the way the data is stored and modified to give the best
+        performance.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="DataPersistenceFlags" TypeCategory="Enumeration" PageName="cobalt.graphics.IndexAttribute.DataPersistenceFlags" Visibility="Public">
+        Flags to provide hints to the graphics system about the required lifetime of data stored in this attribute.
+        These flags can be used to reduce memory requirements or increase performance in some circumstances.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Constructors">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Constructor" PageName="cobalt.graphics.ReadOnlyIndexAttribute.Constructor">
+          Creates a <TypeRef>ReadOnlyIndexAttribute</TypeRef> object. The object is populated by calling <PageRef PageName="cobalt.graphics.IndexAttribute.BuildReadOnlyAttribute">BuildReadOnlyAttribute</PageRef> on an existing attribute.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Type methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="GetDataType" PageName="cobalt.graphics.IndexAttribute.GetDataType">
+          Returns the type of a single index entry
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetIndexCount" PageName="cobalt.graphics.IndexAttribute.GetIndexCount">
+          Returns the number of indices accessible through this index attribute
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetDataTypeByteSize" PageName="cobalt.graphics.IndexAttribute.GetDataTypeByteSize">
+          Returns the size of a single index in bytes
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Usage methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="GetPerformanceHintCpu" PageName="cobalt.graphics.IndexAttribute.GetPerformanceHintCpu">
+          Returns the specified CPU performance hint for this index attribute
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetPerformanceHintGpu" PageName="cobalt.graphics.IndexAttribute.GetPerformanceHintGpu">
+          Returns the specified GPU performance hint for this index attribute
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetDataPersistenceFlags" PageName="cobalt.graphics.IndexAttribute.GetDataPersistenceFlags">
+          Returns the specified data persistence flags for this index attribute
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Binding methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="IsBoundToBuffer" PageName="cobalt.graphics.IndexAttribute.IsBoundToBuffer">
+          Reports whether this attribute has already been bound to a buffer
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BuildReadOnlyAttribute" PageName="cobalt.graphics.IndexAttribute.BuildReadOnlyAttribute">
+          Attempts to populate a <PageRef PageName="cobalt.graphics.ReadOnlyIndexAttribute">ReadOnlyIndexAttribute</PageRef>
+          from this attribute. Note that this attribute must already have been bound to a buffer for the call to
+          succeed.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IndexAttribute">IndexAttribute</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.RawIndexAttribute">RawIndexAttribute</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IIndexBuffer">IIndexBuffer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.VertexAttribute">VertexAttribute</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureBuffer.CellSizeInBytesFromFormat" Title="CellSizeInBytesFromFormat method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef> ->
+    CellSizeInBytesFromFormat
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>CellSizeInBytesFromFormat</TypeRef> method returns the byte size of each encoded cell for the specified image and data format combination.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[constexpr static size_t CellSizeInBytesFromFormat(SourceImageFormat imageFormat, SourceDataFormat dataFormat);
+constexpr static size_t CellSizeInBytesFromFormat(ImageFormat imageFormat, DataFormat dataFormat);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="SourceImageFormat" Name="imageFormat">
+          The image format to query.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="SourceDataFormat" Name="dataFormat">
+          The data format to query.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="constexpr static size_t">
+        The byte size of one encoded texture cell for the specified image and data format combination.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

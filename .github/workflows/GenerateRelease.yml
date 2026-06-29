@@ -1,0 +1,258 @@
+name: Generate Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: generate-release
+  cancel-in-progress: false
+
+jobs:
+  update_version:
+    name: Update version and changelog
+    runs-on: ubuntu-latest
+    environment: release
+    outputs:
+      release_tag: ${{ steps.changelog.outputs.tag }}
+    steps:
+      - name: Create release app token
+        id: release-token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          permission-contents: write
+
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ steps.release-token.outputs.token }}
+          persist-credentials: false
+
+      - name: Update version and changelog
+        id: changelog
+        uses: TriPSs/conventional-changelog-action@v6.3.1
+        with:
+          github-token: ${{ steps.release-token.outputs.token }}
+          git-message: "chore(release): {version}"
+          preset: "conventionalcommits"
+          release-count: "0"
+          output-file: "CHANGELOG.md"
+          version-file: "VersionInfo/version.yml"
+          version-path: "version"
+          tag-prefix: "v"
+
+      - name: Abort release if no changes
+        if: steps.changelog.outputs.skipped == 'true'
+        run: exit 1
+
+      - name: Write release notes
+        shell: bash
+        run: |
+          mkdir -p release-metadata
+          cat > release-metadata/release-notes.md <<'RELEASE_NOTES_EOF'
+          ${{ steps.changelog.outputs.clean_changelog }}
+          RELEASE_NOTES_EOF
+
+      - name: Upload release metadata
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-metadata
+          path: release-metadata/release-notes.md
+          if-no-files-found: error
+
+  build:
+    name: Build ${{ matrix.target_name }}
+    needs: update_version
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target_name: windows-msvc-x64
+            build_platform: windows
+            build_architecture: x64
+            build_toolset: msvc
+            preset: win-msvc-x64-release
+            runner: windows-latest
+
+          - target_name: macos-clang-arm64
+            build_platform: macos
+            build_architecture: arm64
+            build_toolset: clang
+            preset: macos-clang-arm64-release
+            runner: macos-latest
+
+          - target_name: ubuntu-clang-x64
+            build_platform: ubuntu
+            build_architecture: x64
+            build_toolset: clang
+            preset: linux-clang-x64-release
+            runner: ubuntu-latest
+            increase_page_size: true
+
+          - target_name: ubuntu-clang-arm64
+            build_platform: ubuntu
+            build_architecture: arm64
+            build_toolset: clang
+            preset: linux-clang-arm64-release
+            runner: ubuntu-24.04-arm
+            increase_page_size: true
+
+          - target_name: ubuntu-gcc-x64
+            build_platform: ubuntu
+            build_architecture: x64
+            build_toolset: gcc
+            preset: linux-gcc-x64-release
+            runner: ubuntu-latest
+            increase_page_size: true
+
+          - target_name: ubuntu-gcc-arm64
+            build_platform: ubuntu
+            build_architecture: arm64
+            build_toolset: gcc
+            preset: linux-gcc-arm64-release
+            runner: ubuntu-24.04-arm
+            increase_page_size: true
+
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.update_version.outputs.release_tag }}
+
+      - name: Configure Pagefile (linux)
+        if: ${{ matrix.build_platform == 'ubuntu' && matrix.increase_page_size == true }}
+        uses: get-bridge/swap-space-action@v1
+        with:
+          swap-size-mb: 8192
+
+      - name: Installing dependencies (windows)
+        if: ${{ matrix.build_platform == 'windows' }}
+        uses: ./.github/actions/install-deps-windows
+        with:
+          build-architecture: ${{ matrix.build_architecture }}
+          build-toolset: ${{ matrix.build_toolset }}
+
+      - name: Installing dependencies (linux)
+        if: ${{ matrix.build_platform == 'ubuntu' }}
+        uses: ./.github/actions/install-deps-ubuntu
+
+      - name: Installing dependencies (macos)
+        if: ${{ matrix.build_platform == 'macos' }}
+        uses: ./.github/actions/install-deps-macos
+
+      - name: Configure ${{ matrix.preset }}
+        run: cmake --preset ${{ matrix.preset }} -DCOBALT_CLANG_FORMAT_ON_ALL=OFF
+
+      - name: Build and install ${{ matrix.preset }}
+        run: cmake --build --preset ${{ matrix.preset }} --target install
+
+      - name: Build documentation ${{ matrix.preset }}
+        run: cmake --build --preset ${{ matrix.preset }} --target documentation
+
+      - name: Package SDK
+        uses: TheDoctor0/zip-release@0.7.6
+        with:
+          type: zip
+          directory: Output/SDK_RelWithDebInfo
+          path: .
+          filename: ../CobaltRenderer-SDK-${{ matrix.target_name }}-${{ needs.update_version.outputs.release_tag }}.zip
+
+      - name: Package Examples
+        uses: TheDoctor0/zip-release@0.7.6
+        with:
+          type: zip
+          directory: Output/Examples
+          path: .
+          filename: ../CobaltRenderer-Examples-${{ matrix.target_name }}-${{ needs.update_version.outputs.release_tag }}.zip
+
+      - name: Package AutomatedTests
+        uses: TheDoctor0/zip-release@0.7.6
+        with:
+          type: zip
+          directory: Output/AutomatedTests_${{ matrix.build_architecture }}_RelWithDebInfo
+          path: .
+          filename: ../CobaltRenderer-AutomatedTests-${{ matrix.target_name }}-${{ needs.update_version.outputs.release_tag }}.zip
+
+      - name: Upload release packages
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-packages-${{ matrix.target_name }}
+          path: Output/*.zip
+          if-no-files-found: error
+
+  build_docs_for_pages:
+    name: Build GitHub Pages documentation
+    needs: update_version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.update_version.outputs.release_tag }}
+
+      - name: Installing dependencies (linux)
+        uses: ./.github/actions/install-deps-ubuntu
+
+      - name: Configure documentation build
+        run: cmake --preset linux-clang-x64-release -DCOBALT_CLANG_FORMAT_ON_ALL=OFF
+
+      - name: Build documentation
+        run: cmake --build --preset linux-clang-x64-release --target documentation
+
+      - name: Upload SDK documentation for GitHub Pages
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: Output/SDK_RelWithDebInfo/Documentation/
+
+  publish_release:
+    name: Publish GitHub release
+    needs:
+      - update_version
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.update_version.outputs.release_tag }}
+
+      - name: Download release packages
+        uses: actions/download-artifact@v8
+        with:
+          pattern: release-packages-*
+          path: release-assets
+          merge-multiple: true
+
+      - name: Download release metadata
+        uses: actions/download-artifact@v8
+        with:
+          name: release-metadata
+          path: release-metadata
+
+      - name: Create release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ needs.update_version.outputs.release_tag }}
+          name: ${{ needs.update_version.outputs.release_tag }}
+          body_path: release-metadata/release-notes.md
+          files: |
+            release-assets/*.zip
+            LICENSE.txt
+            CHANGELOG.md
+
+  deploy_docs:
+    name: Deploy GitHub Pages documentation
+    needs:
+      - build_docs_for_pages
+      - publish_release
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

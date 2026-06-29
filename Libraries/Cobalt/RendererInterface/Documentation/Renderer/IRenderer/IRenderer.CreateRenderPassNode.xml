@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderer.CreateRenderPassNode" Title="CreateRenderPassNode method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> ->
+    CreateRenderPassNode
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>CreateRenderPassNode</TypeRef> method constructs and returns a new object which implements the <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef>
+      interface.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[IRenderPassNode::unique_ptr CreateRenderPassNode();]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="IRenderPassNode!cobalt.graphics.IRenderPassNode">
+        A freshly constructed <TypeRef>IRenderPassNode</TypeRef> object, wrapped in a <TypeRef>unique_ptr</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer">IRenderer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

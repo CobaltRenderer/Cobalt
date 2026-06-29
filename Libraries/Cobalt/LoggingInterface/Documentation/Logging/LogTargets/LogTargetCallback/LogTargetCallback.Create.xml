@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogTargetCallback.Create" Title="Create method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.LogTargetCallback">LogTargetCallback</PageRef> ->
+    Create
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Create</TypeRef> method creates a callback target and returns it wrapped in a smart pointer compatible with <PageRef PageName="cobalt.logging.LogManager.AddLogTarget">LogManager.AddLogTarget</PageRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[static std::unique_ptr<LogTargetCallback, ILogTarget::Deleter> Create(std::function<void(const std::string&, ILogger::Severity, const std::string&)> callback);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="std::function" Name="callback">The callback to invoke with the message scope, severity, and text.</ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="LogTargetCallback!cobalt.logging.LogTargetCallback">
+        A newly constructed <TypeRef>LogTargetCallback</TypeRef> object wrapped in a smart pointer that uses <TypeRef>ILogTarget::Deleter</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetCallback">LogTargetCallback</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogManager.AddLogTarget">LogManager.AddLogTarget</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

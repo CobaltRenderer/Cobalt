@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IFrameBufferOutput.ReadBufferData" Title="ReadBufferData method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph><PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> -> <PageRef PageName="cobalt.graphics.IFrameBufferOutput">IFrameBufferOutput</PageRef> -> ReadBufferData</Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ReadBufferData</TypeRef> method attempts to read captured framebuffer image data and write it to the target CPU buffer. The read covers the captured region configured on the output object, after any cropping has been applied.
+    </Paragraph>
+    <Paragraph>
+      Typed overloads are provided for common vector formats, and the raw overload allows the requested output image and data format to be specified explicitly. The renderer converts from the captured attachment format into the requested output format where supported.
+    </Paragraph>
+    <Paragraph>
+      Applications should call this only after the capture has completed. Use <PageRef PageName="cobalt.graphics.IRenderer.WaitForOutputCaptureComplete">WaitForOutputCaptureComplete</PageRef> when reading output from recently submitted frame work.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[template<class T> SuccessToken ReadBufferData(std::vector<T>& targetBuffer, const V2UInt32& imageOffsetInPixels = V2UInt32(0, 0), const V2UInt32& imageRegionInPixels = V2UInt32(0, 0)) const;
+SuccessToken ReadBufferData(void* targetBuffer, size_t targetBufferSizeInBytes, ITextureBuffer::SourceImageFormat imageFormat, ITextureBuffer::SourceDataFormat dataFormat, const V2UInt32& imageOffsetInPixels = V2UInt32(0, 0), const V2UInt32& imageRegionInPixels = V2UInt32(0, 0)) const;]]></Code>
+    <SubSection Title="Argument list"><ArgumentList>
+      <ArgumentListEntry Type="std::vector&lt;T&gt; or void*" Name="targetBuffer">The destination memory to receive the captured data.</ArgumentListEntry>
+      
+      <ArgumentListEntry Type="size_t" Name="targetBufferSizeInBytes">The size, in bytes, of the destination memory.</ArgumentListEntry>
+      <ArgumentListEntry Type="ITextureBuffer::SourceImageFormat" Name="imageFormat">The image channel layout requested for the destination data.</ArgumentListEntry>
+      <ArgumentListEntry Type="ITextureBuffer::SourceDataFormat" Name="dataFormat">The data encoding requested for the destination data.</ArgumentListEntry>
+      <ArgumentListEntry Type="const V2UInt32" Name="imageOffsetInPixels">The top-left pixel offset of the region to read.</ArgumentListEntry>
+      <ArgumentListEntry Type="const V2UInt32" Name="imageRegionInPixels">The pixel dimensions of the region to read. A zero value requests the remaining captured image from the offset.</ArgumentListEntry>
+    </ArgumentList></SubSection>
+    <SubSection Title="Return value"><ReturnValue Type="SuccessToken">True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.</ReturnValue></SubSection>
+  </Section>
+  <Section Title="See also"><PageRefList><PageRefListEntry PageName="cobalt.graphics.IFrameBufferOutput">IFrameBufferOutput</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRefListEntry></PageRefList></Section>
+</XMLDocContent>

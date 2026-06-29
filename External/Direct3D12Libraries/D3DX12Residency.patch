@@ -1,0 +1,16 @@
+diff --git a/Libraries/D3DX12Residency/d3dx12Residency.h b/Libraries/D3DX12Residency/d3dx12Residency.h
+--- a/Libraries/D3DX12Residency/d3dx12Residency.h
++++ b/Libraries/D3DX12Residency/d3dx12Residency.h
+@@ -1056,7 +1056,10 @@
+                     // If there are some things that need to be made resident we need to make sure that the GPU
+                     // doesn't execute until the async thread signals that the MakeResident call has returned.
+                     if (SUCCEEDED(hr))
+                     {
+-                        hr = AsyncThreadFence.GPUWait(Queue);
++                        if (AsyncThreadFence.FenceValue > 0)
++                        {
++                            hr = AsyncThreadFence.GPUWait(Queue);
++                        }
+ 
+                         // If we're using a queued MakeResident, then ProcessPagingWork may increment the fence multiple times instead of
+                         // signaling a pre-defined value.

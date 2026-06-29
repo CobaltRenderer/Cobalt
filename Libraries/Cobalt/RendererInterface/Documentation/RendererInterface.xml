@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.RendererInterface" Title="RendererInterface package" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    RendererInterface
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>RendererInterface.pkg</TypeRef> header is the platform-neutral entry point for the Cobalt Renderer
+      graphics API. It includes the renderer, graphics device, render tree, resource, shader program, helper, token,
+      vector, matrix, and shader source information types used to build rendering work.
+    </Paragraph>
+    <Paragraph>
+      This package deliberately avoids native window system and dynamic library loading bindings. Include
+      <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings.pkg</PageRef> as well when an application
+      needs SDK helpers for renderer plugin discovery, module lifetime management, SDL3 integration, or native window
+      binding structures.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Applications that use the C++ SDK normally include this package instead of including individual renderer interface
+        headers directly.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[#include <Cobalt/RendererInterface/RendererInterface.pkg>]]></Code>
+  </Section>
+  <Section Title="Types">
+    <SubSection Title="Renderer Types">
+      <TypeMemberList>
+        <TypeMemberListEntry Visibility="Public" Name="IGraphicsDeviceEnumerator" TypeCategory="Interface" PageName="cobalt.graphics.IGraphicsDeviceEnumerator">
+          Allows compatible graphics devices to be discovered and retrieved as <TypeRef>IGraphicsDevice</TypeRef> objects
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Visibility="Public" Name="IGraphicsDevice" TypeCategory="Interface" PageName="cobalt.graphics.IGraphicsDevice">
+          Returns specific information on a single graphics device, and allows <TypeRef>IRenderer</TypeRef> instances to be created.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Visibility="Public" Name="IRenderer" TypeCategory="Interface" PageName="cobalt.graphics.IRenderer">
+          Manages the rendering process, holds the scene tree, and creates all render tree and resource types for the application.
+        </TypeMemberListEntry>
+      </TypeMemberList>
+    </SubSection>
+    <SubSection Title="Render Tree Types">
+      <TypeMemberList>
+        <TypeMemberListEntry Visibility="Public" Name="IRenderPassNode" TypeCategory="Interface" PageName="cobalt.graphics.IRenderPassNode">
+          Top level node in the scene tree, binding a frame buffer to the scene.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Visibility="Public" Name="IProgramNode" TypeCategory="Interface" PageName="cobalt.graphics.IProgramNode">
+          Second level node in the scene tree, binding a shader program to the scene.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Visibility="Public" Name="IStateGroupNode" TypeCategory="Interface" PageName="cobalt.graphics.IStateGroupNode">
+          Third level node in the scene tree, binding various state values and resources, and optionally performing compute tasks.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Visibility="Public" Name="IRenderableNode" TypeCategory="Interface" PageName="cobalt.graphics.IRenderableNode">
+          Fourth level node in the scene tree, defining an object to draw.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Visibility="Public" Name="IStateContainer" TypeCategory="Interface" PageName="cobalt.graphics.IStateContainer">
+          Base interface for all tree elements that allow bindings and state changes to be applied.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Visibility="Public" Name="IDefaultState" TypeCategory="Interface" PageName="cobalt.graphics.IDefaultState">
+          Defines a set of attached bindings and state changes, to allow tree node elements to be reused.
+        </TypeMemberListEntry>
+      </TypeMemberList>
+    </SubSection>
+    <SubSection Title="Resource Types">
+      <SubSection Title="Geometry Types">
+        <TypeMemberList>
+          <TypeMemberListEntry Visibility="Public" Name="IIndexBuffer" TypeCategory="Interface" PageName="cobalt.graphics.IIndexBuffer">
+            Holds index attribute data for renderable objects
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="IVertexBuffer" TypeCategory="Interface" PageName="cobalt.graphics.IVertexBuffer">
+            Holds vertex attribute data for renderable objects
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="IndexAttribute" TypeCategory="Class" PageName="cobalt.graphics.IndexAttribute">
+            A single index attribute
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="RawIndexAttribute" TypeCategory="Class" PageName="cobalt.graphics.RawIndexAttribute">
+            An untyped raw index attribute
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="ReadOnlyIndexAttribute" TypeCategory="Class" PageName="cobalt.graphics.ReadOnlyIndexAttribute">
+            A read-only view of an index attribute
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="VertexAttribute" TypeCategory="Class" PageName="cobalt.graphics.VertexAttribute">
+            A single vertex attribute
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="RawVertexAttribute" TypeCategory="Class" PageName="cobalt.graphics.RawVertexAttribute">
+            An untyped raw vertex attribute
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="ReadOnlyVertexAttribute" TypeCategory="Class" PageName="cobalt.graphics.ReadOnlyVertexAttribute">
+            A read-only view of a vertex attribute
+          </TypeMemberListEntry>
+        </TypeMemberList>
+      </SubSection>
+      <SubSection Title="Image Types">
+        <TypeMemberList>
+          <TypeMemberListEntry Visibility="Public" Name="ITextureBuffer" TypeCategory="Interface" PageName="cobalt.graphics.ITextureBuffer">
+            Base interface for all textures
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="ITextureBuffer1D" TypeCategory="Interface" PageName="cobalt.graphics.ITextureBuffer1D">
+            A one dimensional texture resource
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="ITextureBuffer2D" TypeCategory="Interface" PageName="cobalt.graphics.ITextureBuffer2D">
+            A two dimensional texture resource
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="ITextureBuffer3D" TypeCategory="Interface" PageName="cobalt.graphics.ITextureBuffer3D">
+            A three dimensional texture resource
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="ITextureBufferCube" TypeCategory="Interface" PageName="cobalt.graphics.ITextureBufferCube">
+            A cubemap texture resource
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="ITextureBuffer1DArray" TypeCategory="Interface" PageName="cobalt.graphics.ITextureBuffer1DArray">
+            An array of one dimensional texture resources
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="ITextureBuffer2DArray" TypeCategory="Interface" PageName="cobalt.graphics.ITextureBuffer2DArray">
+            An array of two dimensional texture resources
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="ITextureBufferCubeArray" TypeCategory="Interface" PageName="cobalt.graphics.ITextureBufferCubeArray">
+            An array of cubemap texture resources
+          </TypeMemberListEntry>
+        </TypeMemberList>
+      </SubSection>
+      <SubSection Title="Sampler Types">
+        <TypeMemberList>
+          <TypeMemberListEntry Visibility="Public" Name="ITextureSampler" TypeCategory="Interface" PageName="cobalt.graphics.ITextureSampler">
+            Base interface for all texture samplers
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="ITextureSampler1D" TypeCategory="Interface" PageName="cobalt.graphics.ITextureSampler1D">
+            A one dimensional texture sampler
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="ITextureSampler2D" TypeCategory="Interface" PageName="cobalt.graphics.ITextureSampler2D">
+            A two dimensional texture sampler
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="ITextureSampler3D" TypeCategory="Interface" PageName="cobalt.graphics.ITextureSampler3D">
+            A three dimensional texture sampler
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="ITextureSamplerCube" TypeCategory="Interface" PageName="cobalt.graphics.ITextureSamplerCube">
+            A cubemap texture sampler
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="ITextureSampler1DArray" TypeCategory="Interface" PageName="cobalt.graphics.ITextureSampler1DArray">
+            A sampler for an array of one dimensional texture resources
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="ITextureSampler2DArray" TypeCategory="Interface" PageName="cobalt.graphics.ITextureSampler2DArray">
+            A sampler for an array of two dimensional texture resources
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="ITextureSamplerCubeArray" TypeCategory="Interface" PageName="cobalt.graphics.ITextureSamplerCubeArray">
+            A sampler for an array of cubemap texture resources
+          </TypeMemberListEntry>
+        </TypeMemberList>
+      </SubSection>
+      <SubSection Title="Data Types">
+        <TypeMemberList>
+          <TypeMemberListEntry Visibility="Public" Name="IResourceArray" TypeCategory="Interface" PageName="cobalt.graphics.IResourceArray">
+            Base interface for <TypeRef>IDataArray</TypeRef> and <TypeRef>ITexelArray</TypeRef> types
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="IDataArray" TypeCategory="Interface" PageName="cobalt.graphics.IDataArray">
+            Allows arrays of complex data structures to be read and written from shaders
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="IDataArrayOutput" TypeCategory="Interface" PageName="cobalt.graphics.IDataArrayOutput">
+            Enables applications to capture the final state of an <TypeRef>IDataArray</TypeRef> and return it to system memory
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="ITexelArray" TypeCategory="Interface" PageName="cobalt.graphics.ITexelArray">
+            Allows arrays of simple vector types to be read and written from shaders
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="ITexelArrayOutput" TypeCategory="Interface" PageName="cobalt.graphics.ITexelArrayOutput">
+            Enables applications to capture the final state of an <TypeRef>ITexelArray</TypeRef> and return it to system memory
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="IStateBuffer" TypeCategory="Interface" PageName="cobalt.graphics.IStateBuffer">
+            Holds a set of state values in a shared buffer, which can be shared across multiple shader programs.
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="IStateBufferLayout" TypeCategory="Interface" PageName="cobalt.graphics.IStateBufferLayout">
+            Defines the physical layout in memory of an <TypeRef>IStateBuffer</TypeRef>
+          </TypeMemberListEntry>
+        </TypeMemberList>
+      </SubSection>
+      <SubSection Title="Batch Types">
+        <TypeMemberList>
+          <TypeMemberListEntry Visibility="Public" Name="ITransferBatch" TypeCategory="Interface" PageName="cobalt.graphics.ITransferBatch">
+            Manages advanced batching and scheduling of writes to buffers
+          </TypeMemberListEntry>
+        </TypeMemberList>
+      </SubSection>
+      <SubSection Title="FrameBuffer Types">
+        <TypeMemberList>
+          <TypeMemberListEntry Visibility="Public" Name="IFrameBuffer" TypeCategory="Interface" PageName="cobalt.graphics.IFrameBuffer">
+            Defines a framebuffer for output from render operations
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="IFrameBufferOutput" TypeCategory="Interface" PageName="cobalt.graphics.IFrameBufferOutput">
+            Enables applications to capture content written to an <TypeRef>IFrameBuffer</TypeRef> during rendering and return it to system memory
+          </TypeMemberListEntry>
+        </TypeMemberList>
+      </SubSection>
+      <SubSection Title="Program Types">
+        <TypeMemberList>
+          <TypeMemberListEntry Visibility="Public" Name="IShaderProgram" TypeCategory="Interface" PageName="cobalt.graphics.IShaderProgram">
+            Defines a complete shader program to control tasks on the render pipeline
+          </TypeMemberListEntry>
+        </TypeMemberList>
+      </SubSection>
+    </SubSection>
+    <SubSection Title="Helper Types">
+      <TypeMemberList>
+        <TypeMemberListEntry Visibility="Public" Name="SuccessToken" TypeCategory="Class" PageName="cobalt.graphics.SuccessToken">
+          A helper type to assist applications in implementing comprehensive error handling
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Visibility="Public" Name="ReadWriteMutex" TypeCategory="Class" PageName="cobalt.graphics.ReadWriteMutex">
+          A helper type to assist applications in following threading requirements
+        </TypeMemberListEntry>
+      </TypeMemberList>
+      <SubSection Title="Token Types">
+        <TypeMemberList>
+          <TypeMemberListEntry Visibility="Public" Name="VertexAttributeId" TypeCategory="Enumeration" PageName="cobalt.graphics.VertexAttributeId">
+            Identifies a shader vertex attribute binding.
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="TextureId" TypeCategory="Enumeration" PageName="cobalt.graphics.TextureId">
+            Identifies a shader texture binding.
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="SamplerId" TypeCategory="Enumeration" PageName="cobalt.graphics.SamplerId">
+            Identifies a shader sampler binding.
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="StateValueId" TypeCategory="Enumeration" PageName="cobalt.graphics.StateValueId">
+            Identifies a shader state value binding.
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="StateBufferId" TypeCategory="Enumeration" PageName="cobalt.graphics.StateBufferId">
+            Identifies a shader state buffer binding.
+          </TypeMemberListEntry>
+          <TypeMemberListEntry Visibility="Public" Name="ResourceArrayId" TypeCategory="Enumeration" PageName="cobalt.graphics.ResourceArrayId">
+            Identifies a shader resource array binding.
+          </TypeMemberListEntry>
+        </TypeMemberList>
+      </SubSection>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.PlatformBindings">PlatformBindings package</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer">IRenderer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

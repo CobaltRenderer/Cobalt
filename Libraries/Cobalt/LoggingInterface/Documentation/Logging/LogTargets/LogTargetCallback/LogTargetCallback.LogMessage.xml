@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogTargetCallback.LogMessage" Title="LogMessage method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.LogTargetCallback">LogTargetCallback</PageRef> ->
+    LogMessage
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>LogMessage</TypeRef> method forwards the supplied message to the callback stored by the target.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        The public callback receives <TypeRef>std::string</TypeRef> values for the scope and message, plus the original severity.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        The current implementation constructs the callback strings from the input pointers. This is safe for messages delivered through <PageRef PageName="cobalt.logging.LogManager">LogManager</PageRef>, which supplies null-terminated strings. Direct callers should also supply null-terminated strings.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void LogMessage(const char* scope, size_t scopeLength, ILogger::Severity severity, const char* message, size_t messageLength) override;]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const char*" Name="scope">A pointer to the UTF-8 scope string.</ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="scopeLength">The number of bytes in the scope string.</ArgumentListEntry>
+        <ArgumentListEntry Type="Severity!cobalt.logging.ILogger.Severity" Name="severity">The severity assigned to the message.</ArgumentListEntry>
+        <ArgumentListEntry Type="const char*" Name="message">A pointer to the UTF-8 message string.</ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="messageLength">The number of bytes in the message string.</ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetCallback">LogTargetCallback</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.ILogTarget.LogMessage">ILogTarget.LogMessage</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

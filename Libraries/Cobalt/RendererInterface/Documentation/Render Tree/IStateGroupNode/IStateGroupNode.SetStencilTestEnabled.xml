@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateGroupNode.SetStencilTestEnabled" Title="SetStencilTestEnabled method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> ->
+    SetStencilTestEnabled
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetStencilTestEnabled</TypeRef> method specifies whether stencil testing will be active, and configures some settings related to stencil testing.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetStencilTestEnabled(bool state, uint32_t compareMask = std::numeric_limits<uint32_t>::max(), uint32_t writeMask = std::numeric_limits<uint32_t>::max());]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="bool" Name="state">
+          True to enable stencil testing, false to disable stencil testing.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="uint32_t" Name="compareMask">
+          The bit mask applied to both the stencil reference value and stored stencil value before comparison.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="uint32_t" Name="writeMask">
+          The bit mask that controls which stencil bits may be updated by stencil operations.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

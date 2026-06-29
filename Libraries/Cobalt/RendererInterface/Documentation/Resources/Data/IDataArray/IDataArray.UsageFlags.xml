@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IDataArray.UsageFlags" Title="UsageFlags enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IDataArray">IDataArray</PageRef> ->
+    UsageFlags
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>UsageFlags</TypeRef> enumeration declares how an <PageRef PageName="cobalt.graphics.IDataArray">IDataArray</PageRef> may be used after allocation. These flags must be set before memory is allocated so the renderer can create the correct native resource and binding permissions.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Default">
+        Requests the default data array usage.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ShaderInput">
+        Allows the data array to be bound for shader reads.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ShaderOutput">
+        Allows the data array to be bound for shader writes.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="TransferSource">
+        Allows the data array to be used as the source of a GPU-side transfer operation.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="TransferDestination">
+        Allows the data array to be used as the destination of a GPU-side transfer operation.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="IndirectDrawSource">
+        Allows the data array to contain indirect draw command structures consumed by SetIndirectDraw.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="IndirectDrawCountSource">
+        Allows the data array or its counter to supply the draw count for indirect multi-draw operations.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="AtomicOperations">
+        Allows shader code to perform atomic operations against the data array where supported by the renderer and shader language.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IDataArray.SetUsageFlags">IDataArray.SetUsageFlags</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

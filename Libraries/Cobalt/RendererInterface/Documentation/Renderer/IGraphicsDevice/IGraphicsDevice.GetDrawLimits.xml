@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDevice.GetDrawLimits" Title="GetDrawLimits method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> ->
+    GetDrawLimits
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetDrawLimits</TypeRef> method returns a structure containing information on the limits this
+      graphics device has around draw operations, in the form of the <PageRef PageName="cobalt.graphics.IGraphicsDevice.GetDrawLimits">GetDrawLimits</PageRef>
+      structure. These limits are fixed for the graphics device, and must not be exceeded by the application.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[DrawLimits GetDrawLimits() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="DrawLimits!cobalt.graphics.IGraphicsDevice.DrawLimits">
+        A structure containing information on the limits this graphics device has around draw operations
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

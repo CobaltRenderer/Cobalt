@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IndexAttribute.QueueDataUpdate" Title="QueueDataUpdate method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IndexAttribute">IndexAttribute</PageRef> ->
+    QueueDataUpdate
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>QueueDataUpdate</TypeRef> method updates data in the associated buffer. Unlike the SetInitialData method, the provided memory can be modified or deallocated immediately after this method returns.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Data transfer operations are scheduled work. When an <PageRef PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRef> is supplied, the transfer follows the synchronization rules for that batch.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken QueueDataUpdate(const T* data, size_t entryCount, size_t initialIndexNo = 0, size_t entryStrideInBytes = sizeof(T), ITransferBatch* transferBatch = nullptr);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const T*" Name="data">
+          The source data to copy into the attribute or buffer.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="entryCount">
+          The number of attribute entries to update.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="initialIndexNo">
+          The first index entry to update.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="entryStrideInBytes">
+          The byte stride between consecutive source entries.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="ITransferBatch*" Name="transferBatch">
+          An optional transfer batch to schedule the update into. If null, the renderer schedules the update independently.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken">
+        True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IndexAttribute">IndexAttribute</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

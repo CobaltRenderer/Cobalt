@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogTargetFile.LogMessage" Title="LogMessage method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.LogTargetFile">LogTargetFile</PageRef> ->
+    LogMessage
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>LogMessage</TypeRef> method writes a formatted line to the open log file.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        If no file is open, the method returns without writing output. Written lines include the severity name, the optional scope, and the message text.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void LogMessage(const char* scope, size_t scopeLength, ILogger::Severity severity, const char* message, size_t messageLength) override;]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const char*" Name="scope">A pointer to the UTF-8 scope string.</ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="scopeLength">The number of bytes in the scope string.</ArgumentListEntry>
+        <ArgumentListEntry Type="Severity!cobalt.logging.ILogger.Severity" Name="severity">The severity assigned to the message.</ArgumentListEntry>
+        <ArgumentListEntry Type="const char*" Name="message">A pointer to the UTF-8 message string.</ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="messageLength">The number of bytes in the message string.</ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetFile">LogTargetFile</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.ILogTarget.LogMessage">ILogTarget.LogMessage</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IShaderProgram" Title="IShaderProgram interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    IShaderProgram
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class IShaderProgram;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IShaderProgram</TypeRef> interface represents a set of shader programs for graphics rendering. Code
+      for individual shader stages are loaded into this object and compiled. Once this process is complete, the shader
+      program is able to be attached to an <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef> in
+      the render tree. After compilation, it is also possible to retrieve IDs for the various external elements that
+      can be provided to the shader programs, such as vertex attributes and constant buffers.
+    </Paragraph>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="ShaderStage" TypeCategory="Enumeration" PageName="cobalt.graphics.IShaderProgram.ShaderStage" Visibility="Public">
+        Identifies an individual shader state. This is used to specify the target shader stage when calling the <PageRef PageName="cobalt.graphics.IShaderProgram.LoadShaderStage">LoadShaderStage</PageRef> method.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="CodeFormat" TypeCategory="Enumeration" PageName="cobalt.graphics.IShaderProgram.CodeFormat" Visibility="Public">
+        Identifies the type of a shader code blob. This is used when calling the <PageRef PageName="cobalt.graphics.IShaderProgram.LoadShaderStage">LoadShaderStage</PageRef> method.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Structures">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="ShaderSourceInfoBase" TypeCategory="Struct" PageName="cobalt.graphics.IShaderProgram.ShaderSourceInfoBase" Visibility="Public">
+        Base structure for shader source and bytecode descriptions passed to LoadShaderStage.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="ShaderTargetInfoBase" TypeCategory="Struct" PageName="cobalt.graphics.IShaderProgram.ShaderTargetInfoBase" Visibility="Public">
+        Base structure for optional shader target configuration passed to ConfigureShaderTarget.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.IShaderProgram.Delete">
+          Schedules the object for deletion. After calling this method, the object will be destroyed after the current
+          frame completes drawing.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Code format methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="IsCodeFormatSupported" PageName="cobalt.graphics.IShaderProgram.IsCodeFormatSupported">
+          Reports whether the specified code format is supported by the target renderer
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="PreferredCodeFormat" PageName="cobalt.graphics.IShaderProgram.PreferredCodeFormat">
+          Returns the preferred code format for the target renderer
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Compilation methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="ConfigureShaderTarget" PageName="cobalt.graphics.IShaderProgram.ConfigureShaderTarget">
+          Sets optional configuration settings for the renderer to use when loading and compiling shader code.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="LoadShaderStage" PageName="cobalt.graphics.IShaderProgram.LoadShaderStage">
+          Loads in code for the specified shader stage. The code is not compiled or validated until <TypeRef>CompileProgram</TypeRef> is called.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CompileProgram" PageName="cobalt.graphics.IShaderProgram.CompileProgram">
+          Attempts to compile the code supplied by the <TypeRef>LoadShaderStage</TypeRef> method. Prior to calling this
+          method, the shader program cannot be bound to an <TypeRef>IProgramNode</TypeRef>, and no information about the
+          shader program can be queried.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Shader input methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="VertexAttributeExists" PageName="cobalt.graphics.IShaderProgram.VertexAttributeExists">
+          Returns true if the specified vertex attribute exists
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="StateValueExists" PageName="cobalt.graphics.IShaderProgram.StateValueExists">
+          Returns true if the specified global state value exists
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="TextureExists" PageName="cobalt.graphics.IShaderProgram.TextureExists">
+          Returns true if the specified texture resource exists
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SamplerExists" PageName="cobalt.graphics.IShaderProgram.SamplerExists">
+          Returns true if the specified separate texture sampler
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="StateBufferExists" PageName="cobalt.graphics.IShaderProgram.StateBufferExists">
+          Returns true if the specified state buffer exists
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ResourceArrayExists" PageName="cobalt.graphics.IShaderProgram.ResourceArrayExists">
+          Returns true if the specified resource array exists
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetVertexAttributeId" PageName="cobalt.graphics.IShaderProgram.GetVertexAttributeId">
+          Retrieves the ID of the specified vertex attribute, or <TypeRef>VertexAttributeId::Null</TypeRef> if the attribute could not be found.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetStateValueId" PageName="cobalt.graphics.IShaderProgram.GetStateValueId">
+          Retrieves the ID of the specified shader state variable, or <TypeRef>StateValueId::Null</TypeRef> if the variable could not be found.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetTextureId" PageName="cobalt.graphics.IShaderProgram.GetTextureId">
+          Retrieves the ID of the specified texture input, or <TypeRef>TextureId::Null</TypeRef> if the texture input could not be found.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetSamplerId" PageName="cobalt.graphics.IShaderProgram.GetSamplerId">
+          Retrieves the ID of the specified separate texture sampler, or <TypeRef>SamplerId::Null</TypeRef> if the sampler could not be found.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetStateBufferId" PageName="cobalt.graphics.IShaderProgram.GetStateBufferId">
+          Retrieves the ID of the specified state buffer, or <TypeRef>StateBufferId::Null</TypeRef> if the buffer could not be found.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetResourceArrayId" PageName="cobalt.graphics.IShaderProgram.GetResourceArrayId">
+          Retrieves the ID of the specified resource array (<PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef> or <PageRef PageName="cobalt.graphics.IDataArray">IDataArray</PageRef>),
+          or <TypeRef>ResourceArrayId::Null</TypeRef> if the resource could not be found.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="State buffer methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="LoadStateBufferLayoutFromShader" PageName="cobalt.graphics.IShaderProgram.LoadStateBufferLayoutFromShader">
+          Attempts to load the layout of the specified state buffer into an <PageRef PageName="cobalt.graphics.IStateBufferLayout">IStateBufferLayout</PageRef>
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

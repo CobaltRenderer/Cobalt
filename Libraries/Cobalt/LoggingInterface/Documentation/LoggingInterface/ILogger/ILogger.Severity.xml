@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.ILogger.Severity" Title="Severity enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.ILogger">ILogger</PageRef> ->
+    Severity
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Severity</TypeRef> enumeration identifies the importance of an individual log message. Severity values are also used as bit values by <PageRef PageName="cobalt.logging.ILogger.SeverityFilter">SeverityFilter</PageRef>.
+    </Paragraph>
+    <Paragraph>
+      The logging system does not force a single policy for what each severity means to an application. The definitions below describe the intended use so log filtering remains predictable.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Critical">
+        Specifies a fatal condition, unrecoverable error, or condition that may immediately terminate the process.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Error">
+        Specifies a recoverable error where the operation failed but the application can continue running.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Warning">
+        Specifies an unexpected or undesirable condition that did not cause the current operation to fail.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Info">
+        Specifies normal informational output describing important application or system activity.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Debug">
+        Specifies diagnostic output intended for developers or detailed troubleshooting.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Trace">
+        Specifies high-volume diagnostic output used to follow fine-grained execution flow.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.ILogger.SeverityFilter">ILogger.SeverityFilter</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.ILogger.Log">ILogger.Log</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IVertexBuffer.BindVertexAttributeManualLayout" Title="BindVertexAttributeManualLayout method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IVertexBuffer">IVertexBuffer</PageRef> ->
+    BindVertexAttributeManualLayout
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>BindVertexAttributeManualLayout</TypeRef> method binds the specified VertexAttribute as a member of the buffer, with a manually defined buffer offset and stride.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken BindVertexAttributeManualLayout(IVertexAttribute& vertexAttribute, size_t bufferOffsetInBytes, size_t bufferStrideInBytes);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IVertexAttribute" Name="vertexAttribute">
+          The vertex attribute to bind to this vertex buffer.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="bufferOffsetInBytes">
+          The byte offset from the start of the buffer to the first vertex attribute value.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="bufferStrideInBytes">
+          The byte stride between consecutive vertex attribute values.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken">
+        True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IVertexBuffer">IVertexBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

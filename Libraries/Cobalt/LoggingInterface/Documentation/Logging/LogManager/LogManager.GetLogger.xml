@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogManager.GetLogger" Title="GetLogger method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.LogManager">LogManager</PageRef> ->
+    GetLogger
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetLogger</TypeRef> method creates a new scoped logger that sends accepted messages back to this log manager.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        The returned logger stores a reference to this manager. Do not destroy the manager while any logger created from it is still in use.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[ILogger::unique_ptr GetLogger(const std::string& scopeName);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const std::string&amp;" Name="scopeName">The scope string assigned to the new logger.</ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="ILogger!cobalt.logging.ILogger">
+        A new <PageRef PageName="cobalt.logging.Logger">Logger</PageRef> object, returned through the <TypeRef>ILogger::unique_ptr</TypeRef> interface type.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.Logger">Logger</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.ILogger.GetLoggerChildScope">ILogger.GetLoggerChildScope</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

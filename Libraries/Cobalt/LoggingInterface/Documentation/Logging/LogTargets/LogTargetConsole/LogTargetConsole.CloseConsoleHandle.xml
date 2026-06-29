@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogTargetConsole.CloseConsoleHandle" Title="CloseConsoleHandle method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.LogTargetConsole">LogTargetConsole</PageRef> ->
+    CloseConsoleHandle
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>CloseConsoleHandle</TypeRef> method closes the current console handle if one is open.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Calling this method when no console handle is open has no effect.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void CloseConsoleHandle();]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetConsole">LogTargetConsole</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetConsole.OpenConsoleHandle">LogTargetConsole.OpenConsoleHandle</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

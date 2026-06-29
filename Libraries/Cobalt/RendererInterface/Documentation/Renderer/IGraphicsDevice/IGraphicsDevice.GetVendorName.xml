@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDevice.GetVendorName" Title="GetVendorName method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> ->
+    GetVendorName
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetVendorName</TypeRef> method returns a string containing the name of the vendor associated with the
+      graphics device. Where a device is powered by a chipset designed by one manufacturer, but on a custom board
+      designed and assembled by another, this will usually be the name of the chipset manufacturer. For example, a
+      graphics card manufactured by Leadtek, but powered by an NVIDIA GPU, would report NVIDIA as the vendor. In some
+      cases, the reported name may identify a software or driver stack instead of a hardware manufacturer.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        There is no guarantee that vendor names will be presented in a consistent way between different devices by that
+        vendor, different driver releases for the device, different render plugins for the same device, or even between
+        different versions of the same renderer plugin. If you need to be able to differentiate between particular
+        vendors programmatically, you should use the <PageRef PageName="cobalt.graphics.IGraphicsDevice.GetVendor">GetVendor</PageRef>
+        method instead.
+      </Paragraph>
+    </Note>
+    <Note Type="Important">
+      <Paragraph>
+        It is not recommended to alter the behaviour of your application in any meaningful way based on the vendor
+        alone. Instead, you should rely on reported characteristics of the device, such as supported features, in order
+        to make decisions on how your program uses the hardware, as new devices by a given vendor may be significantly
+        different to previous devices they have released. Information on vendor is provided for informational purposes
+        only, such as for reporting or displaying information to the user.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[std::string GetVendorName() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="std::string">
+        The name of the vendor associated with the device as reported by the graphics driver (in UTF-8 encoding).
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice.GetVendor">IGraphicsDevice.GetVendor</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice.GetDeviceName">IGraphicsDevice.GetDeviceName</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice.GetDriverInfo">IGraphicsDevice.GetDriverInfo</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

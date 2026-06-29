@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateGroupNode.SetDepthBias" Title="SetDepthBias method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> ->
+    SetDepthBias
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetDepthBias</TypeRef> method configures depth bias to offset generated depth values.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        A non-zero clamp value requires the <PageRef PageName="cobalt.graphics.IGraphicsDevice.Feature">DepthBiasClamp feature</PageRef> to be supported and enabled on the renderer.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetDepthBias(float constantFactor, float slopeFactor, float clamp = 0.0f);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="float" Name="constantFactor">
+          The constant depth bias value applied to generated depth values.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="float" Name="slopeFactor">
+          The scale factor applied to the maximum depth slope of each primitive.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="float" Name="clamp">
+          The optional maximum absolute bias value. Use 0.0f to leave the bias unclamped.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

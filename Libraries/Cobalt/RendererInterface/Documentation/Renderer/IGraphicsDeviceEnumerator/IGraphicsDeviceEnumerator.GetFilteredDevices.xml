@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetFilteredDevices" Title="GetFilteredDevices method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRef> ->
+    GetFilteredDevices
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetFilteredDevices</TypeRef> method returns an <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef>
+      object for each located graphics device in the current filtered device set, after a previously successful call to
+      <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.EnumerateDevices">EnumerateDevices</PageRef>.
+      Graphics devices will only be returned which are compatible with the underlying graphics API of this renderer
+      plugin.
+    </Paragraph>
+    <Paragraph>
+      Initially, the filtered device set is identical to the complete device set returned by the
+      <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetAllDevices">GetAllDevices</PageRef> method,
+      however subsequent calls to any of the filtering methods on <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRef>
+      will filter out any matching devices from the set returned by this method.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        This method may return an empty list either because no compatible devices were found during enumeration, or
+        because the active filters removed all located devices.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[std::vector<IGraphicsDevice*> GetFilteredDevices() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="std::vector&lt;IGraphicsDevice*&gt;!cobalt.graphics.IGraphicsDevice">
+        The filtered set of located graphics devices which support the underlying rendering API for this plugin. This
+        list may be empty.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

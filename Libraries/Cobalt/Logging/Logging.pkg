@@ -1,0 +1,13 @@
+// Copyright (c) 2026 Maptek Pty Ltd
+// Licensed under the MIT License
+#pragma once
+
+// Package dependencies
+#include <Cobalt/LoggingInterface/LoggingInterface.pkg>
+
+// Public headers
+#include "LogManager.h"
+#include "LogTargetCallback.h"
+#include "LogTargetConsole.h"
+#include "LogTargetFile.h"
+#include "LogTargetStandardOut.h"

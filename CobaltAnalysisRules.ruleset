@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RuleSet ToolsVersion="15.0" Name="Cobalt Analysis Rules" Description="Customized Cobalt renderer analysis rules">
+  <Rules AnalyzerId="Microsoft.Analyzers.NativeCodeAnalysis" RuleNamespace="Microsoft.Rules.Native">
+    <!-- We turn all these rules on by default, as they come as part of the "Microsoft Native Recommended" ruleset, and
+    we accept them as our base recommendation too. -->
+    <Rule Id="C6001" Action="Error" />
+    <Rule Id="C6011" Action="Error" />
+    <Rule Id="C6029" Action="Error" />
+    <Rule Id="C6031" Action="Error" />
+    <Rule Id="C6053" Action="Error" />
+    <Rule Id="C6054" Action="Error" />
+    <Rule Id="C6059" Action="Error" />
+    <Rule Id="C6063" Action="Error" />
+    <Rule Id="C6064" Action="Error" />
+    <Rule Id="C6066" Action="Error" />
+    <Rule Id="C6067" Action="Error" />
+    <Rule Id="C6101" Action="Error" />
+    <Rule Id="C6200" Action="Error" />
+    <Rule Id="C6214" Action="Error" />
+    <Rule Id="C6215" Action="Error" />
+    <Rule Id="C6216" Action="Error" />
+    <Rule Id="C6217" Action="Error" />
+    <Rule Id="C6220" Action="Error" />
+    <Rule Id="C6226" Action="Error" />
+    <Rule Id="C6230" Action="Error" />
+    <Rule Id="C6235" Action="Error" />
+    <Rule Id="C6236" Action="Error" />
+    <Rule Id="C6237" Action="Error" />
+    <Rule Id="C6242" Action="Error" />
+    <Rule Id="C6248" Action="Error" />
+    <Rule Id="C6250" Action="Error" />
+    <Rule Id="C6255" Action="Error" />
+    <Rule Id="C6258" Action="Error" />
+    <Rule Id="C6259" Action="Error" />
+    <Rule Id="C6260" Action="Error" />
+    <Rule Id="C6263" Action="Error" />
+    <Rule Id="C6268" Action="Error" />
+    <Rule Id="C6269" Action="Error" />
+    <Rule Id="C6270" Action="Error" />
+    <Rule Id="C6271" Action="Error" />
+    <Rule Id="C6272" Action="Error" />
+    <Rule Id="C6273" Action="Error" />
+    <Rule Id="C6274" Action="Error" />
+    <Rule Id="C6276" Action="Error" />
+    <Rule Id="C6277" Action="Error" />
+    <Rule Id="C6278" Action="Error" />
+    <Rule Id="C6279" Action="Error" />
+    <Rule Id="C6280" Action="Error" />
+    <Rule Id="C6281" Action="Error" />
+    <Rule Id="C6282" Action="Error" />
+    <Rule Id="C6283" Action="Error" />
+    <Rule Id="C6284" Action="Error" />
+    <Rule Id="C6285" Action="Error" />
+    <Rule Id="C6286" Action="Error" />
+    <Rule Id="C6287" Action="Error" />
+    <Rule Id="C6288" Action="Error" />
+    <Rule Id="C6289" Action="Error" />
+    <Rule Id="C6290" Action="Error" />
+    <Rule Id="C6291" Action="Error" />
+    <Rule Id="C6292" Action="Error" />
+    <Rule Id="C6293" Action="Error" />
+    <Rule Id="C6295" Action="Error" />
+    <Rule Id="C6296" Action="Error" />
+    <Rule Id="C6297" Action="Error" />
+    <Rule Id="C6299" Action="Error" />
+    <Rule Id="C6302" Action="Error" />
+    <Rule Id="C6303" Action="Error" />
+    <Rule Id="C6305" Action="Error" />
+    <Rule Id="C6306" Action="Error" />
+    <Rule Id="C6308" Action="Error" />
+    <Rule Id="C6310" Action="Error" />
+    <Rule Id="C6312" Action="Error" />
+    <Rule Id="C6314" Action="Error" />
+    <Rule Id="C6317" Action="Error" />
+    <Rule Id="C6318" Action="Error" />
+    <Rule Id="C6319" Action="Error" />
+    <Rule Id="C6324" Action="Error" />
+    <Rule Id="C6328" Action="Error" />
+    <Rule Id="C6331" Action="Error" />
+    <Rule Id="C6332" Action="Error" />
+    <Rule Id="C6333" Action="Error" />
+    <Rule Id="C6335" Action="Error" />
+    <Rule Id="C6381" Action="Error" />
+    <Rule Id="C6383" Action="Error" />
+    <Rule Id="C6384" Action="Error" />
+    <Rule Id="C6385" Action="Error" />
+    <Rule Id="C6386" Action="Error" />
+    <Rule Id="C6387" Action="Error" />
+    <Rule Id="C6388" Action="Error" />
+    <Rule Id="C6500" Action="Error" />
+    <Rule Id="C6501" Action="Error" />
+    <Rule Id="C6503" Action="Error" />
+    <Rule Id="C6504" Action="Error" />
+    <Rule Id="C6505" Action="Error" />
+    <Rule Id="C6506" Action="Error" />
+    <Rule Id="C6508" Action="Error" />
+    <Rule Id="C6509" Action="Error" />
+    <Rule Id="C6510" Action="Error" />
+    <Rule Id="C6511" Action="Error" />
+    <Rule Id="C6513" Action="Error" />
+    <Rule Id="C6514" Action="Error" />
+    <Rule Id="C6515" Action="Error" />
+    <Rule Id="C6516" Action="Error" />
+    <Rule Id="C6517" Action="Error" />
+    <Rule Id="C6518" Action="Error" />
+    <Rule Id="C6522" Action="Error" />
+    <Rule Id="C6525" Action="Error" />
+    <Rule Id="C6527" Action="Error" />
+    <Rule Id="C6530" Action="Error" />
+    <Rule Id="C6540" Action="Error" />
+    <Rule Id="C6551" Action="Error" />
+    <Rule Id="C6552" Action="Error" />
+    <Rule Id="C6701" Action="Error" />
+    <Rule Id="C6702" Action="Error" />
+    <Rule Id="C6703" Action="Error" />
+    <Rule Id="C6704" Action="Error" />
+    <Rule Id="C6705" Action="Error" />
+    <Rule Id="C6706" Action="Error" />
+    <Rule Id="C6993" Action="Error" />
+    <Rule Id="C6995" Action="Error" />
+    <Rule Id="C6997" Action="Error" />
+    <Rule Id="C26100" Action="Error" />
+    <Rule Id="C26101" Action="Error" />
+    <Rule Id="C26110" Action="Error" />
+    <Rule Id="C26111" Action="Error" />
+    <Rule Id="C26112" Action="Error" />
+    <Rule Id="C26115" Action="Error" />
+    <Rule Id="C26116" Action="Error" />
+    <Rule Id="C26117" Action="Error" />
+    <Rule Id="C26140" Action="Error" />
+    <Rule Id="C26437" Action="Error" />
+    <Rule Id="C26441" Action="Error" />
+    <Rule Id="C26444" Action="Error" />
+    <Rule Id="C26449" Action="Error" />
+    <Rule Id="C26450" Action="Error" />
+    <Rule Id="C26452" Action="Error" />
+    <Rule Id="C26453" Action="Error" />
+    <Rule Id="C26454" Action="Error" />
+    <Rule Id="C26478" Action="Error" />
+    <Rule Id="C26479" Action="Error" />
+    <Rule Id="C26498" Action="Error" />
+    <Rule Id="C26810" Action="Error" />
+    <Rule Id="C26811" Action="Error" />
+    <Rule Id="C26813" Action="Error" />
+    <Rule Id="C26827" Action="Error" />
+    <Rule Id="C26828" Action="Error" />
+    <Rule Id="C26815" Action="Error" />
+    <Rule Id="C26816" Action="Error" />
+    <Rule Id="C26817" Action="Error" />
+    <Rule Id="C26820" Action="Error" />
+    <Rule Id="C26819" Action="Error" />
+    <Rule Id="C28020" Action="Error" />
+    <Rule Id="C28021" Action="Error" />
+    <Rule Id="C28022" Action="Error" />
+    <Rule Id="C28023" Action="Error" />
+    <Rule Id="C28024" Action="Error" />
+    <Rule Id="C28039" Action="Error" />
+    <Rule Id="C28112" Action="Error" />
+    <Rule Id="C28113" Action="Error" />
+    <Rule Id="C28125" Action="Error" />
+    <Rule Id="C28137" Action="Error" />
+    <Rule Id="C28138" Action="Error" />
+    <Rule Id="C28159" Action="Error" />
+    <Rule Id="C28160" Action="Error" />
+    <Rule Id="C28163" Action="Error" />
+    <Rule Id="C28164" Action="Error" />
+    <Rule Id="C28182" Action="Error" />
+    <Rule Id="C28183" Action="Error" />
+    <Rule Id="C28193" Action="Error" />
+    <Rule Id="C28196" Action="Error" />
+    <Rule Id="C28202" Action="Error" />
+    <Rule Id="C28203" Action="Error" />
+    <Rule Id="C28205" Action="Error" />
+    <Rule Id="C28206" Action="Error" />
+    <Rule Id="C28207" Action="Error" />
+    <Rule Id="C28209" Action="Error" />
+    <Rule Id="C28210" Action="Error" />
+    <Rule Id="C28211" Action="Error" />
+    <Rule Id="C28212" Action="Error" />
+    <Rule Id="C28213" Action="Error" />
+    <Rule Id="C28214" Action="Error" />
+    <Rule Id="C28215" Action="Error" />
+    <Rule Id="C28216" Action="Error" />
+    <Rule Id="C28217" Action="Error" />
+    <Rule Id="C28218" Action="Error" />
+    <Rule Id="C28219" Action="Error" />
+    <Rule Id="C28220" Action="Error" />
+    <Rule Id="C28221" Action="Error" />
+    <Rule Id="C28222" Action="Error" />
+    <Rule Id="C28223" Action="Error" />
+    <Rule Id="C28224" Action="Error" />
+    <Rule Id="C28225" Action="Error" />
+    <Rule Id="C28226" Action="Error" />
+    <Rule Id="C28227" Action="Error" />
+    <Rule Id="C28228" Action="Error" />
+    <Rule Id="C28229" Action="Error" />
+    <Rule Id="C28230" Action="Error" />
+    <Rule Id="C28231" Action="Error" />
+    <Rule Id="C28232" Action="Error" />
+    <Rule Id="C28233" Action="Error" />
+    <Rule Id="C28234" Action="Error" />
+    <Rule Id="C28235" Action="Error" />
+    <Rule Id="C28236" Action="Error" />
+    <Rule Id="C28237" Action="Error" />
+    <Rule Id="C28238" Action="Error" />
+    <Rule Id="C28239" Action="Error" />
+    <Rule Id="C28240" Action="Error" />
+    <Rule Id="C28241" Action="Error" />
+    <Rule Id="C28243" Action="Error" />
+    <Rule Id="C28244" Action="Error" />
+    <Rule Id="C28245" Action="Error" />
+    <Rule Id="C28246" Action="Error" />
+    <Rule Id="C28250" Action="Error" />
+    <Rule Id="C28251" Action="Error" />
+    <Rule Id="C28252" Action="Error" />
+    <Rule Id="C28253" Action="Error" />
+    <Rule Id="C28254" Action="Error" />
+    <Rule Id="C28262" Action="Error" />
+    <Rule Id="C28263" Action="Error" />
+    <Rule Id="C28267" Action="Error" />
+    <Rule Id="C28272" Action="Error" />
+    <Rule Id="C28273" Action="Error" />
+    <Rule Id="C28275" Action="Error" />
+    <Rule Id="C28279" Action="Error" />
+    <Rule Id="C28280" Action="Error" />
+    <Rule Id="C28282" Action="Error" />
+    <Rule Id="C28285" Action="Error" />
+    <Rule Id="C28286" Action="Error" />
+    <Rule Id="C28287" Action="Error" />
+    <Rule Id="C28288" Action="Error" />
+    <Rule Id="C28289" Action="Error" />
+    <Rule Id="C28290" Action="Error" />
+    <Rule Id="C28291" Action="Error" />
+    <Rule Id="C28300" Action="Error" />
+    <Rule Id="C28301" Action="Error" />
+    <Rule Id="C28302" Action="Error" />
+    <Rule Id="C28303" Action="Error" />
+    <Rule Id="C28304" Action="Error" />
+    <Rule Id="C28305" Action="Error" />
+    <Rule Id="C28306" Action="Error" />
+    <Rule Id="C28307" Action="Error" />
+    <Rule Id="C28308" Action="Error" />
+    <Rule Id="C28309" Action="Error" />
+    <Rule Id="C28350" Action="Error" />
+    <Rule Id="C28351" Action="Error" />
+    <Rule Id="C33001" Action="Error" />
+    <Rule Id="C33004" Action="Error" />
+    <Rule Id="C33005" Action="Error" />
+    <Rule Id="C33010" Action="Error" />
+    <Rule Id="C33011" Action="Error" />
+    <Rule Id="C33020" Action="Error" />
+    <!-- C26439 - SPECIAL_NOEXCEPT: We have no interest in scattering noexcept attributes around the entire codebase. -->
+    <Rule Id="C26439" Action="None" />
+    <!-- C6262 - Stack size analysis: We're not going to rely on static analysis to worry about function stack frame size. We can choose to
+    use a lot of stack in some functions, and that's ok. -->
+    <Rule Id="C6262" Action="None" />
+    <!-- C26495 - MEMBER_UNINIT: This rule would be desirable, but it triggers on structure members too, where the structure is intended to
+    be a trivial type. As we don't want to force the creation of non-default constructors in this case, the rule has been disabled. If there
+    was a distinction made between classes and structures in C++, it would be our preference to have this on for classes and off for
+    structures. -->
+    <Rule Id="C26495" Action="None" />
+    <!-- C6294 - Ill defined for loop : This rule would be really handy, except it causes problems with for loops that have constraints that
+    are provided by constants or template parameters, where the loop is intended not to execute in the case the constraints aren't met. -->
+    <Rule Id="C6294" Action="None" />
+    <!-- C6201 - Buffer overrun : As a follow-on for the above rule C6294, this rule also triggers an error in the case of for loops where
+    constrains aren't satisfied, which is a shame, as it would be really useful. -->
+    <Rule Id="C6201" Action="None" />
+    <!-- C26451 - Arithmetic overflow : Limited to multiplication this would be handy, but trivial +/- adjustments of integer indexes passed
+    in as vector indexes trigger this warning everywhere in cases which are safe. -->
+    <Rule Id="C26451" Action="None" />
+    <!-- C26800 - Use of a moved object: This would be really handy, but it triggers for shared_ptr types when reusing after a move, which
+    is safe. -->
+    <Rule Id="C26800" Action="None" />
+  </Rules>
+  <Rules AnalyzerId="Microsoft.AnalyzerPowerPack.Common" RuleNamespace="Microsoft.AnalyzerPowerPack.Common">
+    <!-- CA1012 - AbstractTypesShouldNotHaveConstructors: This is a sensible rule which is easy to follow. -->
+    <Rule Id="CA1012" Action="Warning" />
+    <!-- CA2235 - MarkAllNonSerializableFields: This rule currently fires erroneously against static members, which are not included in
+    serialization. -->
+    <Rule Id="CA2235" Action="Hidden" />
+  </Rules>
+  <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+    <!-- SA1004 - DocumentationLinesMustBeginWithSingleSpace: For consistency, all XML-based comment rules are disabled. See comment under
+    StyleCop.CSharp.DocumentationRules. -->
+    <Rule Id="SA1004" Action="None" />
+    <!-- SA1005 - SingleLineCommentsMustBeginWithSingleSpace: As per SA1515, this fires for commented out source lines, even using the
+    built-in comment out menu options facility in Visual Studio no less, as well as for "TODO" flags and the like. Some people may argue a
+    space after opening a comment line adds to readability, and to a degree I agree, but not all comment lines are comments, nor do I believe
+    StyleCop should restrict what is allowed here. -->
+    <Rule Id="SA1005" Action="None" />
+    <!-- SA1025 - CodeMustNotContainMultipleWhitespaceInARow: Where there are multiple similar elements in a row, and you want to pad out
+    some whitespace here and there to align them into much more readable vertical columns, this rule flags it as an issue. Since this
+    discourages what can in fact be a very good practice, this rule has been disabled here. It's a pity, since a warning for truly useless
+    extra whitespace mid-line would be useful. -->
+    <Rule Id="SA1025" Action="None" />
+    <!-- SA1100 - DoNotPrefixCallsWithBaseUnlessLocalImplementationExists: Explicitly chosing to call a base implementation is unusual.
+    I'd prefer to let a programmer choose to do so in case they have a good reason to want to do this as a defensive measure against
+    code breakage for a potential future case where the method or property might be overridden or hidden. -->
+    <Rule Id="SA1100" Action="None" />
+    <!-- SA1101 - PrefixLocalCallsWithThis: StyleCop is here enforcing a particular naming convention for declaring and accessing member
+    variables. We're opting at this time not to enforce a requirement around this. My personal preference would be to use leading underscores. -->
+    <Rule Id="SA1101" Action="None" />
+    <!-- SA1115 - ParameterMustFollowComma: Obsolete rule that breaks horribly when you have statement lambdas passed as arguments that are
+    split across several lines for clarity, such as when invoking a method onto a dispatcher. This rule as it stands complains about the
+    best practice approach in this area. If this rule could be updated to ignore cases where lambdas are used it would be of benefit. -->
+    <Rule Id="SA1115" Action="None" />
+    <!-- SA1116 - SplitParametersMustStartOnLineAfterDeclaration: Same problems currently as SA1115, and even if that wasn't the case, this
+    is a poor convention to begin with in my opinion. -->
+    <Rule Id="SA1116" Action="None" />
+    <!-- SA1119 - StatementMustNotUseUnnecessaryParenthesis: Where some basic calculations are being done for method arguments, or when a
+    return value is being specified using operators, parenthesis help readability by clearly grouping otherwise visually separate elements.
+    In my opinion, the programmer should be free to use parenthesis whenever they feel it aids in the readability of the expression at hand,
+    regardless of whether those parenthesis are technically required to express order of evaluation. -->
+    <Rule Id="SA1119" Action="None" />
+    <!-- SA1120 - CommentsMustContainText: This is disabled because as mentioned elsewhere, I don't believe StyleCop should interfere with
+    the style or placement of comment blocks. -->
+    <Rule Id="SA1120" Action="None" />
+    <!-- SA1121 - UseBuiltInTypeAlias: This would be good if it was limited to variable or parameter declarations, but unfortunately it
+    currently applies as a blanket rule across all code, including when accessing static members or methods of those inbuilt types. It's
+    much more readable and cleaner to reference static members of built in types using their formal name, IE, Boolean.TryParse, rather
+    than bool.TryParse. This rule doesn’t distinguish this case, and therefore should be disabled. -->
+    <Rule Id="SA1121" Action="None" />
+    <!-- SA1124 - DoNotUseRegions: We use regions for named grouping and organization of elements, and recommend turning off outlining by
+    default. With outlining turned off, the only documented purpose for having this rule no longer applies. -->
+    <Rule Id="SA1124" Action="None" />
+    <!-- SA1126 - PrefixCallsCorrectly: In-line with SA1101 and other rules, we don't currently enforce any particular prefixing of
+    members. Note that with StyleCop Analyzers, this rule is obsolete and no longer required. -->
+    <!-- SA1129 - DoNotUseDefaultValueTypeConstructor: I disagree with the premise of this rule. Classes and structs have the same C#
+    construction syntax, and using the "new T()" syntax makes it clear that a new object is being created, in this case with no arguments
+    supplied to the constructor. After this call, a valid object will be returned ready for use, regardless of whether it is a reference
+    or value type. On the other hand, using on the "default(T)" syntax will return a constructed object for a value type, and null for a
+    reference type. If a struct is later changed to a class, which often occurs, if the default(T) syntax was being relied on to construct
+    the object, that code will now fail at runtime. This rule promotes more dangerous, less consistent syntax, and should be disabled. -->
+    <Rule Id="SA1129" Action="None" />
+    <!-- SA1200 - UsingDirectivesMustBePlacedWithinNamespace: Goes totally against the grain of the inbuilt Visual Studio templates,
+    as well as the majority of open source code. In addition, in my opinion, this pattern creates a problem rather than solving one. -->
+    <Rule Id="SA1200" Action="None" />
+    <!-- SA1201 - ElementsMustAppearInTheCorrectOrder: Corrent order is a matter of opinion, and in my opinion the ordering rules in
+    StyleCop are poor. There’s no logical sequence to the order it enforces. In particular locating properties under constructors is
+    a real pain, and runs counter to generally accepted best practice. If we were to enforce an order of elements, it would be
+    strikingly different to the one proposed by StyleCop. -->
+    <Rule Id="SA1201" Action="None" />
+    <!-- SA1202 - ElementsMustBeOrderedByAccess: I strongly disagree. The best thing about the way access modifiers are applied in C#
+    is that we can do away with the C++-oriented thinking of grouping members in this manner. Methods in particular should be grouped
+    within a class based on logical associations and functional relationships, not split out into an arbitrary sequence based on access
+    modifiers. We may as well say here that all classes should be partial and split public/private implementation across files if we
+    think this rule is a good idea, because that would be a more logical end to that kind of thinking. -->
+    <Rule Id="SA1202" Action="None" />
+    <!-- SA1203 - ConstantsMustAppearBeforeFields: Disabled as per comment for SA1201. -->
+    <Rule Id="SA1203" Action="None" />
+    <!-- SA1204 - StaticElementsMustAppearBeforeInstanceElements: Disabled as per comment for SA1201. -->
+    <Rule Id="SA1204" Action="None" />
+    <!-- SA1205 - PartialElementsMustDeclareAccess: This rule would be desirable, but unfortunately it currently erroneously reports
+    private partial classes as lacking an access modifier. This is fixed under the following issue:
+    https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2040
+    We're currently waiting for a new release version to include this fix, at which time this rule should be reactivated. -->
+    <Rule Id="SA1205" Action="None" />
+    <!-- SA1206 - DeclarationKeywordsMustFollowOrder: Disabled as per comment for SA1201. -->
+    <Rule Id="SA1206" Action="None" />
+    <!-- SA1207 - ProtectedMustComeBeforeInternal: Disabled as per comment for SA1201. -->
+    <Rule Id="SA1207" Action="None" />
+    <!-- SA1210 - UsingDirectivesMustBeOrderedAlphabeticallyByNamespace: This is nice, and I try and do it myself, but enforcing it
+    through StyleCop might be overly pedantic. Visual Studio has also increasingly added more features and behaviour to try and get
+    using statements ordered nicely on insertion and help the programmer clean up unnecessary statements. I'm inclined to defer towards
+    that behaviour rather than flag issues at build time through StyleCop. I'm not sure we'd be gaining any real value with this option. -->
+    <Rule Id="SA1210" Action="None" />
+    <!-- SA1211 - UsingAliasDirectivesMustBeOrderedAlphabeticallyByAliasName: Disabled as per comment for SA1210. -->
+    <Rule Id="SA1211" Action="None" />
+    <!-- SA1214 - StaticReadonlyElementsMustAppearBeforeStaticNonReadonlyElements: Disabled as per comment for SA1201. -->
+    <!-- SA1215 - InstanceReadonlyElementsMustAppearBeforeInstanceNonReadonlyElements: Disabled as per comment for SA1201. Note that
+    SA1215 was combined into SA1214 for StyleCop Analyzers.-->
+    <Rule Id="SA1214" Action="None" />
+    <!-- SA1301: This rule currently does nothing. If that changes, we’ll want to decide to turn it on ourselves. -->
+    <Rule Id="SA1301" Action="None" />
+    <!-- SA1303 - ConstFieldNamesMustBeginWithUpperCaseLetter: This rule is good in principle, but it doesn't distinguish between
+    method local constants and member constants, which ruins the usefulness of the rule. Until this is corrected, it must stay off. -->
+    <Rule Id="SA1303" Action="None" />
+    <!-- SA1304 - NonPrivateReadonlyFieldsMustBeginWithUpperCaseLetter: See comments for SA1311. -->
+    <Rule Id="SA1304" Action="None" />
+    <!-- SA1305: Hungarian notation is a horrible relic that should be done away with, but this rule isn't smart enough to detect
+    it, and will object to names like "uiManager", "osVersion", "isAnnoying", and lots of other cases of two lowercase letters
+    followed by an uppercase one. It also makes PInvoke on Win32 api functions trigger lots of warnings, or when adding manual
+    WinProc hooks in WPF, since those method signatures, if defined correctly, do in fact use hungarian notation for their
+    parameters. Since hungarian notation simply isn't used anymore in the real world, and this rule complains about perfectly
+    valid names, it should be disabled. We won't gain any real advantage by leaving it on. -->
+    <Rule Id="SA1305" Action="None" />
+    <!-- SA1306 - FieldNamesMustBeginWithLowerCaseLetter: I agree with this rule. It's turned off right now only because there's a
+    fair amount of existing code that used an m_SomeField naming scheme, and this rule ignores the m_ prefix and fires a warning for
+    the following portion of the name. Once we've restyled all existing code away from this convention, this rule should be activated. -->
+    <Rule Id="SA1306" Action="None" />
+    <!-- SA1307 - AccessibleFieldsMustBeginWithUpperCaseLetter: See comments for SA1311. -->
+    <Rule Id="SA1307" Action="None" />
+    <!-- SA1308 - VariableNamesMustNotBePrefixed: See comments for SA1309. -->
+    <Rule Id="SA1308" Action="None" />
+    <!-- SA1309 - FieldNamesMustNotBeginWithUnderscore: StyleCop is here enforcing a particular naming convention for declaring and
+    accessing member variables. We're opting at this time not to enforce a requirement around this. My personal preference would be
+    to use leading underscores. -->
+    <Rule Id="SA1309" Action="None" />
+    <!-- SA1310 - FieldNamesMustNotContainUnderscore: See comments for SA1309. -->
+    <Rule Id="SA1310" Action="None" />
+    <!-- SA1311 - StaticReadonlyFieldsMustBeginWithUpperCaseLetter: I just flat out disagree with this. Static readonly fields
+    shouldn't be exposed as public anymore than normal fields should be exposed as public. What you want here is a property, and
+    making it named like a property doesn't make it one. Private static readonly fields should follow the same naming convention as
+    any other kind of field. -->
+    <Rule Id="SA1311" Action="None" />
+    <!-- SA1400 - AccessModifierMustBeDeclared: All classes are internal unless made public (which should be the exception, not the
+    general rule). All fields should be private, always, unless we’re in a struct. Since the presence of a keyword where one is not
+    usually present is much more obvious and immediately apparent than a different keyword being provided in place of another
+    (especially when they start with the same leading letter as in public/private), I believe providing no keyword for these two
+    cases meets the goal better, that is, makes it immediately clearer to the programmer when something is falling into the "unusual"
+    case. In my opinion, access modifiers should always be provided for methods, nested types, and properties however. I'd concede
+    that fields require an explicit private access modifier for consistency within a class definition, however requiring "internal"
+    for all classes is obsessive and unnecessary, and goes against the general trend in most open source C# projects, and the default
+    settings for the Visual Studio C# templates themselves. I suggest implementing a relaxed version of this rule that enforces the
+    concept for all type members, but ignores it for namespace members. Until such a rule exists, this should remain turned off. -->
+    <Rule Id="SA1400" Action="None" />
+    <!-- SA1412 - StoreFilesAsUtf8: This is a new rule with StyleCop Analyzers which is off by default, and we want to keep it off
+    in the future even if the default changes. -->
+    <Rule Id="SA1412" Action="None" />
+    <!-- SA1501 - StatementMustNotBeOnSingleLine: Sometimes it's much better to put the statements on a single line, especially
+    if you're trying to avoid catching System.Exception, and need to handle 10 different exceptions and do a quick one-liner in
+    each catch statement. 10 lines becomes 40 if you stick by this rule, and it's undeniably harder to read and maintain. -->
+    <Rule Id="SA1501" Action="None" />
+    <!-- SA1502 - ElementMustNotBeOnSingleLine: This gets very annoying when you have constructors or base class methods for
+    example with empty implementations. In these cases it is natural follow the open and close brace directly after each other
+    on the same line. This rule also has lots of undocumented silent pass behaviour for many implicit exceptions to the rule,
+    such as property getters and setters and statement lambdas. -->
+    <Rule Id="SA1502" Action="None" />
+    <!-- SA1512 - SingleLineCommentsMustNotBeFollowedByBlankLine: Same problems as with SA1515.-->
+    <Rule Id="SA1512" Action="None" />
+    <!-- SA1513 - ClosingCurlyBracketMustBeFollowedByBlankLine: Sounds like a good idea, but will often force separation between
+    logically grouped code elements, especially in "initialize if not defined" cases. -->
+    <Rule Id="SA1513" Action="None" />
+    <!-- SA1514 - ElementDocumentationHeaderMustBePrecededByBlankLine: Sounds like a good idea, but the rule is implemented
+    poorly, and doesn’t allow for leading comment lines before the summary tag. This imposes a restriction on how the comment
+    itself needs to be structured, and since I believe comment formatting rules shouldn’t be handled by StyleCop, this rule also
+    needs to be disabled. -->
+    <Rule Id="SA1514" Action="None" />
+    <!-- SA1515 - SingleLineCommentMustBePrecededByBlankLine: May sound good on the surface, but this rule also triggers for
+    commented out source lines and "TODO" style tags. There is an exception where quad forwardslash can be used instead to make
+    this rule ignore the line for these cases, but this just highlights how commonly this rule triggers for legitimate cases. I
+    don't think this rule adds to the maintainability of code in any way, and since I also don't believe StyleCop should interfere
+    with comments at all, and this rule in particular will trigger a lot of times, particularly with an incomplete set of changes,
+    this rule is turned off. -->
+    <Rule Id="SA1515" Action="None" />
+    <!-- SA1516 - ElementsMustBeSeparatedByBlankLine: Very bad idea. Both properties and fields should be able to be listed
+    without spaces betweeen them. -->
+    <Rule Id="SA1516" Action="None" />
+    <!-- StyleCop is a poor tool for managing structured code comments, and in my opinion, XML-based code documentation
+    embedded inline within the code is poor to start with. You end up with inadequate documentation, and you severely
+    hinder code readability in the process, especially when formally documenting short elements such as properties. You
+    can't embed pictures in code comments or provide four pages of text with examples for instance, even though this
+    level of depth is often needed for proper documentation. In my opinion, formal documentation and code should be kept
+    separate, and comments should be left for informal free-form internal documentation where and how the programmer
+    determines it should be used. If however we were to push for complete XML-based internal documentation in the future,
+    it wouldn't be with as blunt a tool as StyleCop. It would need to be with something that at least had enough
+    understanding to know that documenting an interface is sufficient, and an implementing type doesn't need to duplicate
+    the same documentation for the implementation of those members. -->
+    <Rule Id="SA1600" Action="None" />
+    <Rule Id="SA1601" Action="None" />
+    <Rule Id="SA1602" Action="None" />
+    <Rule Id="SA1603" Action="None" />
+    <Rule Id="SA1604" Action="None" />
+    <Rule Id="SA1605" Action="None" />
+    <Rule Id="SA1606" Action="None" />
+    <Rule Id="SA1607" Action="None" />
+    <Rule Id="SA1608" Action="None" />
+    <Rule Id="SA1610" Action="None" />
+    <Rule Id="SA1611" Action="None" />
+    <Rule Id="SA1612" Action="None" />
+    <Rule Id="SA1613" Action="None" />
+    <Rule Id="SA1614" Action="None" />
+    <Rule Id="SA1615" Action="None" />
+    <Rule Id="SA1616" Action="None" />
+    <Rule Id="SA1617" Action="None" />
+    <Rule Id="SA1618" Action="None" />
+    <Rule Id="SA1619" Action="None" />
+    <Rule Id="SA1620" Action="None" />
+    <Rule Id="SA1621" Action="None" />
+    <Rule Id="SA1622" Action="None" />
+    <Rule Id="SA1623" Action="None" />
+    <Rule Id="SA1624" Action="None" />
+    <Rule Id="SA1625" Action="None" />
+    <Rule Id="SA1626" Action="None" />
+    <Rule Id="SA1627" Action="None" />
+    <Rule Id="SA1628" Action="None" />
+    <Rule Id="SA1630" Action="None" />
+    <Rule Id="SA1631" Action="None" />
+    <Rule Id="SA1632" Action="None" />
+    <Rule Id="SA1633" Action="None" />
+    <Rule Id="SA1634" Action="None" />
+    <Rule Id="SA1635" Action="None" />
+    <Rule Id="SA1636" Action="None" />
+    <Rule Id="SA1637" Action="None" />
+    <Rule Id="SA1638" Action="None" />
+    <Rule Id="SA1640" Action="None" />
+    <Rule Id="SA1641" Action="None" />
+    <Rule Id="SA1642" Action="None" />
+    <Rule Id="SA1643" Action="None" />
+    <Rule Id="SA1645" Action="None" />
+    <Rule Id="SA1646" Action="None" />
+    <Rule Id="SA1647" Action="None" />
+    <Rule Id="SA1648" Action="None" />
+    <Rule Id="SA1649" Action="None" />
+    <Rule Id="SA1650" Action="None" />
+    <Rule Id="SA1651" Action="None" />
+    <Rule Id="SA1652" Action="None" />
+  </Rules>
+  <Rules AnalyzerId="System.Runtime.Analyzers" RuleNamespace="System.Runtime.Analyzers">
+    <!-- CA1027 - MarkEnumsWithFlags: Forgetting to add a Flags attribute to an enumeration where appropriate is common.
+    This rule is very accurate and useful in detecting these cases. -->
+    <Rule Id="CA1027" Action="Warning" />
+    <!-- CA1813 - AvoidUnsealedAttributes: Hardly anyone would think to do this without the warning to prompt for sealing
+    custom attribute types. Since we're probably never going to use inheritance on custom attributes, or if we do the base
+    attribute should probably be abstract anyway, or even if it logically isn't, it'll be in a framework level component
+    somewhere and this rule can, and should, be suppressed with a comment explaining why this design choice was made, this
+    rule will help us make a small improvement with little effort, and no real drawbacks. -->
+    <Rule Id="CA1813" Action="Warning" />
+    <!-- CA2217 - DoNotMarkEnumsWithFlags: This rule would be great if it did what it's documented to do, which is to
+    trigger if any member of an enumeration marked with the Flags attribute isn't a power of two or a combination of
+    other members. Unfortunately this rule currently goes a bit further, and also explicitly triggers if any power of
+    two flag values are "skipped" between the upper and lower defined values. This doesn't allow cases such as reserving
+    bits on the enumeration, or deprecating and later removing entries from the enumeration which are then free for
+    re-use. In both cases this rule would trigger, as it wants a flags enumeration to be a pure run of consecutive bits.
+    Since this is frequently in direct opposition to an existing practical reality an enumeration might be representing,
+    or intentional future planning when the enumeration is being created, this rule is likely to frequently suggest a
+    poor modification. Since the more common case of an enumeration omitting a flags attribute when it should be present
+    is covered by other rules, we don't lose much by disabling this. -->
+    <Rule Id="CA2217" Action="Hidden" />
+  </Rules>
+  <Rules AnalyzerId="System.Runtime.CSharp.Analyzers" RuleNamespace="System.Runtime.CSharp.Analyzers">
+    <!-- CA1009 - DefineAccessorsForAttributeArguments: This is simply good practice. Custom attributes are designed for
+    inspection via code. Having attribute constructor arguments implies those arguments are meaningful. Not exposing those
+    argument values from the attribute itself doesn't make much sense. -->
+    <Rule Id="CA1019" Action="Warning" />
+    <!-- CA1309 - UseOrdinalStringComparison: We turn this rule on by default, because we want to encourage culture-aware
+    handling of strings throughout the product. Code should be explicit about whether culture settings are being applied for
+    string operations or not, and since the default is to apply them, and this is rarely what we want, we enable this rule
+    to aim for explicit inclusion or exclusion of culture settings for string operations in all cases. -->
+    <Rule Id="CA1309" Action="Warning" />
+    <!-- CA1820 - TestForEmptyStringsUsingStringLength: This rule is a bit pedantic by itself, and there is no performance
+    implication from using an equality check for empty strings anymore, but given that we've chosen to enable CA1309, it
+    makes sense to enable this rule too, so that we consistently warn on the use of default equality tests against strings. -->
+    <Rule Id="CA1820" Action="Warning" />
+    <!-- CA2213 - DisposableFieldsShouldBeDisposed: Unfortunately this rule currently triggers on fields that are populated
+    via constructor parameters, and are merely shared with, not owned by the class. If this is changed in the future this
+    rule can be reactivated, however note that CA1001 also checks for disposable members, and unlike this rule it only fires
+    for internally constructed members, establishing ownership, ignoring ones passed as arguments to methods. That being the
+    case, CA2213 isn't required. -->
+    <Rule Id="CA2213" Action="Hidden" />
+  </Rules>
+  <Rules AnalyzerId="System.Runtime.InteropServices.Analyzers" RuleNamespace="System.Runtime.InteropServices.Analyzers">
+    <!-- CA1401 - PInvokesShouldNotBeVisible: Where Win32 interop is required, it is better to expose public access to
+    PInvoke methods via a single library than it is to scatter separate direct PInvoke usage in dozens of disparate
+    places throughout the codebase. In this case it is best to expose the PInvoke methods publicly from a static helper
+    class specifically provided for this purpose. That being the case, we disable this rule here. -->
+    <Rule Id="CA1401" Action="None" />
+  </Rules>
+</RuleSet>

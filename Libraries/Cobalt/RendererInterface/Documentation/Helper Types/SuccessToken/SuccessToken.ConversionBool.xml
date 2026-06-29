@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.SuccessToken.ConversionBool" Title="ConversionBool method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.SuccessToken">SuccessToken</PageRef> ->
+    ConversionBool
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ConversionBool</TypeRef> method implicitly converts this type to bool, marking the value as read.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[operator bool() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="bool">
+        True if the token represents success, false if it represents failure.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.SuccessToken">SuccessToken</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

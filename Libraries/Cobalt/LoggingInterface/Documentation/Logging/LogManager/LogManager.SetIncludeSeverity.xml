@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogManager.SetIncludeSeverity" Title="SetIncludeSeverity method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.LogManager">LogManager</PageRef> ->
+    SetIncludeSeverity
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetIncludeSeverity</TypeRef> method sets the manager-level severity filter. Messages that do not pass this filter are discarded before any target-specific filter is evaluated.
+    </Paragraph>
+    <Paragraph>
+      This method is safe to call concurrently with logging and target registration.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetIncludeSeverity(ILogger::SeverityFilter value);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="SeverityFilter!cobalt.logging.ILogger.SeverityFilter" Name="value">The new manager-level severity filter.</ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.LogManager.GetIncludeSeverity">LogManager.GetIncludeSeverity</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.ILogger.SeverityFilter">ILogger.SeverityFilter</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

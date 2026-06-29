@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDevice" Title="IGraphicsDevice interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    IGraphicsDevice
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class IGraphicsDevice;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IGraphicsDevice</TypeRef> interface is used to query information on a given graphics device in the
+      system, which is reported as being available for use by the underlying renderer API the render plugin uses. Device
+      objects are obtained via the <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRef>
+      interface. The <TypeRef>IGraphicsDevice</TypeRef> interface exposes information on device characteristics, limits,
+      and levels of support for various features. By calling the <PageRef PageName="cobalt.graphics.IGraphicsDevice.CreateRenderer">CreateRenderer</PageRef>
+      method, a new <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> object can be constructed, which
+      can then be used to perform rendering tasks. Multiple <TypeRef>IRenderer</TypeRef> objects can be constructed and
+      used totally independently, either for the same device or other devices.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Note that <TypeRef>IGraphicsDevice</TypeRef> objects cannot be created or destroyed by the application, but are
+        returned by an <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRef>.
+        <TypeRef>IGraphicsDevice</TypeRef> objects will remain valid and usable as long as the <TypeRef>IGraphicsDeviceEnumerator</TypeRef>
+        which created them remains alive, but as soon as the owning <TypeRef>IGraphicsDeviceEnumerator</TypeRef> object is
+        destroyed, all returned <TypeRef>IGraphicsDevice</TypeRef> objects are destroyed and can no longer be used. Any
+        <TypeRef>IRenderer</TypeRef> objects created through devices remain valid however, and are not destroyed until the
+        application releases its references to them.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="DeviceType" TypeCategory="Enumeration" PageName="cobalt.graphics.IGraphicsDevice.DeviceType" Visibility="Public">
+        The type of the device, such as whether it is an integrated, discrete, or software graphics device.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="MemoryType" TypeCategory="Enumeration" PageName="cobalt.graphics.IGraphicsDevice.MemoryType" Visibility="Public">
+        The types of memory potentially available to the graphics device
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="Feature" TypeCategory="Enumeration" PageName="cobalt.graphics.IGraphicsDevice.Feature" Visibility="Public">
+        The set of features for which support is optional
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="DepthRange" TypeCategory="Enumeration" PageName="cobalt.graphics.IGraphicsDevice.DepthRange" Visibility="Public">
+        Specifies the valid range of depth values under the device for the underlying graphics API
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="Vendor" TypeCategory="Enumeration" PageName="cobalt.graphics.IGraphicsDevice.Vendor" Visibility="Public">
+        Specifies a set of known graphics device vendors
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Structures">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="ImageLimits" TypeCategory="Struct" PageName="cobalt.graphics.IGraphicsDevice.ImageLimits" Visibility="Public">
+        Information on limits which relate to images, as returned by the <PageRef PageName="cobalt.graphics.IGraphicsDevice.GetImageLimits">GetImageLimits</PageRef> method.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="ShaderLimits" TypeCategory="Struct" PageName="cobalt.graphics.IGraphicsDevice.ShaderLimits" Visibility="Public">
+        Information on limits which relate to shaders, as returned by the <PageRef PageName="cobalt.graphics.IGraphicsDevice.GetShaderLimits">GetShaderLimits</PageRef> method.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="DrawLimits" TypeCategory="Struct" PageName="cobalt.graphics.IGraphicsDevice.DrawLimits" Visibility="Public">
+        Information on limits which relate to the draw process, as returned by the <PageRef PageName="cobalt.graphics.IGraphicsDevice.GetDrawLimits">GetDrawLimits</PageRef> method.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="FrameBufferLimits" TypeCategory="Struct" PageName="cobalt.graphics.IGraphicsDevice.FrameBufferLimits" Visibility="Public">
+        Information on limits which relate to framebuffers, as returned by the <PageRef PageName="cobalt.graphics.IGraphicsDevice.GetFrameBufferLimits">GetFrameBufferLimits</PageRef> method.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="DataBufferLimits" TypeCategory="Struct" PageName="cobalt.graphics.IGraphicsDevice.DataBufferLimits" Visibility="Public">
+        Information on limits which relate to data buffers, as returned by the <PageRef PageName="cobalt.graphics.IGraphicsDevice.GetDataBufferLimits">GetDataBufferLimits</PageRef> method.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Info methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="GetDeviceType" PageName="cobalt.graphics.IGraphicsDevice.GetDeviceType">
+          Returns the detected type of the device, such as whether it is an integrated, discrete, or virtual graphics device.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetVendor" PageName="cobalt.graphics.IGraphicsDevice.GetVendor">
+          Returns the name of the vendor who produced the graphics device, as an enumeration entry in a set of known vendors.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetVendorName" PageName="cobalt.graphics.IGraphicsDevice.GetVendorName">
+          Returns the name of the vendor who produced the graphics device
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetDeviceName" PageName="cobalt.graphics.IGraphicsDevice.GetDeviceName">
+          Returns the name of the graphics device
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetDriverInfo" PageName="cobalt.graphics.IGraphicsDevice.GetDriverInfo">
+          Returns information on the graphics driver for this device
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetMemorySizeInBytes" PageName="cobalt.graphics.IGraphicsDevice.GetMemorySizeInBytes">
+          Returns the total size of the specified memory type available to the graphics device
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Limit methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="GetImageLimits" PageName="cobalt.graphics.IGraphicsDevice.GetImageLimits">
+          Returns information on limits imposed by the device which relate to images
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetShaderLimits" PageName="cobalt.graphics.IGraphicsDevice.GetShaderLimits">
+          Returns information on limits imposed by the device which relate to shaders
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetDrawLimits" PageName="cobalt.graphics.IGraphicsDevice.GetDrawLimits">
+          Returns information on limits imposed by the device which relate to drawing operations
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetFrameBufferLimits" PageName="cobalt.graphics.IGraphicsDevice.GetFrameBufferLimits">
+          Returns information on limits imposed by the device which relate to framebuffers
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetDataBufferLimits" PageName="cobalt.graphics.IGraphicsDevice.GetDataBufferLimits">
+          Returns information on limits imposed by the device which relate to data buffers
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Feature methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="IsFeatureSupported" PageName="cobalt.graphics.IGraphicsDevice.IsFeatureSupported">
+          Returns true if the specified feature is supported
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="AreAllFeaturesSupported" PageName="cobalt.graphics.IGraphicsDevice.AreAllFeaturesSupported">
+          Returns true if all features in the specified feature set are supported
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetAllSupportedFeatures" PageName="cobalt.graphics.IGraphicsDevice.GetAllSupportedFeatures">
+          Returns the complete set of features supported by the device
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="IsTextureFormatSupported" PageName="cobalt.graphics.IGraphicsDevice.IsTextureFormatSupported">
+          Returns true if the specified image and data format combination is supported for texture allocation.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Renderer methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateRenderer" PageName="cobalt.graphics.IGraphicsDevice.CreateRenderer">
+          Creates and returns a new <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> object to perform
+          drawing tasks on this graphics device
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer">IRenderer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

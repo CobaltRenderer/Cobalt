@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogTargetConsole.Constructor" Title="Constructor method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.LogTargetConsole">LogTargetConsole</PageRef> ->
+    Constructor
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>LogTargetConsole</TypeRef> constructor creates a console target with no console handle open.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Call <PageRef PageName="cobalt.logging.LogTargetConsole.OpenConsoleHandle">OpenConsoleHandle</PageRef> before logging through the target.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[LogTargetConsole();]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetConsole">LogTargetConsole</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetConsole.OpenConsoleHandle">LogTargetConsole.OpenConsoleHandle</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

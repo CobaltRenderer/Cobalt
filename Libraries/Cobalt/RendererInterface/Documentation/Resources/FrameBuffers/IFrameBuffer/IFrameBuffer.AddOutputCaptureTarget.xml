@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IFrameBuffer.AddOutputCaptureTarget" Title="AddOutputCaptureTarget method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRef> ->
+    AddOutputCaptureTarget
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>AddOutputCaptureTarget</TypeRef> method adds the specified output capture target to this framebuffer. This allows the results of rendering to a framebuffer to be retrieved by the application.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void AddOutputCaptureTarget(IFrameBufferOutput* captureTarget, AttachmentType type, size_t index = 0);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IFrameBufferOutput*" Name="captureTarget">
+          The output capture target to attach to this framebuffer.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="AttachmentType" Name="type">
+          The framebuffer attachment type to capture.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="index">
+          The attachment index within the specified attachment type.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

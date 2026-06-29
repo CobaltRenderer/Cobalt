@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureBuffer.AllocatedImageFormat" Title="AllocatedImageFormat method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph><PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> -> <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef> -> AllocatedImageFormat</Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>AllocatedImageFormat</TypeRef> method returns the <PageRef PageName="cobalt.graphics.ITextureBuffer.ImageFormat">ImageFormat</PageRef> of the texture that was actually created after <PageRef PageName="cobalt.graphics.ITextureBuffer.AllocateMemory">AllocateMemory</PageRef> succeeds.
+    </Paragraph>
+    <Paragraph>
+      This value should be used when later code needs to reason about the concrete allocation, because renderers may normalize compatible requests or choose an equivalent native representation where the API permits it.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage"><Code Language="C++"><![CDATA[ImageFormat AllocatedImageFormat() const;]]></Code><SubSection Title="Return value"><ReturnValue Type="ImageFormat">The image format allocated for the texture.</ReturnValue></SubSection></Section>
+  <Section Title="See also"><PageRefList><PageRefListEntry PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.SetTextureFormat">SetTextureFormat</PageRefListEntry></PageRefList></Section>
+</XMLDocContent>

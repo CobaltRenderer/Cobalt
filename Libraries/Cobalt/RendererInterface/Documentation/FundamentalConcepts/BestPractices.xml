@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.Concepts.BestPractices" Title="Best Practices" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    Best Practices
+  </Paragraph>
+  <Section Title="Render Tree Node Usage">
+    <Paragraph>
+      The render tree should be organised around rendering state, not around the logical ownership structure used by the
+      application. Group renderables by render pass, shader program, and compatible state so that the renderer can draw
+      many objects without repeatedly changing native pipelines.
+    </Paragraph>
+    <Paragraph>
+      Shader program changes are usually among the more expensive transitions. Prefer a smaller number of general-purpose
+      shader programs with state values, state buffers, textures, and compile-time constant state values controlling
+      behaviour, rather than many nearly identical shader programs. This should still be balanced against shader
+      complexity. A single shader with excessive branching or unused work can be slower than a small set of well-chosen
+      programs.
+    </Paragraph>
+    <Paragraph>
+      State group nodes are useful for sharing fixed-function state and resource bindings across many renderables. If a
+      set of renderables uses the same depth, blend, culling, textures, or state buffers, set that state once on a
+      common group node where possible. This reduces repeated binding work and keeps material or pass state easier to
+      reason about.
+    </Paragraph>
+    <Paragraph>
+      Renderable nodes do not usually require new pipelines by themselves, but each renderable still represents draw
+      work. Batch geometry when practical, use index buffers to share vertices, and consider indirect drawing for large
+      numbers of similar small draw operations. Modern graphics hardware is generally more efficient when it receives
+      fewer, larger submissions than many tiny submissions.
+    </Paragraph>
+  </Section>
+  <Section Title="State Values and Bindings">
+    <Paragraph>
+      Resolve shader resource names once during setup and keep the returned IDs. Re-resolving names from strings inside
+      a render loop is unnecessary work and can hide errors until later than needed. Material, pass, or shader setup
+      data is usually the right place to cache IDs for state values, vertex attributes, textures, samplers, data arrays,
+      and texel arrays.
+    </Paragraph>
+    <Paragraph>
+      Prefer setting shared state values and bindings on default state objects or state group nodes, and use renderable
+      bindings only for values that genuinely vary per renderable. When many values are updated together, a state buffer
+      is often a better fit than many individual state values.
+    </Paragraph>
+  </Section>
+  <Section Title="Resource Updates">
+    <Paragraph>
+      Avoid reallocating resources as part of normal frame updates. Create buffers and textures with the layout,
+      dimensions, usage flags, and performance hints that match the intended use, then update their contents through
+      queue methods or transfer batches. Reallocation can force native resource destruction, new allocation, and
+      synchronization with in-flight work.
+    </Paragraph>
+    <Paragraph>
+      Use initial data when creating static resources. For dynamic resources, prefer predictable update patterns and
+      consider rotating between multiple buffers when the CPU and GPU may need different versions of the same logical
+      data at the same time.
+    </Paragraph>
+  </Section>
+  <Section Title="Frame Flow">
+    <Paragraph>
+      Keep <PageRef PageName="cobalt.graphics.IRenderer.StartNewFrame">StartNewFrame</PageRef> as a clear frame
+      boundary. Other threads may prepare renderer objects concurrently, but frame submission itself must be exclusive
+      with all other calls on the renderer and objects created by it. A read/write lock pattern is often a good match:
+      update work takes shared locks, and frame submission takes the exclusive lock.
+    </Paragraph>
+    <Paragraph>
+      Avoid waiting for draw completion or output capture unless the application really needs the result. Letting the
+      renderer continue asynchronously gives the application more opportunity to prepare later frames while the current
+      frame is drawing.
+    </Paragraph>
+  </Section>
+</XMLDocContent>

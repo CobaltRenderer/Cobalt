@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderableNode.BindIndexAttribute" Title="BindIndexAttribute method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef> ->
+    BindIndexAttribute
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>BindIndexAttribute</TypeRef> method is used to bind an index buffer to the renderable. Without an
+      index buffer bound, the renderable will advance linearly through the vertex buffers to extract vertex information.
+      An index buffer allows the target vertex buffer location to be specified per vertex, allowing shared vertices to
+      be reused in the buffer.
+    </Paragraph>
+  </Section>
+  <Note Type="Important">
+    <Paragraph>
+      A single index attribute can be bound to any number of <TypeRef>IRenderableNode</TypeRef> objects.
+    </Paragraph>
+  </Note>
+  <Note Type="Warning">
+    <Paragraph>
+      An index attribute can only be bound once, cannot be unbound, and cannot be set after an <TypeRef>IRenderableNode</TypeRef>
+      has been added as a child of an <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef>.
+    </Paragraph>
+  </Note>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken BindIndexAttribute(IIndexAttribute& indexAttribute);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IIndexAttribute!cobalt.graphics.IIndexAttribute" Name="indexAttribute">
+          The index attribute to bind to this renderable
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken!cobalt.graphics.SuccessToken">
+        True if the attribute was successfully bound, false otherwise. An assertion will be raised in debug builds if
+        the result isn't tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.Welcome" Title="Cobalt Logging Documentation" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Section Title="Description">
+    <Paragraph>
+      The Cobalt logging system is split into a lightweight interface library and a concrete implementation library. The LoggingInterface library defines the <PageRef PageName="cobalt.logging.ILogger">ILogger</PageRef> interface used by code that emits log messages, along with <PageRef PageName="cobalt.logging.NullLogger">NullLogger</PageRef> for situations where logging should be accepted but discarded.
+    </Paragraph>
+    <Paragraph>
+      The Logging library provides the standard implementation around <PageRef PageName="cobalt.logging.LogManager">LogManager</PageRef>. A log manager creates scoped <PageRef PageName="cobalt.logging.Logger">Logger</PageRef> instances, owns one or more <PageRef PageName="cobalt.logging.ILogTarget">ILogTarget</PageRef> objects, filters messages by severity, and forwards accepted messages to each target.
+    </Paragraph>
+    <Paragraph>
+      Log targets are responsible for final delivery. The implementation library includes targets for callbacks, files, standard output, and Windows console output. In typical applications, <PageRef PageName="cobalt.logging.LogTargetCallback">LogTargetCallback</PageRef> is usually enough to bridge the logging system to another logging framework or capture mechanism, and custom <PageRef PageName="cobalt.logging.ILogTarget">ILogTarget</PageRef> implementations are only needed for specialised delivery requirements.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        <PageRef PageName="cobalt.logging.Logger">Logger</PageRef> instances are safe to use concurrently from multiple threads. The logging system serializes message delivery through the log manager.
+      </Paragraph>
+    </Note>
+    <Note Type="Important">
+      <Paragraph>
+        Logging objects use custom <TypeRef>unique_ptr</TypeRef> aliases with deleters that call the virtual <PageRef PageName="cobalt.logging.ILogger.Delete">Delete</PageRef> or <PageRef PageName="cobalt.logging.ILogTarget.Delete">Delete</PageRef> method. Prefer the provided smart pointer aliases when transferring ownership.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        The log manager owns its targets and concrete loggers reference their originating manager. A <PageRef PageName="cobalt.logging.LogManager">LogManager</PageRef> object must outlive every <PageRef PageName="cobalt.logging.Logger">Logger</PageRef> created from it.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.ILogger">ILogger</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogManager">LogManager</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.ILogTarget">ILogTarget</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

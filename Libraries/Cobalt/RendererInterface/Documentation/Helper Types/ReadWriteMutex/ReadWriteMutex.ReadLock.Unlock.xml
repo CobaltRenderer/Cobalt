@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ReadWriteMutex.ReadLock.Unlock" Title="ReadLock.Unlock method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ReadWriteMutex">ReadWriteMutex</PageRef> ->
+    ReadLock.Unlock
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ReadLock.Unlock</TypeRef> method releases the read lock manually. This allows a lock to be released early, however the lock will also be released when the lock object is destroyed.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void ReadLock::Unlock();]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ReadWriteMutex">ReadWriteMutex</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

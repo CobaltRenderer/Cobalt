@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.ILogTarget.Deleter" Title="Deleter structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.ILogTarget">ILogTarget</PageRef> ->
+    Deleter
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[struct Deleter;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Deleter</TypeRef> structure is the custom deleter used by <TypeRef>ILogTarget::unique_ptr</TypeRef>. It destroys a target by calling the virtual <PageRef PageName="cobalt.logging.ILogTarget.Delete">Delete</PageRef> method on the object.
+    </Paragraph>
+    <Paragraph>
+      Applications normally interact with this structure indirectly when transferring targets to <PageRef PageName="cobalt.logging.LogManager.AddLogTarget">LogManager.AddLogTarget</PageRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.ILogTarget">ILogTarget</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogManager.AddLogTarget">LogManager.AddLogTarget</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

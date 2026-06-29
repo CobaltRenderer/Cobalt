@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRendererPlugin.ApiFamily" Title="ApiFamily enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRendererPlugin">IRendererPlugin</PageRef> ->
+    ApiFamily
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ApiFamily</TypeRef> enumeration identifies the graphics API family implemented by a renderer plugin.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="OpenGL">
+        Specifies an OpenGL renderer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="OpenGLES">
+        Specifies an OpenGL ES renderer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Direct3D">
+        Specifies a Microsoft Direct3D renderer. Direct3D renderers are available on Windows.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Vulkan">
+        Specifies a Vulkan renderer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Metal">
+        Specifies a Metal renderer. Metal renderers are available on macOS.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.RenderPluginEnumerator.FilterPluginsOfFamily">RenderPluginEnumerator.FilterPluginsOfFamily</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

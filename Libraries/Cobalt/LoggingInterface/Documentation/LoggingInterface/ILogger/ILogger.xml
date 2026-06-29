@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.ILogger" Title="ILogger interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    ILogger
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class ILogger;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ILogger</TypeRef> interface is the public logging surface used by application and library code to emit scoped log messages. A logger has a scope string and accepts messages tagged with an <PageRef PageName="cobalt.logging.ILogger.Severity">Severity</PageRef> value.
+    </Paragraph>
+    <Paragraph>
+      The interface deliberately does not specify where messages are written. Concrete implementations decide whether a severity is enabled, how child scopes are created, and how accepted messages are delivered to log targets.
+    </Paragraph>
+    <Paragraph>
+      String messages can be supplied as UTF-8 <TypeRef>std::string</TypeRef> values or native <TypeRef>std::wstring</TypeRef> values. Wide strings are converted to UTF-8 before the message is passed to the concrete logger implementation.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Use <PageRef PageName="cobalt.logging.ILogger.IsLogSeverityEnabled">IsLogSeverityEnabled</PageRef> before doing expensive work to construct a message. The built-in formatting overloads perform this check before resolving format arguments.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        The format-string overloads use positional placeholders such as {0} and {1}. Placeholder values must be numeric and must refer to supplied arguments.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="Severity" TypeCategory="Enumeration" PageName="cobalt.logging.ILogger.Severity" Visibility="Public">
+        Defines the severity assigned to an individual log message.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="SeverityFilter" TypeCategory="Enumeration" PageName="cobalt.logging.ILogger.SeverityFilter" Visibility="Public">
+        Defines bit-mask filters used to include or exclude messages by severity.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Structures">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="Deleter" TypeCategory="Struct" PageName="cobalt.logging.ILogger.Deleter" Visibility="Public">
+        Deletes logger objects held by <TypeRef>ILogger::unique_ptr</TypeRef>.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Lifetime methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.logging.ILogger.Delete">
+          Deletes the logger object. Objects are normally destroyed through <TypeRef>ILogger::unique_ptr</TypeRef>.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Scope methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="GetScope" PageName="cobalt.logging.ILogger.GetScope">
+          Returns the scope string assigned to the logger.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Severity methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="IsLogSeverityEnabled" PageName="cobalt.logging.ILogger.IsLogSeverityEnabled">
+          Reports whether a message with the supplied severity would currently be accepted by the logger.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Logger creation methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="CloneLogger" PageName="cobalt.logging.ILogger.CloneLogger">
+          Creates another logger object which logs to the same destination and scope.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetLoggerChildScope" PageName="cobalt.logging.ILogger.GetLoggerChildScope">
+          Creates a logger for a child scope below the current logger scope.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Logging methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Log" PageName="cobalt.logging.ILogger.Log">
+          Logs a message using the severity supplied by the caller.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="Critical" PageName="cobalt.logging.ILogger.Critical">
+          Logs a critical severity message.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="Error" PageName="cobalt.logging.ILogger.Error">
+          Logs an error severity message.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="Warning" PageName="cobalt.logging.ILogger.Warning">
+          Logs a warning severity message.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="Info" PageName="cobalt.logging.ILogger.Info">
+          Logs an informational severity message.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="Debug" PageName="cobalt.logging.ILogger.Debug">
+          Logs a debug severity message.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="Trace" PageName="cobalt.logging.ILogger.Trace">
+          Logs a trace severity message.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.LogManager">LogManager</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.NullLogger">NullLogger</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDevice.CreateRenderer" Title="CreateRenderer method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> ->
+    CreateRenderer
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>CreateRenderer</TypeRef> method constructs an <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef>
+      object, allowing the calling application to perform rendering tasks against this graphics device.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        It is perfectly acceptable to construct more than one <TypeRef>IRenderer</TypeRef> object from the same graphics
+        device and use them independently. It is also possible to construct and use separate <TypeRef>IRenderer</TypeRef>
+        objects from different graphics devices and use them at the same time, even possibly under different renderer
+        plugins. All constructed <TypeRef>IRenderer</TypeRef> objects are independent, and there is no shared state in
+        the implementation which would cause them to interfere with each other.
+    </Paragraph>
+    </Note>
+    <Note Type="Important">
+      <Paragraph>
+        If the application doesn't require any of the information provided on the <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef>
+        or <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRef> objects
+        after the renderer is constructed, it doesn't need to keep these objects around. The renderer doesn't rely on
+        the <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> object in any way after
+        creation.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        Any optional device features not listed in the <TypeRef>enabledFeatures</TypeRef> set passed into this method
+        are not legal to use under the constructed <TypeRef>IRenderer</TypeRef> object. Implementations may not always
+        raise warnings on attempts to use an optional feature which has not been activated, however in this case correct
+        operation is not guaranteed. It is the responsibility of the application to ensure it knows what optional
+        features it requires, and to request them here when the <TypeRef>IRenderer</TypeRef> object is created. The
+        application can check which features are supported by the graphics device by calling the
+        <PageRef PageName="cobalt.graphics.IGraphicsDevice.IsFeatureSupported">IsFeatureSupported</PageRef> or
+        <PageRef PageName="cobalt.graphics.IGraphicsDevice.GetAllSupportedFeatures">GetAllSupportedFeatures</PageRef>
+        methods.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[IRenderer::unique_ptr CreateRenderer(const std::set<Feature>& enabledFeatures, const std::set<IRenderer::Options>& enabledOptions);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="std::set&lt;Feature&gt;!cobalt.graphics.IGraphicsDevice.Feature" Name="enabledFeatures">
+          The set of optional device features to enable when constructing renderer
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="std::set&lt;IRenderer::Options&gt;!cobalt.graphics.IRenderer.Options" Name="enabledOptions">
+          The set of renderer options to enable when constructing the renderer
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="IRenderer::unique_ptr!cobalt.graphics.IRenderer">
+        The constructed <TypeRef>IRenderer</TypeRef> object, wrapped in a <TypeRef>unique_ptr</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer">IRenderer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureBuffer.SourceImageFormat" Title="SourceImageFormat enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef> ->
+    SourceImageFormat
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SourceImageFormat</TypeRef> enumeration describes the component layout of image data supplied from CPU memory to <PageRef PageName="cobalt.graphics.ITextureBuffer.SetInitialData">SetInitialData</PageRef> or <PageRef PageName="cobalt.graphics.ITextureBuffer.QueueDataUpdate">QueueDataUpdate</PageRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="R">
+        Supplies one color component conventionally interpreted as red.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="RG">
+        Supplies two color components conventionally interpreted as red and green.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="RGB">
+        Supplies three color components conventionally interpreted as red, green, and blue.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="RGBA">
+        Supplies four color components conventionally interpreted as red, green, blue, and alpha.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="BGR">
+        Supplies three color components in blue, green, red order.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="BGRA">
+        Supplies four color components in blue, green, red, alpha order.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="X">
+        Supplies one generic component where color channel naming is not meaningful.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="XY">
+        Supplies two generic components.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="XYZ">
+        Supplies three generic components.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="XYZW">
+        Supplies four generic components.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.SetInitialData">ITextureBuffer.SetInitialData</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.QueueDataUpdate">ITextureBuffer.QueueDataUpdate</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

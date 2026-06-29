@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogTargetFile.Constructor" Title="Constructor method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.LogTargetFile">LogTargetFile</PageRef> ->
+    Constructor
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>LogTargetFile</TypeRef> constructor creates a file target with no file open and a flush filter of <TypeRef>SeverityFilter::WarningOrHigher</TypeRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[LogTargetFile();]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetFile">LogTargetFile</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetFile.OpenLogFile">LogTargetFile.OpenLogFile</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

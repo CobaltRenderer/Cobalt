@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureSampler.WrapMode" Title="WrapMode enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITextureSampler">ITextureSampler</PageRef> ->
+    WrapMode
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WrapMode</TypeRef> enumeration defines how texture coordinates outside the normal range are mapped before sampling. It is configured with <PageRef PageName="cobalt.graphics.ITextureSampler.SetTextureWrapMode">SetTextureWrapMode</PageRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="ClampToEdge">
+        Clamps coordinates to the nearest edge texel, so samples outside the texture use the edge value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Repeat">
+        Repeats the texture pattern for coordinates outside the normal range.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="RepeatMirrored">
+        Repeats the texture pattern while mirroring every second repetition.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureSampler.SetTextureWrapMode">ITextureSampler.SetTextureWrapMode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

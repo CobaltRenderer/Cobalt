@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDevice.DeviceType" Title="DeviceType enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> ->
+    DeviceType
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>DeviceType</TypeRef> enumeration reports the broad category of device represented by an <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> object. The value is returned by <PageRef PageName="cobalt.graphics.IGraphicsDevice.GetDeviceType">GetDeviceType</PageRef> and is intended for device selection and user display.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        The device type is advisory. Applications should query specific device limits and optional features before relying on behaviour that depends on hardware capability.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Discrete">
+        The device represents a dedicated physical graphics device, such as an add-in graphics card or dedicated graphics chipset.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Integrated">
+        The device represents graphics hardware integrated with a broader processing device, such as a CPU or system-on-chip.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Software">
+        The device represents a software renderer rather than dedicated graphics hardware. Software devices are useful for compatibility, testing, or headless environments, but should be expected to have different performance characteristics.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Unknown">
+        The renderer could not determine a more specific device type from the information exposed by the underlying graphics API or driver.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice.GetDeviceType">IGraphicsDevice.GetDeviceType</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

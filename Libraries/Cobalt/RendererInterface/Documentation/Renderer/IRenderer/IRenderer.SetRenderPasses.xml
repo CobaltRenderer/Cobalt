@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderer.SetRenderPasses" Title="SetRenderPasses method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> ->
+    SetRenderPasses
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetRenderPasses</TypeRef> method sets the complete list of all <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef>
+      entries which make up the scene, removing any nodes which may have been added previously. If no sort order
+      information is provided, the render passes are drawn in the order they are provided. Where sort order information
+      is supplied, render passes are processed based on the sort order for each node in numerically ascending order,
+      starting from the render pass with the lowest sort order and working up. If two or more render passes share the
+      same sort order, the order they render in is undefined. If supported by the renderer implementation, the passes
+      may render in parallel.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetRenderPasses(IRenderPassNode* const* childNodes, size_t childNodeCount, const int32_t* childNodeSortOrder = nullptr);
+void SetRenderPasses(IRenderPassNode::unique_ptr const* childNodes, size_t childNodeCount, const int32_t* childNodeSortOrder = nullptr);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IRenderPassNode!cobalt.graphics.IRenderPassNode" Name="childNodes">
+          Pointer to a set of render pass nodes to set as the scene content
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="childNodeCount">
+          The number of entries to read from the childNodes array, and the childNodeSortOrder array if provided.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="int32_t" Name="childNodeSortOrder">
+          Pointer to a set of relative order values corresponding to the entries in the childNodes array. This parameter
+          may be set to nullptr.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer">IRenderer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IResourceArray.DataPersistenceFlags" Title="DataPersistenceFlags enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IResourceArray">IResourceArray</PageRef> ->
+    DataPersistenceFlags
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>DataPersistenceFlags</TypeRef> enumeration describes how long existing resource array contents must remain valid. These flags are supplied through <PageRef PageName="cobalt.graphics.IResourceArray.SetDataPersistenceFlags">SetDataPersistenceFlags</PageRef> before allocation.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="PersistAlways">
+        Requires existing resource contents to remain valid until explicitly overwritten or the resource is destroyed.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="InvalidateExistingDataOnWrite">
+        Allows the renderer to discard previous contents when new data is written, which can reduce synchronization or copy costs when old contents are no longer needed.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="InvalidateExistingDataAfterDrawComplete">
+        Allows the renderer to discard resource contents after draw work that uses the data has completed, which can reduce memory pressure for transient data.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IResourceArray.SetDataPersistenceFlags">IResourceArray.SetDataPersistenceFlags</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

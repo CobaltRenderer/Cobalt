@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.SuccessToken" Title="SuccessToken helper" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    SuccessToken
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class SuccessToken;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      This is a lightweight type which is implicitly convertible to and from <TypeRef>bool</TypeRef>, and takes up one
+      byte of storage. When the calling application is compiled in release mode, this type effectively does nothing, and
+      adds no overhead over a normal <TypeRef>bool</TypeRef>. When the calling application is compiled in debug mode
+      however, this type adds a custom destructor which detects when the value stored in this type hasn't been read by
+      the application. By default, if a <TypeRef>SuccessToken</TypeRef> is destroyed before its value has been read using
+      the <PageRef PageName="cobalt.graphics.SuccessToken.Succeeded">Succeeded</PageRef> or
+      <PageRef PageName="cobalt.graphics.SuccessToken.Failed">Failed</PageRef> methods, or had the conversion operator
+      to type <TypeRef>bool</TypeRef> performed, this type will trigger an assertion failure.
+    </Paragraph>
+    <Paragraph>
+      You are able to work with this type as if it doesn't exist at all, and just treat all <TypeRef>SuccessToken</TypeRef>
+      types as if they were of type <TypeRef>bool</TypeRef>. For example:
+    </Paragraph>
+    <Code Language="C++">if (!SomeMethod())
+{
+    _log.Error("SomeMethod returned false!");
+    return;
+}</Code>
+    <Paragraph>
+      In this case, it doesn't matter if <TypeRef>SomeMethod</TypeRef> returns <TypeRef>bool</TypeRef> or <TypeRef>SuccessToken</TypeRef>,
+      it will behave identically. If you were to call SomeMethod without checking its return value however, as follows:
+    </Paragraph>
+    <Code Language="C++">SomeMethod();</Code>
+    <Paragraph>
+      In this case, if <TypeRef>SomeMethod</TypeRef> returns a <TypeRef>SuccessToken</TypeRef>, an assertion failure may
+      be triggered on this line in debug builds. The intention is to assist application developers in detecting missing
+      error handling for API methods.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Constructors">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Constructor" PageName="cobalt.graphics.SuccessToken.Constructor">
+          Creates a <TypeRef>SuccessToken</TypeRef> object.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Operators">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="ConversionBool" PageName="cobalt.graphics.SuccessToken.ConversionBool">
+          Implicitly converts this type to bool, marking the value as read.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Result methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Succeeded" PageName="cobalt.graphics.SuccessToken.Succeeded">
+          Returns true if this type was constructed with the boolean value of true.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="Failed" PageName="cobalt.graphics.SuccessToken.Failed">
+          Returns true if this type was constructed with the boolean value of false.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="IgnoreResult" PageName="cobalt.graphics.SuccessToken.IgnoreResult">
+          Marks the value as read.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+</XMLDocContent>

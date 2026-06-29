@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureBuffer.SetSampleCount" Title="SetSampleCount method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef> ->
+    SetSampleCount
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetSampleCount</TypeRef> method specifies the multisample anti-aliasing (MSAA) sample count for a
+      two dimensional texture. A texture with a sample count greater than <TypeRef>SampleCount1</TypeRef> stores more
+      than one sample for each pixel and is intended for use as a multisampled <PageRef PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRef>
+      attachment.
+    </Paragraph>
+    <Paragraph>
+      Multisampled textures are normally rendered into directly, then resolved into a single-sample texture using
+      <PageRef PageName="cobalt.graphics.IRenderPassNode.EnableAttachmentMultiSamplingResolution">EnableAttachmentMultiSamplingResolution</PageRef>
+      and a texture bound with <PageRef PageName="cobalt.graphics.IFrameBuffer.BindMultiSamplingResolveTexture">BindMultiSamplingResolveTexture</PageRef>.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        This method is only available on <PageRef PageName="cobalt.graphics.ITextureBuffer2D">ITextureBuffer2D</PageRef>
+        objects, and must be called before <PageRef PageName="cobalt.graphics.ITextureBuffer.AllocateMemory">AllocateMemory</PageRef>.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        Sample count support depends on the renderer, graphics device, texture format, and intended usage. The values
+        in <PageRef PageName="cobalt.graphics.ITextureBuffer.SampleCount">SampleCount</PageRef> define the API values,
+        but not every value is guaranteed to be supported for every allocation. Use
+        <PageRef PageName="cobalt.graphics.ITextureBuffer.IsSampleCountSupported">IsSampleCountSupported</PageRef> to
+        query support for a specific two dimensional texture format before allocating an MSAA texture.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetSampleCount(SampleCount sampleCount);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="SampleCount!cobalt.graphics.ITextureBuffer.SampleCount" Name="sampleCount">
+          The number of samples to allocate for each pixel of the two dimensional texture.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.SampleCount">ITextureBuffer.SampleCount</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.IsSampleCountSupported">ITextureBuffer.IsSampleCountSupported</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer2D">ITextureBuffer2D</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.BindMultiSamplingResolveTexture">IFrameBuffer.BindMultiSamplingResolveTexture</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode.EnableAttachmentMultiSamplingResolution">IRenderPassNode.EnableAttachmentMultiSamplingResolution</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

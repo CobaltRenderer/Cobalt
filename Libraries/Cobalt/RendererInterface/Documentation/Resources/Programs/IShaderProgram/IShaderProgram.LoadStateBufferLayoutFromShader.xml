@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IShaderProgram.LoadStateBufferLayoutFromShader" Title="LoadStateBufferLayoutFromShader method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef> ->
+    LoadStateBufferLayoutFromShader
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>LoadStateBufferLayoutFromShader</TypeRef> method attempts to load the layout of the specified state buffer into an <PageRef PageName="cobalt.graphics.IStateBufferLayout">IStateBufferLayout</PageRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken LoadStateBufferLayoutFromShader(StateBufferId stateBufferId, IStateBufferLayout* stateBufferLayout) const;]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="StateBufferId" Name="stateBufferId">
+          The ID of the shader state buffer to inspect.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="IStateBufferLayout*" Name="stateBufferLayout">
+          The layout object that receives the shader-derived state buffer layout.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken">
+        True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

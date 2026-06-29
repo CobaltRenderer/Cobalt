@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITexelArray.QueueDataTransfer" Title="QueueDataTransfer method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef> ->
+    QueueDataTransfer
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>QueueDataTransfer</TypeRef> method schedules a transfer from one ITexelArray to another, within GPU memory.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Data transfer operations are scheduled work. When an <PageRef PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRef> is supplied, the transfer follows the synchronization rules for that batch.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken QueueDataTransfer(ITexelArray* targetBuffer, size_t transferCount, size_t sourceBufferOffset = 0, size_t targetBufferOffset = 0, ITransferBatch* transferBatch = nullptr);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="ITexelArray*" Name="targetBuffer">
+          The destination buffer for the GPU-side transfer.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="transferCount">
+          The number of texel entries to transfer.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="sourceBufferOffset">
+          The source entry offset where the transfer begins.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="targetBufferOffset">
+          The destination entry offset where the transfer begins.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="ITransferBatch*" Name="transferBatch">
+          An optional transfer batch to schedule the transfer into. If null, the renderer schedules the transfer independently.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken">
+        True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureBuffer.QueueDataUpdate" Title="QueueDataUpdate method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph><PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> -> <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef> -> QueueDataUpdate</Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>QueueDataUpdate</TypeRef> method schedules an update to data in an allocated texture. Updates can target a mipmap level and, depending on texture type, an image offset, image region, cubemap face, or array entry.
+    </Paragraph>
+    <Paragraph>
+      Unlike <PageRef PageName="cobalt.graphics.ITextureBuffer.SetInitialData">SetInitialData</PageRef>, the provided CPU memory may be modified or deallocated immediately after this method returns. The renderer copies or stages the data needed for the scheduled transfer. Source format arguments describe the CPU memory layout and allow supported conversion into the allocated texture format.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+      Queued updates are scheduled GPU work. When an <PageRef PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRef> is supplied, completion and visibility follow that batch.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[template<class T> SuccessToken QueueDataUpdate(const std::vector<T>& sourceBuffer, int mipmapLevel = 0, const V1UInt32& imageOffsetInPixels = V1UInt32(0), const V1UInt32& imageRegionInPixels = V1UInt32(0), ITransferBatch* transferBatch = nullptr);
+template<class T> SuccessToken QueueDataUpdate(const std::vector<T>& sourceBuffer, int mipmapLevel = 0, const V2UInt32& imageOffsetInPixels = V2UInt32(0, 0), const V2UInt32& imageRegionInPixels = V2UInt32(0, 0), ITransferBatch* transferBatch = nullptr);
+template<class T> SuccessToken QueueDataUpdate(const std::vector<T>& sourceBuffer, int mipmapLevel = 0, const V3UInt32& imageOffsetInPixels = V3UInt32(0, 0, 0), const V3UInt32& imageRegionInPixels = V3UInt32(0, 0, 0), ITransferBatch* transferBatch = nullptr);
+template<class T> SuccessToken QueueDataUpdate(const std::vector<T>& sourceBuffer, CubeMapFace targetFace, int mipmapLevel = 0, const V2UInt32& imageOffsetInPixels = V2UInt32(0, 0), const V2UInt32& imageRegionInPixels = V2UInt32(0, 0), ITransferBatch* transferBatch = nullptr);
+template<class T> SuccessToken QueueDataUpdate(const std::vector<T>& sourceBuffer, size_t arrayIndex = 0, int mipmapLevel = 0, const V1UInt32& imageOffsetInPixels = V1UInt32(0), const V1UInt32& imageRegionInPixels = V1UInt32(0), ITransferBatch* transferBatch = nullptr);
+template<class T> SuccessToken QueueDataUpdate(const std::vector<T>& sourceBuffer, size_t arrayIndex = 0, int mipmapLevel = 0, const V2UInt32& imageOffsetInPixels = V2UInt32(0, 0), const V2UInt32& imageRegionInPixels = V2UInt32(0, 0), ITransferBatch* transferBatch = nullptr);
+template<class T> SuccessToken QueueDataUpdate(const std::vector<T>& sourceBuffer, CubeMapFace targetFace, size_t arrayIndex = 0, int mipmapLevel = 0, const V2UInt32& imageOffsetInPixels = V2UInt32(0, 0), const V2UInt32& imageRegionInPixels = V2UInt32(0, 0), ITransferBatch* transferBatch = nullptr);
+SuccessToken QueueDataUpdate(const void* sourceBuffer, size_t sourceBufferSizeInBytes, SourceImageFormat imageFormat, SourceDataFormat dataFormat, int mipmapLevel = 0, const V1UInt32& imageOffsetInPixels = V1UInt32(0), const V1UInt32& imageRegionInPixels = V1UInt32(0), ITransferBatch* transferBatch = nullptr);
+SuccessToken QueueDataUpdate(const void* sourceBuffer, size_t sourceBufferSizeInBytes, SourceImageFormat imageFormat, SourceDataFormat dataFormat, int mipmapLevel = 0, const V2UInt32& imageOffsetInPixels = V2UInt32(0, 0), const V2UInt32& imageRegionInPixels = V2UInt32(0, 0), ITransferBatch* transferBatch = nullptr);
+SuccessToken QueueDataUpdate(const void* sourceBuffer, size_t sourceBufferSizeInBytes, SourceImageFormat imageFormat, SourceDataFormat dataFormat, int mipmapLevel = 0, const V3UInt32& imageOffsetInPixels = V3UInt32(0, 0, 0), const V3UInt32& imageRegionInPixels = V3UInt32(0, 0, 0), ITransferBatch* transferBatch = nullptr);
+SuccessToken QueueDataUpdate(const void* sourceBuffer, size_t sourceBufferSizeInBytes, SourceImageFormat imageFormat, SourceDataFormat dataFormat, CubeMapFace targetFace, int mipmapLevel = 0, const V2UInt32& imageOffsetInPixels = V2UInt32(0, 0), const V2UInt32& imageRegionInPixels = V2UInt32(0, 0), ITransferBatch* transferBatch = nullptr);
+SuccessToken QueueDataUpdate(const void* sourceBuffer, size_t sourceBufferSizeInBytes, SourceImageFormat imageFormat, SourceDataFormat dataFormat, size_t arrayIndex = 0, int mipmapLevel = 0, const V1UInt32& imageOffsetInPixels = V1UInt32(0), const V1UInt32& imageRegionInPixels = V1UInt32(0), ITransferBatch* transferBatch = nullptr);
+SuccessToken QueueDataUpdate(const void* sourceBuffer, size_t sourceBufferSizeInBytes, SourceImageFormat imageFormat, SourceDataFormat dataFormat, size_t arrayIndex = 0, int mipmapLevel = 0, const V2UInt32& imageOffsetInPixels = V2UInt32(0, 0), const V2UInt32& imageRegionInPixels = V2UInt32(0, 0), ITransferBatch* transferBatch = nullptr);
+SuccessToken QueueDataUpdate(const void* sourceBuffer, size_t sourceBufferSizeInBytes, SourceImageFormat imageFormat, SourceDataFormat dataFormat, CubeMapFace targetFace, size_t arrayIndex = 0, int mipmapLevel = 0, const V2UInt32& imageOffsetInPixels = V2UInt32(0, 0), const V2UInt32& imageRegionInPixels = V2UInt32(0, 0), ITransferBatch* transferBatch = nullptr);]]></Code>
+    <SubSection Title="Argument list"><ArgumentList>
+      <ArgumentListEntry Type="const std::vector&lt;T&gt; or const void*" Name="sourceBuffer">The source data to copy into the texture.</ArgumentListEntry>
+      <ArgumentListEntry Type="size_t" Name="sourceBufferSizeInBytes">The size, in bytes, of the source data.</ArgumentListEntry>
+      <ArgumentListEntry Type="SourceImageFormat" Name="imageFormat">The image channel layout of the source data.</ArgumentListEntry>
+      <ArgumentListEntry Type="SourceDataFormat" Name="dataFormat">The data encoding of the source data.</ArgumentListEntry>
+      <ArgumentListEntry Type="CubeMapFace" Name="targetFace">The cubemap face to update for cubemap texture types.</ArgumentListEntry>
+      <ArgumentListEntry Type="size_t" Name="arrayIndex">The array element to update for array texture types.</ArgumentListEntry>
+      <ArgumentListEntry Type="int" Name="mipmapLevel">The mipmap level to update.</ArgumentListEntry>
+      <ArgumentListEntry Type="V1UInt32, V2UInt32, or V3UInt32" Name="imageOffsetInPixels">The texel offset within the mipmap level where the update begins.</ArgumentListEntry>
+      <ArgumentListEntry Type="V1UInt32, V2UInt32, or V3UInt32" Name="imageRegionInPixels">The texel dimensions of the region to update. A zero value updates the remaining image from the offset.</ArgumentListEntry>
+      <ArgumentListEntry Type="ITransferBatch*" Name="transferBatch">An optional transfer batch to schedule the update into. If null, the renderer schedules the update independently.</ArgumentListEntry>
+    </ArgumentList></SubSection>
+    <SubSection Title="Return value"><ReturnValue Type="SuccessToken">True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.</ReturnValue></SubSection>
+  </Section>
+  <Section Title="See also"><PageRefList><PageRefListEntry PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.SetInitialData">SetInitialData</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRefListEntry></PageRefList></Section>
+</XMLDocContent>

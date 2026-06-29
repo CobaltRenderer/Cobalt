@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.WindowInfoXlib.Constructor" Title="Constructor method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.WindowInfoXlib">WindowInfoXlib</PageRef> ->
+    Constructor
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowInfoXlib</TypeRef> constructor creates a platform binding structure and initializes the inherited <TypeRef>structureSizeInBytes</TypeRef> and type discriminator fields.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[WindowInfoXlib(::Display* display, ::Window window, const V2UInt32& windowSizeInPixels);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="::Display*" Name="display">
+          The Xlib display connection.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="::Window" Name="window">
+          The Xlib window to bind.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="const V2UInt32&amp;" Name="windowSizeInPixels">
+          The current drawable window size in pixels.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.WindowInfoXlib">WindowInfoXlib</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.WindowInfoBase">WindowInfoBase</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

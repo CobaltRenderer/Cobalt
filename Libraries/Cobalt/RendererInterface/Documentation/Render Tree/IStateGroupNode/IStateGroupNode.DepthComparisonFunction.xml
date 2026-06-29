@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateGroupNode.DepthComparisonFunction" Title="DepthComparisonFunction enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> ->
+    DepthComparisonFunction
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>DepthComparisonFunction</TypeRef> enumeration specifies the comparison operation used by the depth test when depth testing is enabled.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Never">
+        The depth test always fails.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Equal">
+        The depth test passes when the incoming value is equal to the stored or reference value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="NotEqual">
+        The depth test passes when the incoming value is not equal to the stored or reference value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Less">
+        The depth test passes when the incoming value is less than the stored or reference value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="LessOrEqual">
+        The depth test passes when the incoming value is less than or equal to the stored or reference value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Greater">
+        The depth test passes when the incoming value is greater than the stored or reference value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="GreaterOrEqual">
+        The depth test passes when the incoming value is greater than or equal to the stored or reference value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Always">
+        The depth test always passes.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode.SetDepthComparisonFunction">IStateGroupNode.SetDepthComparisonFunction</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

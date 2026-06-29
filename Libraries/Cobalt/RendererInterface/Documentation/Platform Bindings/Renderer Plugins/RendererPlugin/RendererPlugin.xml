@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.RendererPlugin" Title="RendererPlugin class" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef> ->
+    RendererPlugin
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class RendererPlugin : public IRendererPlugin;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>RendererPlugin</TypeRef> class is the concrete owning renderer plugin object used by applications after a plugin has been loaded. It exposes renderer identity, target API information, the plugin module handle shared by copies of the object, and the method used to create a graphics device enumerator.
+    </Paragraph>
+    <Paragraph>
+      The object can be filled directly by calling the exported <PageRef PageName="cobalt.graphics.GetRendererPlugin">GetRendererPlugin</PageRef> function after checking <PageRef PageName="cobalt.graphics.GetCobaltAPIVersion">GetCobaltAPIVersion</PageRef>, or indirectly through <PageRef PageName="cobalt.graphics.RenderPluginEnumerator">RenderPluginEnumerator</PageRef>. Copies share ownership of the loaded plugin module.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        When <PageRef PageName="cobalt.graphics.RendererPlugin.CreateGraphicsDeviceEnumerator">CreateGraphicsDeviceEnumerator</PageRef> is called, keep the <TypeRef>RendererPlugin</TypeRef> object alive for as long as the enumerator, devices, or renderers created from that plugin are in use.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Data access methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="GetApiFamily" PageName="cobalt.graphics.RendererPlugin.GetApiFamily">
+          Returns the renderer API family.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetTargetApiVersion" PageName="cobalt.graphics.RendererPlugin.GetTargetApiVersion">
+          Returns the renderer target API version.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetName" PageName="cobalt.graphics.RendererPlugin.GetName">
+          Returns the stable renderer name.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetDisplayName" PageName="cobalt.graphics.RendererPlugin.GetDisplayName">
+          Returns the human-readable renderer display name.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetModuleHandle" PageName="cobalt.graphics.RendererPlugin.SetModuleHandle">
+          Stores an owning module handle for the renderer plugin library.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Allocation methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="CreateGraphicsDeviceEnumerator" PageName="cobalt.graphics.RendererPlugin.CreateGraphicsDeviceEnumerator">
+          Creates a graphics device enumerator while preserving module ownership through the RendererPlugin object.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRendererPlugin">IRendererPlugin</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.GetCobaltAPIVersion">GetCobaltAPIVersion</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.RenderPluginEnumerator">RenderPluginEnumerator</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

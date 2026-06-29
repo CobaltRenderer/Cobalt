@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderPassNode.EnableAttachmentMultiSamplingResolution" Title="EnableAttachmentMultiSamplingResolution method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef> ->
+    EnableAttachmentMultiSamplingResolution
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>EnableAttachmentMultiSamplingResolution</TypeRef> method is used when multisample anti-aliasing
+      (MSAA) is being used. This method sets up a task to resolve the target multisampled framebuffer attachment. A
+      resolve operation takes a multisampled framebuffer attachment, and performs the appropriate averaging to output a
+      resolved version with a single sample per pixel to a target texture.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        This operation is only valid for <TypeRef>IRenderPassNode</TypeRef> objects which are bound to an
+        <PageRef PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRef> object which have texture targets.
+        Window surfaces cannot make use of multisample anti-aliasing.
+      </Paragraph>
+    </Note>
+    <Note Type="Important">
+      <Paragraph>
+        Only a single resolve operation can be defined for a given source framebuffer attachment per render pass.
+        Calling the <TypeRef>EnableAttachmentMultiSamplingResolution</TypeRef> method for a framebuffer attachment that
+        has previously had a resolve target set will replace the previous resolve operation.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        When a render pass is disabled using the <PageRef PageName="cobalt.graphics.IRenderPassNode.SetIsEnabled">SetIsEnabled</PageRef>
+        method, multisample resolve operations don't execute either. Where you are conditionally enabling render passes
+        for a frame, it may be appropriate to use empty render passes that you leave enabled to perform attachment
+        resolve operations. Empty render passes still perform resolve operations, as long as the render pass has not
+        been disabled.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void EnableAttachmentMultiSamplingResolution(IFrameBuffer::AttachmentType attachmentType, size_t attachmentIndex, size_t resolveAttachmentIndex = std::numeric_limits<size_t>::max());]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IFrameBuffer::AttachmentType!cobalt.graphics.IFrameBuffer.AttachmentType" Name="type">
+          The type of the target framebuffer attachment
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="index">
+          The index of the framebuffer attachment within the selected attachment type, to use as a source for the
+          resolve operation.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="index">
+          The index of the target framebuffer resolve attachment within the selected attachment type. If this index is
+          left at its default value, the resolve attachment index will take the source attachment index as the resolve
+          attachment index too.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

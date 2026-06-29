@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetAllDevices" Title="GetAllDevices method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRef> ->
+    GetAllDevices
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetAllDevices</TypeRef> method returns an <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef>
+      object for each located graphics device, after a previously successful call to the <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.EnumerateDevices">EnumerateDevices</PageRef>
+      method. Graphics devices will only be returned which are compatible with the underlying graphics API of this
+      renderer plugin.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        This method may return an empty list, even after <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.EnumerateDevices">EnumerateDevices</PageRef>
+        returns true. This indicates that device enumeration completed successfully, but no compatible graphics devices
+        were located for this renderer plugin and set of enumeration flags. This is equivalent to
+        <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.FoundDevice">FoundDevice</PageRef> returning false.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[std::vector<IGraphicsDevice*> GetAllDevices() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="std::vector&lt;IGraphicsDevice*&gt;!cobalt.graphics.IGraphicsDevice">
+        The complete set of located graphics devices which support the underlying rendering API for this plugin. This
+        list may be empty.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

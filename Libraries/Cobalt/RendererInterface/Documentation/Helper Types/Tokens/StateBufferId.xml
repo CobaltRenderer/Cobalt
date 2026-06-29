@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.StateBufferId" Title="StateBufferId enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    StateBufferId
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>StateBufferId</TypeRef> enumeration is an opaque token identifying a state buffer binding reflected from an <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef>. It is used when binding state buffer resources and when loading a reflected state buffer layout.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        ID values are renderer-generated tokens. Applications should obtain them from shader reflection methods rather
+        than constructing arbitrary values.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Null">
+        Indicates that no matching state buffer binding was found or that no state buffer slot is selected.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram.GetStateBufferId">IShaderProgram.GetStateBufferId</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateContainer.BindStateBuffer">IStateContainer.BindStateBuffer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram.LoadStateBufferLayoutFromShader">IShaderProgram.LoadStateBufferLayoutFromShader</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

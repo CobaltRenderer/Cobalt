@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateBuffer.SetStateValueForPage" Title="SetStateValueForPage method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateBuffer">IStateBuffer</PageRef> ->
+    SetStateValueForPage
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetStateValueForPage</TypeRef> method updates the target state variable in the specified page of the buffer with the supplied value.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[template<class T> void SetStateValueForPage(uint32_t pageNo, StateValueId stateId, const T& value);
+template<class T, class... IndexTs> void SetStateValueForPage(uint32_t pageNo, StateValueId stateId, const T& value, size_t firstArrayIndex, IndexTs... additionalArrayIndices);
+template<class T> void SetStateValueForPage(uint32_t pageNo, StateValueId stateId, const T& value, const size_t* arrayIndices, size_t arrayIndexCount);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="uint32_t" Name="pageNo">
+          The state buffer page to update.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="StateValueId" Name="stateId">
+          The state value ID to update.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="const T" Name="value">
+          The value to assign. The value type must match the state value type in the bound layout or compiled shader.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateBuffer">IStateBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureSampler" Title="ITextureSampler interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    ITextureSampler
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class ITextureSampler;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ITextureSampler</TypeRef> type is a convenience base interface for all texture samplers. For specific
+      functionality provided by texture samplers, please refer to the documentation for the specific texture sampler types
+      which extend this interface.
+    </Paragraph>
+  </Section>
+  <Section Title="Extended interface types">
+    <TypeMemberList>
+      <TypeMemberListEntry Visibility="Public" Name="ITextureSampler1D" TypeCategory="Interface" PageName="cobalt.graphics.ITextureSampler1D">
+        A one dimensional texture sampler
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Visibility="Public" Name="ITextureSampler2D" TypeCategory="Interface" PageName="cobalt.graphics.ITextureSampler2D">
+        A two dimensional texture sampler
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Visibility="Public" Name="ITextureSampler3D" TypeCategory="Interface" PageName="cobalt.graphics.ITextureSampler3D">
+        A three dimensional texture sampler
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Visibility="Public" Name="ITextureSamplerCube" TypeCategory="Interface" PageName="cobalt.graphics.ITextureSamplerCube">
+        A cubemap texture sampler
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Visibility="Public" Name="ITextureSampler1DArray" TypeCategory="Interface" PageName="cobalt.graphics.ITextureSampler1DArray">
+        A sampler for an array of one dimensional texture resources
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Visibility="Public" Name="ITextureSampler2DArray" TypeCategory="Interface" PageName="cobalt.graphics.ITextureSampler2DArray">
+        A sampler for an array of two dimensional texture resources
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Visibility="Public" Name="ITextureSamplerCubeArray" TypeCategory="Interface" PageName="cobalt.graphics.ITextureSamplerCubeArray">
+        A sampler for an array of cubemap texture resources
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="WrapMode" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureSampler.WrapMode" Visibility="Public">
+        Defines how texture coordinates outside the normal range are mapped before sampling.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="FilterMode" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureSampler.FilterMode" Visibility="Public">
+        Defines how texels are filtered within a mipmap level.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="MipmapMode" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureSampler.MipmapMode" Visibility="Public">
+        Defines how the sampler selects or blends between mipmap levels.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

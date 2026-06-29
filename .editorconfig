@@ -1,0 +1,14 @@
+# Note that the .clang-format file supersedes this file as the "true" editor config file. Properties related to line
+# length and indent rules are left to that file to define, and are left undefined here. Ideally this file could work as
+# a fallback where the .clang-format file isn't understood by the editor, however it has been observed that in some
+# environments (IE, Visual Studio), the .editorconfig takes priority, and ends up "fighting" with the clang format rules
+# where the two differ. We therefore leave this file just to handle some useful additional rules that we can't handle in
+# clang format.
+
+root = true
+
+# Global settings, for all text files.
+[*]
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocTOC name="cobalt.graphics.TOCRoot" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Image DarkModeAware="true">CobaltRendererHeader</Image>
+  <TOCRoot Name="cobalt.graphics.TOC">
+    <TOCFragmentRef Name="cobalt.graphics.TOCPublic" />
+    <TOCGroup Title="Support Libraries" OpenByDefault="true">
+      <TOCGroup Title="Logging" OpenByDefault="false">
+        <TOCFragmentRef Name="cobalt.logging.TOCPublic" />
+      </TOCGroup>
+      <TOCGroup Title="Marshalling" OpenByDefault="false">
+        <TOCFragmentRef Name="cobalt.marshalling.TOCPublic" />
+      </TOCGroup>
+    </TOCGroup>
+  </TOCRoot>
+</XMLDocTOC>

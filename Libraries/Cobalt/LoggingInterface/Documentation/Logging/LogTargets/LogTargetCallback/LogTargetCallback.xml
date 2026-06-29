@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogTargetCallback" Title="LogTargetCallback class" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    LogTargetCallback
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class LogTargetCallback : public ILogTarget;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>LogTargetCallback</TypeRef> class is an <PageRef PageName="cobalt.logging.ILogTarget">ILogTarget</PageRef> implementation that forwards each received message to a caller-supplied <TypeRef>std::function</TypeRef>.
+    </Paragraph>
+    <Paragraph>
+      This target is useful for tests, application-level log routing, or integration with an existing logging framework.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        When this target is used through <PageRef PageName="cobalt.logging.LogManager">LogManager</PageRef>, message strings are supplied in the form expected by the implementation. Direct calls to <PageRef PageName="cobalt.logging.LogTargetCallback.LogMessage">LogMessage</PageRef> should supply null-terminated scope and message strings.
+      </Paragraph>
+    </Note>
+    <Note Type="Important">
+      <Paragraph>
+        The callback must remain valid for the lifetime of the target.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Constructors">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Constructor" PageName="cobalt.logging.LogTargetCallback.Constructor">
+          Creates a callback log target.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="Create" PageName="cobalt.logging.LogTargetCallback.Create">
+          Creates a callback log target wrapped in a smart pointer.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Lifetime methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.logging.LogTargetCallback.Delete">
+          Deletes the callback target.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Logging methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="LogMessage" PageName="cobalt.logging.LogTargetCallback.LogMessage">
+          Forwards a message to the callback.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.ILogTarget">ILogTarget</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogManager.AddLogTarget">LogManager.AddLogTarget</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

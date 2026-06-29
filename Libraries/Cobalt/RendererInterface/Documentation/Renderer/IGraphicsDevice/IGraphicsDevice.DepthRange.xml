@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDevice.DepthRange" Title="DepthRange enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> ->
+    DepthRange
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>DepthRange</TypeRef> enumeration reports how depth values are mapped to numeric values by the
+      underlying graphics API. This value is reported as a member of the <PageRef PageName="cobalt.graphics.IGraphicsDevice.FrameBufferLimits">FrameBufferLimits</PageRef>
+      structure, as returned by the <PageRef PageName="cobalt.graphics.IGraphicsDevice.GetFrameBufferLimits">GetFrameBufferLimits</PageRef>
+      method on <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> objects.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="ZeroToOne">
+        When normal depth clamping/clipping rules are applied, generated depth values are in the range 0.0 to 1.0.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="NegativeOneToOne">
+        When normal depth clamping/clipping rules are applied, generated depth values are in the range -1.0 to 1.0.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

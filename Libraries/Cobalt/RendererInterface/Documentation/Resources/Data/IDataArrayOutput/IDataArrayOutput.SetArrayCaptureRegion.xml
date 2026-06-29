@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IDataArrayOutput.SetArrayCaptureRegion" Title="SetArrayCaptureRegion method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IDataArrayOutput">IDataArrayOutput</PageRef> ->
+    SetArrayCaptureRegion
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetArrayCaptureRegion</TypeRef> method specifies the region of the bound data array to capture, and whether any attached counter value should also be captured.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetArrayCaptureRegion(size_t captureEntryCount, size_t bufferOffset = 0, bool captureCounterValue = false);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="size_t" Name="captureEntryCount">
+          The number of array entries to capture.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="bufferOffset">
+          The first array entry to capture.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="bool" Name="captureCounterValue">
+          True to capture the attached counter value along with the data array contents.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IDataArrayOutput">IDataArrayOutput</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

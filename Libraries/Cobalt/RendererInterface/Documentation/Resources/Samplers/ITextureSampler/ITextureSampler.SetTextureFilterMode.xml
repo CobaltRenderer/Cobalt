@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureSampler.SetTextureFilterMode" Title="SetTextureFilterMode method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITextureSampler">ITextureSampler</PageRef> ->
+    SetTextureFilterMode
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetTextureFilterMode</TypeRef> method specifies the filter mode to use when sampling from the texture.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetTextureFilterMode(FilterMode filterModeShrink, FilterMode filterModeExpand);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="FilterMode" Name="filterModeShrink">
+          The filter mode used when the sampled texture is minified.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="FilterMode" Name="filterModeExpand">
+          The filter mode used when the sampled texture is magnified.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureSampler">ITextureSampler</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

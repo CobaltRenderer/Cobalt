@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.WindowSystemInfoXCB" Title="WindowSystemInfoXCB structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef> ->
+    WindowSystemInfoXCB
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[struct WindowSystemInfoXCB : public IRenderer::WindowSystemInfoBase;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowSystemInfoXCB</TypeRef> structure identifies the XCB window system and supplies the XCB connection used during renderer initialization.
+    </Paragraph>
+    <Paragraph>
+      Availability: Linux or compatible X11 platforms when <TypeRef>COBALT_RENDERER_XCB_SUPPORT</TypeRef> is enabled. This is automatically enabled on Linux unless platform binding selection is manual.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <DataMemberList>
+      <DataMemberListEntry Visibility="Public" Type="xcb_connection_t*" Name="connection">
+        The XCB connection.
+      </DataMemberListEntry>
+    </DataMemberList>
+  </Section>
+  <Section Title="Constructors">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Constructor" PageName="cobalt.graphics.WindowSystemInfoXCB.Constructor">
+          Creates a WindowSystemInfoXCB structure.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.WindowInfoXCB">WindowInfoXCB</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer.Initialize">IRenderer.Initialize</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

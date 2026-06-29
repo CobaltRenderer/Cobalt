@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IFrameBuffer.WindowDepthStencilMode" Title="WindowDepthStencilMode enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRef> ->
+    WindowDepthStencilMode
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowDepthStencilMode</TypeRef> enumeration selects the depth and stencil buffer format requested when binding an <PageRef PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRef> directly to a window.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Window depth and stencil formats are requests. A renderer may be constrained by the platform presentation API, driver, or operating system window system.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="None">
+        Requests no depth or stencil buffer for the window framebuffer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DepthUNorm16">
+        Requests a 16-bit unsigned normalized depth buffer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DepthUNorm24">
+        Requests a 24-bit unsigned normalized depth buffer without stencil.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DepthUNorm24StencilUInt8">
+        Requests a combined 24-bit unsigned normalized depth buffer and 8-bit unsigned integer stencil buffer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DepthFloat32">
+        Requests a 32-bit floating point depth buffer without stencil.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DepthFloat32StencilUInt8">
+        Requests a combined 32-bit floating point depth buffer and 8-bit unsigned integer stencil buffer.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.BindWindow">IFrameBuffer.BindWindow</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

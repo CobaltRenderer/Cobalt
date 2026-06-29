@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderPassNode.RemoveAttachmentClearData" Title="RemoveAttachmentClearData method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef> ->
+    RemoveAttachmentClearData
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>RemoveAttachmentClearData</TypeRef> method removes any previously defined attachment clear operation
+      for the specified framebuffer target, which has been defined for this render pass using the
+      <PageRef PageName="cobalt.graphics.IRenderPassNode.SetAttachmentClearData">SetAttachmentClearData</PageRef> method.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void RemoveAttachmentClearData(IFrameBuffer::AttachmentType type, size_t index);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IFrameBuffer::AttachmentType!cobalt.graphics.IFrameBuffer.AttachmentType" Name="type">
+          The type of the target framebuffer attachment
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="index">
+          The index of the target framebuffer attachment within the selected attachment type
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

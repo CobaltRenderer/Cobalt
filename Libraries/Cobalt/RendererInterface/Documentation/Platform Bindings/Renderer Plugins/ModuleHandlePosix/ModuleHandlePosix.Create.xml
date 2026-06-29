@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ModuleHandlePosix.Create" Title="Create method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ModuleHandlePosix">ModuleHandlePosix</PageRef> ->
+    Create
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Create</TypeRef> method creates an owning wrapper around a POSIX dynamic library handle.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[static IModuleHandle::unique_ptr Create(void* moduleHandle, const std::string& modulePath);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="void*" Name="moduleHandle">
+          The POSIX dynamic library handle to own.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="const std::string&amp;" Name="modulePath">
+          The path used to open another reference to the same dynamic library when the handle is cloned.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="IModuleHandle!cobalt.graphics.IModuleHandle">
+        A new <TypeRef>ModuleHandlePosix</TypeRef> object returned through <TypeRef>IModuleHandle::unique_ptr</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ModuleHandlePosix">ModuleHandlePosix</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IModuleHandle">IModuleHandle</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

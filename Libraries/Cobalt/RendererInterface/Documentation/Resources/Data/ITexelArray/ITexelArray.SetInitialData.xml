@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITexelArray.SetInitialData" Title="SetInitialData method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph><PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> -> <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef> -> SetInitialData</Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetInitialData</TypeRef> method supplies texel array contents to upload during allocation. Typed overloads are provided for supported vector and scalar source formats, and the raw overload allows the source image and data formats to be specified explicitly.
+    </Paragraph>
+    <Paragraph>
+      Initial data is associated with the resource description and consumed when <PageRef PageName="cobalt.graphics.ITexelArray.AllocateMemory">AllocateMemory</PageRef> is called. This is useful for immutable or mostly static arrays because no separate transfer batch needs to be scheduled after allocation.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+      The source memory must remain valid and unmodified until <PageRef PageName="cobalt.graphics.ITexelArray.AllocateMemory">AllocateMemory</PageRef> is called. Use <PageRef PageName="cobalt.graphics.ITexelArray.QueueDataUpdate">QueueDataUpdate</PageRef> for data that can be released immediately after the call returns.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[template<class T> SuccessToken SetInitialData(const std::vector<T>& sourceBuffer);
+SuccessToken SetInitialData(const void* sourceBuffer, size_t sourceBufferSizeInBytes, SourceImageFormat imageFormat, SourceDataFormat dataFormat);]]></Code>
+    <SubSection Title="Argument list"><ArgumentList>
+      <ArgumentListEntry Type="const std::vector&lt;T&gt; or const void*" Name="sourceBuffer">The source data to use when the texel array is allocated.</ArgumentListEntry>
+      
+      <ArgumentListEntry Type="size_t" Name="sourceBufferSizeInBytes">The size, in bytes, of the source data.</ArgumentListEntry>
+      <ArgumentListEntry Type="SourceImageFormat" Name="imageFormat">The image channel layout of the source data.</ArgumentListEntry>
+      <ArgumentListEntry Type="SourceDataFormat" Name="dataFormat">The data encoding of the source data.</ArgumentListEntry>
+    </ArgumentList></SubSection>
+    <SubSection Title="Return value"><ReturnValue Type="SuccessToken">True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.</ReturnValue></SubSection>
+  </Section>
+  <Section Title="See also"><PageRefList><PageRefListEntry PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.ITexelArray.QueueDataUpdate">QueueDataUpdate</PageRefListEntry></PageRefList></Section>
+</XMLDocContent>

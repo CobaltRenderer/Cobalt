@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.Logger.Delete" Title="Delete method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.Logger">Logger</PageRef> ->
+    Delete
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Delete</TypeRef> method destroys the logger object.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Objects returned through <TypeRef>ILogger::unique_ptr</TypeRef> are normally destroyed by the smart pointer deleter rather than by calling this method directly.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void Delete() override;]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.Logger">Logger</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.ILogger.Delete">ILogger.Delete</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

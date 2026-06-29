@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IResourceArray.SetDataPersistenceFlags" Title="SetDataPersistenceFlags method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph><PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> -> <PageRef PageName="cobalt.graphics.IResourceArray">IResourceArray</PageRef> -> SetDataPersistenceFlags</Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetDataPersistenceFlags</TypeRef> method tells the renderer how long existing resource array contents must remain valid after writes or after draw work has consumed them. This lets the renderer avoid preserving data that the application will never read again.
+    </Paragraph>
+    <Paragraph>
+      Invalidation flags can reduce memory pressure and synchronization costs for transient upload, compute, or transfer buffers. They should only be used when the application fully overwrites data before it is read again, or when data is no longer needed after pending GPU work completes.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+      When data is invalidated, previous contents become undefined. Do not use invalidation flags for resources whose old contents are read by later draws, transfers, output capture, or CPU code.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage"><Code Language="C++"><![CDATA[void SetDataPersistenceFlags(DataPersistenceFlags dataPersistenceFlags);]]></Code><SubSection Title="Argument list"><ArgumentList><ArgumentListEntry Type="DataPersistenceFlags" Name="dataPersistenceFlags">The persistence flags that describe when existing resource data may be discarded.</ArgumentListEntry></ArgumentList></SubSection></Section>
+  <Section Title="See also"><PageRefList><PageRefListEntry PageName="cobalt.graphics.IResourceArray">IResourceArray</PageRefListEntry></PageRefList></Section>
+</XMLDocContent>

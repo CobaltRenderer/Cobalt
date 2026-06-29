@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IFrameBuffer.DefineViewportRegion" Title="DefineViewportRegion method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRef> ->
+    DefineViewportRegion
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>DefineViewportRegion</TypeRef> method defines the position and size of the viewport to draw into within the bound texture or window.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void DefineViewportRegion(const V2UInt32& startPos, const V2UInt32& size);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const V2UInt32" Name="startPos">
+          The top-left pixel position of the viewport rectangle.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="const V2UInt32" Name="size">
+          The pixel dimensions of the viewport rectangle.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

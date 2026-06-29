@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRendererPlugin" Title="IRendererPlugin interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef> ->
+    IRendererPlugin
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class IRendererPlugin;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IRendererPlugin</TypeRef> interface is filled by renderer plugins when their exported <PageRef PageName="cobalt.graphics.GetRendererPlugin">GetRendererPlugin</PageRef> function is called. It records the renderer API family, target API version, names shown to applications, and the allocator used to create a graphics device enumerator.
+    </Paragraph>
+    <Paragraph>
+      Direct plugin loaders should call <PageRef PageName="cobalt.graphics.GetCobaltAPIVersion">GetCobaltAPIVersion</PageRef> and verify API compatibility before passing an <TypeRef>IRendererPlugin</TypeRef> object to <PageRef PageName="cobalt.graphics.GetRendererPlugin">GetRendererPlugin</PageRef>.
+    </Paragraph>
+    <Paragraph>
+      Applications normally work with the concrete <PageRef PageName="cobalt.graphics.RendererPlugin">RendererPlugin</PageRef> object. Renderer plugin implementations write to the object through the <TypeRef>IRendererPlugin</TypeRef> interface.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        A renderer plugin can expose more than one renderer implementation. Call <PageRef PageName="cobalt.graphics.GetRendererPlugin">GetRendererPlugin</PageRef> with increasing index values until it returns <TypeRef>false</TypeRef>.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="ApiFamily" TypeCategory="Enumeration" PageName="cobalt.graphics.IRendererPlugin.ApiFamily" Visibility="Public">
+        Identifies the graphics API family implemented by a renderer plugin.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Structures">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="ApiVersion" TypeCategory="Struct" PageName="cobalt.graphics.IRendererPlugin.ApiVersion" Visibility="Public">
+        Reports the target graphics API version implemented by a renderer plugin.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Typedefs">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="AllocatorPointer" TypeCategory="Delegate" PageName="cobalt.graphics.IRendererPlugin.AllocatorPointer" Visibility="Public">
+        Function pointer type used by a renderer plugin to allocate a graphics device enumerator.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="GetRendererPluginFunctionType" TypeCategory="Delegate" PageName="cobalt.graphics.IRendererPlugin.GetRendererPluginFunctionType" Visibility="Public">
+        Function type of the exported renderer plugin information function.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Data access methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetApiFamily" PageName="cobalt.graphics.IRendererPlugin.SetApiFamily">
+          Sets the renderer API family.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetTargetApiVersion" PageName="cobalt.graphics.IRendererPlugin.SetTargetApiVersion">
+          Sets the target graphics API version.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetName" PageName="cobalt.graphics.IRendererPlugin.SetName">
+          Sets the stable renderer name.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetDisplayName" PageName="cobalt.graphics.IRendererPlugin.SetDisplayName">
+          Sets the human-readable renderer display name.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Allocation methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetAllocationFunction" PageName="cobalt.graphics.IRendererPlugin.SetAllocationFunction">
+          Sets the allocator used to create a graphics device enumerator.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.RendererPlugin">RendererPlugin</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.GetCobaltAPIVersion">GetCobaltAPIVersion</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.GetRendererPlugin">GetRendererPlugin</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IProgramNode.SetConstantStateValue" Title="SetConstantStateValue method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef> ->
+    SetConstantStateValue
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetConstantStateValue</TypeRef> method defines a shader state value which the application guarantees
+      will not be modified at any point under this <TypeRef>IProgramNode</TypeRef>. The use of constant state values can
+      allow significant optimizations to be made to shader programs on some renderers.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        If the application attempts to change a state value on a child <TypeRef>IStateGroupNode</TypeRef> or <TypeRef>IRenderableNode</TypeRef>
+        which has had a constant state value set through <TypeRef>SetConstantStateValue</TypeRef>, the results are
+        undefined. The new state value may be updated, or it might not, but in either case, no warnings or errors are
+        likely to be raised for performance reasons. It is the responsibility of the application to ensure it does not
+        attempt to override constant state values.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[template<class T>
+void SetConstantStateValue(StateValueId stateId, const T& value, size_t arrayIndex = 0);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="StateValueId" Name="value">
+          The <TypeRef>StateValueId</TypeRef> of the target state variable
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="T" Name="value">
+          The value to assign to the state variable
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="arrayIndex">
+          Specifies the index to use if the target state value is an array
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

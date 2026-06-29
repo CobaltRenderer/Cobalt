@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateContainer" Title="IStateContainer interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    IStateContainer
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class IStateContainer;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IStateContainer</TypeRef> interface is a base interface, which is implemented by the <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef>,
+      <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef>, and <PageRef PageName="cobalt.graphics.IDefaultState">IDefaultState</PageRef>
+      types. The purpose of this interface is to define the set of methods that allow state values to be set, and
+      resource bindings to be established. Since this functionality is shared by the <TypeRef>IStateGroupNode</TypeRef>
+      and <TypeRef>IRenderableNode</TypeRef> node types, and the optional <TypeRef>IDefaultState</TypeRef> type that can
+      be supplied when an <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef> is added to a
+      <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef>, these methods are factored out to
+      this common base interface so they can be easily shared and defined in a consistent manner.
+    </Paragraph>
+    <Paragraph>
+      As this is a base interface only, objects of type <TypeRef>IStateContainer</TypeRef> cannot be constructed or
+      deleted directly. Only objects that implement this interface can be constructed or deleted.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Resource binding methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="BindTextureWithCombinedSampler" PageName="cobalt.graphics.IStateContainer.BindTextureWithCombinedSampler">
+          Creates a texture resource binding with a combined image sampler for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindTexture" PageName="cobalt.graphics.IStateContainer.BindTexture">
+          Creates a texture resource binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="UnbindTexture" PageName="cobalt.graphics.IStateContainer.UnbindTexture">
+          Removes a previously established texture resource binding, with or without a combined image sampler.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindSampler" PageName="cobalt.graphics.IStateContainer.BindSampler">
+          Creates a sampler resource binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="UnbindSampler" PageName="cobalt.graphics.IStateContainer.UnbindSampler">
+          Removes a previously established sampler binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindStateBuffer" PageName="cobalt.graphics.IStateContainer.BindStateBuffer">
+          Creates a state buffer resource binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="UnbindStateBuffer" PageName="cobalt.graphics.IStateContainer.UnbindStateBuffer">
+          Removes a previously established state buffer binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindResourceArray" PageName="cobalt.graphics.IStateContainer.BindResourceArray">
+          Creates a resource array binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="UnbindResourceArray" PageName="cobalt.graphics.IStateContainer.UnbindResourceArray">
+          Removes a previously established resource array binding for the current shader program
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="State value methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetStateValue" PageName="cobalt.graphics.IStateContainer.SetStateValue">
+          Sets the current target shader state variable to the specified value for this node and any child nodes
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ResetStateValue" PageName="cobalt.graphics.IStateContainer.ResetStateValue">
+          Restores the target shader state variable to its inherited or default value
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IDefaultState">IDefaultState</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

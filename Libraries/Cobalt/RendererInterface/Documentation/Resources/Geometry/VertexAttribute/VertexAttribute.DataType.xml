@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.VertexAttribute.DataType" Title="DataType enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.VertexAttribute">VertexAttribute</PageRef> ->
+    DataType
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>DataType</TypeRef> enumeration identifies the scalar data encoding used by a vertex attribute entry. The vector width is reported separately by GetAttributeElementCount.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Int8">
+        Stores each component as an 8-bit signed integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Int16">
+        Stores each component as a 16-bit signed integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Int32">
+        Stores each component as a 32-bit signed integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UInt8">
+        Stores each component as an 8-bit unsigned integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UInt16">
+        Stores each component as a 16-bit unsigned integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UInt32">
+        Stores each component as a 32-bit unsigned integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Norm8">
+        Stores each component as an 8-bit signed normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Norm16">
+        Stores each component as a 16-bit signed normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UNorm8">
+        Stores each component as an 8-bit unsigned normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UNorm16">
+        Stores each component as a 16-bit unsigned normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Float16">
+        Stores each component as a 16-bit floating point value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Float32">
+        Stores each component as a 32-bit floating point value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="A2B10G10R10UNorm">
+        Stores a packed four-component unsigned normalized value with 2 bits of alpha and 10 bits each for blue, green, and red.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.VertexAttribute.GetDataType">VertexAttribute.GetDataType</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

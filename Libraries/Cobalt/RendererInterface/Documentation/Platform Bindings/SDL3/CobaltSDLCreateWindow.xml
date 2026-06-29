@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.CobaltSDLCreateWindow" Title="CobaltSDLCreateWindow function" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef> ->
+    CobaltSDLCreateWindow
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[SDL_Window* CobaltSDLCreateWindow(const char* title, int windowWidthInPixels, int windowHeightInPixels, SDL_WindowFlags flags = 0);]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>CobaltSDLCreateWindow</TypeRef> function creates an SDL3 window configured for use with Cobalt-managed graphics contexts.
+    </Paragraph>
+    <Paragraph>
+      Availability: Builds where <TypeRef>COBALT_RENDERER_SDL3_SUPPORT</TypeRef> is enabled.
+    </Paragraph>
+    <Paragraph>
+      The helper forces high pixel density support, strips SDL's OpenGL, Vulkan, and Metal window flags, and creates the window with <TypeRef>SDL_PROP_WINDOW_CREATE_EXTERNAL_GRAPHICS_CONTEXT_BOOLEAN</TypeRef> set to true so SDL does not initialize a graphics API context for the window.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        The width and height arguments are pixel dimensions. The helper compensates for SDL pixel density before showing the window.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SDL_Window* CobaltSDLCreateWindow(const char* title, int windowWidthInPixels, int windowHeightInPixels, SDL_WindowFlags flags = 0);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const char*" Name="title">The SDL window title.</ArgumentListEntry>
+        <ArgumentListEntry Type="int" Name="windowWidthInPixels">The requested window width in pixels.</ArgumentListEntry>
+        <ArgumentListEntry Type="int" Name="windowHeightInPixels">The requested window height in pixels.</ArgumentListEntry>
+        <ArgumentListEntry Type="SDL_WindowFlags" Name="flags">Optional SDL window flags. Graphics API flags are stripped by the helper.</ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SDL_Window*">
+        The created SDL window, or <TypeRef>nullptr</TypeRef> if window creation failed.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.WindowSystemInfoSDL3">WindowSystemInfoSDL3</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.WindowInfoSDL3">WindowInfoSDL3</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

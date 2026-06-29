@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderer.InitializationFlags" Title="InitializationFlags enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> ->
+    InitializationFlags
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>InitializationFlags</TypeRef> enumeration is supplied to <PageRef PageName="cobalt.graphics.IRenderer.Initialize">Initialize</PageRef> when an <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> object is initialized. It is reserved for renderer initialization behaviours that must be selected before resources or render tree nodes are created.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="None">
+        Requests standard renderer initialization with no additional initialization flags enabled.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer">IRenderer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer.Initialize">IRenderer.Initialize</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

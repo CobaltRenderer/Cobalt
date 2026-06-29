@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.RenderPluginEnumerator.GetPreferredPlugin" Title="GetPreferredPlugin method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.RenderPluginEnumerator">RenderPluginEnumerator</PageRef> ->
+    GetPreferredPlugin
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetPreferredPlugin</TypeRef> method returns the preferred renderer plugin from the filtered set.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        The preferred family order is platform-specific: Direct3D, Vulkan, then OpenGL on Windows; Metal, Vulkan, then OpenGL on macOS; and Vulkan then OpenGL on Linux. Windows Direct3D 11 is preferred over Direct3D 12 when both are available.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[std::optional<RendererPlugin> GetPreferredPlugin() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="std::optional&lt;RendererPlugin&gt;">
+        The preferred renderer plugin, or <TypeRef>std::nullopt</TypeRef> if the filtered set is empty.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.RenderPluginEnumerator">RenderPluginEnumerator</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.RendererPlugin">RendererPlugin</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

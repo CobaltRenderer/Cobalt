@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.Welcome" Title="Cobalt Renderer SDK" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Section Title="What is the Cobalt Renderer?">
+    <Paragraph>
+      The Cobalt Renderer is a generic, cross-platform API, intended for use in any application requiring access to 3D graphics hardware. It
+      is a modern, light-weight, interface-based library, which unifies concepts and features across all available graphics APIs, and
+      presents them in a consistent, easily accessible form. Renderer plugins implement the Cobalt API on top of native APIs such Direct3D,
+      OpenGL, Vulkan, and Metal (coming soon). These plugins are designed to be lightweight and low overhead, while enabling advanced
+      optimisations that would be difficult to achieve at the application level. The Cobalt Renderer was Originally developed in 2019-2020 as
+      an internal library for a range of commercial software. As of 2026, this library is now available for free as an open-source project
+      under the permissive MIT license.
+    </Paragraph>
+  </Section>
+  <Section Title="Why does this exist?">
+    <Paragraph>
+      The Cobalt Renderer aims to make using modern 3D graphics hardware simple. It does this by giving you a clean clean API to express
+      what you want to draw (or compute), without getting bogged down in how to do that.
+    </Paragraph>
+    <Paragraph>
+      From around 2005, 3D graphics hardware has in many ways gotten simpler, while conversely, graphics APIs have exploded in complexity.
+      What took a few dozen lines of code to express in OpenGL in 1996 now takes a few thousand lines of code on any modern graphics API. At
+      the same time, the games industry, the primary driver of advances in 3D graphics hardware, has consolidated around a handful of large
+      engines and middleware packages. Graphics APIs now primarily cater to the interests of these engines, which want the lowest level,
+      most direct access to the hardware possible. Modern graphics APIs require you to worry about issues like memory residency, shared vs
+      separate command queues, or differences between unified vs discrete video memory, which while great for micro-optimizing a game engine
+      on console hardware with known fixed system specs, makes it virtually impossible to just draw a few simple polygons to the screen in a
+      standalone product, especially on PC hardware with a wide range of graphics devices with differing capabilities. As graphics hardware
+      and APIs continue to change and evolve, there's also a significant maintainenance burden keeping code that drives low-level graphics
+      APIs current.
+    </Paragraph>
+    <Paragraph>
+      The Cobalt Renderer addresses these issues by remaining focused on the high-level of what you're actually trying to do, giving you a
+      natural way of expressing that in a way that isn't platform or API dependent. You have full control over your draw/compute operations,
+      with full flexibility to define your shaders the way you want, but all the "glue" of setting up the hardware, putting everything into
+      the correct state, and moving data around or synchronizing changes between shader stages is handled for you. The Cobalt Renderer
+      understands what you want to do at a high enough level to ensure this all happens at the right time, in the right order, using the
+      most efficient techniques on each underlying API, to achieve the best possible performance. Additionally, shader cross-compilation is
+      built in, allowing you to write your shader code once in one format, such as HLSL or compiled SPIR-V, and run that code on any
+      platform, with any underlying renderer API. This makes it possible to put a polygon on the screen with a few dozen lines of code
+      again, while still allowing you to do incredibly demanding drawing tasks at speed and scale, with better performance than you would be
+      likely to achieve even if you did it all yourself by hand.
+    </Paragraph>
+  </Section>
+  <Section Title="What ISN'T the Cobalt Renderer?">
+    <Paragraph>
+      1. Not a full engine/framework. The Cobalt Renderer just does rendering. It doesn't handle collision detection, physics, scripting,
+      asset formats, audio, input handling, or anything else of that nature. If you're looking for a solution which covers those areas, you
+      should look at other packages which cater for that, such as a game engine. The Cobalt Renderer could theoretically be used as a
+      component within a game engine, but its focus is 100% on rendering/compute alone.
+    </Paragraph>
+    <Paragraph>
+      2. Not limited to game development. The Cobalt Renderer is not built for any one specific task. It is built to drive tasks on modern
+      3D graphics hardware. That could be realtime gaming. It could also be event-driven CAD software, or cloud-based graphics rendering, or
+      data analytics, or pure GPU compute. It doesn't assume you're doing any kind of specific task. This makes it flexible and useful as a
+      component in a wide variety of areas, including, game development, but it's not built assuming that's what you will be doing.
+    </Paragraph>
+  </Section>
+  <Section Title="Philosophy">
+    <List>
+      <ListEntry>
+        <TypeRef>Simplicity over squeezing performance.</TypeRef>
+        A maintainable and clear architecture is more important than chasing a marginal improvement in performance.
+      </ListEntry>
+      <ListEntry>
+        <TypeRef>Keep a clean and expressive interface.</TypeRef>
+        The API should have clear naming with no superfluous functionality.
+      </ListEntry>
+      <ListEntry>
+        <TypeRef>Distill the core functionality of underlying APIs.</TypeRef>
+        Various characteristics from each API should be focused to their common elements.
+      </ListEntry>
+      <ListEntry>
+        <TypeRef>Implement established technologies.</TypeRef>
+        Only implement functionality and extensions with strong cross-vendor adoption.
+      </ListEntry>
+    </List>
+  </Section>
+  <Section Title="Packages">
+    <Paragraph>
+      The Renderer SDK contains a set of header-only libraries and APIs, split into separate subdirectories. While there are many
+      header files contained in each directory, there are special "package" headers with a .pkg extension, which are the only header
+      files that are intended to be directly included by applications. The most important package is this:
+    </Paragraph>
+    <Code Language="C++"><![CDATA[#include <Cobalt/RendererInterface/RendererInterface.pkg>]]></Code>
+    <Paragraph>
+      <PageRef PageName="cobalt.graphics.RendererInterface">RendererInterface.pkg</PageRef> contains the
+      core platform-independent graphics API, covering devices, renderers, render tree nodes, resources, shader
+      programs, and so on. This is the only header you will need to include for most of your code. Additionally, there is the
+      following package:
+    </Paragraph>
+    <Code Language="C++"><![CDATA[#include <Cobalt/RendererInterface/PlatformBindings.pkg>]]></Code>
+    <Paragraph>
+      <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings.pkg</PageRef> contains
+      the platform-specific support types and helpers needed to load renderer plugins and connect the renderer to native
+      window systems. Note that this package will include platform-specific system header files, which are deliberately kept out of
+      <TypeRef>RendererInterface.pkg</TypeRef>. This will only be needed where you perform plugin discovery, and where you bind actual
+      OS windows/surfaces to framebuffers. You will also need to include the following:
+    </Paragraph>
+    <Code Language="C++"><![CDATA[#include <Cobalt/Logging/Logging.pkg>]]></Code>
+    <Paragraph>
+      <PageRef PageName="cobalt.logging.Welcome">Logging.pkg</PageRef> is required at the point where you create the
+      <PageRef PageName="cobalt.logging.LogManager">LogManager</PageRef> for the renderer, which is the first step prior to performing
+      any other tasks. No other headers should need to be manually included.
+    </Paragraph>
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.RendererInterface">RendererInterface package</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.PlatformBindings">PlatformBindings package</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.Welcome">Logging system</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

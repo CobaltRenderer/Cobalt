@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITransferBatch.EndTiming" Title="EndTiming enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRef> ->
+    EndTiming
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>EndTiming</TypeRef> enumeration specifies when a submitted <PageRef PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRef> must complete relative to future frame rendering work.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="BeforeNextFrame">
+        Requires the transfer batch to complete before the next frame uses the affected resources.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="AnyFrame">
+        Allows the transfer batch to complete in a later frame when no immediate frame dependency requires earlier completion.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer.CreateTransferBatch">IRenderer.CreateTransferBatch</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

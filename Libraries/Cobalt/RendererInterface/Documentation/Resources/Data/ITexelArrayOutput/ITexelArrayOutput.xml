@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITexelArrayOutput" Title="ITexelArrayOutput interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    ITexelArrayOutput
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class ITexelArrayOutput;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ITexelArrayOutput</TypeRef> interface represents an object which is capable of retrieving content from
+      an <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef>, and returning the contained data to the
+      application. This is useful when performing compute tasks in shaders, where the computed data needs to be returned
+      to the application. Multiple <TypeRef>ITexelArrayOutput</TypeRef> objects can be attached to the one <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef>
+      if required.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Only the final state of the target <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef> can be
+        captured, representing its content when the frame completes drawing. It is not possible to capture intermediate
+        results from a buffer which are changed later in the same frame.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.ITexelArrayOutput.Delete">
+          Schedules the object for deletion. After calling this method, the object will be destroyed after the current
+          frame completes drawing.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Configuration methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetDetachAfterCapture" PageName="cobalt.graphics.ITexelArrayOutput.SetDetachAfterCapture">
+          Specifies whether this <TypeRef>ITexelArrayOutput</TypeRef> object will be detached after a single frame.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetArrayCaptureRegion" PageName="cobalt.graphics.ITexelArrayOutput.SetArrayCaptureRegion">
+          Specifies the region of the bound texel array to capture
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Data methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="HasCapturedOutput" PageName="cobalt.graphics.ITexelArrayOutput.HasCapturedOutput">
+          Returns true if there is captured data ready to be read from the output buffer
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ClearCapturedOutput" PageName="cobalt.graphics.ITexelArrayOutput.ClearCapturedOutput">
+          Relases the captured data. Note that this doesn't need to be called to capture a new set of data.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetEntryCount" PageName="cobalt.graphics.ITexelArrayOutput.GetEntryCount">
+          Returns the number of captured entries currently stored in the output buffer
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetOptimalImageFormat" PageName="cobalt.graphics.ITexelArrayOutput.GetOptimalImageFormat">
+          Returns the <PageRef PageName="cobalt.graphics.ITexelArray.SourceImageFormat">SourceImageFormat</PageRef>
+          that most closely matches the format of the captured texel data.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetOptimalDataFormat" PageName="cobalt.graphics.ITexelArrayOutput.GetOptimalDataFormat">
+          Returns the <PageRef PageName="cobalt.graphics.ITexelArray.SourceDataFormat">SourceDataFormat</PageRef>
+          that most closely matches the format of the captured texel data.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ReadBufferData" PageName="cobalt.graphics.ITexelArrayOutput.ReadBufferData">
+          Attempts to read the requested portion of the captured output buffer and write it to the target buffer
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

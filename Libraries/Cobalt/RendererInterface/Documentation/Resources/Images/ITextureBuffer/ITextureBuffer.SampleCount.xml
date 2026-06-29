@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureBuffer.SampleCount" Title="SampleCount enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef> ->
+    SampleCount
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SampleCount</TypeRef> enumeration selects the number of samples stored for each pixel in a multisampled two dimensional texture. It is used by <PageRef PageName="cobalt.graphics.ITextureBuffer.SetSampleCount">SetSampleCount</PageRef> when creating textures for multisample anti-aliasing (MSAA) framebuffer attachments, and by <PageRef PageName="cobalt.graphics.ITextureBuffer.IsSampleCountSupported">IsSampleCountSupported</PageRef> when querying whether a specific texture format supports a requested sample count.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Sample count support depends on the renderer, device, texture format, and attachment usage. A sample count listed in this enumeration is an API value, not a guarantee that every device and format combination can allocate it.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="SampleCount1">
+        Allocates one sample per pixel. This is a normal single-sample texture, not an MSAA texture.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="SampleCount2">
+        Allocates two samples per pixel.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="SampleCount4">
+        Allocates four samples per pixel.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="SampleCount8">
+        Allocates eight samples per pixel.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="SampleCount16">
+        Allocates sixteen samples per pixel.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="SampleCount32">
+        Allocates thirty-two samples per pixel.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.SetSampleCount">ITextureBuffer.SetSampleCount</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.IsSampleCountSupported">ITextureBuffer.IsSampleCountSupported</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode.EnableAttachmentMultiSamplingResolution">IRenderPassNode.EnableAttachmentMultiSamplingResolution</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

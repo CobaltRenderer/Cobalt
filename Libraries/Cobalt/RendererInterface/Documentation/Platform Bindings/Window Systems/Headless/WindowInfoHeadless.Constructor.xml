@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.WindowInfoHeadless.Constructor" Title="Constructor method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.WindowInfoHeadless">WindowInfoHeadless</PageRef> ->
+    Constructor
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowInfoHeadless</TypeRef> constructor creates a framebuffer window binding structure and initializes the inherited <TypeRef>structureSizeInBytes</TypeRef> and type discriminator fields.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[WindowInfoHeadless(const V2UInt32& windowSizeInPixels);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const V2UInt32&amp;" Name="windowSizeInPixels">
+          The drawable framebuffer size in pixels.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.WindowInfoHeadless">WindowInfoHeadless</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.WindowInfoBase">WindowInfoBase</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.BindWindow">IFrameBuffer.BindWindow</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderer.CreateIndexBuffer" Title="CreateIndexBuffer method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> ->
+    CreateIndexBuffer
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>CreateIndexBuffer</TypeRef> method constructs and returns a new object which implements the <PageRef PageName="cobalt.graphics.IIndexBuffer">IIndexBuffer</PageRef>
+      interface.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[IIndexBuffer::unique_ptr CreateIndexBuffer();]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="IIndexBuffer!cobalt.graphics.IIndexBuffer">
+        A freshly constructed <TypeRef>IIndexBuffer</TypeRef> object, wrapped in a <TypeRef>unique_ptr</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer">IRenderer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IIndexBuffer">IIndexBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

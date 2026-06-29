@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.ILogger.CloneLogger" Title="CloneLogger method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.ILogger">ILogger</PageRef> ->
+    CloneLogger
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>CloneLogger</TypeRef> method creates a new logger object with the same scope and logging destination as the current logger.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[ILogger::unique_ptr CloneLogger() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="ILogger!cobalt.logging.ILogger">
+        A new <TypeRef>ILogger</TypeRef> object wrapped in <TypeRef>ILogger::unique_ptr</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.ILogger">ILogger</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.ILogger.GetLoggerChildScope">ILogger.GetLoggerChildScope</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

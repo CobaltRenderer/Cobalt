@@ -1,0 +1,22 @@
+{
+    "cmake.useCMakePresets": "always",
+    "cmake.configureOnOpen": false,
+
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "C_Cpp.formatting": "clangFormat",
+
+    "files.associations": {
+        "*.inl": "cpp",
+        "*.pkg": "cpp"
+    },
+
+    "files.watcherExclude": {
+        "out/**": true,
+        "Output/**": true
+    },
+
+    "search.exclude": {
+        "out/**": true,
+        "Output/**": true
+    }
+}

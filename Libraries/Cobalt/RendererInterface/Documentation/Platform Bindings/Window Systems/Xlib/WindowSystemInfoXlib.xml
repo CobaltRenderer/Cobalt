@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.WindowSystemInfoXlib" Title="WindowSystemInfoXlib structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef> ->
+    WindowSystemInfoXlib
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[struct WindowSystemInfoXlib : public IRenderer::WindowSystemInfoBase;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowSystemInfoXlib</TypeRef> structure identifies the Xlib window system and supplies the X display used during renderer initialization.
+    </Paragraph>
+    <Paragraph>
+      Availability: Linux or compatible X11 platforms when <TypeRef>COBALT_RENDERER_XLIB_SUPPORT</TypeRef> is enabled. This is automatically enabled on Linux unless platform binding selection is manual.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <DataMemberList>
+      <DataMemberListEntry Visibility="Public" Type="::Display*" Name="display">
+        The Xlib display connection.
+      </DataMemberListEntry>
+    </DataMemberList>
+  </Section>
+  <Section Title="Constructors">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Constructor" PageName="cobalt.graphics.WindowSystemInfoXlib.Constructor">
+          Creates a WindowSystemInfoXlib structure.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.WindowInfoXlib">WindowInfoXlib</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer.Initialize">IRenderer.Initialize</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

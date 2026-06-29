@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IDefaultState" Title="IDefaultState interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    IStateGroupNode
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class IDefaultState : public IStateContainer;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IDefaultState</TypeRef> interface provides a simple container for attached state and resource
+      bindings, as defined by the <PageRef PageName="cobalt.graphics.IStateContainer">IStateContainer</PageRef>
+      interface. When an <TypeRef>IProgramNode</TypeRef> object is added to the render tree by calling
+      <PageRef PageName="cobalt.graphics.IRenderPassNode.AddChildNode">AddChildNode</PageRef>, <PageRef PageName="cobalt.graphics.IRenderPassNode.AddChildNodes">AddChildNodes</PageRef>,
+      or <PageRef PageName="cobalt.graphics.IRenderPassNode.SetChildNodes">SetChildNodes</PageRef> on an <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef>,
+      an <TypeRef>IDefaultState</TypeRef> object can optionally be provided along with the node. This object can then
+      provide an initial set of state settings and resource bindings that are used for all child <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef>
+      objects. These default values can still be overridden by different values provided on the contained
+      <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> or <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef>
+      objects, however where the default values have not been overridden, the values set here will apply.
+    </Paragraph>
+    <Paragraph>
+      Being able to define default state values and bindings for all content under a given <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef>
+      is especially useful for per-view settings, such as window size, view, and projection matrices. When your per-view
+      state is provided in this manner, it allows a limited form of node reuse on the render tree, where the same
+      <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef> object can be added more than once with
+      varying default state. This is sufficient for example to display the same scene content in multiple windows, where
+      a distinct window size and camera position can be used for each one. In more complex cases, where only part of the
+      content needs to be duplicated, or a different shader program is required, it may still be necessary to duplicate
+      nodes on the tree. If it is acceptable to reuse the same shader program and customize the behaviour through state
+      or binding changes however, this functionality may allow easy reuse of scene content without needing to duplicate
+      sections of your render tree.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.IDefaultState.Delete">
+          Schedules the object for deletion. After calling this method, the object will be destroyed after the current
+          frame completes drawing.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Resource binding methods (Inherited from IStateContainer)">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="BindTextureWithCombinedSampler" PageName="cobalt.graphics.IStateContainer.BindTextureWithCombinedSampler">
+          Creates a texture resource binding with a combined image sampler for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindTexture" PageName="cobalt.graphics.IStateContainer.BindTexture">
+          Creates a texture resource binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="UnbindTexture" PageName="cobalt.graphics.IStateContainer.UnbindTexture">
+          Removes a previously established texture resource binding, with or without a combined image sampler.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindSampler" PageName="cobalt.graphics.IStateContainer.BindSampler">
+          Creates a sampler resource binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="UnbindSampler" PageName="cobalt.graphics.IStateContainer.UnbindSampler">
+          Removes a previously established sampler binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindStateBuffer" PageName="cobalt.graphics.IStateContainer.BindStateBuffer">
+          Creates a state buffer resource binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="UnbindStateBuffer" PageName="cobalt.graphics.IStateContainer.UnbindStateBuffer">
+          Removes a previously established state buffer binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BindResourceArray" PageName="cobalt.graphics.IStateContainer.BindResourceArray">
+          Creates a resource array binding for the current shader program
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="UnbindResourceArray" PageName="cobalt.graphics.IStateContainer.UnbindResourceArray">
+          Removes a previously established resource array binding for the current shader program
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="State value methods (Inherited from IStateContainer)">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetStateValue" PageName="cobalt.graphics.IStateContainer.SetStateValue">
+          Sets the current target shader state variable to the specified value for this node and any child nodes
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ResetStateValue" PageName="cobalt.graphics.IStateContainer.ResetStateValue">
+          Restores the target shader state variable to its default or inherited value
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateContainer">IStateContainer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

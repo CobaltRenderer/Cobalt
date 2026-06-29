@@ -1,0 +1,43 @@
+// Copyright (c) 2026 Maptek Pty Ltd
+// Licensed under the MIT License
+#pragma once
+
+// Auto-select the platform bindings to use if manual platform bindings haven't been specified by the caller
+#ifndef COBALT_RENDERER_MANUAL_PLATFORM_BINDINGS
+#ifdef _WIN32
+#define COBALT_RENDERER_WIN32_SUPPORT
+#elif defined(__linux__)
+#define COBALT_RENDERER_WAYLAND_SUPPORT
+#define COBALT_RENDERER_XCB_SUPPORT
+#define COBALT_RENDERER_XLIB_SUPPORT
+#elif defined(__APPLE__) && defined(__MACH__) && defined(__ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__)
+#define COBALT_RENDERER_APPKIT_SUPPORT
+#else
+#error "Unsupported platform: Please define COBALT_RENDERER_MANUAL_PLATFORM_BINDINGS and select bindings manually."
+#endif
+#define COBALT_RENDERER_MANUAL_PLATFORM_BINDINGS
+#endif
+
+// Public headers
+#include "WindowInfoHeadless.h"
+#include "WindowSystemInfoHeadless.h"
+#ifdef COBALT_RENDERER_WIN32_SUPPORT
+#include "WindowInfoWin32.h"
+#include "WindowSystemInfoWin32.h"
+#endif
+#ifdef COBALT_RENDERER_XLIB_SUPPORT
+#include "WindowInfoXlib.h"
+#include "WindowSystemInfoXlib.h"
+#endif
+#ifdef COBALT_RENDERER_XCB_SUPPORT
+#include "WindowInfoXCB.h"
+#include "WindowSystemInfoXCB.h"
+#endif
+#ifdef COBALT_RENDERER_WAYLAND_SUPPORT
+#include "WindowInfoWayland.h"
+#include "WindowSystemInfoWayland.h"
+#endif
+#ifdef COBALT_RENDERER_APPKIT_SUPPORT
+#include "WindowInfoAppKit.h"
+#include "WindowSystemInfoAppKit.h"
+#endif

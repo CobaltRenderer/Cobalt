@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureBuffer.MipmapLevelCount" Title="MipmapLevelCount method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph><PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> -> <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef> -> MipmapLevelCount</Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>MipmapLevelCount</TypeRef> method returns the number of mipmap levels that were created when the texture was allocated.
+    </Paragraph>
+    <Paragraph>
+      The value reflects the final allocation rather than only the value requested through <PageRef PageName="cobalt.graphics.ITextureBuffer.SetTextureDimensions">SetTextureDimensions</PageRef>. Use it when iterating over valid levels for data upload, readback, or sampler configuration.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage"><Code Language="C++"><![CDATA[int MipmapLevelCount() const;]]></Code><SubSection Title="Return value"><ReturnValue Type="int">The number of allocated mipmap levels.</ReturnValue></SubSection></Section>
+  <Section Title="See also"><PageRefList><PageRefListEntry PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.MipmapLevelDimensions">MipmapLevelDimensions</PageRefListEntry></PageRefList></Section>
+</XMLDocContent>

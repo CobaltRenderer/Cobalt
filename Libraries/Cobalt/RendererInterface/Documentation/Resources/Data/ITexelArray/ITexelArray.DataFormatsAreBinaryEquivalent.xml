@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITexelArray.DataFormatsAreBinaryEquivalent" Title="DataFormatsAreBinaryEquivalent method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef> ->
+    DataFormatsAreBinaryEquivalent
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>DataFormatsAreBinaryEquivalent</TypeRef> method returns true if the supplied source and allocated data formats use binary compatible data encodings.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[constexpr static bool DataFormatsAreBinaryEquivalent(SourceDataFormat sourceDataFormat, DataFormat dataFormat);
+constexpr static bool DataFormatsAreBinaryEquivalent(DataFormat sourceDataFormat, DataFormat dataFormat);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="SourceDataFormat" Name="sourceDataFormat">
+          The source data format to compare.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="DataFormat" Name="dataFormat">
+          The allocated data format to compare against.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="constexpr static bool">
+        True if the two data formats use the same binary data encoding, false otherwise.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

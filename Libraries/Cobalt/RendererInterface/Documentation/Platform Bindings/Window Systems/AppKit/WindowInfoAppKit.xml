@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.WindowInfoAppKit" Title="WindowInfoAppKit structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef> ->
+    WindowInfoAppKit
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[struct WindowInfoAppKit : public IFrameBuffer::WindowInfoBase;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowInfoAppKit</TypeRef> structure describes an AppKit view for framebuffer presentation on macOS.
+    </Paragraph>
+    <Paragraph>
+      Availability: macOS when <TypeRef>COBALT_RENDERER_APPKIT_SUPPORT</TypeRef> is enabled. This is automatically enabled on macOS unless platform binding selection is manual.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <DataMemberList>
+      <DataMemberListEntry Visibility="Public" Type="void* / NSView*" Name="view">
+        The AppKit view.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="V2UInt32" Name="windowSizeInPixels">
+        The drawable view size in pixels.
+      </DataMemberListEntry>
+    </DataMemberList>
+  </Section>
+  <Section Title="Constructors">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Constructor" PageName="cobalt.graphics.WindowInfoAppKit.Constructor">
+          Creates a WindowInfoAppKit structure.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.WindowSystemInfoAppKit">WindowSystemInfoAppKit</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.BindWindow">IFrameBuffer.BindWindow</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

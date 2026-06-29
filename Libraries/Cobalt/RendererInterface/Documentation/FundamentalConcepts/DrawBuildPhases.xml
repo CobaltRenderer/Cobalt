@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.Concepts.DrawBuildPhases" Title="Draw and Build Phases" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    Draw and Build Phases
+  </Paragraph>
+  <Section Title="Draw and Build Phases">
+    <Paragraph>
+      A renderer separates work into a build phase and a draw phase. During the build phase, the application creates and
+      modifies renderer objects, updates buffers, changes resource bindings, and edits the render tree for a future
+      frame. During the draw phase, the renderer consumes a latched snapshot of the render tree and submits the
+      corresponding graphics work.
+    </Paragraph>
+    <Paragraph>
+      The application advances build state to the draw phase by calling <PageRef PageName="cobalt.graphics.IRenderer.StartNewFrame">StartNewFrame</PageRef>.
+      When this method is called, the current build state is latched for drawing and the application can begin preparing
+      later changes. The renderer protects the frame being drawn from later application edits. Buffers can be modified,
+      nodes can be added or removed, and resources can be released without changing the already submitted frame.
+    </Paragraph>
+  </Section>
+  <Section Title="Frame Boundaries">
+    <Paragraph>
+      <TypeRef>StartNewFrame</TypeRef> is the important boundary between application-side edits and renderer-side draw
+      work. It may return before the GPU work for the frame is complete, which lets the application continue preparing
+      future frames. It may also need to wait for renderer synchronization when previous work has not reached a safe
+      point for another frame submission.
+    </Paragraph>
+    <Paragraph>
+      The method must be externally synchronized with all other calls on the renderer and any objects created by it.
+      This requirement is described in more detail in the <PageRef PageName="cobalt.graphics.Concepts.ThreadingModel">Threading Model</PageRef>
+      page.
+    </Paragraph>
+  </Section>
+  <Section Title="Deferred Deletion">
+    <Paragraph>
+      Renderer objects are released through smart pointers, but the native graphics resources behind them may be kept
+      alive until the renderer knows they are no longer used by an in-flight frame. This deferred deletion model makes
+      it safe to release objects while previous frames are still drawing.
+    </Paragraph>
+    <Paragraph>
+      When an application needs a strict cleanup point, for example before destroying a native window that was bound to
+      a framebuffer, call <PageRef PageName="cobalt.graphics.IRenderer.WaitForDeferredDeletionComplete">WaitForDeferredDeletionComplete</PageRef>
+      after releasing the relevant renderer objects. This advances the renderer to a point where deferred destruction
+      has completed.
+    </Paragraph>
+  </Section>
+  <Section Title="Readbacks and Captures">
+    <Paragraph>
+      Output capture and readback operations also follow the draw/build split. Requesting a framebuffer, data array, or
+      texel array output capture schedules work that completes asynchronously with the frame. Use
+      <PageRef PageName="cobalt.graphics.IRenderer.WaitForOutputCaptureComplete">WaitForOutputCaptureComplete</PageRef>
+      before consuming captured output that must be available immediately.
+    </Paragraph>
+    <Paragraph>
+      Waiting for output capture is heavier than letting frame work proceed naturally, so it is best reserved for tests,
+      screenshots, diagnostics, or application features that genuinely need a CPU-side copy at that point.
+    </Paragraph>
+  </Section>
+  <Paragraph>
+    Next page, <PageRef PageName="cobalt.graphics.Concepts.ThreadingModel">Threading Model</PageRef>
+  </Paragraph>
+</XMLDocContent>

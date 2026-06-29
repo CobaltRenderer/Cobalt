@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.RenderPluginEnumerator.EnumeratePluginsInDirectory" Title="EnumeratePluginsInDirectory method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.RenderPluginEnumerator">RenderPluginEnumerator</PageRef> ->
+    EnumeratePluginsInDirectory
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>EnumeratePluginsInDirectory</TypeRef> method searches a directory for renderer plugin libraries and attempts to add each matching file.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        The file extension search is platform-specific: <TypeRef>.dll</TypeRef> on Windows, <TypeRef>.dylib</TypeRef> on macOS, and <TypeRef>.so</TypeRef> on Linux and other POSIX builds.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken EnumeratePluginsInDirectory(const std::filesystem::path& pluginDirectoryPath);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const std::filesystem::path&amp;" Name="pluginDirectoryPath">
+          The directory to scan for renderer plugin libraries.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken!cobalt.graphics.SuccessToken">
+        True if at least one renderer plugin was added; otherwise false.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.RenderPluginEnumerator">RenderPluginEnumerator</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.RendererPlugin">RendererPlugin</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

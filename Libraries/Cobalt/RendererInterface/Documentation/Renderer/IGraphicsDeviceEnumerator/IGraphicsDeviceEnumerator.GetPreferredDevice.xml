@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetPreferredDevice" Title="GetPreferredDevice method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRef> ->
+    GetPreferredDevice
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetPreferredDevice</TypeRef> method returns the <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef>
+      object in the current filtered device set which, on balance, is considered to be the best option for high
+      performance rendering tasks. If there is at least one device in the set of filtered devices, as returned by the
+      <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.GetFilteredDevices">GetFilteredDevices</PageRef>
+      method, this method will always return a device. If the filtered device set is empty, this method will return
+      nullptr.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        Because <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.EnumerateDevices">EnumerateDevices</PageRef>
+        can complete successfully without locating any compatible devices, applications should treat a nullptr return
+        from this method as a normal result that must be handled.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[IGraphicsDevice* GetPreferredDevice() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="IGraphicsDevice*!cobalt.graphics.IGraphicsDevice">
+        The best device for high performance rendering in the filtered device set, or nullptr if the filtered device set is empty.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

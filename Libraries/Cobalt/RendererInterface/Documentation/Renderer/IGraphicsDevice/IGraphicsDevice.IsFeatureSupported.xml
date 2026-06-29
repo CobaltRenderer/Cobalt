@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDevice.IsFeatureSupported" Title="IsFeatureSupported method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> ->
+    IsFeatureSupported
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IsFeatureSupported</TypeRef> method returns a boolean value indicating whether the indicated
+      <PageRef PageName="cobalt.graphics.IGraphicsDevice.Feature">Feature</PageRef> is supported by the device. It is
+      appropriate to test for optional support for a given device feature using this method, where your application can
+      optionally use a feature if it is available, but can fallback to using an alternate approach if it is unavailable.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        If your application cannot run without a certain optional feature, it is best to exclude devices which don't
+        support the feature when selecting devices under the <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRef>
+        interface, using either the <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.FilterDevicesWithoutFeature">FilterDevicesWithoutFeature</PageRef>
+        method or the <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator.FilterDevicesWithoutAllFeatures">FilterDevicesWithoutAllFeatures</PageRef>
+        method as appropriate.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        Just because an optional feature is available on a given device, doesn't mean it's automatically activated.
+        Applications must request all optional features they intend to use when calling the
+        <PageRef PageName="cobalt.graphics.IGraphicsDevice.CreateRenderer">CreateRenderer</PageRef> method, otherwise
+        those features will not be activated even though they are available. Some underlying rendering APIs require this
+        information, which allows them to potentially improve performance where some features which have a performance
+        impact are not used.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[bool IsFeatureSupported(Feature feature) const;]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="Feature!cobalt.graphics.IGraphicsDevice.Feature" Name="feature">
+          The device feature to test for support
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="bool">
+        True if the device supports the feature, false otherwise.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

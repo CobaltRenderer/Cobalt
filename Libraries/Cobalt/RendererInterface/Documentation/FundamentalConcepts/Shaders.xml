@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.Concepts.Shaders" Title="Shaders" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    Shaders
+  </Paragraph>
+  <Section Title="Shaders">
+    <Paragraph>
+      Shaders are small programs which run on the graphics device. They describe the programmable portions of the
+      rendering or compute pipeline, such as transforming vertices, generating fragments, expanding geometry, or running
+      general compute work. In Cobalt, shader code is loaded into an <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef>,
+      compiled, reflected, and then attached to an <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef>
+      in the render tree.
+    </Paragraph>
+    <Paragraph>
+      Cobalt supports multiple shader code formats, however HLSL is the recommended source language for new shader code.
+      In practice, HLSL has become the de facto high-level shader source language for cross-API renderer work. It is the
+      native language for Direct3D, is treated as a first-class Vulkan shader source language through the DXC compiler
+      and SPIR-V, and is widely used as "the" shader language across the real-time rendering industry today. Major
+      engines reflect this: Unreal Engine material graphs are compiled from HLSL-backed material expressions and allow
+      custom HLSL code, while Unity documents HLSL as the language used for shader programs and compiles that code to
+      the target graphics APIs.
+    </Paragraph>
+    <Paragraph>
+      Using HLSL as the authoring language also gives access to a broad set of shader features, including structures,
+      arrays, structured buffers, byte address buffers, append and consume buffers, and interlocked atomic operations.
+    </Paragraph>
+    <Paragraph>
+      GLSL, SPIR-V assembly, and binary SPIR-V are also useful formats, particularly when integrating with external
+      shader toolchains. In portable application code however, HLSL is generally the simplest long-term choice because a
+      single shader source style can be used across all renderer back ends.
+    </Paragraph>
+  </Section>
+  <Section Title="Program Shape">
+    <Paragraph>
+      A graphics shader program must provide a vertex shader and a fragment shader. A geometry shader can be added when
+      the <PageRef PageName="cobalt.graphics.IGraphicsDevice.Feature">GeometryShaders feature</PageRef> is supported by
+      the device and enabled when the renderer is created. A compute shader program contains only a compute shader, and
+      requires the <PageRef PageName="cobalt.graphics.IGraphicsDevice.Feature">ComputeShaders feature</PageRef>.
+    </Paragraph>
+    <Paragraph>
+      It is usually better to build a smaller number of general-purpose shader programs and control their behaviour with
+      state values, state buffers, textures, and resource arrays, rather than creating a very large number of specialised
+      shader programs. Changing shader programs changes significant pipeline state. On modern APIs this commonly maps to
+      changing pipeline state objects, and on older APIs it can require substantial driver-side validation and state
+      restoration. Where practical, group draw calls by shader program and use uniform state to select material options,
+      lighting modes, and debug views.
+    </Paragraph>
+    <Code Language="HLSL"><![CDATA[uniform float4 overrideColor;
+uniform bool useOverrideColor;
+
+struct FragmentInput
+{
+    float4 color : COLOR0;
+};
+
+float4 main(FragmentInput input) : SV_TARGET0
+{
+    return useOverrideColor ? overrideColor : input.color;
+}]]></Code>
+    <Paragraph>
+      This approach is not a rule that every possible shader should be merged into one program. Expensive branches,
+      different resource layouts, and very different rendering techniques may justify separate shader programs. The
+      important guideline is to avoid shader program changes for trivial differences that can be represented clearly as
+      state.
+    </Paragraph>
+  </Section>
+  <Section Title="Names Not Registers">
+    <Paragraph>
+      Cobalt does not require applications to assign texture slots, sampler slots, constant buffer registers, or
+      descriptor binding numbers in shader source code. The shader program is reflected after compilation, and the
+      application resolves the resource names it cares about into opaque IDs such as <TypeRef>TextureId</TypeRef>,
+      <TypeRef>SamplerId</TypeRef>, <TypeRef>StateValueId</TypeRef>, <TypeRef>StateBufferId</TypeRef>, and
+      <TypeRef>ResourceArrayId</TypeRef>.
+    </Paragraph>
+    <Paragraph>
+      Names are the public contract between shader code and application code. They are easier to read, easier to review,
+      and easier to validate than numeric binding slots. This is the same reason ordinary programming languages name
+      variables and functions rather than expecting the programmer to manually remember opaque numeric addresses.
+    </Paragraph>
+    <Code Language="HLSL"><![CDATA[uniform Texture2D baseColorTexture;
+uniform SamplerState baseColorTexture_CombinedSampler;
+uniform float4 materialTint;
+
+struct FragmentInput
+{
+    float2 texCoord : TEXCOORD0;
+};
+
+float4 main(FragmentInput input) : SV_TARGET0
+{
+    return baseColorTexture.Sample(baseColorTexture_CombinedSampler, input.texCoord) * materialTint;
+}]]></Code>
+    <Code Language="C++"><![CDATA[TextureId baseColorTextureId = shaderProgram->GetTextureId("baseColorTexture");
+StateValueId materialTintId = shaderProgram->GetStateValueId("materialTint");
+
+stateGroupNode->BindTextureWithCombinedSampler(baseColorTextureId, baseColorTexture.get(), baseColorSampler.get());
+stateGroupNode->SetStateValue(materialTintId, V4Float32(1.0f, 0.8f, 0.7f, 1.0f));]]></Code>
+    <Paragraph>
+      Resolve these names once during setup, store the IDs, and reuse those IDs when updating render tree state. It is
+      valid to call <PageRef PageName="cobalt.graphics.IShaderProgram.GetTextureId">GetTextureId</PageRef> and the
+      related lookup methods repeatedly, but there is no reason to resolve text strings every frame when the result can
+      be cached as part of material, pass, or shader setup data.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Explicit HLSL register annotations or GLSL binding decorations should not be used as the application-facing
+        binding model. Cobalt may rewrite binding locations while converting and compiling shader code for the target
+        renderer. The stable binding contract is the reflected resource name and the ID returned by the
+        <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef>.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Entry Point Names">
+    <Paragraph>
+      The default shader entry point name is <TypeRef>main</TypeRef>. Several shader source structures also allow a
+      custom entry point name to be supplied when the shader stage is loaded. This is useful when multiple entry points
+      are stored in one source file, or when shader code is generated from a shared library of helper functions.
+    </Paragraph>
+    <Code Language="HLSL"><![CDATA[float4 SolidColorVertex(float3 position : position) : SV_POSITION
+{
+    return float4(position, 1.0f);
+}]]></Code>
+    <Code Language="C++"><![CDATA[shaderProgram->LoadShaderStage(
+    IShaderProgram::ShaderStage::Vertex,
+    ShaderSourceInfoHLSL(vertexShaderCode, "SolidColorVertex"));]]></Code>
+    <Paragraph>
+      HLSL, SPIR-V assembly, and binary SPIR-V source structures expose entry point name constructors. MSL source
+      structures also carry entry point metadata for renderers which accept MSL. GLSL source shaders use the GLSL
+      <TypeRef>main</TypeRef> entry point. Already compiled bytecode formats such as DXBC and DXIL have already selected
+      the entry point during offline compilation.
+    </Paragraph>
+  </Section>
+  <Section Title="Shader Resources">
+    <Paragraph>
+      Cobalt maps common shader resource constructs onto renderer API objects. Simple global uniform values are exposed
+      as state values and are set through <PageRef PageName="cobalt.graphics.IStateContainer.SetStateValue">SetStateValue</PageRef>.
+      Named constant buffers are exposed as state buffers and are bound through <PageRef PageName="cobalt.graphics.IStateContainer.BindStateBuffer">BindStateBuffer</PageRef>.
+    </Paragraph>
+    <Code Language="HLSL"><![CDATA[uniform float4 drawColor;
+
+cbuffer CameraState
+{
+    row_major float4x4 viewProjection;
+    float4 cameraPosition;
+};]]></Code>
+    <Code Language="C++"><![CDATA[StateValueId drawColorId = shaderProgram->GetStateValueId("drawColor");
+StateBufferId cameraStateId = shaderProgram->GetStateBufferId("CameraState");
+
+stateGroupNode->SetStateValue(drawColorId, V4Float32(1.0f, 0.0f, 0.0f, 1.0f));
+stateGroupNode->BindStateBuffer(cameraStateId, cameraStateBuffer.get(), cameraPageNo);]]></Code>
+    <Paragraph>
+      Texture resources map to the relevant <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef>
+      and <PageRef PageName="cobalt.graphics.ITextureSampler">ITextureSampler</PageRef> types. Combined image samplers
+      are the most portable approach. In HLSL, define the texture and sampler with the same base name, and suffix the
+      sampler with <TypeRef>_CombinedSampler</TypeRef>. Separate texture and sampler resources can be used when the
+      <PageRef PageName="cobalt.graphics.IGraphicsDevice.Feature">SeparateTextureSamplers feature</PageRef> is supported
+      and enabled, but this is not portable to OpenGL renderers.
+    </Paragraph>
+    <Code Language="HLSL"><![CDATA[uniform Texture2D colorTexture;
+uniform SamplerState colorTexture_CombinedSampler;
+
+float4 SampleColor(float2 texCoord)
+{
+    return colorTexture.Sample(colorTexture_CombinedSampler, texCoord);
+}]]></Code>
+    <Paragraph>
+      Buffer resources used for large structured data map to resource arrays. HLSL <TypeRef>StructuredBuffer</TypeRef>,
+      <TypeRef>RWStructuredBuffer</TypeRef>, <TypeRef>AppendStructuredBuffer</TypeRef>,
+      <TypeRef>ConsumeStructuredBuffer</TypeRef>, <TypeRef>ByteAddressBuffer</TypeRef>, and
+      <TypeRef>RWByteAddressBuffer</TypeRef> map to <PageRef PageName="cobalt.graphics.IDataArray">IDataArray</PageRef>.
+      HLSL <TypeRef>Buffer</TypeRef> and <TypeRef>RWBuffer</TypeRef> map to <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef>.
+      Resource arrays require the <PageRef PageName="cobalt.graphics.IGraphicsDevice.Feature">ResourceArrays feature</PageRef>.
+    </Paragraph>
+    <Code Language="HLSL"><![CDATA[struct Particle
+{
+    float4 position;
+    float4 color;
+};
+
+StructuredBuffer<Particle> inputParticles;
+RWStructuredBuffer<Particle> outputParticles;
+
+[numthreads(64, 1, 1)]
+void main(uint3 threadId : SV_DispatchThreadID)
+{
+    Particle particle = inputParticles[threadId.x];
+    particle.position.xyz += float3(0.0f, 1.0f, 0.0f);
+    outputParticles[threadId.x] = particle;
+}]]></Code>
+    <Paragraph>
+      HLSL interlocked atomic operations are supported for the resource types where the target shader model and renderer
+      back end support them. A common use is incrementing counters or writing indirect draw arguments from a compute
+      shader through an <TypeRef>RWByteAddressBuffer</TypeRef>.
+    </Paragraph>
+    <Code Language="HLSL"><![CDATA[RWByteAddressBuffer visibleDrawCount;
+
+[numthreads(64, 1, 1)]
+void main(uint3 threadId : SV_DispatchThreadID)
+{
+    uint oldDrawCount = 0;
+    visibleDrawCount.InterlockedAdd(0u, 1u, oldDrawCount);
+}]]></Code>
+    <Note Type="Important">
+      <Paragraph>
+        Interlocked operations provide atomic updates, but they are not a general replacement for shader memory barriers
+        or careful work ordering. If a shader algorithm depends on memory visibility between threads or dispatches, use
+        the synchronization constructs required by the shader language and target renderer.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Structured State and Arrays">
+    <Paragraph>
+      State values and state buffer members can be declared as structures, arrays, arrays of structures, and nested
+      structures. Cobalt reflects each leaf state value by name. Structure member access uses dot notation, and each
+      ordinary array level in the reflected name is represented with <TypeRef>[]</TypeRef>.
+    </Paragraph>
+    <Code Language="HLSL"><![CDATA[struct MaterialLayer
+{
+    float4 tint;
+    float roughness;
+};
+
+uniform MaterialLayer materialLayers[4];]]></Code>
+    <Code Language="C++"><![CDATA[StateValueId layerTintId = shaderProgram->GetStateValueId("materialLayers[].tint");
+StateValueId layerRoughnessId = shaderProgram->GetStateValueId("materialLayers[].roughness");
+
+stateGroupNode->SetStateValue(layerTintId, V4Float32(1.0f, 0.8f, 0.6f, 1.0f), 2);
+stateGroupNode->SetStateValue(layerRoughnessId, V1Float32(0.35f), 2);]]></Code>
+    <Paragraph>
+      The same naming pattern applies when arrays are nested inside structures, and when structures contain arrays of
+      other structures. One array index is supplied for each <TypeRef>[]</TypeRef> in the reflected name.
+    </Paragraph>
+    <Code Language="HLSL"><![CDATA[struct Light
+{
+    float4 position;
+    float4 color;
+};
+
+struct LightCluster
+{
+    Light lights[8];
+    float exposureByView[2][4];
+};
+
+uniform LightCluster clusters[3];]]></Code>
+    <Code Language="C++"><![CDATA[StateValueId lightColorId = shaderProgram->GetStateValueId("clusters[].lights[].color");
+stateGroupNode->SetStateValue(lightColorId, V4Float32(1.0f, 0.4f, 0.2f, 1.0f), 1, 5);
+
+StateValueId exposureId = shaderProgram->GetStateValueId("clusters[].exposureByView[]");
+size_t flattenedExposureIndex = (1 * 4) + 3;
+stateGroupNode->SetStateValue(exposureId, V1Float32(0.75f), 1, flattenedExposureIndex);]]></Code>
+    <Paragraph>
+      These examples set values directly through a state container. State buffers use the same reflected member names
+      after their layout is loaded from the shader; the lookup is performed on the state buffer or state buffer layout
+      instead of directly on the shader program.
+    </Paragraph>
+    <Paragraph>
+      HLSL declarations such as <TypeRef>float exposureByView[2][4]</TypeRef> or
+      <TypeRef>float weights[2][4][6]</TypeRef> are arrays of arrays. Cobalt supports them only when the
+      <PageRef PageName="cobalt.graphics.IGraphicsDevice.Feature">ShaderArraysOfArrays feature</PageRef> is supported
+      by the device and enabled when the renderer is created. In practice, it is only the legacy OpenGL 3.3 renderer
+      where this feature may not be supported. For reflection however, the array-of-array portion is flattened into a
+      single one-dimensional array entry. The reflected name contains one <TypeRef>[]</TypeRef> for the flattened
+      multidimensional array, and the application supplies a single flattened index for that portion.
+    </Paragraph>
+    <Code Language="HLSL"><![CDATA[uniform float weights[2][4][6];]]></Code>
+    <Code Language="C++"><![CDATA[StateValueId weightsId = shaderProgram->GetStateValueId("weights[]");
+
+size_t firstIndex = 1;
+size_t secondIndex = 2;
+size_t thirdIndex = 3;
+size_t flattenedIndex = (firstIndex * (4 * 6)) + (secondIndex * 6) + thirdIndex;
+
+stateGroupNode->SetStateValue(weightsId, V1Float32(1.0f), flattenedIndex);]]></Code>
+    <Paragraph>
+      The rightmost HLSL array index moves fastest in the flattened index calculation. For example,
+      <TypeRef>weights[1][2][3]</TypeRef> in a <TypeRef>float weights[2][4][6]</TypeRef> declaration becomes
+      <TypeRef>(1 * 4 * 6) + (2 * 6) + 3</TypeRef>.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Prefer single-dimensional arrays for new shader state unless multidimensional HLSL syntax is genuinely clearer.
+        For example, <TypeRef>float weights[48]</TypeRef> is easier to reflect, easier to index from application code,
+        and does not require the <TypeRef>ShaderArraysOfArrays</TypeRef> feature. If arrays of arrays are used, keep the
+        flattening formula beside the shader declaration or wrap it in a small helper so the shader and application
+        agree on the same indexing convention.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Supported Stages and Constructs">
+    <Paragraph>
+      The following shader stages and constructs are part of the current Cobalt shader model:
+    </Paragraph>
+    <List>
+      <ListEntry>Vertex shaders are supported for graphics programs.</ListEntry>
+      <ListEntry>Fragment shaders are supported for graphics programs.</ListEntry>
+      <ListEntry>Geometry shaders are supported when the <TypeRef>GeometryShaders</TypeRef> device feature is supported and enabled.</ListEntry>
+      <ListEntry>Compute shaders are supported when the <TypeRef>ComputeShaders</TypeRef> device feature is supported and enabled.</ListEntry>
+      <ListEntry>Texture 1D, 2D, 3D, cube, 1D array, 2D array, and cube array sampling are supported through the matching Cobalt texture and sampler types. Cube texture arrays require the <TypeRef>TextureCubeArray</TypeRef> device feature.</ListEntry>
+      <ListEntry>Global state values, named constant buffers, arrays, structures, arrays of structures, nested structures, vectors, and matrices are supported. Arrays of arrays require the <TypeRef>ShaderArraysOfArrays</TypeRef> device feature and are flattened for reflection.</ListEntry>
+      <ListEntry>Structured data buffers and typed texel buffers are supported through <TypeRef>IDataArray</TypeRef> and <TypeRef>ITexelArray</TypeRef> when the <TypeRef>ResourceArrays</TypeRef> device feature is supported and enabled.</ListEntry>
+      <ListEntry>HLSL append, consume, read-write structured buffer, byte address buffer, and interlocked atomic operations are supported where the relevant resource array and shader model support is available.</ListEntry>
+    </List>
+  </Section>
+  <Section Title="Unsupported Constructs">
+    <Paragraph>
+      Some shader language features are deliberately outside the current Cobalt renderer abstraction. They may be
+      available in one underlying graphics API, but cannot currently be used as portable Cobalt shader code.
+    </Paragraph>
+    <List>
+      <ListEntry>Hull, domain, and tessellation shader stages are not supported and are not planned for the current renderer interface.</ListEntry>
+      <ListEntry>Mesh shader and task or amplification shader stages are not currently represented by <PageRef PageName="cobalt.graphics.IShaderProgram.ShaderStage">IShaderProgram.ShaderStage</PageRef>. Mesh shader support is planned for a future renderer interface update.</ListEntry>
+      <ListEntry>Ray tracing shader stages and acceleration structure types are not supported by the renderer interface.</ListEntry>
+      <ListEntry>GLSL rectangle texture and sampler types, such as <TypeRef>sampler2DRect</TypeRef>, are not supported. Use normalised-coordinate 1D, 2D, 3D, cube, or array texture types instead.</ListEntry>
+      <ListEntry>HLSL <TypeRef>RWTexture*</TypeRef> resources and GLSL storage image resources are not supported as image resources. Use <TypeRef>RWStructuredBuffer</TypeRef>, <TypeRef>RWByteAddressBuffer</TypeRef>, or <TypeRef>RWBuffer</TypeRef> backed by <TypeRef>IDataArray</TypeRef> or <TypeRef>ITexelArray</TypeRef> where writable shader data is required.</ListEntry>
+      <ListEntry>Comparison samplers and shadow samplers are not exposed by <TypeRef>ITextureSampler</TypeRef>. Perform explicit comparison logic in shader code when this behaviour is required.</ListEntry>
+      <ListEntry>Programmable point sizes other than one pixel are not supported portably. Cobalt treats point size as one pixel where the target API requires a point size output.</ListEntry>
+      <ListEntry>Explicit register numbers, descriptor sets, and binding decorations are not supported as the application-facing binding contract. Resolve shader resources by name instead.</ListEntry>
+    </List>
+  </Section>
+  <Section Title="Further Reading">
+    <Paragraph>
+      The following external references provide useful background for Cobalt's shader recommendations:
+    </Paragraph>
+    <List>
+      <ListEntry>Microsoft HLSL reference: <URL>https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-reference</URL></ListEntry>
+      <ListEntry>Khronos Vulkan guide on HLSL and DXC: <URL>https://docs.vulkan.org/guide/latest/hlsl.html</URL></ListEntry>
+      <ListEntry>Khronos SPIRV-Cross project: <URL>https://github.com/KhronosGroup/SPIRV-Cross</URL></ListEntry>
+      <ListEntry>Unity manual introduction to writing shaders in HLSL and ShaderLab: <URL>https://docs.unity3d.com/Manual/SL-ShadingLanguage.html</URL></ListEntry>
+      <ListEntry>Unity manual for writing HLSL shader programs: <URL>https://docs.unity3d.com/Manual/SL-ShaderPrograms.html</URL></ListEntry>
+      <ListEntry>Unreal Engine material node documentation describing HLSL-backed materials: <URL>https://dev.epicgames.com/documentation/en-us/unreal-engine/using-the-main-material-node-in-unreal-engine</URL></ListEntry>
+      <ListEntry>Unreal Engine custom material expressions for custom HLSL code: <URL>https://dev.epicgames.com/documentation/en-us/unreal-engine/custom-material-expressions-in-unreal-engine</URL></ListEntry>
+      <ListEntry>Microsoft Direct3D 12 pipeline state overview: <URL>https://learn.microsoft.com/en-us/windows/win32/direct3d12/managing-graphics-pipeline-state-in-direct3d-12</URL></ListEntry>
+      <ListEntry>AMD RDNA performance guide, especially the pipeline state object guidance: <URL>https://gpuopen.com/learn/rdna-performance-guide/</URL></ListEntry>
+      <ListEntry>NVIDIA guidance on avoiding redundant and expensive OpenGL state changes: <URL>https://docs.nvidia.com/gameworks/content/technologies/mobile/gles2_perf_maximize_gpu.htm</URL></ListEntry>
+      <ListEntry>Microsoft HLSL atomic functions reference: <URL>https://learn.microsoft.com/en-us/windows/win32/direct3d11/direct3d-11-advanced-stages-cs-atomic-functions</URL></ListEntry>
+    </List>
+  </Section>
+  <Paragraph>
+    Next page, <PageRef PageName="cobalt.graphics.Concepts.BestPractices">Best Practices</PageRef>
+  </Paragraph>
+</XMLDocContent>

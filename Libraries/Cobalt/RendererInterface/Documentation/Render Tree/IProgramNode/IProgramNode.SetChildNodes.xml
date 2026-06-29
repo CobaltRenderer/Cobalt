@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IProgramNode.SetChildNodes" Title="SetChildNodes method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef> ->
+    SetChildNodes
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetChildNodes</TypeRef> method replaces any existing <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef>
+      objects which have been added to the list of child nods with the supplied set of objects. The result will be
+      equivalent to what would occur if <PageRef PageName="cobalt.graphics.IProgramNode.RemoveAllChildNodes">RemoveAllChildNodes</PageRef>
+      was called, followed by <PageRef PageName="cobalt.graphics.IProgramNode.AddChildNodes">AddChildNodes</PageRef>
+      with the supplied set of objects, except this method will perform the operation in a more efficient manner. During
+      the rendering process, each <TypeRef>IStateGroupNode</TypeRef> is processed in the order it is supplied.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetChildNodes(IStateGroupNode* const* childNodes, size_t childNodeCount);
+void SetChildNodes(IStateGroupNode::unique_ptr const* childNodes, size_t childNodeCount);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IStateGroupNode* const* / IStateGroupNode::unique_ptr const*!cobalt.graphics.IStateGroupNode" Name="childNodes">
+          The set of <TypeRef>IStateGroupNode</TypeRef> objects to set as the list of child nodes
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="childNodeCount">
+          The number of <TypeRef>IStateGroupNode</TypeRef> entries to read from the <TypeRef>childNodes</TypeRef> array
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

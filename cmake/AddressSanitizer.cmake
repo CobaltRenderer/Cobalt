@@ -1,0 +1,21 @@
+include_guard(GLOBAL)
+
+# Configure the compiler and linker for address sanitizer
+if(MSVC)
+    set(MSVC_ASAN_FLAGS "/fsanitize=address;-fno-omit-frame-pointer;/Zi;/DEBUG:FULL")
+    set(MSVC_ASAN_LINK_FLAGS /DEBUG)
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+        list(APPEND MSVC_ASAN_LINK_FLAGS -fsanitize=address)
+    endif()
+    add_compile_options("$<$<CONFIG:Asan>:$<$<CXX_COMPILER_ID:MSVC>:${MSVC_ASAN_FLAGS}>>")
+    add_link_options("$<$<CONFIG:Asan>:${MSVC_ASAN_LINK_FLAGS}>")
+
+    # Disable Incremental Linking (on by default in MSVC)
+    set(CMAKE_EXE_LINKER_FLAGS_ASAN "${CMAKE_EXE_LINKER_FLAGS_ASAN} /INCREMENTAL:NO")
+    set(CMAKE_SHARED_LINKER_FLAGS_ASAN "${CMAKE_SHARED_LINKER_FLAGS_ASAN} /INCREMENTAL:NO")
+else()
+    set(CLANG_ASAN_FLAGS "-fsanitize=address;-fno-omit-frame-pointer")
+    set(CLANG_ASAN_LINK_FLAGS "-fsanitize=address")
+    add_compile_options("$<$<CONFIG:Asan>:$<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:${CLANG_ASAN_FLAGS}>>")
+    add_link_options("$<$<CONFIG:Asan>:${CLANG_ASAN_LINK_FLAGS}>")
+endif()

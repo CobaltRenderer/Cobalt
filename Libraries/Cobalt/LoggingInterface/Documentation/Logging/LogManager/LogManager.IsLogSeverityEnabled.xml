@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogManager.IsLogSeverityEnabled" Title="IsLogSeverityEnabled method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.LogManager">LogManager</PageRef> ->
+    IsLogSeverityEnabled
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IsLogSeverityEnabled</TypeRef> method reports whether a severity passes the manager-level filter.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        This method checks only the manager-level filter. It does not inspect whether any log targets are currently registered.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[bool IsLogSeverityEnabled(ILogger::Severity severity) const;]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="Severity!cobalt.logging.ILogger.Severity" Name="severity">The severity value to test.</ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="bool">
+        <TypeRef>true</TypeRef> if the severity passes the manager-level filter; otherwise <TypeRef>false</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.ILogger.IsLogSeverityEnabled">ILogger.IsLogSeverityEnabled</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogManager.SetIncludeSeverity">LogManager.SetIncludeSeverity</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

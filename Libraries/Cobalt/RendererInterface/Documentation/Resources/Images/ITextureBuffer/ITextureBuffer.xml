@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureBuffer" Title="ITextureBuffer interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    ITextureBuffer
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class ITextureBuffer;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ITextureBuffer</TypeRef> type is a convenience base interface for all texture buffers. For specific
+      functionality provided by texture buffers, please refer to the documentation for the specific texture buffer types
+      which extend this interface.
+    </Paragraph>
+  </Section>
+  <Section Title="Extended interface types">
+    <TypeMemberList>
+      <TypeMemberListEntry Visibility="Public" Name="ITextureBuffer1D" TypeCategory="Interface" PageName="cobalt.graphics.ITextureBuffer1D">
+        A one dimensional texture resource
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Visibility="Public" Name="ITextureBuffer2D" TypeCategory="Interface" PageName="cobalt.graphics.ITextureBuffer2D">
+        A two dimensional texture resource
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Visibility="Public" Name="ITextureBuffer3D" TypeCategory="Interface" PageName="cobalt.graphics.ITextureBuffer3D">
+        A three dimensional texture resource
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Visibility="Public" Name="ITextureBufferCube" TypeCategory="Interface" PageName="cobalt.graphics.ITextureBufferCube">
+        A cubemap texture resource
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Visibility="Public" Name="ITextureBuffer1DArray" TypeCategory="Interface" PageName="cobalt.graphics.ITextureBuffer1DArray">
+        An array of one dimensional texture resources
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Visibility="Public" Name="ITextureBuffer2DArray" TypeCategory="Interface" PageName="cobalt.graphics.ITextureBuffer2DArray">
+        An array of two dimensional texture resources
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Visibility="Public" Name="ITextureBufferCubeArray" TypeCategory="Interface" PageName="cobalt.graphics.ITextureBufferCubeArray">
+        An array of cubemap texture resources
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="ImageFormat" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureBuffer.ImageFormat" Visibility="Public">
+        Defines the component layout and broad interpretation of allocated texture pixels.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="DataFormat" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureBuffer.DataFormat" Visibility="Public">
+        Defines the physical data encoding used for allocated texture components or compressed cells.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="SourceImageFormat" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureBuffer.SourceImageFormat" Visibility="Public">
+        Defines the component layout of image data supplied from CPU memory.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="SourceDataFormat" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureBuffer.SourceDataFormat" Visibility="Public">
+        Defines the data encoding of image data supplied from CPU memory.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="CubeMapFace" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureBuffer.CubeMapFace" Visibility="Public">
+        Identifies an individual cubemap face for cubemap texture data operations.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="SampleCount" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureBuffer.SampleCount" Visibility="Public">
+        Defines sample counts for multisample anti-aliasing texture allocations.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="UsageFlags" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureBuffer.UsageFlags" Visibility="Public">
+        Flags to declare how a texture buffer will be used after allocation.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="PerformanceHint" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureBuffer.PerformanceHint" Visibility="Public">
+        Flags to provide hints about how a texture buffer will be read and written by the CPU and GPU.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="DataPersistenceFlags" TypeCategory="Enumeration" PageName="cobalt.graphics.ITextureBuffer.DataPersistenceFlags" Visibility="Public">
+        Flags to describe how long existing texture data must remain valid.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Usage methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetUsageFlags" PageName="cobalt.graphics.ITextureBuffer.SetUsageFlags">
+          Informs the renderer on how this texture buffer will be used.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetPerformanceHints" PageName="cobalt.graphics.ITextureBuffer.SetPerformanceHints">
+          Provides hints to the renderer about how this texture buffer will be read and written.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetDataPersistenceFlags" PageName="cobalt.graphics.ITextureBuffer.SetDataPersistenceFlags">
+          Provides hints to the renderer about the required lifetime of existing texture data.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Size methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="ElementCountPerPixelFromFormat" PageName="cobalt.graphics.ITextureBuffer.ElementCountPerPixelFromFormat">
+          Returns the number of elements in each image pixel for the specified image format.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ByteSizePerElementFromFormat" PageName="cobalt.graphics.ITextureBuffer.ByteSizePerElementFromFormat">
+          Returns the byte size of each image element for the specified data format.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="IsCompressedTextureFormat" PageName="cobalt.graphics.ITextureBuffer.IsCompressedTextureFormat">
+          Returns true if the supplied data format stores image data in compressed texture cells.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CellDimensionsInPixelsFromFormat" PageName="cobalt.graphics.ITextureBuffer.CellDimensionsInPixelsFromFormat">
+          Returns the pixel dimensions of each encoded cell for the specified data format.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="CellSizeInBytesFromFormat" PageName="cobalt.graphics.ITextureBuffer.CellSizeInBytesFromFormat">
+          Returns the byte size of each encoded cell for the specified image and data format combination.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Format methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="ImageFormatsAreBinaryEquivalent" PageName="cobalt.graphics.ITextureBuffer.ImageFormatsAreBinaryEquivalent">
+          Returns true if the supplied source and allocated image formats use binary compatible image channel layouts.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="DataFormatsAreBinaryEquivalent" PageName="cobalt.graphics.ITextureBuffer.DataFormatsAreBinaryEquivalent">
+          Returns true if the supplied source and allocated data formats use binary compatible data encodings.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureSampler">ITextureSampler</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

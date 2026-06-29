@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IFrameBuffer.NotifyWindowResized" Title="NotifyWindowResized method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRef> ->
+    NotifyWindowResized
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>NotifyWindowResized</TypeRef> method notifies the framebuffer that the drawable pixel size of the
+      bound window target has changed.
+    </Paragraph>
+    <Paragraph>
+      Window-backed framebuffers receive their initial size through the platform-specific
+      <PageRef PageName="cobalt.graphics.IFrameBuffer.WindowInfoBase">WindowInfoBase</PageRef> derived structure passed
+      to <PageRef PageName="cobalt.graphics.IFrameBuffer.BindWindow">BindWindow</PageRef>. Call this method whenever
+      the native window, or the requested headless target size, changes so renderer back ends can recreate or resize the
+      underlying presentation resources.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        The size must be the drawable size in pixels, not a logical window size in display-independent units.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken NotifyWindowResized(const V2UInt32& windowSizeInPixels);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const V2UInt32&amp;" Name="windowSizeInPixels">
+          The updated drawable window size in pixels.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken!cobalt.graphics.SuccessToken">
+        True if the window resize notification was accepted, false otherwise. An assertion will be raised in debug
+        builds if the result is not tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.BindWindow">IFrameBuffer.BindWindow</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.WindowInfoBase">IFrameBuffer.WindowInfoBase</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

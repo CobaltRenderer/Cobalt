@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.WindowSystemInfoAppKit.Constructor" Title="Constructor method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.WindowSystemInfoAppKit">WindowSystemInfoAppKit</PageRef> ->
+    Constructor
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowSystemInfoAppKit</TypeRef> constructor creates a platform binding structure and initializes the inherited <TypeRef>structureSizeInBytes</TypeRef> and type discriminator fields.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[WindowSystemInfoAppKit();]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.WindowSystemInfoAppKit">WindowSystemInfoAppKit</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer.WindowSystemInfoBase">WindowSystemInfoBase</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

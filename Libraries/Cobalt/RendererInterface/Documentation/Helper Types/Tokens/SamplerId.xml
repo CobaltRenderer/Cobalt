@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.SamplerId" Title="SamplerId enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    SamplerId
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SamplerId</TypeRef> enumeration is an opaque token identifying a separate sampler resource reflected from an <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef>. It is used when the device and renderer support separate texture sampler bindings.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        ID values are renderer-generated tokens. Applications should obtain them from shader reflection methods rather
+        than constructing arbitrary values.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Null">
+        Indicates that no matching sampler resource was found or that no sampler binding slot is selected.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram.GetSamplerId">IShaderProgram.GetSamplerId</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateContainer.BindSampler">IStateContainer.BindSampler</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice.Feature">IGraphicsDevice.Feature</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

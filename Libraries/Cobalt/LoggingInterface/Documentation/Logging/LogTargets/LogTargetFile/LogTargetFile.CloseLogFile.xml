@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogTargetFile.CloseLogFile" Title="CloseLogFile method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.LogTargetFile">LogTargetFile</PageRef> ->
+    CloseLogFile
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>CloseLogFile</TypeRef> method closes the current log file and marks the target as having no open file.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void CloseLogFile();]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetFile">LogTargetFile</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetFile.OpenLogFile">LogTargetFile.OpenLogFile</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

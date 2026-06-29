@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IShaderProgram.LoadShaderStage" Title="LoadShaderStage method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef> ->
+    LoadShaderStage
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>LoadShaderStage</TypeRef> method supplies shader source code or bytecode for one stage of an
+      <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef>. The code is stored on the shader
+      program object and is not compiled, linked, reflected, or validated against other stages until
+      <PageRef PageName="cobalt.graphics.IShaderProgram.CompileProgram">CompileProgram</PageRef> is called.
+    </Paragraph>
+    <Paragraph>
+      The <TypeRef>stage</TypeRef> argument identifies where the code will run in the pipeline, while the
+      <PageRef PageName="cobalt.graphics.IShaderProgram.ShaderSourceInfoBase">ShaderSourceInfoBase</PageRef> derived
+      object identifies the code format and any format-specific metadata, such as entry point names.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Optional shader stages require matching device features. Geometry shaders require the <TypeRef>GeometryShaders</TypeRef>
+        feature, and compute shaders require the <TypeRef>ComputeShaders</TypeRef> feature. The feature must be supported
+        by the device and enabled when the renderer is created.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken LoadShaderStage(ShaderStage stage, const ShaderSourceInfoBase& shaderSourceInfo);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="ShaderStage!cobalt.graphics.IShaderProgram.ShaderStage" Name="stage">
+          The shader stage that the supplied code belongs to.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="const ShaderSourceInfoBase!cobalt.graphics.IShaderProgram.ShaderSourceInfoBase" Name="shaderSourceInfo">
+          The shader source or bytecode description for the supplied code format.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken">
+        True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram.ShaderStage">IShaderProgram.ShaderStage</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram.ShaderSourceInfoBase">IShaderProgram.ShaderSourceInfoBase</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram.CompileProgram">IShaderProgram.CompileProgram</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram.IsCodeFormatSupported">IShaderProgram.IsCodeFormatSupported</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

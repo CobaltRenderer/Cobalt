@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.Concepts.AllocationModel" Title="Allocation Model" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    Allocation Model
+  </Paragraph>
+  <Section Title="Renderer Allocation">
+    <Paragraph>
+      A Cobalt Renderer application normally starts by selecting a renderer plugin with
+      <PageRef PageName="cobalt.graphics.RenderPluginEnumerator">RenderPluginEnumerator</PageRef>. The selected
+      <PageRef PageName="cobalt.graphics.RendererPlugin">RendererPlugin</PageRef> creates an
+      <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRef>, the enumerator
+      selects an <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef>, and the device creates
+      the <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> through
+      <PageRef PageName="cobalt.graphics.IGraphicsDevice.CreateRenderer">CreateRenderer</PageRef>.
+    </Paragraph>
+    <Paragraph>
+      The lower-level <PageRef PageName="cobalt.graphics.GetCobaltAPIVersion">GetCobaltAPIVersion</PageRef> and
+      <PageRef PageName="cobalt.graphics.GetRendererPlugin">GetRendererPlugin</PageRef> exports still exist for applications
+      that manage plugin loading themselves, but the plugin enumerator is the preferred high-level entry point. It
+      handles platform-specific dynamic library loading, checks Cobalt Renderer API compatibility before retrieving
+      renderer plugin records, and keeps the plugin selection code independent from the renderer implementation names.
+    </Paragraph>
+    <Paragraph>
+      <PageRef PageName="cobalt.graphics.RendererPlugin.CreateGraphicsDeviceEnumerator">CreateGraphicsDeviceEnumerator</PageRef>
+      returns an <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRef>.
+      Keep the <TypeRef>RendererPlugin</TypeRef> object alive for as long as the enumerator, devices, or renderers created from the plugin are still in
+      use. The plugin object keeps the dynamic library loaded while objects implemented by that library exist.
+    </Paragraph>
+  </Section>
+  <Section Title="Renderer-Owned Objects">
+    <Paragraph>
+      Most renderer objects are created from the <TypeRef>IRenderer</TypeRef> interface and returned through
+      <TypeRef>unique_ptr</TypeRef> aliases with renderer-specific deleters. Destroying the smart pointer calls the
+      corresponding <TypeRef>Delete</TypeRef> method and removes the object from application ownership.
+    </Paragraph>
+    <Paragraph>
+      The renderer uses deferred deletion internally. It is safe to release objects that are still referenced by a frame
+      currently being drawn, because the native graphics resources are retained until the renderer knows they are no
+      longer needed. If the application must know that deferred destruction has completed, call
+      <PageRef PageName="cobalt.graphics.IRenderer.WaitForDeferredDeletionComplete">WaitForDeferredDeletionComplete</PageRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Resource Allocation">
+    <Paragraph>
+      Buffer and texture resources are usually configured before memory is allocated. For example, a vertex buffer binds
+      its attributes before <PageRef PageName="cobalt.graphics.IVertexBuffer.AllocateMemory">AllocateMemory</PageRef>
+      is called, and a texture buffer has its dimensions, format, sample count, and mipmap settings defined before its
+      memory is allocated. Initial data should also be provided before allocation when the resource is created with
+      static contents.
+    </Paragraph>
+    <Paragraph>
+      After allocation, the shape of a resource is intentionally more restricted. Existing contents can be updated
+      through the resource update APIs or <PageRef PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRef>,
+      but structural details such as bound attributes, texture dimensions, and allocation formats should be treated as
+      immutable. This keeps the renderer's native resource ownership clear and avoids hidden reallocations in the middle
+      of frame building.
+    </Paragraph>
+  </Section>
+  <Paragraph>
+    Next page, <PageRef PageName="cobalt.graphics.Concepts.Shaders">Shaders</PageRef>
+  </Paragraph>
+</XMLDocContent>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITexelArray.DataFormat" Title="DataFormat enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef> ->
+    DataFormat
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>DataFormat</TypeRef> enumeration defines the per-component data encoding used for each element of an <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef> on the graphics device.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Int8">
+        Stores each component as an 8-bit signed integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Int16">
+        Stores each component as a 16-bit signed integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Int32">
+        Stores each component as a 32-bit signed integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UInt8">
+        Stores each component as an 8-bit unsigned integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UInt16">
+        Stores each component as a 16-bit unsigned integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UInt32">
+        Stores each component as a 32-bit unsigned integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Norm8">
+        Stores each component as an 8-bit signed normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UNorm8">
+        Stores each component as an 8-bit unsigned normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Float16">
+        Stores each component as a 16-bit floating point value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Float32">
+        Stores each component as a 32-bit floating point value.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITexelArray.SetBufferLayout">ITexelArray.SetBufferLayout</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

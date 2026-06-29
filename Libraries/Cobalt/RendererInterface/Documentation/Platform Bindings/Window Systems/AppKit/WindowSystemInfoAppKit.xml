@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.WindowSystemInfoAppKit" Title="WindowSystemInfoAppKit structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef> ->
+    WindowSystemInfoAppKit
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[struct WindowSystemInfoAppKit : public IRenderer::WindowSystemInfoBase;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowSystemInfoAppKit</TypeRef> structure identifies the AppKit window system during renderer initialization.
+    </Paragraph>
+    <Paragraph>
+      Availability: macOS when <TypeRef>COBALT_RENDERER_APPKIT_SUPPORT</TypeRef> is enabled. This is automatically enabled on macOS unless platform binding selection is manual.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <Paragraph>
+      This structure has no public fields beyond the inherited base structure fields.
+    </Paragraph>
+  </Section>
+  <Section Title="Constructors">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Constructor" PageName="cobalt.graphics.WindowSystemInfoAppKit.Constructor">
+          Creates a WindowSystemInfoAppKit structure.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.WindowInfoAppKit">WindowInfoAppKit</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer.Initialize">IRenderer.Initialize</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

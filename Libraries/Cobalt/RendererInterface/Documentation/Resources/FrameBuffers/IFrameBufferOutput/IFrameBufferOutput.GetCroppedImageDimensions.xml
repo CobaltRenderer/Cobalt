@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IFrameBufferOutput.GetCroppedImageDimensions" Title="GetCroppedImageDimensions method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IFrameBufferOutput">IFrameBufferOutput</PageRef> ->
+    GetCroppedImageDimensions
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetCroppedImageDimensions</TypeRef> method returns the resulting image size if the specified offset and maximum region size are applied to the actual image data in the output buffer. This can be used to appropriately size a buffer to pass into the ReadBufferData method.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[V2UInt32 GetCroppedImageDimensions(const V2UInt32& imageOffsetInPixels, const V2UInt32& imageRegionInPixels) const;]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const V2UInt32" Name="imageOffsetInPixels">
+          The top-left pixel offset of the requested crop region.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="const V2UInt32" Name="imageRegionInPixels">
+          The pixel dimensions of the requested crop region. A zero value requests the remaining captured image from the offset.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="V2UInt32">
+        The dimensions of the requested cropped region, in pixels, after clamping to the captured image.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBufferOutput">IFrameBufferOutput</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

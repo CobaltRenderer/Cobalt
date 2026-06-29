@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDevice.ShaderLimits" Title="ShaderLimits structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> ->
+    ShaderLimits
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ShaderLimits</TypeRef> structure reports information on limits an <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef>
+      object has which relate to shaders, as returned by the <PageRef PageName="cobalt.graphics.IGraphicsDevice.GetShaderLimits">GetShaderLimits</PageRef>
+      method.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <DataMemberList>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="maxVertexShaderInputAttributes">
+        Reports the maximum number of vertex attributes which can be bound to a single <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef>
+        object, taking the combined sum of attributes bound with <PageRef PageName="cobalt.graphics.IRenderableNode.BindVertexAttribute">BindVertexAttribute</PageRef>
+        and <PageRef PageName="cobalt.graphics.IRenderableNode.BindVertexInstanceAttribute">BindVertexInstanceAttribute</PageRef>.
+        Note that unlike other values in this structure, this limit does refer to complete bound attributes, and does
+        not count the individual components within each attribute separately.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="maxVertexShaderOutputComponents">
+        Reports the maximum number of individual components which can be output from a vertex shader. Note that where a
+        vector type is being used, each discrete value within a vector counts as one component towards this total.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="maxGeometryShaderInputComponents">
+        Reports the maximum number of individual components which can be input to a geometry shader. Note that where a
+        vector type is being used, each discrete value within a vector counts as one component towards this total.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="maxGeometryShaderOutputComponents">
+        Reports the maximum number of individual components which can be output from a geometry shader per vertex. Note
+        that where a vector type is being used, each discrete value within a vector counts as one component towards this
+        total.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="maxGeometryShaderOutputVertices">
+        Reports the maximum number of vertices that can be emitted by a geometry shader for each single input primitive
+        it is supplied. Note that attention must also be paid to the <TypeRef>maxGeometryShaderOutputComponents</TypeRef>
+        and <TypeRef>maxGeometryShaderTotalOutputComponents</TypeRef> members. For a given geometry shader, where "X"
+        vertices are emitted for a given input primitive, and "Y" output components are emitted for each vertex, the
+        total number of output components is "X * Y". This value must not exceed <TypeRef>maxGeometryShaderTotalOutputComponents</TypeRef>,
+        even if neither <TypeRef>maxGeometryShaderOutputComponents</TypeRef> or <TypeRef>maxGeometryShaderOutputVertices</TypeRef>
+        are exceeded.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="maxGeometryShaderTotalOutputComponents">
+        Reports the maximum total number of output components that can emitted by a geometry shader for each single
+        input primitive it is supplied.
+      </DataMemberListEntry>
+      <DataMemberListEntry Visibility="Public" Type="uint32_t" Name="maxFragmentShaderInputComponents">
+        Reports the maximum number of individual components which can be input to a fragment shader. Note that where a
+        vector type is being used, each discrete value within a vector counts as one component towards this total.
+      </DataMemberListEntry>
+    </DataMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

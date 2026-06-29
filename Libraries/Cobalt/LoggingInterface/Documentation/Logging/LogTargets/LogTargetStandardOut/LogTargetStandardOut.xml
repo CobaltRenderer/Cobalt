@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogTargetStandardOut" Title="LogTargetStandardOut class" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    LogTargetStandardOut
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class LogTargetStandardOut : public ILogTarget;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>LogTargetStandardOut</TypeRef> class is an <PageRef PageName="cobalt.logging.ILogTarget">ILogTarget</PageRef> implementation that writes messages to <TypeRef>std::cout</TypeRef>.
+    </Paragraph>
+    <Paragraph>
+      Each line begins with a compact severity prefix, optionally followed by the scope and message text. The target can be configured to flush <TypeRef>std::cout</TypeRef> after every message.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Constructors">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Constructor" PageName="cobalt.logging.LogTargetStandardOut.Constructor">
+          Creates a standard output target.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="Create" PageName="cobalt.logging.LogTargetStandardOut.Create">
+          Creates a standard output target wrapped in a smart pointer.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Lifetime methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.logging.LogTargetStandardOut.Delete">
+          Deletes the standard output target.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Logging methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="LogMessage" PageName="cobalt.logging.LogTargetStandardOut.LogMessage">
+          Writes a message to standard output.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.ILogTarget">ILogTarget</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogManager.AddLogTarget">LogManager.AddLogTarget</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

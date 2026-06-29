@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.VertexAttributeId" Title="VertexAttributeId enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    VertexAttributeId
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>VertexAttributeId</TypeRef> enumeration is an opaque token identifying a vertex attribute input reflected from an <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef>. It is used when binding per-vertex or per-instance attribute data to an <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef>.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        ID values are renderer-generated tokens. Applications should obtain them from shader reflection methods rather
+        than constructing arbitrary values.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Null">
+        Indicates that no matching vertex attribute input was found or that no vertex attribute slot is selected.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram.GetVertexAttributeId">IShaderProgram.GetVertexAttributeId</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderableNode.BindVertexAttribute">IRenderableNode.BindVertexAttribute</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderableNode.BindVertexInstanceAttribute">IRenderableNode.BindVertexInstanceAttribute</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

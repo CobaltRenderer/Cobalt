@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.TextureId" Title="TextureId enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    TextureId
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>TextureId</TypeRef> enumeration is an opaque token identifying a texture resource reflected from an <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef>. It is used by <PageRef PageName="cobalt.graphics.IStateContainer">IStateContainer</PageRef> implementations when binding or unbinding texture resources.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        ID values are renderer-generated tokens. Applications should obtain them from shader reflection methods rather
+        than constructing arbitrary values.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Null">
+        Indicates that no matching texture resource was found or that no texture binding slot is selected.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram.GetTextureId">IShaderProgram.GetTextureId</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateContainer.BindTexture">IStateContainer.BindTexture</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateContainer.BindTextureWithCombinedSampler">IStateContainer.BindTextureWithCombinedSampler</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

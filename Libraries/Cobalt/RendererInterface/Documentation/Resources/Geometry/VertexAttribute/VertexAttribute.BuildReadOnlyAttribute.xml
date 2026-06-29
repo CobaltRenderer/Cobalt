@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.VertexAttribute.BuildReadOnlyAttribute" Title="BuildReadOnlyAttribute method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph><PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> -> <PageRef PageName="cobalt.graphics.VertexAttribute">VertexAttribute</PageRef> -> BuildReadOnlyAttribute</Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>BuildReadOnlyAttribute</TypeRef> method attempts to populate a <PageRef PageName="cobalt.graphics.ReadOnlyVertexAttribute">ReadOnlyVertexAttribute</PageRef> from this vertex attribute. The resulting read-only attribute references the same bound buffer allocation and layout information, but does not allow CPU data writes through the attribute object.
+    </Paragraph>
+    <Paragraph>
+      This is useful when the same underlying vertex data needs to be exposed through an immutable or restricted attribute view. The source attribute must already be bound to a buffer so the read-only view can capture the buffer binding metadata.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken BuildReadOnlyAttribute(ReadOnlyVertexAttribute& targetAttribute) const;]]></Code>
+    <SubSection Title="Argument list"><ArgumentList><ArgumentListEntry Type="ReadOnlyVertexAttribute" Name="targetAttribute">The read-only vertex attribute object to populate with this attribute's buffer binding information.</ArgumentListEntry></ArgumentList></SubSection>
+    <SubSection Title="Return value"><ReturnValue Type="SuccessToken">True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.</ReturnValue></SubSection>
+  </Section>
+  <Section Title="See also"><PageRefList><PageRefListEntry PageName="cobalt.graphics.VertexAttribute">VertexAttribute</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.ReadOnlyVertexAttribute">ReadOnlyVertexAttribute</PageRefListEntry></PageRefList></Section>
+</XMLDocContent>

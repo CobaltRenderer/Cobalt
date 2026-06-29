@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureSampler.SetAnisotropicFilterMode" Title="SetAnisotropicFilterMode method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITextureSampler">ITextureSampler</PageRef> ->
+    SetAnisotropicFilterMode
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetAnisotropicFilterMode</TypeRef> method allows anisotropic filtering to be enabled and configured for sampling from the texture. Requires the AnisotropicFiltering feature to be enabled when creating the renderer.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Anisotropic filtering requires the <PageRef PageName="cobalt.graphics.IGraphicsDevice.Feature">AnisotropicFiltering feature</PageRef> to be supported and enabled on the renderer.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetAnisotropicFilterMode(bool enabled, int maxAnisotropy = 0);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="bool" Name="enabled">
+          True to enable anisotropic filtering, false to disable it.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="int" Name="maxAnisotropy">
+          The maximum anisotropy level to request. Use 0 to let the renderer select the best supported level.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureSampler">ITextureSampler</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDevice.GetImageLimits" Title="GetImageLimits method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> ->
+    GetImageLimits
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetImageLimits</TypeRef> method returns a structure containing information on the limits this
+      graphics device has around images, in the form of the <PageRef PageName="cobalt.graphics.IGraphicsDevice.ImageLimits">ImageLimits</PageRef>
+      structure. These limits are fixed for the graphics device, and must not be exceeded by the application.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[ImageLimits GetImageLimits() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="ImageLimits!cobalt.graphics.IGraphicsDevice.ImageLimits">
+        A structure containing information on the limits this graphics device has around images
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

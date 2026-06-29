@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.marshalling.IMarshalTarget" Title="IMarshalTarget" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Section Title="Overview">
+    <Paragraph>
+      The <TypeRef>IMarshalTarget</TypeRef> family provides the low-level target-side interface used by the marshalling library to write decomposed data
+      back into a bound object after it has crossed the assembly boundary. The concrete helper class <PageRef PageName="cobalt.marshalling.MarshalTarget">MarshalTarget</PageRef>
+      derives from these interfaces and is what the public output marshal helpers normally create internally.
+    </Paragraph>
+    <Paragraph>
+      Like the source-side interface, the exact member set varies by specialization. The available methods are shaped by the type being marshalled and by
+      the C++ language features available when the code is compiled.
+    </Paragraph>
+  </Section>
+
+  <Section Title="Member Families">
+    <SubSection Title="Marshalling methods">
+      <Paragraph>
+        Target specializations provide methods that accept decomposed data and write it into the bound object. Depending on the type, this may include
+        whole-object marshalling, individual element updates, appends, range writes, and move-enabled overloads.
+      </Paragraph>
+    </SubSection>
+    <SubSection Title="Container metadata">
+      <Paragraph>
+        STL container specializations provide size, capacity, empty, clear, and resize-style methods where those concepts are meaningful for the bound
+        type.
+      </Paragraph>
+    </SubSection>
+    <SubSection Title="Element access">
+      <Paragraph>
+        Specializations for indexed types expose element-based setter methods so that a marshaller can update a single element in-place without rebuilding
+        the entire container.
+      </Paragraph>
+    </SubSection>
+  </Section>
+
+  <Section Title="Usage">
+    <Paragraph>
+      Application code normally does not create <TypeRef>IMarshalTarget</TypeRef> objects directly. The class exists to support the internals of the higher
+      level marshal helpers, and the public target wrapper <PageRef PageName="cobalt.marshalling.MarshalTarget">MarshalTarget</PageRef> should be
+      preferred whenever direct use is required.
+    </Paragraph>
+  </Section>
+
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.marshalling.MarshalTarget">MarshalTarget</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.marshalling.MarshalOut">Marshal::Out</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.marshalling.MarshalInOut">Marshal::InOut</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

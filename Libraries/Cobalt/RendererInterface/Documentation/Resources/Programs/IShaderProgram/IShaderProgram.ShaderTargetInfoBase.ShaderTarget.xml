@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IShaderProgram.ShaderTargetInfoBase.ShaderTarget" Title="ShaderTarget enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IShaderProgram.ShaderTargetInfoBase">ShaderTargetInfoBase</PageRef> ->
+    ShaderTarget
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ShaderTarget</TypeRef> enumeration identifies the renderer target described by a <PageRef PageName="cobalt.graphics.IShaderProgram.ShaderTargetInfoBase">ShaderTargetInfoBase</PageRef> derived structure.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Direct3D">
+        Identifies shader target configuration for Direct3D renderers.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="OpenGL">
+        Identifies shader target configuration for OpenGL renderers.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Vulkan">
+        Identifies shader target configuration for Vulkan renderers.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Metal">
+        Identifies shader target configuration for Metal renderers.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram.ConfigureShaderTarget">IShaderProgram.ConfigureShaderTarget</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

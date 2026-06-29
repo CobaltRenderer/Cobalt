@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderer.WindowSystemInfoBase.WindowSystemType" Title="WindowSystemType enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderer.WindowSystemInfoBase">WindowSystemInfoBase</PageRef> ->
+    WindowSystemType
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowSystemType</TypeRef> enumeration identifies the platform window system described by a concrete <PageRef PageName="cobalt.graphics.IRenderer.WindowSystemInfoBase">WindowSystemInfoBase</PageRef> derived structure.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Headless">
+        Identifies a headless renderer environment with no operating system window system.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Win32">
+        Identifies the Microsoft Windows Win32 window system.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Xlib">
+        Identifies the Xlib window system on Linux and compatible platforms.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="XCB">
+        Identifies the XCB window system on Linux and compatible platforms.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Wayland">
+        Identifies the Wayland window system on Linux and compatible platforms.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="AppKit">
+        Identifies the AppKit window system on macOS.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer.WindowSystemInfoBase">IRenderer.WindowSystemInfoBase</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

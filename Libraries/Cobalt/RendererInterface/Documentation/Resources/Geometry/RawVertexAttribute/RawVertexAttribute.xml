@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.RawVertexAttribute" Title="RawVertexAttribute class" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    RawVertexAttribute
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class RawVertexAttribute :public IVertexAttribute;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>RawVertexAttribute</TypeRef> class defines a vertex attribute, used to provide vertex shader input
+      data such as vertex coordinates for an <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef>
+      object during drawing. In order to use a vertex attribute, it must first be added to an <PageRef PageName="cobalt.graphics.IVertexBuffer">IVertexBuffer</PageRef>,
+      which then needs to be allocated. Once the attached buffer has been allocated, the vertex attribute can then be
+      bound to any number of <TypeRef>IRenderableNode</TypeRef> objects.
+    </Paragraph>
+    <Paragraph>
+      The <TypeRef>RawVertexAttribute</TypeRef> class is similar to <PageRef PageName="cobalt.graphics.VertexAttribute">VertexAttribute</PageRef>,
+      however unlike <TypeRef>VertexAttribute</TypeRef> this class is not templated, and provides no compile-time type
+      safety to ensure it is used with arguments of the correct type, nor does it ensure that type characteristics such
+      as stride are correctly determined by default. For this reason, it is recommended to use the <TypeRef>VertexAttribute</TypeRef>
+      class where possible. The <TypeRef>RawVertexAttribute</TypeRef> class is intended more for use behind higher level
+      support libraries, where aspects such as type safety have already been handled for the application programmer by
+      those libraries, and a simple attribute type is desired to forward already validated information to the renderer.
+    </Paragraph>
+    <Paragraph>
+      Unlike most other types in this API, the <TypeRef>VertexAttribute</TypeRef> class is a concrete type that is
+      directly created by the application, and passed into the API. Internally, this class derives from the
+      <TypeRef>IVertexAttribute</TypeRef> interface, which allows the class implementation to be fully separated over
+      pure virtual interfaces from the renderers.
+    </Paragraph>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="DataType" TypeCategory="Enumeration" PageName="cobalt.graphics.VertexAttribute.DataType" Visibility="Public">
+        Indicates the fundamental type of the data contained in this attribute
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="PerformanceHint" TypeCategory="Enumeration" PageName="cobalt.graphics.VertexAttribute.PerformanceHint" Visibility="Public">
+        Flags to provide hints to the graphics system about how the application will use this attribute. Correct use of
+        performance hints allows the renderer to optimize the way the data is stored and modified to give the best
+        performance.
+      </TypeMemberListEntry>
+      <TypeMemberListEntry Name="DataPersistenceFlags" TypeCategory="Enumeration" PageName="cobalt.graphics.VertexAttribute.DataPersistenceFlags" Visibility="Public">
+        Flags to provide hints to the graphics system about the required lifetime of data stored in this attribute.
+        These flags can be used to reduce memory requirements or increase performance in some circumstances.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Constructors">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Constructor" PageName="cobalt.graphics.RawVertexAttribute.Constructor">
+          Creates a <TypeRef>RawVertexAttribute</TypeRef> object. Note that the type itself is immutable, and all state is passed into the constructor.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Type methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="GetDataType" PageName="cobalt.graphics.VertexAttribute.GetDataType">
+          Returns the type of a single index entry
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetVertexCount" PageName="cobalt.graphics.VertexAttribute.GetVertexCount">
+          Returns the number of vertices accessible through this vertex attribute
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetAttributeElementCount" PageName="cobalt.graphics.VertexAttribute.GetAttributeElementCount">
+          Returns the number of elements in the vector type set as the type of this vertex attribute
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetDataTypeByteSize" PageName="cobalt.graphics.VertexAttribute.GetDataTypeByteSize">
+          Returns the size of a single vertex entry in bytes
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Usage methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="GetPerformanceHintCpu" PageName="cobalt.graphics.VertexAttribute.GetPerformanceHintCpu">
+          Returns the specified CPU performance hint for this vertex attribute
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetPerformanceHintGpu" PageName="cobalt.graphics.VertexAttribute.GetPerformanceHintGpu">
+          Returns the specified GPU performance hint for this vertex attribute
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="GetDataPersistenceFlags" PageName="cobalt.graphics.VertexAttribute.GetDataPersistenceFlags">
+          Returns the specified data persistence flags for this vertex attribute
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Binding methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="IsBoundToBuffer" PageName="cobalt.graphics.VertexAttribute.IsBoundToBuffer">
+          Reports whether this attribute has already been bound to a buffer
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="BuildReadOnlyAttribute" PageName="cobalt.graphics.VertexAttribute.BuildReadOnlyAttribute">
+          Attempts to populate a <PageRef PageName="cobalt.graphics.ReadOnlyVertexAttribute">ReadOnlyVertexAttribute</PageRef>
+          from this attribute. Note that this attribute must already have been bound to a buffer for the call to
+          succeed.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Data methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetInitialData" PageName="cobalt.graphics.RawVertexAttribute.SetInitialData">
+          Supplies initial data to use when allocating the buffer this attribute is assigned to. Note that the supplied
+          memory must remain valid and accessible until the <PageRef PageName="cobalt.graphics.IVertexBuffer.AllocateMemory">AllocateMemory</PageRef>
+          method is called.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="QueueDataUpdate" PageName="cobalt.graphics.RawVertexAttribute.QueueDataUpdate">
+          Updates data in the associated buffer. Unlike the <TypeRef>SetInitialData</TypeRef> method, the provided
+          memory can be modified or deallocated immediately after this method returns.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.VertexAttribute">VertexAttribute</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ReadOnlyVertexAttribute">ReadOnlyVertexAttribute</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IVertexBuffer">IVertexBuffer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IndexAttribute">IndexAttribute</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

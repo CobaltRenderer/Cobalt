@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateBufferLayout.AppendField" Title="AppendField method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateBufferLayout">IStateBufferLayout</PageRef> ->
+    AppendField
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>AppendField</TypeRef> method appends a scalar field to the state buffer layout.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void AppendField(const Marshal::In<std::string>& fieldName, DataType type, size_t arraySize = 0);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const Marshal::In&lt;std::string&gt;" Name="fieldName">
+          The name to assign to the field in the state buffer layout.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="DataType" Name="type">
+          The scalar data type for the field.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="arraySize">
+          The optional array element count. Use 0 for a non-array field.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateBufferLayout">IStateBufferLayout</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

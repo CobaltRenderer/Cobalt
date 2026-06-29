@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITexelArrayOutput.ReadBufferData" Title="ReadBufferData method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph><PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> -> <PageRef PageName="cobalt.graphics.ITexelArrayOutput">ITexelArrayOutput</PageRef> -> ReadBufferData</Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ReadBufferData</TypeRef> method attempts to read the captured texel array output and write it to the target CPU buffer. Typed overloads are provided for each supported vector source format, while the raw overload allows the requested output format to be specified explicitly.
+    </Paragraph>
+    <Paragraph>
+      The captured data represents output produced by shader or transfer work and made available through the output capture path. Applications should wait for output capture completion before reading if the capture was produced by recently submitted frame or transfer work.
+    </Paragraph>
+    <Paragraph>
+      When the requested output format differs from the captured storage format, the renderer performs the supported format conversion before writing to the target buffer.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[template<class T> SuccessToken ReadBufferData(std::vector<T>& targetBuffer) const;
+SuccessToken ReadBufferData(void* targetBuffer, size_t targetBufferSizeInBytes, ITexelArray::SourceImageFormat imageFormat, ITexelArray::SourceDataFormat dataFormat) const;]]></Code>
+    <SubSection Title="Argument list"><ArgumentList>
+      <ArgumentListEntry Type="std::vector&lt;T&gt; or void*" Name="targetBuffer">The destination memory to receive the captured data.</ArgumentListEntry>
+      
+      <ArgumentListEntry Type="size_t" Name="targetBufferSizeInBytes">The size, in bytes, of the destination memory.</ArgumentListEntry>
+      <ArgumentListEntry Type="ITexelArray::SourceImageFormat" Name="imageFormat">The image channel layout requested for the destination data.</ArgumentListEntry>
+      <ArgumentListEntry Type="ITexelArray::SourceDataFormat" Name="dataFormat">The data encoding requested for the destination data.</ArgumentListEntry>
+    </ArgumentList></SubSection>
+    <SubSection Title="Return value"><ReturnValue Type="SuccessToken">True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.</ReturnValue></SubSection>
+  </Section>
+  <Section Title="See also"><PageRefList><PageRefListEntry PageName="cobalt.graphics.ITexelArrayOutput">ITexelArrayOutput</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRefListEntry></PageRefList></Section>
+</XMLDocContent>

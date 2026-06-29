@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.WindowInfoWin32.Constructor" Title="Constructor method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.WindowInfoWin32">WindowInfoWin32</PageRef> ->
+    Constructor
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowInfoWin32</TypeRef> constructor creates a platform binding structure and initializes the inherited <TypeRef>structureSizeInBytes</TypeRef> and type discriminator fields.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[WindowInfoWin32(HWND windowHandle, const V2UInt32& windowSizeInPixels);
+WindowInfoWin32(HWND windowHandle, HINSTANCE instanceHandle, const V2UInt32& windowSizeInPixels);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="HWND" Name="windowHandle">
+          The Win32 window handle to bind.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="HINSTANCE" Name="instanceHandle">
+          The optional Win32 application instance handle.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="const V2UInt32&amp;" Name="windowSizeInPixels">
+          The current drawable window size in pixels.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.WindowInfoWin32">WindowInfoWin32</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.WindowInfoBase">WindowInfoBase</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

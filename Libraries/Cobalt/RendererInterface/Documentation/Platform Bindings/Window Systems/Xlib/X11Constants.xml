@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.X11Constants" Title="X11Constants structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef> ->
+    X11Constants
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[struct X11Constants final;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>X11Constants</TypeRef> structure stores scoped copies of selected X11 macro values and type-like macros. These wrapped constants are always available when the Xlib platform binding headers are included.
+    </Paragraph>
+    <Paragraph>
+      Availability: Linux or compatible X11 platforms when <TypeRef>COBALT_RENDERER_XLIB_SUPPORT</TypeRef> is enabled.
+    </Paragraph>
+    <Paragraph>
+      By default, the Xlib wrapper header strips the original X11 preprocessor macros after copying their values to <TypeRef>X11Constants</TypeRef>. Define <TypeRef>COBALT_RENDERER_STRIP_X11_PREPROCESSOR_MACROS</TypeRef> to <TypeRef>0</TypeRef> before including the platform binding headers to leave the original X11 macros visible. The preprocessor macros are stripped by default due to their high likelihood of collisions with unrelated tokens in code.
+    </Paragraph>
+    <Paragraph>
+      Use the wrapped constants, such as <TypeRef>X11Constants::kNone</TypeRef>, <TypeRef>X11Constants::kSuccess</TypeRef>, and <TypeRef>X11Constants::kInputOutput</TypeRef>, instead of the raw X11 macro names in C++ code.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        This helper exists to prevent common X11 macros such as <TypeRef>None</TypeRef>, <TypeRef>Always</TypeRef>, <TypeRef>True</TypeRef>, and <TypeRef>False</TypeRef> from leaking into the rest of the renderer interface headers.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.WindowInfoXlib">WindowInfoXlib</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

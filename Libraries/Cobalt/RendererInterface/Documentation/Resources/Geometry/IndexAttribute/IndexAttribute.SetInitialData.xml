@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IndexAttribute.SetInitialData" Title="SetInitialData method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IndexAttribute">IndexAttribute</PageRef> ->
+    SetInitialData
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetInitialData</TypeRef> method supplies initial data to use when allocating the buffer this attribute is assigned to. Note that the supplied memory must remain valid and accessible until the AllocateMemory method is called.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        Initial data is consumed when memory is allocated. The source memory must remain valid and unmodified until allocation occurs.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken SetInitialData(const T* data, size_t entryCount, size_t entryStrideInBytes = sizeof(T));
+SuccessToken SetInitialData(const std::vector<T>& data);
+SuccessToken SetInitialData(std::vector<T>&& data) = delete;
+SuccessToken SetInitialData(std::initializer_list<T> data);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const T*" Name="data">
+          The source data to use when the attribute buffer is allocated.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="entryCount">
+          The number of entries supplied in the source data.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="entryStrideInBytes">
+          The byte stride between consecutive source entries.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken">
+        True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IndexAttribute">IndexAttribute</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

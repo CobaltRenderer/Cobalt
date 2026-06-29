@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogManager.AddLogTarget" Title="AddLogTarget method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.LogManager">LogManager</PageRef> ->
+    AddLogTarget
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>AddLogTarget</TypeRef> method adds a target that will receive log messages accepted by both the manager-level filter and the target-specific filter.
+    </Paragraph>
+    <Paragraph>
+      This method is safe to call concurrently with logging.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Ownership of the target is transferred to the log manager. The public API does not provide a method to remove a target after it has been added.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        Do not pass a null target. The manager assumes every stored target is valid when a message is forwarded.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void AddLogTarget(ILogTarget::unique_ptr logTarget, ILogger::SeverityFilter severityFilter = ILogger::SeverityFilter::All);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="ILogTarget!cobalt.logging.ILogTarget" Name="logTarget">The target object to transfer into the manager.</ArgumentListEntry>
+        <ArgumentListEntry Type="SeverityFilter!cobalt.logging.ILogger.SeverityFilter" Name="severityFilter">The severity filter applied to this target after the manager-level filter has accepted a message.</ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.ILogTarget">ILogTarget</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.ILogger.SeverityFilter">ILogger.SeverityFilter</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

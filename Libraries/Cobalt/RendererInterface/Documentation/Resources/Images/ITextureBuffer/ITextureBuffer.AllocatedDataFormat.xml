@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureBuffer.AllocatedDataFormat" Title="AllocatedDataFormat method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph><PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> -> <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef> -> AllocatedDataFormat</Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>AllocatedDataFormat</TypeRef> method returns the <PageRef PageName="cobalt.graphics.ITextureBuffer.DataFormat">DataFormat</PageRef> of the texture that was actually created after <PageRef PageName="cobalt.graphics.ITextureBuffer.AllocateMemory">AllocateMemory</PageRef> succeeds.
+    </Paragraph>
+    <Paragraph>
+      This is the format that should be used when calculating memory layout, selecting compatible readback formats, or comparing the actual allocation against the requested texture format.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage"><Code Language="C++"><![CDATA[DataFormat AllocatedDataFormat() const;]]></Code><SubSection Title="Return value"><ReturnValue Type="DataFormat">The data format allocated for the texture.</ReturnValue></SubSection></Section>
+  <Section Title="See also"><PageRefList><PageRefListEntry PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.SetTextureFormat">SetTextureFormat</PageRefListEntry></PageRefList></Section>
+</XMLDocContent>

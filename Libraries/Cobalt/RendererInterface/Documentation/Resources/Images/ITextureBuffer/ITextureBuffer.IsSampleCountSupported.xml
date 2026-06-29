@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureBuffer.IsSampleCountSupported" Title="IsSampleCountSupported method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef> ->
+    IsSampleCountSupported
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IsSampleCountSupported</TypeRef> method returns true if the current renderer and graphics device can
+      create a two dimensional multisampled texture using the supplied image format, data format, and sample count. This
+      is intended for testing multisample anti-aliasing (MSAA) framebuffer attachment support before calling
+      <PageRef PageName="cobalt.graphics.ITextureBuffer.SetSampleCount">SetSampleCount</PageRef> and
+      <PageRef PageName="cobalt.graphics.ITextureBuffer.AllocateMemory">AllocateMemory</PageRef>.
+    </Paragraph>
+    <Paragraph>
+      The query uses the supplied arguments directly, rather than inspecting the texture object's current format,
+      dimensions, sample count, or allocation state. It can therefore be called before any texture format has been set,
+      or on a texture object that has already been created and used. The check assumes a two dimensional texture with a
+      single mipmap level.
+    </Paragraph>
+    <Paragraph>
+      Renderer backends evaluate support through their native graphics API. If the renderer would select a compatible
+      fallback allocation format for the requested image and data format combination, support is checked against the
+      native format that would actually be used.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        This method is only available on <PageRef PageName="cobalt.graphics.ITextureBuffer2D">ITextureBuffer2D</PageRef>
+        objects. A false return value is not an error; it means the requested MSAA texture configuration is not
+        available on the current renderer and graphics device.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[bool IsSampleCountSupported(ImageFormat imageFormat, DataFormat dataFormat, SampleCount sampleCount) const;]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="ImageFormat!cobalt.graphics.ITextureBuffer.ImageFormat" Name="imageFormat">
+          The image format to test for the multisampled two dimensional texture.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="DataFormat!cobalt.graphics.ITextureBuffer.DataFormat" Name="dataFormat">
+          The data format to test for the multisampled two dimensional texture.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="SampleCount!cobalt.graphics.ITextureBuffer.SampleCount" Name="sampleCount">
+          The number of samples to test for each pixel of the two dimensional texture.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <Paragraph>
+        Returns true if the current renderer and graphics device report support for the requested texture configuration,
+        or false if that combination cannot be used.
+      </Paragraph>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.SampleCount">ITextureBuffer.SampleCount</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.SetSampleCount">ITextureBuffer.SetSampleCount</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer2D">ITextureBuffer2D</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.BindTexture">IFrameBuffer.BindTexture</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer.BindMultiSamplingResolveTexture">IFrameBuffer.BindMultiSamplingResolveTexture</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

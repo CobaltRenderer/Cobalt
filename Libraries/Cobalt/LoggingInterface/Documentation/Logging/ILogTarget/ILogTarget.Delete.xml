@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.ILogTarget.Delete" Title="Delete method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.ILogTarget">ILogTarget</PageRef> ->
+    Delete
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Delete</TypeRef> method destroys the log target object.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Targets are normally owned by <TypeRef>ILogTarget::unique_ptr</TypeRef> and transferred to <PageRef PageName="cobalt.logging.LogManager.AddLogTarget">LogManager.AddLogTarget</PageRef>. In that case, the custom deleter calls this method automatically.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[virtual void Delete() = 0;]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.ILogTarget">ILogTarget</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.ILogTarget.Deleter">ILogTarget.Deleter</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IProgramNode" Title="IProgramNode interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    IProgramNode
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class IProgramNode;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IProgramNode</TypeRef> interface represents a node under an <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef>
+      node in the render scene tree. This node is responsible for specifying a shader program to load, which will be
+      used as the active shader program for all child nodes during rendering operations. This node also allows shader
+      constants to be specified, which for supported graphics APIs allow shader programs to use these values as known
+      compile-time constants, to optimize or customize the shader program. This node contains <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef>
+      objects as child nodes, which hold further state settings and content to use during rendering.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Although default state values can be set for an <TypeRef>IProgramNode</TypeRef> object at a higher level, by
+        providing an <PageRef PageName="cobalt.graphics.IDefaultState">IDefaultState</PageRef> object when the node is
+        added as a child to an <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef> node, state
+        values in an <TypeRef>IDefaultState</TypeRef> object cannot override constant state values which have been set
+        through calls to <PageRef PageName="cobalt.graphics.IProgramNode.SetConstantStateValue">SetConstantStateValue</PageRef>.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Initialization methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.graphics.IProgramNode.Delete">
+          Schedules the object for deletion. After calling this method, the object will be destroyed after the current
+          frame completes drawing.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Child node methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="AddChildNode" PageName="cobalt.graphics.IProgramNode.AddChildNode">
+          Adds the specified <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> as a child of this node
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="AddChildNodes" PageName="cobalt.graphics.IProgramNode.AddChildNodes">
+          Adds the specified set of <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef>
+          objects as children of this node
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="RemoveChildNode" PageName="cobalt.graphics.IProgramNode.RemoveChildNode">
+          Removes the specified <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> as a child of this node
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="RemoveChildNodes" PageName="cobalt.graphics.IProgramNode.RemoveChildNodes">
+          Removes the specified set of <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef>
+          objects as children of this node
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="RemoveAllChildNodes" PageName="cobalt.graphics.IProgramNode.RemoveAllChildNodes">
+          Removes all current <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> child nodes
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="SetChildNodes" PageName="cobalt.graphics.IProgramNode.SetChildNodes">
+          Sets the specified set of <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef>
+          objects as children of this node, removing any existing child nodes which may have been previously added.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Shader program methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="BindShaderProgram" PageName="cobalt.graphics.IProgramNode.BindShaderProgram">
+          Binds the specified <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef> to this node
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Constant state value methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetConstantStateValue" PageName="cobalt.graphics.IProgramNode.SetConstantStateValue">
+          Sets the value of the specified shader constant
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ResetConstantStateValue" PageName="cobalt.graphics.IProgramNode.ResetConstantStateValue">
+          Restores the value of the specified shader constant to its default value
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Debug methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="SetDebugName" PageName="cobalt.graphics.IProgramNode.SetDebugName">
+          Sets a debug name for this program node, where supported by the renderer and native graphics API.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

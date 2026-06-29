@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateContainer.ResetStateValue" Title="ResetStateValue method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateContainer">IStateContainer</PageRef> ->
+    ResetStateValue
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ResetStateValue</TypeRef> method removes any state value which has been previously set by the
+      <PageRef PageName="cobalt.graphics.IStateContainer.SetStateValue">SetStateValue</PageRef> method for the target shader state
+      variable. If there is an inherited state value set higher up in the render tree, it will become effective. If there is no
+      inherited state value, but there is a supplied default value specified in the shader, the default value will be restored,
+      otherwise the effective state value is undefined.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void ResetStateValue(StateValueId stateId);
+template<class... IndexTs>
+void ResetStateValue(StateValueId stateId, size_t firstArrayIndex, IndexTs... additionalArrayIndices);
+void ResetStateValue(StateValueId stateId, const size_t* arrayIndices, size_t arrayIndexCount);
+]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="StateValueId" Name="stateId">
+          The <TypeRef>StateValueId</TypeRef> of the target state variable
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="firstArrayIndex">
+          First array index when a variadic set of array indices are being supplied
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="additionalArrayIndices">
+          Additional array indices when a variadic set of array indices are being supplied
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="const size_t*" Name="arrayIndices">
+          Pointer to a set of array indices to use for the target state value
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="arrayIndexCount">
+          The number of array indices to read from the <TypeRef>arrayIndices</TypeRef> member. The number of supplied indices
+          must match the required number of indices for the target state value.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateContainer">IStateContainer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IDefaultState">IDefaultState</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IShaderProgram.CodeFormat" Title="CodeFormat enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef> ->
+    CodeFormat
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>CodeFormat</TypeRef> enumeration identifies the language or binary format used by a shader code blob. Applications can query support with <PageRef PageName="cobalt.graphics.IShaderProgram.IsCodeFormatSupported">IsCodeFormatSupported</PageRef> and can query the preferred renderer format with <PageRef PageName="cobalt.graphics.IShaderProgram.PreferredCodeFormat">PreferredCodeFormat</PageRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="HLSL">
+        Identifies HLSL source code text.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DXBC">
+        Identifies Direct3D bytecode produced by the legacy FXC compiler.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DXIL">
+        Identifies DirectX Intermediate Language bytecode produced by the DXC compiler.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="SPIRVAssembly">
+        Identifies SPIR-V assembly text.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="SPIRV">
+        Identifies binary SPIR-V shader code.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="GLSL">
+        Identifies GLSL source code text.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="MSL">
+        Identifies Metal Shading Language source code text.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="AIR">
+        Identifies Apple Intermediate Representation bytecode for Metal shaders.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram.LoadShaderStage">IShaderProgram.LoadShaderStage</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram.IsCodeFormatSupported">IShaderProgram.IsCodeFormatSupported</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.ILogger.Warning" Title="Warning method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.ILogger">ILogger</PageRef> ->
+    Warning
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Warning</TypeRef> method writes a warning log message. It is a convenience wrapper around <PageRef PageName="cobalt.logging.ILogger.Log">Log</PageRef> using <TypeRef>Severity::Warning</TypeRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void Warning(const std::string& message) const;
+void Warning(const std::wstring& message) const;
+template<class... Args>
+void Warning(const std::string& formatString, Args&&... args) const;
+template<class... Args>
+void Warning(const std::wstring& formatString, Args&&... args) const;]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const std::string&amp;" Name="message">The UTF-8 message string describing the noncritical problem.</ArgumentListEntry>
+        <ArgumentListEntry Type="const std::wstring&amp;" Name="message">The native wide string message to convert to UTF-8 and log.</ArgumentListEntry>
+        <ArgumentListEntry Type="const std::string&amp;" Name="formatString">The UTF-8 format string containing positional placeholders such as {0}.</ArgumentListEntry>
+        <ArgumentListEntry Type="const std::wstring&amp;" Name="formatString">The native wide string format string to convert to UTF-8 before resolving placeholders.</ArgumentListEntry>
+        <ArgumentListEntry Type="Args&amp;&amp;..." Name="args">The values used to replace positional placeholders in the format string.</ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.ILogger.Log">ILogger.Log</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.ILogger.Severity">ILogger.Severity</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

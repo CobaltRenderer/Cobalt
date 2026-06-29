@@ -1,0 +1,13 @@
+diff --git forkSrcPrefix/runtime/lib/WinPixEventRuntime.cpp forkDstPrefix/runtime/lib/WinPixEventRuntime.cpp
+index d8d6bb8636eb6b12e502e26cbaa224029b53f396..463bd232f8cb0110e91ac125c9ff22051539a097 100644
+--- forkSrcPrefix/runtime/lib/WinPixEventRuntime.cpp
++++ forkDstPrefix/runtime/lib/WinPixEventRuntime.cpp
+@@ -158,7 +158,7 @@ namespace WinPixEventRuntime
+ //
+ 
+ 
+-UINT64 PIXEventsReplaceBlock(PIXEventsThreadInfo* threadInfo, bool getEarliestTime) noexcept
++UINT64 WINAPI PIXEventsReplaceBlock(PIXEventsThreadInfo* threadInfo, bool getEarliestTime) noexcept
+ {
+     std::optional<uint64_t> eventTime;
+     if (getEarliestTime)

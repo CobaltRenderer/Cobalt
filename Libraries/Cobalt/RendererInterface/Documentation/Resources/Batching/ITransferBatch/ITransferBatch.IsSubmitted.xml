@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITransferBatch.IsSubmitted" Title="IsSubmitted method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRef> ->
+    IsSubmitted
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IsSubmitted</TypeRef> method returns true if the batch has been submitted for processing.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[bool IsSubmitted() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="bool">
+        True if the batch has already been submitted, false otherwise.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

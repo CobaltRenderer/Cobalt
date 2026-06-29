@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IDataArrayOutput.ClearCapturedOutput" Title="ClearCapturedOutput method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IDataArrayOutput">IDataArrayOutput</PageRef> ->
+    ClearCapturedOutput
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ClearCapturedOutput</TypeRef> method relases the captured data. Note that this doesn't need to be called to capture a new set of data.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void ClearCapturedOutput();]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IDataArrayOutput">IDataArrayOutput</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

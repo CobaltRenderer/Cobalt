@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.WindowSystemInfoSDL3.GetType" Title="GetType method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.WindowSystemInfoSDL3">WindowSystemInfoSDL3</PageRef> ->
+    GetType
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetType</TypeRef> method returns the concrete platform type stored by the SDL helper.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[IRenderer::WindowSystemInfoBase::WindowSystemType GetType();]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="IRenderer::WindowSystemInfoBase::WindowSystemType">
+        The concrete platform binding type.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.WindowSystemInfoSDL3">WindowSystemInfoSDL3</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

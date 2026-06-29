@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderableNode.SetIndirectDraw" Title="SetIndirectDraw method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph><PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> -> <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef> -> SetIndirectDraw</Paragraph>
+  <Section Title="Description">
+    <Paragraph>The <TypeRef>SetIndirectDraw</TypeRef> method configures indirect drawing for this object, allowing draw settings to be sourced from an <PageRef PageName="cobalt.graphics.IDataArray">IDataArray</PageRef> rather than set directly by application code. The source array must contain either <TypeRef>IndirectDrawParams</TypeRef> entries or <TypeRef>IndexedIndirectDrawParams</TypeRef> entries, depending on whether an index attribute is bound.</Paragraph>
+    <Note Type="Important"><Paragraph>Indirect drawing requires the <PageRef PageName="cobalt.graphics.IGraphicsDevice.Feature">IndirectDraw feature</PageRef> to be supported and enabled on the renderer. Counted multi-draw variants may require additional renderer support.</Paragraph></Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken SetIndirectDraw(size_t drawCount, IDataArray* sourceDataArray, size_t arrayOffsetInBytes = 0, size_t arrayStrideInBytes = 0);
+SuccessToken SetIndirectDraw(size_t maxDrawCount, IDataArray* drawCountSourceCounter, IDataArray* sourceDataArray, size_t arrayOffsetInBytes = 0, size_t arrayStrideInBytes = 0);
+SuccessToken SetIndirectDraw(size_t maxDrawCount, IDataArray* drawCountSourceDataArray, size_t drawCountArrayOffsetInBytes, IDataArray* sourceDataArray, size_t arrayOffsetInBytes = 0, size_t arrayStrideInBytes = 0);]]></Code>
+    <SubSection Title="Argument list"><ArgumentList>
+      <ArgumentListEntry Type="size_t" Name="drawCount">The fixed number of indirect draw entries to execute.</ArgumentListEntry>
+      <ArgumentListEntry Type="size_t" Name="maxDrawCount">The maximum number of indirect draw entries that may be executed when the actual count is read from a buffer.</ArgumentListEntry>
+      <ArgumentListEntry Type="IDataArray*" Name="drawCountSourceCounter">The data array whose attached counter supplies the actual draw count.</ArgumentListEntry>
+      <ArgumentListEntry Type="IDataArray*" Name="drawCountSourceDataArray">The data array containing the actual draw count value.</ArgumentListEntry>
+      <ArgumentListEntry Type="size_t" Name="drawCountArrayOffsetInBytes">The byte offset of the draw count value in <TypeRef>drawCountSourceDataArray</TypeRef>.</ArgumentListEntry>
+      <ArgumentListEntry Type="IDataArray*" Name="sourceDataArray">The data array containing the indirect draw parameter entries.</ArgumentListEntry>
+      <ArgumentListEntry Type="size_t" Name="arrayOffsetInBytes">The byte offset of the first draw parameter entry in <TypeRef>sourceDataArray</TypeRef>.</ArgumentListEntry>
+      <ArgumentListEntry Type="size_t" Name="arrayStrideInBytes">The byte stride between draw parameter entries. Use 0 to select the renderer's default stride for the active draw mode.</ArgumentListEntry>
+    </ArgumentList></SubSection>
+    <SubSection Title="Return value"><ReturnValue Type="SuccessToken">True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.</ReturnValue></SubSection>
+  </Section>
+  <Section Title="See also"><PageRefList><PageRefListEntry PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.IDataArray">IDataArray</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice.Feature">IGraphicsDevice.Feature</PageRefListEntry></PageRefList></Section>
+</XMLDocContent>

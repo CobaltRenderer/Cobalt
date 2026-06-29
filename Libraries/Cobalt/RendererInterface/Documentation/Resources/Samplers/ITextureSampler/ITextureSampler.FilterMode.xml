@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureSampler.FilterMode" Title="FilterMode enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITextureSampler">ITextureSampler</PageRef> ->
+    FilterMode
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>FilterMode</TypeRef> enumeration defines how samples are filtered within a mipmap level when a texture is magnified or minified. It is configured with <PageRef PageName="cobalt.graphics.ITextureSampler.SetTextureFilterMode">SetTextureFilterMode</PageRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Nearest">
+        Uses the nearest texel value without interpolation.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Linear">
+        Interpolates between neighbouring texel values.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureSampler.SetTextureFilterMode">ITextureSampler.SetTextureFilterMode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

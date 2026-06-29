@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateGroupNode.BlendFactor" Title="BlendFactor enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRef> ->
+    BlendFactor
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>BlendFactor</TypeRef> enumeration specifies the multiplier applied to source and destination color values before a blend operation is evaluated.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Zero">
+        Uses a factor of zero for all components.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="One">
+        Uses a factor of one for all components.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="SourceColor">
+        Uses the source color components as the factor.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="OneMinusSourceColor">
+        Uses one minus the source color components as the factor.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DestinationColor">
+        Uses the destination color components as the factor.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="OneMinusDestinationColor">
+        Uses one minus the destination color components as the factor.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="SourceAlpha">
+        Uses the source alpha value as the factor for all components.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="OneMinusSourceAlpha">
+        Uses one minus the source alpha value as the factor for all components.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DestinationAlpha">
+        Uses the destination alpha value as the factor for all components.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="OneMinusDestinationAlpha">
+        Uses one minus the destination alpha value as the factor for all components.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode.SetBlendMode">IStateGroupNode.SetBlendMode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

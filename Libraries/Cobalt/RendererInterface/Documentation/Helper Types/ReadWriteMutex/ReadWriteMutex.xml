@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ReadWriteMutex" Title="ReadWriteMutex helper" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    ReadWriteMutex
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class ReadWriteMutex;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ReadWriteMutex</TypeRef> type is a helper type only, and does not feature on the renderer interface
+      itself. This is an optional type which is available for use by the calling application to assist with threading.
+      As detailed in the <PageRef PageName="cobalt.graphics.Concepts.ThreadingModel">Threading Model</PageRef> section, the <PageRef PageName="cobalt.graphics.IRenderer.StartNewFrame">StartNewFrame</PageRef>
+      method on the <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> interface must be called in
+      complete exclusion to all others, on all objects. This allows types on the renderer to operate largely lock free,
+      and be as lightweight as possible. The tradeoff is this one synchronisation requirement is pushed back on the
+      application. If the application due to design never has a chance of overlapping a call to <TypeRef>StartNewFrame</TypeRef>
+      with other API calls on another thread, no further synchronisation is required. If this is possible however, the
+      <TypeRef>ReadWriteMutex</TypeRef> is provided to assist with this case.
+    </Paragraph>
+    <Paragraph>
+      This class implements a "many concurrent readers, one exclusive writer" lock pattern, which allows a writer to
+      "starve out" read requests until it obtains the lock. This allows the application to satisfy the synchronisation
+      requirements by obtaining read locks before each block of API calls, and a write lock before calling <TypeRef>StartNewFrame</TypeRef>.
+      This gives low overhead, while allowing multiple threads to access the API in parallel on separate threads,
+      without allowing thread starvation on the thread that calls <TypeRef>StartNewFrame</TypeRef>. Read locks are also
+      re-entrant on the same thread for simplicity.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        Read locks are re-entrant, however that is only guaranteed to work if each read lock on a given thread is
+        released in the reverse order they are taken.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Nested types">
+      <TypeMemberList>
+        <TypeMemberListEntry Name="ReadLock" TypeCategory="Class" Visibility="Public">
+          A scoped <TypeRef>ReadLock</TypeRef> type, which releases the lock when the object is destroyed.
+        </TypeMemberListEntry>
+        <TypeMemberListEntry Name="WriteLock" TypeCategory="Class" Visibility="Public">
+          A scoped <TypeRef>WriteLock</TypeRef> type, which releases the lock when the object is destroyed.
+        </TypeMemberListEntry>
+      </TypeMemberList>
+    </SubSection>
+    <SubSection Title="Lock methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="ObtainReadLock" PageName="cobalt.graphics.ReadWriteMutex.ObtainReadLock">
+          Obtains a read lock for this mutex. This method blocks the calling thread until the lock can be obtained.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ObtainWriteLock" PageName="cobalt.graphics.ReadWriteMutex.ObtainWriteLock">
+          Obtains a write lock for this mutex. This method blocks the calling thread until the lock can be obtained.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="ReadLock.Unlock" PageName="cobalt.graphics.ReadWriteMutex.ReadLock.Unlock">
+          Releases the read lock manually. This allows a lock to be released early, however the lock will also be released when the lock object is destroyed.
+        </FunctionMemberListEntry>
+        <FunctionMemberListEntry Visibility="Public" Name="WriteLock.Unlock" PageName="cobalt.graphics.ReadWriteMutex.WriteLock.Unlock">
+          Releases the write lock manually. This allows a lock to be released early, however the lock will also be released when the lock object is destroyed.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+</XMLDocContent>

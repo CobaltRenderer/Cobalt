@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITransferBatch.WaitForComplete" Title="WaitForComplete method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRef> ->
+    WaitForComplete
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WaitForComplete</TypeRef> method blocks execution of the calling thread until the batch has completed processing.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void WaitForComplete() const;]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITransferBatch">ITransferBatch</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

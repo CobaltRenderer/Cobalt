@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureBuffer.MipmapLevelDimensions" Title="MipmapLevelDimensions method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph><PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> -> <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef> -> MipmapLevelDimensions</Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>MipmapLevelDimensions</TypeRef> method returns the dimensions of a specific mipmap level that was created when the texture was allocated.
+    </Paragraph>
+    <Paragraph>
+      Each successive mipmap level is derived from the base level by reducing dimensions toward one pixel. Querying the allocated dimensions avoids duplicating that calculation and keeps code correct for one, two, three dimensional, cubemap, and array texture variants.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[V1UInt32 MipmapLevelDimensions(int mipmapLevel) const;
+V2UInt32 MipmapLevelDimensions(int mipmapLevel) const;
+V3UInt32 MipmapLevelDimensions(int mipmapLevel) const;]]></Code>
+    <SubSection Title="Argument list"><ArgumentList><ArgumentListEntry Type="int" Name="mipmapLevel">The mipmap level to query.</ArgumentListEntry></ArgumentList></SubSection>
+    <SubSection Title="Return value"><ReturnValue Type="V1UInt32, V2UInt32, or V3UInt32">The dimensions of the requested mipmap level. The return vector dimension matches the texture type.</ReturnValue></SubSection>
+  </Section>
+  <Section Title="See also"><PageRefList><PageRefListEntry PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.MipmapLevelCount">MipmapLevelCount</PageRefListEntry></PageRefList></Section>
+</XMLDocContent>

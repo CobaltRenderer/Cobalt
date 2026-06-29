@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.ILogger.IsLogSeverityEnabled" Title="IsLogSeverityEnabled method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.ILogger">ILogger</PageRef> ->
+    IsLogSeverityEnabled
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IsLogSeverityEnabled</TypeRef> method reports whether the logger currently accepts messages at the supplied severity.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Use this method to avoid constructing expensive log messages when the target severity is disabled.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[bool IsLogSeverityEnabled(Severity severity) const;]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="Severity!cobalt.logging.ILogger.Severity" Name="severity">The severity value to test.</ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="bool">
+        <TypeRef>true</TypeRef> if the supplied severity is enabled; otherwise <TypeRef>false</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.ILogger.Severity">ILogger.Severity</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogManager.IsLogSeverityEnabled">LogManager.IsLogSeverityEnabled</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

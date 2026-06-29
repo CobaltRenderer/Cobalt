@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderableNode.SetInstanceMode" Title="SetInstanceMode method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRef> ->
+    SetInstanceMode
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetInstanceMode</TypeRef> method is used to configure instanced drawing. By default, an <TypeRef>IRenderableNode</TypeRef>
+      will draw only once. Instanced drawing allows the object to be drawn more than once using a single underlying draw
+      call. Through the use of the <PageRef PageName="cobalt.graphics.IRenderableNode.BindVertexInstanceAttribute">BindVertexInstanceAttribute</PageRef>
+      method, additional data can be supplied which varies between each object instance, allowing each instance to be
+      drawn in a different location or with different attributes such as size and colour. Data can also be retrieved
+      from other data sources which varies per instance, by using the inbuilt instance number provided by the shader
+      language as an index for array or texture lookups.
+    </Paragraph>
+  </Section>
+  <Note Type="Important">
+    <Paragraph>
+      In order to set the <TypeRef>instanceOffset</TypeRef> parameter to a non-zero value, the <PageRef PageName="cobalt.graphics.IGraphicsDevice.Feature">InstanceOffset feature</PageRef>
+      must be supported on the <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef>, and
+      activated when the <PageRef PageName="cobalt.graphics.IGraphicsDevice.CreateRenderer">CreateRenderer</PageRef>
+      method is called.
+    </Paragraph>
+  </Note>
+  <Note Type="Important">
+    <Paragraph>
+      This method can be called at any time after the creation of the <TypeRef>IRenderableNode</TypeRef>, including when
+      it has already been added to the render tree. Any changes made will not affect any current frame being drawn, and
+      will take effect on the next frame.
+    </Paragraph>
+  </Note>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken SetInstanceMode(uint32_t instanceCount, uint32_t instanceOffset = 0);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="uint32_t" Name="instanceCount">
+          Specifies the number of times to draw this renderable object
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="uint32_t" Name="instanceOffset">
+          Specifies a numeric offset to apply to the instance number passed to the shader program. Without an offset,
+          the instance number will begin at 0 for the first instance drawn.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken!cobalt.graphics.SuccessToken">
+        True if the instance count and offset values were successfully updated, false otherwise. There are currently no
+        circumstances under which this method will fail, however in future updates the supplied values may be validated
+        in debug builds to ensure they meet constraints around instancing on the target device. An assertion will be
+        raised in debug builds if the result isn't tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderableNode">IRenderableNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

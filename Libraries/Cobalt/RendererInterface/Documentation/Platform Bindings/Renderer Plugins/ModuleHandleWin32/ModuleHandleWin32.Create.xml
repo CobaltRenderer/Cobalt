@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ModuleHandleWin32.Create" Title="Create method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ModuleHandleWin32">ModuleHandleWin32</PageRef> ->
+    Create
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Create</TypeRef> method creates an owning wrapper around a Win32 <TypeRef>HMODULE</TypeRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[static IModuleHandle::unique_ptr Create(HMODULE moduleHandle);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="HMODULE" Name="moduleHandle">
+          The Win32 module handle to own.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="IModuleHandle!cobalt.graphics.IModuleHandle">
+        A new <TypeRef>ModuleHandleWin32</TypeRef> object returned through <TypeRef>IModuleHandle::unique_ptr</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ModuleHandleWin32">ModuleHandleWin32</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IModuleHandle">IModuleHandle</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

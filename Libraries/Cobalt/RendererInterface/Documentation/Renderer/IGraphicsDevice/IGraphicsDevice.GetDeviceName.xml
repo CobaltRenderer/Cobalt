@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IGraphicsDevice.GetDeviceName" Title="GetDeviceName method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef> ->
+    GetDeviceName
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetDeviceName</TypeRef> method returns a string containing the name of the graphics device, as
+      reported by the graphics driver.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        There is no guarantee that device names will be presented in a consistent way between different devices released
+        by the same vendor, different driver releases for the device, different render plugins for the same device, or
+        even between different versions of the same renderer plugin. Device names are mostly provided for easy user
+        identification, but due to a lack of a robust, standardized way to obtain device names in a consistent form from
+        graphics drivers, it is not recommended to rely on the device name string to identify a device programmatically.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[std::string GetDeviceName() const;]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="std::string">
+        The name of device as reported by the graphics driver (in UTF-8 encoding)
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice.GetVendorName">IGraphicsDevice.GetVendorName</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IGraphicsDevice.GetDriverInfo">IGraphicsDevice.GetDriverInfo</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

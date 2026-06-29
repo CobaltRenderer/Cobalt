@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.ILogTarget" Title="ILogTarget interface" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    ILogTarget
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[class ILogTarget;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ILogTarget</TypeRef> interface is the base class for objects that receive accepted log messages from <PageRef PageName="cobalt.logging.LogManager">LogManager</PageRef>. A target is responsible for final delivery, such as writing to a file, forwarding to a callback, or displaying output in a console.
+    </Paragraph>
+    <Paragraph>
+      It is valid and supported to derive from <TypeRef>ILogTarget</TypeRef> to implement custom logging targets. Custom targets should implement <PageRef PageName="cobalt.logging.ILogTarget.LogMessage">LogMessage</PageRef> to consume the supplied scope, severity, and message data, and <PageRef PageName="cobalt.logging.ILogTarget.Delete">Delete</PageRef> to destroy the concrete object.
+    </Paragraph>
+    <Paragraph>
+      In typical usage, a custom target is not required. <PageRef PageName="cobalt.logging.LogTargetCallback">LogTargetCallback</PageRef> can be used to bridge the logging system to another environment, capture messages for tests, or forward them into an existing logging framework.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        The scope and message parameters supplied to <PageRef PageName="cobalt.logging.ILogTarget.LogMessage">LogMessage</PageRef> include explicit lengths. Custom targets should respect those lengths and should not require the pointers to be null terminated.
+      </Paragraph>
+    </Note>
+    <Note Type="Important">
+      <Paragraph>
+        The log manager serializes calls to <PageRef PageName="cobalt.logging.ILogTarget.LogMessage">LogMessage</PageRef> for a given target, so custom targets do not need to add their own synchronization for normal use.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Structures">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="Deleter" TypeCategory="Struct" PageName="cobalt.logging.ILogTarget.Deleter" Visibility="Public">
+        Deletes log target objects held by <TypeRef>ILogTarget::unique_ptr</TypeRef>.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <SubSection Title="Lifetime methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Delete" PageName="cobalt.logging.ILogTarget.Delete">
+          Deletes the log target object.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+    <SubSection Title="Logging methods">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="LogMessage" PageName="cobalt.logging.ILogTarget.LogMessage">
+          Receives a log message for final delivery by the target.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.LogManager">LogManager</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetCallback">LogTargetCallback</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetFile">LogTargetFile</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

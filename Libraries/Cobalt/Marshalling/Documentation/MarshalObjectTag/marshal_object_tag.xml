@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.marshalling.marshal_object_tag" Title="marshal_object_tag" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[struct marshal_object_tag
+{};]]></Code>
+  </Section>
+
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>marshal_object_tag</TypeRef> type is an empty tag used to select marshalling constructors. A constructor that accepts this type as its
+      first parameter is treated as a marshalling constructor by the library, and can be called automatically when an object is being transferred between
+      assemblies.
+    </Paragraph>
+    <Paragraph>
+      This type is intentionally minimal. It is usually only referenced in constructor declarations and is not expected to be constructed directly by user
+      code.
+    </Paragraph>
+  </Section>
+
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.marshalling.Concepts.MarshallingCustom">Marshalling Custom Types</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.marshalling.IMarshallingObject">IMarshallingObject</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

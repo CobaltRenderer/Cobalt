@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocTOC Name="cobalt.logging.TOCPublic" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <TOCFragment Name="cobalt.logging.TOCPublic">
+    <TOCEntry Title="Home" PageName="cobalt.logging.Welcome" />
+    <TOCGroup Title="API Reference">
+      <TOCGroup Title="LoggingInterface library">
+        <TOCEntry Title="ILogger" PageName="cobalt.logging.ILogger" />
+        <TOCEntry Title="NullLogger" PageName="cobalt.logging.NullLogger" />
+      </TOCGroup>
+      <TOCGroup Title="Logging library">
+        <TOCEntry Title="LogManager" PageName="cobalt.logging.LogManager" />
+        <TOCEntry Title="Logger" PageName="cobalt.logging.Logger" />
+        <TOCEntry Title="ILogTarget" PageName="cobalt.logging.ILogTarget" />
+        <TOCGroup Title="Log Targets">
+          <TOCEntry Title="LogTargetCallback" PageName="cobalt.logging.LogTargetCallback" />
+          <TOCEntry Title="LogTargetConsole" PageName="cobalt.logging.LogTargetConsole" />
+          <TOCEntry Title="LogTargetFile" PageName="cobalt.logging.LogTargetFile" />
+          <TOCEntry Title="LogTargetStandardOut" PageName="cobalt.logging.LogTargetStandardOut" />
+        </TOCGroup>
+      </TOCGroup>
+    </TOCGroup>
+  </TOCFragment>
+</XMLDocTOC>

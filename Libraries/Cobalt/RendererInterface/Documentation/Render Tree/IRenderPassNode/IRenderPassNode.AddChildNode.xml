@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderPassNode.AddChildNode" Title="AddChildNode method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef> ->
+    AddChildNode
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>AddChildNode</TypeRef> method adds the specified <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef>
+      to the list of child nodes. During the rendering process, each <TypeRef>IProgramNode</TypeRef> is processed in the
+      order it was added. This method adds the specified <TypeRef>IProgramNode</TypeRef> to the end of the current set
+      of child nodes.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void AddChildNode(IProgramNode* childNode, IDefaultState* defaultState = nullptr);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IProgramNode*!cobalt.graphics.IProgramNode" Name="childNode">
+          The <TypeRef>IProgramNode</TypeRef> node to add to the list of child nodes
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="IDefaultState*!cobalt.graphics.IDefaultState" Name="defaultState">
+          An optional <TypeRef>IDefaultState</TypeRef> object to provide default bindings and state for the child <TypeRef>IProgramNode</TypeRef> node
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

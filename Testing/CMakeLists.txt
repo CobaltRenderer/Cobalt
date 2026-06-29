@@ -1,0 +1,3 @@
+add_subdirectory(AutomatedTests)
+add_subdirectory(CBindingsTest)
+add_subdirectory(CBindingsStaticTest)

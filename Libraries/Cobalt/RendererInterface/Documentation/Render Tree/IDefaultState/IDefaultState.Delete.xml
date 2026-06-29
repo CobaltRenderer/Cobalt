@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IDefaultState.Delete" Title="Delete method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IDefaultState">IDefaultState</PageRef> ->
+    Delete
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Delete</TypeRef> method schedules this object for deletion. The <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef>
+      object which created this object performs deferred destruction, and will prevent the object being destroyed until
+      any current drawing process completes. This relieves the application from the burden of tracking which resources
+      are still in use, and determining when they can be safely destroyed.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        The renderer does not perform any checks to ensure that an object is not still attached to the render tree when
+        it is scheduled for deletion. It is the responsibility of the application to ensure that all resources which are
+        being deleted will not attempt to be used by subsequent frames.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        Under normal circumstances, this method should never need to be called directly. The <TypeRef>unique_ptr</TypeRef>
+        which is returned when this object is constructed will call this method itself when the pointer is released. You
+        must not call this method if the object lifetime is still being managed by the <TypeRef>unique_ptr</TypeRef>
+        object, otherwise the method will be called more than once. If this occurs the behaviour is undefined, and it
+        may result in runtime errors.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void Delete();]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IDefaultState">IDefaultState</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

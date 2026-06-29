@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderer.StartNewFrame" Title="StartNewFrame method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> ->
+    StartNewFrame
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The renderer usually has two concurrent processes running: the build phase and the draw phase. Calling the
+      <TypeRef>StartNewFrame</TypeRef> waits for the current draw process to complete, then rolls the build state over
+      into the draw state and starts a new frame drawing. Once a frame has been submitted for drawing, the application
+      cannot modify it in any way. Any attempts to modify the state of any objects only affect the build state, which
+      will be used to define the contents of the next frame which is drawn after the <TypeRef>StartNewFrame</TypeRef>
+      method is called again.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        When the renderer is first created, it starts in build mode. This means scene content can be set and modified
+        straight away. The first time <TypeRef>StartNewFrame</TypeRef> is called, a new frame will be submitted for
+        drawing.
+      </Paragraph>
+    </Note>
+    <Note Type="Warning">
+      <Paragraph>
+        Note that no state changes are permitted while this method is being called, on any objects which have been
+        created by this renderer instance. Although all objects provided by the renderer are thread safe under normal
+        operation, a call to the <TypeRef>StartNewFrame</TypeRef> method must be performed exclusively. External
+        synchronization to ensure that no other operations are in progress or are initiated when this method is being
+        called is the responsibility of the application. The renderer SDK provides the <PageRef PageName="cobalt.graphics.ReadWriteMutex">ReadWriteMutex</PageRef>
+        type to assist with synchronization. Please see the section on the <PageRef PageName="cobalt.graphics.Concepts.ThreadingModel">Threading Model</PageRef>
+        for more information.
+      </Paragraph>
+    </Note>
+    <Note Type="Important">
+      <Paragraph>
+        If the previous frame has not finished drawing yet, this method will block until the frame has been fully
+        rendered. If your application has a fixed set of changes that must make it into each frame, where no new frames
+        can be drawn until all the changes are performed, and no more changes are required once they are complete, it is
+        sufficient to call <TypeRef>StartNewFrame</TypeRef> after each set of changes to advance the drawing process. If
+        however your application has updates that run independently from the draw process, and merely need to be
+        submitted as transactions which make it into whichever frame is currently being drawn, it is recommended to
+        call <PageRef PageName="cobalt.graphics.IRenderer.WaitForDrawComplete">WaitForDrawComplete</PageRef> first to
+        ensure that all pending draw tasks have been completed. This will ensure that <TypeRef>StartNewFrame</TypeRef>
+        blocks for the minimal amount of time, which is important as no render state changes can be performed while this
+        method is executing.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void StartNewFrame();]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer">IRenderer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,75 @@
+// Copyright (c) 2013 Roger Sanders
+// Licensed under the MIT License
+#pragma once
+#include "MarshalPreprocessorMacros.h"
+#include <deque>
+#include <list>
+#include <map>
+#include <queue>
+#include <set>
+#include <stack>
+#include <string>
+#include <utility>
+#include <vector>
+#ifdef MARSHALSUPPORT_CPP11SUPPORTED
+#include <array>
+#include <forward_list>
+#include <tuple>
+#include <unordered_map>
+#include <unordered_set>
+#endif
+namespace cobalt { namespace marshalling { namespace internal {
+
+template<class ElementType, class Alloc>
+inline void CalculateDecomposedSTLContainerSize(size_t& elementArrayIndex, size_t& elementSizeArrayIndex, const std::vector<ElementType, Alloc>& element);
+#ifdef MARSHALSUPPORT_CPP11SUPPORTED
+template<class ElementType, size_t ArraySize>
+inline void CalculateDecomposedSTLContainerSize(size_t& elementArrayIndex, size_t& elementSizeArrayIndex, const std::array<ElementType, ArraySize>& element);
+#endif
+template<class ElementType, class Alloc>
+inline void CalculateDecomposedSTLContainerSize(size_t& elementArrayIndex, size_t& elementSizeArrayIndex, const std::list<ElementType, Alloc>& element);
+#ifdef MARSHALSUPPORT_CPP11SUPPORTED
+template<class ElementType, class Alloc>
+inline void CalculateDecomposedSTLContainerSize(size_t& elementArrayIndex, size_t& elementSizeArrayIndex, const std::forward_list<ElementType, Alloc>& element);
+#endif
+template<class ElementType, class Alloc>
+inline void CalculateDecomposedSTLContainerSize(size_t& elementArrayIndex, size_t& elementSizeArrayIndex, const std::deque<ElementType, Alloc>& element);
+template<class ElementType, class Compare, class Alloc>
+inline void CalculateDecomposedSTLContainerSize(size_t& elementArrayIndex, size_t& elementSizeArrayIndex, const std::set<ElementType, Compare, Alloc>& element);
+template<class ElementType, class Compare, class Alloc>
+inline void CalculateDecomposedSTLContainerSize(size_t& elementArrayIndex, size_t& elementSizeArrayIndex, const std::multiset<ElementType, Compare, Alloc>& element);
+#ifdef MARSHALSUPPORT_CPP11SUPPORTED
+template<class ElementType, class Hash, class Pred, class Alloc>
+inline void CalculateDecomposedSTLContainerSize(size_t& elementArrayIndex, size_t& elementSizeArrayIndex, const std::unordered_set<ElementType, Hash, Pred, Alloc>& element);
+template<class ElementType, class Hash, class Pred, class Alloc>
+inline void CalculateDecomposedSTLContainerSize(size_t& elementArrayIndex, size_t& elementSizeArrayIndex, const std::unordered_multiset<ElementType, Hash, Pred, Alloc>& element);
+#endif
+template<class KeyType, class ElementType, class Compare, class Alloc>
+inline void CalculateDecomposedSTLContainerSize(size_t& elementArrayIndex, size_t& elementSizeArrayIndex, const std::map<KeyType, ElementType, Compare, Alloc>& element);
+template<class KeyType, class ElementType, class Compare, class Alloc>
+inline void CalculateDecomposedSTLContainerSize(size_t& elementArrayIndex, size_t& elementSizeArrayIndex, const std::multimap<KeyType, ElementType, Compare, Alloc>& element);
+#ifdef MARSHALSUPPORT_CPP11SUPPORTED
+template<class KeyType, class ElementType, class Hash, class Pred, class Alloc>
+inline void CalculateDecomposedSTLContainerSize(size_t& elementArrayIndex, size_t& elementSizeArrayIndex, const std::unordered_map<KeyType, ElementType, Hash, Pred, Alloc>& element);
+template<class KeyType, class ElementType, class Hash, class Pred, class Alloc>
+inline void CalculateDecomposedSTLContainerSize(size_t& elementArrayIndex, size_t& elementSizeArrayIndex, const std::unordered_multimap<KeyType, ElementType, Hash, Pred, Alloc>& element);
+#endif
+template<class ElementType, class Container>
+inline void CalculateDecomposedSTLContainerSize(size_t& elementArrayIndex, size_t& elementSizeArrayIndex, const std::stack<ElementType, Container>& element);
+template<class ElementType, class Container>
+inline void CalculateDecomposedSTLContainerSize(size_t& elementArrayIndex, size_t& elementSizeArrayIndex, const std::queue<ElementType, Container>& element);
+template<class ElementType, class Container, class Compare>
+inline void CalculateDecomposedSTLContainerSize(size_t& elementArrayIndex, size_t& elementSizeArrayIndex, const std::priority_queue<ElementType, Container, Compare>& element);
+template<class ElementType, class traits, class Alloc>
+inline void CalculateDecomposedSTLContainerSize(size_t& elementArrayIndex, size_t& elementSizeArrayIndex, const std::basic_string<ElementType, traits, Alloc>& element);
+template<class T1, class T2>
+inline void CalculateDecomposedSTLContainerSize(size_t& elementArrayIndex, size_t& elementSizeArrayIndex, const std::pair<T1, T2>& element);
+#if defined(MARSHALSUPPORT_CPP11SUPPORTED) && !defined(MARSHALSUPPORT_NOVARIADICTEMPLATES)
+template<class... Args>
+inline void CalculateDecomposedSTLContainerSize(size_t& elementArrayIndex, size_t& elementSizeArrayIndex, const std::tuple<Args...>& element);
+#endif
+template<class ElementType>
+inline void CalculateDecomposedSTLContainerSize(size_t& elementArrayIndex, size_t& elementSizeArrayIndex, const ElementType& element);
+
+}}} // namespace cobalt::marshalling::internal
+#include "CalculateDecomposedSTLContainerSize.inl"

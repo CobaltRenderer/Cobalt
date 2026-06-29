@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderPassNode.SetAttachmentLoadStoreBehavior" Title="SetAttachmentLoadStoreBehavior method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef> ->
+    SetAttachmentLoadStoreBehavior
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetAttachmentLoadStoreBehavior</TypeRef> method allows the application to relax requirements around
+      whether framebuffer contents must be retained before or after this render pass is drawn. While framebuffer
+      contents are undefined at the start of each new frame, by default, the contents of framebuffer targets are
+      retained after each render pass. If a framebuffer is being reused by multiple render passes, but the contents of
+      the framebuffer don't need to be retained in all cases, this method allows the storage requirements to be relaxed.
+      Not all renderers are capable of acting on the information provided here, but the ones that can may be able to
+      improve performance or memory usage.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        If a render pass is clearing a framebuffer attachment, the <PageRef PageName="cobalt.graphics.IRenderPassNode.AttachmentLoadBehavior">AttachmentLoadBehavior</PageRef>
+        is essentially ignored, as it's clear there's no requirement to retain existing buffer data.
+      </Paragraph>
+    </Note>
+    <Note Type="Important">
+      <Paragraph>
+        Where multisample anti-aliasing (MSAA) is being used, it's possible to set the <PageRef PageName="cobalt.graphics.IRenderPassNode.AttachmentStoreBehavior">AttachmentStoreBehavior</PageRef>
+        setting to <TypeRef>UndefinedFinalData</TypeRef> where the <PageRef PageName="cobalt.graphics.IRenderPassNode.EnableAttachmentMultiSamplingResolution">EnableAttachmentMultiSamplingResolution</PageRef>
+        method has been used to setup a resolve target for the framebuffer attachment within the same render pass. In
+        this case, the framebuffer contents will be retained until the resolve process is complete.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void SetAttachmentLoadStoreBehavior(IFrameBuffer::AttachmentType type, size_t index, AttachmentLoadBehavior loadBehavior, AttachmentStoreBehavior storeBehavior);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IFrameBuffer::AttachmentType!cobalt.graphics.IFrameBuffer.AttachmentType" Name="type">
+          The type of the target framebuffer attachment
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="index">
+          The index of the target framebuffer attachment within the selected attachment type
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="AttachmentLoadBehavior!cobalt.graphics.IRenderPassNode.AttachmentLoadBehavior" Name="loadBehavior">
+          The behaviour to apply for the target framebuffer attachment when the render pass is beginning
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="AttachmentStoreBehavior!cobalt.graphics.IRenderPassNode.AttachmentStoreBehavior" Name="storeBehavior">
+          The behaviour to apply for the target framebuffer attachment when the render pass is ending
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

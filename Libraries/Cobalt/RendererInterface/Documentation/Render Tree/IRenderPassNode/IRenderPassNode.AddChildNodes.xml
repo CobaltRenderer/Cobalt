@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderPassNode.AddChildNodes" Title="AddChildNodes method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef> ->
+    AddChildNodes
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>AddChildNodes</TypeRef> method adds the specified set of <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef>
+      objects to the list of child nodes. During the rendering process, each <TypeRef>IProgramNode</TypeRef> is
+      processed in the order it was added. This method adds the specified set of <TypeRef>IProgramNode</TypeRef> objects
+      to the end of the current set of child nodes.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void AddChildNodes(IProgramNode* const* childNodes, size_t childNodeCount, IDefaultState* const* defaultState = nullptr);
+void AddChildNodes(IProgramNode::unique_ptr const* childNodes, size_t childNodeCount, IDefaultState::unique_ptr const* defaultState = nullptr);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IProgramNode* const* / IProgramNode::unique_ptr const*!cobalt.graphics.IProgramNode" Name="childNodes">
+          The set of <TypeRef>IProgramNode</TypeRef> objects to add to the list of child nodes
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="childNodeCount">
+          The number of <TypeRef>IProgramNode</TypeRef> entries to read from the <TypeRef>childNodes</TypeRef> array
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="IDefaultState* const* / IDefaultState::unique_ptr const*!cobalt.graphics.IDefaultState" Name="defaultState">
+          An optional set of <TypeRef>IDefaultState</TypeRef> objects to provide default bindings and state for the
+          corresponding <TypeRef>IProgramNode</TypeRef> nodes in the <TypeRef>childNodes</TypeRef> array. If this
+          argument isn't set to <TypeRef>nullptr</TypeRef>, it must contain <TypeRef>childNodeCount</TypeRef> entries,
+          however individual entries in the array are allowed to be set to <TypeRef>nullptr</TypeRef>.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

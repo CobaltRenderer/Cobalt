@@ -1,0 +1,16 @@
+LIBRARY WinPixEventRuntime
+
+EXPORTS
+PIXGetCaptureState
+PIXEventsReplaceBlock
+PIXGetThreadInfo
+PIXReportCounter
+PIXNotifyWakeFromFenceSignal
+PIXRecordMemoryAllocationEvent
+PIXRecordMemoryFreeEvent
+PIXEndEventOnCommandList
+PIXBeginEventOnCommandList
+PIXSetMarkerOnCommandList
+PIXEndEventOnCommandQueue
+PIXBeginEventOnCommandQueue
+PIXSetMarkerOnCommandQueue

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.logging.LogTargetFile.OpenLogFile" Title="OpenLogFile method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.logging.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.logging.LogTargetFile">LogTargetFile</PageRef> ->
+    OpenLogFile
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>OpenLogFile</TypeRef> method opens the file that will receive log output.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[bool OpenLogFile(const std::string& filePath, bool append = true);
+bool OpenLogFile(const std::wstring& filePath, bool append = true);
+
+// Available when compiling as C++17 or later.
+bool OpenLogFile(const std::filesystem::path& filePath, bool append = true);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="const std::string&amp;" Name="filePath">The UTF-8 path of the file to open for log output.</ArgumentListEntry>
+        <ArgumentListEntry Type="const std::wstring&amp;" Name="filePath">The native wide-character path of the file to open for log output.</ArgumentListEntry>
+        <ArgumentListEntry Type="const std::filesystem::path&amp;" Name="filePath">The path of the file to open for log output, when the C++17 overload is available.</ArgumentListEntry>
+        <ArgumentListEntry Type="bool" Name="append">Pass <TypeRef>true</TypeRef> to append to existing file content, or <TypeRef>false</TypeRef> to truncate it.</ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="bool">
+        <TypeRef>true</TypeRef> if the file was opened successfully; otherwise <TypeRef>false</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetFile">LogTargetFile</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.logging.LogTargetFile.CloseLogFile">LogTargetFile.CloseLogFile</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

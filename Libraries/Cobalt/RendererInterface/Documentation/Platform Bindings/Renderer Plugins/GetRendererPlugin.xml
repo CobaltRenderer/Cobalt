@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.GetRendererPlugin" Title="GetRendererPlugin function" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef> ->
+    GetRendererPlugin
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[extern "C" bool GetRendererPlugin(unsigned int indexNo, IRendererPlugin& rendererPlugin);]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>GetRendererPlugin</TypeRef> function is exported by renderer plugin libraries. It fills a <PageRef PageName="cobalt.graphics.RendererPlugin">RendererPlugin</PageRef> object with information about one renderer implementation provided by the plugin.
+    </Paragraph>
+    <Paragraph>
+      Callers that load plugin libraries directly should first resolve and call <PageRef PageName="cobalt.graphics.GetCobaltAPIVersion">GetCobaltAPIVersion</PageRef>. Only call <TypeRef>GetRendererPlugin</TypeRef> after the plugin reports a compatible Cobalt Renderer API version.
+    </Paragraph>
+    <Paragraph>
+      The caller passes an index value. Plugins return <TypeRef>true</TypeRef> when a renderer exists at that index and <TypeRef>false</TypeRef> when no renderer exists at that index. Callers can enumerate all renderer implementations in a plugin by starting at index zero and incrementing until the function returns <TypeRef>false</TypeRef>.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        Use <PageRef PageName="cobalt.graphics.RenderPluginEnumerator">RenderPluginEnumerator</PageRef> when you want the SDK helper to load plugin libraries, check API compatibility, locate this export, and manage plugin ownership for you.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[using GetCobaltAPIVersionFunctionType = void(unsigned int& major, unsigned int& minor, unsigned int& patch);
+using GetRendererPluginFunctionType = bool(unsigned int indexNo, IRendererPlugin& rendererPlugin);
+
+auto getCobaltAPIVersion = reinterpret_cast<GetCobaltAPIVersionFunctionType*>(resolvedVersionSymbol);
+unsigned int pluginMajor = 0;
+unsigned int pluginMinor = 0;
+unsigned int pluginPatch = 0;
+getCobaltAPIVersion(pluginMajor, pluginMinor, pluginPatch);
+if ((pluginMajor != COBALT_RENDERER_API_VERSION_MAJOR) || (pluginMinor != COBALT_RENDERER_API_VERSION_MINOR))
+{
+    // Reject the plugin before calling GetRendererPlugin.
+}
+
+RendererPlugin rendererPlugin;
+auto getRendererPlugin = reinterpret_cast<GetRendererPluginFunctionType*>(resolvedRendererPluginSymbol);
+if (getRendererPlugin(0, rendererPlugin))
+{
+    auto deviceEnumerator = rendererPlugin.CreateGraphicsDeviceEnumerator(log->CloneLogger());
+}]]></Code>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.GetCobaltAPIVersion">GetCobaltAPIVersion</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRendererPlugin.GetRendererPluginFunctionType">IRendererPlugin.GetRendererPluginFunctionType</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.RendererPlugin.CreateGraphicsDeviceEnumerator">RendererPlugin.CreateGraphicsDeviceEnumerator</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

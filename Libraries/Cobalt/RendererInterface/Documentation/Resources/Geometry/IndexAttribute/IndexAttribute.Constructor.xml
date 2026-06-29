@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IndexAttribute.Constructor" Title="Constructor method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph><PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> -> <PageRef PageName="cobalt.graphics.IndexAttribute">IndexAttribute</PageRef> -> Constructor</Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>IndexAttribute</TypeRef> constructor creates a index attribute description. The description records the data type, entry count, usage hints, and data persistence behaviour used when the attribute is later bound to a buffer and allocated.
+    </Paragraph>
+    <Paragraph>
+      The attribute description is immutable after construction. Create a new attribute object when the format, count, or storage behaviour needs to change.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[IndexAttribute();
+IndexAttribute(size_t indexCount, PerformanceHint performanceHintCpu, PerformanceHint performanceHintGpu, DataPersistenceFlags dataPersistenceFlags = DataPersistenceFlags::PersistAlways);]]></Code>
+    <SubSection Title="Argument list"><ArgumentList>
+      <ArgumentListEntry Type="size_t" Name="indexCount">The number of index entries described by the attribute.</ArgumentListEntry>
+      <ArgumentListEntry Type="PerformanceHint" Name="performanceHintCpu">The hint describing how the CPU is expected to read from or write to the attribute data.</ArgumentListEntry>
+      <ArgumentListEntry Type="PerformanceHint" Name="performanceHintGpu">The hint describing how the GPU is expected to read from or write to the attribute data.</ArgumentListEntry>
+      <ArgumentListEntry Type="DataPersistenceFlags" Name="dataPersistenceFlags">The persistence flags that describe when existing attribute data may be discarded.</ArgumentListEntry>
+    </ArgumentList></SubSection>
+  </Section>
+  <Section Title="See also"><PageRefList><PageRefListEntry PageName="cobalt.graphics.IndexAttribute">IndexAttribute</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.IIndexBuffer">IIndexBuffer</PageRefListEntry></PageRefList></Section>
+</XMLDocContent>

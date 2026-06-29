@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.WindowSystemInfoHeadless" Title="WindowSystemInfoHeadless structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef> ->
+    WindowSystemInfoHeadless
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[struct WindowSystemInfoHeadless : public IRenderer::WindowSystemInfoBase;]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>WindowSystemInfoHeadless</TypeRef> structure identifies a renderer initialization path that is not bound to a native operating system window system.
+    </Paragraph>
+    <Paragraph>
+      Availability: All platforms. This structure is included unconditionally by <TypeRef>PlatformBindings.pkg</TypeRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <Paragraph>
+      This structure has no public fields beyond the inherited base structure fields.
+    </Paragraph>
+  </Section>
+  <Section Title="Constructors">
+      <FunctionMemberList>
+        <FunctionMemberListEntry Visibility="Public" Name="Constructor" PageName="cobalt.graphics.WindowSystemInfoHeadless.Constructor">
+          Creates a WindowSystemInfoHeadless structure.
+        </FunctionMemberListEntry>
+      </FunctionMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer.Initialize">IRenderer.Initialize</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer.WindowSystemInfoBase">IRenderer.WindowSystemInfoBase</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

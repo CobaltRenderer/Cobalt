@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderPassNode.AttachmentStoreBehavior" Title="AttachmentStoreBehavior enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef> ->
+    AttachmentStoreBehavior
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>AttachmentStoreBehavior</TypeRef> enumeration specifies whether final attachment contents must be preserved after a render pass completes.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+        Selecting UndefinedFinalData means later render passes, output capture, texture sampling, and presentation must not depend on the attachment contents produced by this pass.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="StoreFinalData">
+        Requires the renderer to preserve the final attachment contents after the render pass completes, making them available for later passes, presentation, capture, or resource reads.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UndefinedFinalData">
+        Allows the renderer to discard the final attachment contents when the pass completes. This can be more efficient for transient attachments whose contents are not needed later.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode.SetAttachmentLoadStoreBehavior">IRenderPassNode.SetAttachmentLoadStoreBehavior</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

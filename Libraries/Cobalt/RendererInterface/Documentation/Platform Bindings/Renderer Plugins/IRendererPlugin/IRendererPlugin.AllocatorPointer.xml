@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRendererPlugin.AllocatorPointer" Title="AllocatorPointer typedef" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRendererPlugin">IRendererPlugin</PageRef> ->
+    AllocatorPointer
+  </Paragraph>
+  <Section Title="Declaration">
+    <Code Language="C++"><![CDATA[typedef IGraphicsDeviceEnumerator* (*AllocatorPointer)(cobalt::logging::ILogger* log);]]></Code>
+  </Section>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>AllocatorPointer</TypeRef> typedef describes the renderer plugin function pointer used to allocate an <PageRef PageName="cobalt.graphics.IGraphicsDeviceEnumerator">IGraphicsDeviceEnumerator</PageRef>.
+    </Paragraph>
+    <Paragraph>
+      The logger pointer is transferred to the created enumerator. The enumerator is returned as a raw pointer so it can be wrapped by the shared interface smart pointer on the caller side.
+    </Paragraph>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRendererPlugin.SetAllocationFunction">IRendererPlugin.SetAllocationFunction</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.RendererPlugin.CreateGraphicsDeviceEnumerator">RendererPlugin.CreateGraphicsDeviceEnumerator</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IProgramNode.ResetConstantStateValue" Title="ResetConstantStateValue method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRef> ->
+    ResetConstantStateValue
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ResetConstantStateValue</TypeRef> method removes any constant value which has been previously set by
+      the <PageRef PageName="cobalt.graphics.IProgramNode.SetConstantStateValue">SetConstantStateValue</PageRef> method for the target shader
+      state variable.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void ResetConstantStateValue(StateValueId stateId, size_t arrayIndex = 0);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="StateValueId" Name="value">
+          The <TypeRef>StateValueId</TypeRef> of the target state variable
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="arrayIndex">
+          Specifies the index to use if the target state value is an array
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IProgramNode">IProgramNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IStateGroupNode">IStateGroupNode</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.WindowSystemInfoSDL3.Initialize" Title="Initialize method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.WindowSystemInfoSDL3">WindowSystemInfoSDL3</PageRef> ->
+    Initialize
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Initialize</TypeRef> method detects the SDL video driver and stores the corresponding platform-specific binding structure.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        On Linux with both Xlib and XCB support compiled in, the SDL helper selects Xlib for the SDL <TypeRef>x11</TypeRef> video driver because the Xlib branch is tested first.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[bool Initialize(cobalt::logging::ILogger* log);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="cobalt::logging::ILogger*" Name="log">
+          The logger used for unsupported-driver error messages.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="bool">
+        <TypeRef>true</TypeRef> if a supported platform binding structure was created; otherwise <TypeRef>false</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.WindowSystemInfoSDL3">WindowSystemInfoSDL3</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

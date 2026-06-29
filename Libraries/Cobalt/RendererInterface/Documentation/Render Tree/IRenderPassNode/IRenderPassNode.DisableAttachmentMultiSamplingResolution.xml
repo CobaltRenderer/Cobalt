@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderPassNode.DisableAttachmentMultiSamplingResolution" Title="DisableAttachmentMultiSamplingResolution method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRef> ->
+    DisableAttachmentMultiSamplingResolution
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>DisableAttachmentMultiSamplingResolution</TypeRef> method removes any previously defined multisample
+      attachment resolve operation which has been defined for this render pass using the
+      <PageRef PageName="cobalt.graphics.IRenderPassNode.EnableAttachmentMultiSamplingResolution">EnableAttachmentMultiSamplingResolution</PageRef>
+      method.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void DisableAttachmentMultiSamplingResolution(IFrameBuffer::AttachmentType attachmentType, size_t attachmentIndex);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="IFrameBuffer::AttachmentType!cobalt.graphics.IFrameBuffer.AttachmentType" Name="type">
+          The type of the target framebuffer attachment
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="size_t" Name="index">
+          The index of the framebuffer attachment within the selected attachment type, to use as a source for the
+          resolve operation.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderPassNode">IRenderPassNode</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IFrameBuffer">IFrameBuffer</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

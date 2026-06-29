@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ITextureBuffer.DataFormat" Title="DataFormat enumeration" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.ITextureBuffer">ITextureBuffer</PageRef> ->
+    DataFormat
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>DataFormat</TypeRef> enumeration defines the physical encoding used for each allocated texture component or compressed texture cell. It is paired with <PageRef PageName="cobalt.graphics.ITextureBuffer.ImageFormat">ImageFormat</PageRef> when <PageRef PageName="cobalt.graphics.ITextureBuffer.SetTextureFormat">SetTextureFormat</PageRef> is called.
+    </Paragraph>
+  </Section>
+  <Section Title="Members">
+    <EnumMemberList>
+      <EnumMemberListEntry Name="Int8">
+        Stores each component as an 8-bit signed integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Int16">
+        Stores each component as a 16-bit signed integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Int32">
+        Stores each component as a 32-bit signed integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UInt8">
+        Stores each component as an 8-bit unsigned integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UInt16">
+        Stores each component as a 16-bit unsigned integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UInt32">
+        Stores each component as a 32-bit unsigned integer.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Norm8">
+        Stores each component as an 8-bit signed normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Norm16">
+        Stores each component as a 16-bit signed normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UNorm8">
+        Stores each component as an 8-bit unsigned normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="UNorm16">
+        Stores each component as a 16-bit unsigned normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Float16">
+        Stores each component as a 16-bit floating point value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="Float32">
+        Stores each component as a 32-bit floating point value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DXT1">
+        Stores image data using DXT1 or BC1 block compression.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DXT3">
+        Stores image data using DXT3 or BC2 block compression.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DXT5">
+        Stores image data using DXT5 or BC3 block compression.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="BPTC">
+        Stores image data using BPTC or BC7-style block compression where supported.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ETC2">
+        Stores image data using ETC2 block compression where supported.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ASTC4x4">
+        Stores image data using ASTC compression with 4 by 4 pixel blocks.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ASTC5x5">
+        Stores image data using ASTC compression with 5 by 5 pixel blocks.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ASTC6x6">
+        Stores image data using ASTC compression with 6 by 6 pixel blocks.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="ASTC8x8">
+        Stores image data using ASTC compression with 8 by 8 pixel blocks.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DepthUNorm16">
+        Stores depth as a 16-bit unsigned normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DepthUNorm24">
+        Stores depth as a 24-bit unsigned normalized value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DepthUNorm24StencilUInt8">
+        Stores combined 24-bit unsigned normalized depth and 8-bit unsigned integer stencil data.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DepthFloat32">
+        Stores depth as a 32-bit floating point value.
+      </EnumMemberListEntry>
+      <EnumMemberListEntry Name="DepthFloat32StencilUInt8">
+        Stores combined 32-bit floating point depth and 8-bit unsigned integer stencil data.
+      </EnumMemberListEntry>
+    </EnumMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.SetTextureFormat">ITextureBuffer.SetTextureFormat</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureBuffer.IsCompressedTextureFormat">ITextureBuffer.IsCompressedTextureFormat</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

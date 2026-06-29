@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IShaderProgram.ShaderSourceInfoBase" Title="ShaderSourceInfoBase structure" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IShaderProgram">IShaderProgram</PageRef> ->
+    ShaderSourceInfoBase
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ShaderSourceInfoBase</TypeRef> structure is the base structure passed to <PageRef PageName="cobalt.graphics.IShaderProgram.LoadShaderStage">LoadShaderStage</PageRef>. Concrete shader source information structures derive from it to describe a specific source or bytecode format.
+    </Paragraph>
+    <Paragraph>
+      Applications normally construct one of the concrete helper structures for the shader format they are supplying. The base structure identifies the format so the renderer can validate that the shader code matches the selected loader path.
+    </Paragraph>
+  </Section>
+  <Section Title="Enumerations">
+    <TypeMemberList>
+      <TypeMemberListEntry Name="ShaderType" TypeCategory="Enumeration" PageName="cobalt.graphics.IShaderProgram.ShaderSourceInfoBase.ShaderType" Visibility="Public">
+        Identifies the concrete shader source information type supplied to LoadShaderStage.
+      </TypeMemberListEntry>
+    </TypeMemberList>
+  </Section>
+  <Section Title="Members">
+    <DataMemberList>
+      <DataMemberListEntry Visibility="Public" Type="ShaderType!cobalt.graphics.IShaderProgram.ShaderSourceInfoBase.ShaderType" Name="shaderType">
+        Identifies the concrete shader source information structure and the shader code format it describes.
+      </DataMemberListEntry>
+    </DataMemberList>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IShaderProgram.LoadShaderStage">IShaderProgram.LoadShaderStage</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

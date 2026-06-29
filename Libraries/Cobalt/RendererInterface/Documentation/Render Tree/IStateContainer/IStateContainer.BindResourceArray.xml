@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IStateContainer.BindResourceArray" Title="BindResourceArray method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IStateContainer">IStateContainer</PageRef> ->
+    BindResourceArray
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>BindResourceArray</TypeRef> method sets up a binding to either an <PageRef PageName="cobalt.graphics.IDataArray">IDataArray</PageRef>
+      or <PageRef PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRef> object.
+    </Paragraph>
+    <Note Type="Important">
+      <Paragraph>
+        In order to create or bind to a resource array, the <PageRef PageName="cobalt.graphics.IGraphicsDevice.Feature">ResourceArrays feature</PageRef>
+        must be supported on the <PageRef PageName="cobalt.graphics.IGraphicsDevice">IGraphicsDevice</PageRef>, and
+        activated when the <PageRef PageName="cobalt.graphics.IGraphicsDevice.CreateRenderer">CreateRenderer</PageRef>
+        method is called.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[void BindResourceArray(ResourceArrayId resourceArrayId, IDataArray* resourceBuffer, bool resetCounter = true);
+void BindResourceArray(ResourceArrayId resourceArrayId, ITexelArray* resourceBuffer);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="ResourceArrayId!cobalt.graphics.ResourceArrayId" Name="resourceArrayId">
+          The <TypeRef>ResourceArrayId</TypeRef> of the resource array to bind
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="IDataArray*!cobalt.graphics.IDataArray" Name="resourceBuffer">
+          The <TypeRef>IDataArray</TypeRef> to bind
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="ITexelArray*!cobalt.graphics.ITexelArray" Name="resourceBuffer">
+          The <TypeRef>ITexelArray</TypeRef> to bind
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="bool" Name="resetCounter">
+          When binding an <TypeRef>IDataArray</TypeRef> with an attached counter, specifies whether the counter should
+          be reset when this binding is performed.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IStateContainer">IStateContainer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IDataArray">IDataArray</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITexelArray">ITexelArray</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

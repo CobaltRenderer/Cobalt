@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderer.Initialize" Title="Initialize method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> ->
+    Initialize
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>Initialize</TypeRef> method must be called before any other methods on the <TypeRef>IRenderer</TypeRef>
+      interface. It performs all the necessary initialization tasks which are required to prepare the renderer for the
+      process of creating other objects, and producing renderered frames.
+    </Paragraph>
+    <Paragraph>
+      The supplied window system information structure identifies the native window system that the renderer will use.
+      Applications normally create one of the platform-specific structures documented under
+      <PageRef PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRef>, such as
+      <PageRef PageName="cobalt.graphics.WindowSystemInfoHeadless">WindowSystemInfoHeadless</PageRef>,
+      <PageRef PageName="cobalt.graphics.WindowSystemInfoWin32">WindowSystemInfoWin32</PageRef>,
+      <PageRef PageName="cobalt.graphics.WindowSystemInfoWayland">WindowSystemInfoWayland</PageRef>, or
+      <PageRef PageName="cobalt.graphics.WindowSystemInfoAppKit">WindowSystemInfoAppKit</PageRef>.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[SuccessToken Initialize(const WindowSystemInfoBase& windowSystemInfo, InitializationFlags flags = InitializationFlags::None);]]></Code>
+    <SubSection Title="Argument list">
+      <ArgumentList>
+        <ArgumentListEntry Type="WindowSystemInfoBase!cobalt.graphics.IRenderer.WindowSystemInfoBase" Name="windowSystemInfo">
+          Information on the native window system the renderer will be bound to.
+        </ArgumentListEntry>
+        <ArgumentListEntry Type="InitializationFlags!cobalt.graphics.IRenderer.InitializationFlags" Name="flags">
+          Optional flags to control the initialization process.
+        </ArgumentListEntry>
+      </ArgumentList>
+    </SubSection>
+    <SubSection Title="Return value">
+      <ReturnValue Type="SuccessToken!cobalt.graphics.SuccessToken">
+        True if the initialization process was successful, false otherwise. An assertion will be raised in debug builds
+        if the result isn't tested.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer">IRenderer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer.WindowSystemInfoBase">IRenderer.WindowSystemInfoBase</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.PlatformBindings">PlatformBindings</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.WindowSystemInfoHeadless">WindowSystemInfoHeadless</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

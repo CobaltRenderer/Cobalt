@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.IRenderer.CreateTextureSampler1D" Title="CreateTextureSampler1D method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph>
+    <PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> ->
+    <PageRef PageName="cobalt.graphics.IRenderer">IRenderer</PageRef> ->
+    CreateTextureSampler1D
+  </Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>CreateTextureSampler1D</TypeRef> method constructs and returns a new object which implements the <PageRef PageName="cobalt.graphics.ITextureSampler1D">ITextureSampler1D</PageRef>
+      interface.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage">
+    <Code Language="C++"><![CDATA[ITextureSampler1D::unique_ptr CreateTextureSampler1D();]]></Code>
+    <SubSection Title="Return value">
+      <ReturnValue Type="ITextureSampler1D!cobalt.graphics.ITextureSampler1D">
+        A freshly constructed <TypeRef>ITextureSampler1D</TypeRef> object, wrapped in a <TypeRef>unique_ptr</TypeRef>.
+      </ReturnValue>
+    </SubSection>
+  </Section>
+  <Section Title="See also">
+    <PageRefList>
+      <PageRefListEntry PageName="cobalt.graphics.IRenderer">IRenderer</PageRefListEntry>
+      <PageRefListEntry PageName="cobalt.graphics.ITextureSampler1D">ITextureSampler1D</PageRefListEntry>
+    </PageRefList>
+  </Section>
+</XMLDocContent>

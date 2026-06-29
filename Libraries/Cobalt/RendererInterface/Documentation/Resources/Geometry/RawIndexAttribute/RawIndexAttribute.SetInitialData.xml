@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.RawIndexAttribute.SetInitialData" Title="SetInitialData method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph><PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> -> <PageRef PageName="cobalt.graphics.RawIndexAttribute">RawIndexAttribute</PageRef> -> SetInitialData</Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>SetInitialData</TypeRef> method supplies initial raw index data to upload when the buffer this attribute is assigned to is allocated. The source data is interpreted using the raw attribute layout supplied at construction time.
+    </Paragraph>
+    <Paragraph>
+      Initial data is consumed by <PageRef PageName="cobalt.graphics.IIndexBuffer.AllocateMemory">IIndexBuffer.AllocateMemory</PageRef>. Use this path for data that is available before allocation and should be uploaded as part of the initial buffer creation.
+    </Paragraph>
+    <Note Type="Warning">
+      <Paragraph>
+      The supplied memory must remain valid and accessible until <PageRef PageName="cobalt.graphics.IIndexBuffer.AllocateMemory">IIndexBuffer.AllocateMemory</PageRef> is called.
+      </Paragraph>
+    </Note>
+  </Section>
+  <Section Title="Usage"><Code Language="C++"><![CDATA[SuccessToken SetInitialData(const uint8_t* data, size_t entryCount, size_t entryStrideInBytes);]]></Code><SubSection Title="Argument list"><ArgumentList><ArgumentListEntry Type="const uint8_t*" Name="data">The source bytes to use when the buffer is allocated.</ArgumentListEntry><ArgumentListEntry Type="size_t" Name="entryCount">The number of index entries supplied in the source data.</ArgumentListEntry><ArgumentListEntry Type="size_t" Name="entryStrideInBytes">The byte stride between consecutive source entries.</ArgumentListEntry></ArgumentList></SubSection><SubSection Title="Return value"><ReturnValue Type="SuccessToken">True if the operation succeeded, false otherwise. An assertion will be raised in debug builds if the result is not tested.</ReturnValue></SubSection></Section>
+  <Section Title="See also"><PageRefList><PageRefListEntry PageName="cobalt.graphics.RawIndexAttribute">RawIndexAttribute</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.IIndexBuffer">IIndexBuffer</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.RawIndexAttribute.QueueDataUpdate">QueueDataUpdate</PageRefListEntry></PageRefList></Section>
+</XMLDocContent>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLDocContent PageName="cobalt.graphics.ReadOnlyVertexAttribute.Constructor" Title="Constructor method" xmlns="http://www.cobaltrenderer.com/schema/XMLDocSchema.xsd">
+  <Paragraph><PageRef PageName="cobalt.graphics.Welcome">Home</PageRef> -> <PageRef PageName="cobalt.graphics.ReadOnlyVertexAttribute">ReadOnlyVertexAttribute</PageRef> -> Constructor</Paragraph>
+  <Section Title="Description">
+    <Paragraph>
+      The <TypeRef>ReadOnlyVertexAttribute</TypeRef> constructor creates an empty read-only attribute object. The object does not describe usable data until it has been populated by calling <PageRef PageName="cobalt.graphics.VertexAttribute.BuildReadOnlyAttribute">VertexAttribute.BuildReadOnlyAttribute</PageRef> on an existing bound attribute.
+    </Paragraph>
+    <Paragraph>
+      Read-only attributes are intended to expose an existing buffer binding without allowing the attribute object to perform data upload or update operations.
+    </Paragraph>
+  </Section>
+  <Section Title="Usage"><Code Language="C++"><![CDATA[ReadOnlyVertexAttribute();]]></Code></Section>
+  <Section Title="See also"><PageRefList><PageRefListEntry PageName="cobalt.graphics.ReadOnlyVertexAttribute">ReadOnlyVertexAttribute</PageRefListEntry><PageRefListEntry PageName="cobalt.graphics.VertexAttribute.BuildReadOnlyAttribute">BuildReadOnlyAttribute</PageRefListEntry></PageRefList></Section>
+</XMLDocContent>
