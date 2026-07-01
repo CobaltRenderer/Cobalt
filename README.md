@@ -2,9 +2,12 @@
 
 [![CI Build - Windows/Ubuntu/macOS](https://github.com/CobaltRenderer/Cobalt/actions/workflows/CIBuild.yml/badge.svg?branch=main&event=push)](https://github.com/CobaltRenderer/Cobalt/actions/workflows/CIBuild.yml)
 
-The Cobalt Renderer is a generic, cross platform graphics library. Cobalt aims to make using modern 3D graphics hardware simple. It does this by giving you a clean API to express **what** you want to draw (or compute), without getting bogged down in **how** to do that. Cobalt is designed to be an accessible, lightweight alternative to directly using low-level graphics APIs such as Vulkan, Direct3D and OpenGL.
+The Cobalt Renderer is a generic, cross platform graphics library. Cobalt aims to make using modern 3D graphics hardware simple. It does this by giving you a clean
+API to express **what** you want to draw (or compute), without getting bogged down in **how** to do that. Cobalt is designed to be an accessible, lightweight
+alternative to directly using low-level graphics APIs such as Vulkan, Direct3D and OpenGL.
 
-The Cobalt Renderer was originally developed in 2018-2020 as an internal library for a range of commercial software. As of 2026, this library is now available for free as an open-source project under the permissive MIT license.
+The Cobalt Renderer was originally developed in 2018-2020 as an internal library for a range of commercial software. As of 2026, this library is now available for
+free as an open-source project under the permissive MIT license.
 
 ## Main Features
 - Clear interface that unifies concepts and features across all available graphics APIs
@@ -68,7 +71,7 @@ overview of the high-level concepts behind it.
 
 ### Examples
 In addition to the information contained in the SDK documentation, the repository contains a growing set of code samples under the "Examples" directory. For
-a basic, cross-platform example of how to do rendering, you can refer to [SDLExample](Examples/Standalone/SDLExample/main.cpp), which is a good place to get
+a basic, cross-platform example of how to do rendering, you can refer to [SDLExample](Examples/SDLExample/main.cpp), which is a good place to get
 started.
 
 The automated test framework under the "Tests" directory also contains short code snippets showing the usage of many features in the renderer API. You can refer
