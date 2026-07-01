@@ -370,7 +370,7 @@ bool OpenGLGraphicsDeviceEnumerator::ReadOpenGLGraphicsDeviceInfo(EnumerationFla
 		if (context == EGL_NO_CONTEXT)
 		{
 			CheckEGLError(_log.get());
-			_log->Warning("eglCreateContext failed (display index: {0})", displayIndex);
+			_log->Warning("eglCreateContext failed (display index: {0}). This device may not support OpenGL {1}.{2} Core.", displayIndex, OPENGL_VERSION_MAJOR, OPENGL_VERSION_MINOR);
 			eglTerminate(display);
 			continue;
 		}

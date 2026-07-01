@@ -2582,6 +2582,12 @@ bool OpenGLRenderer::SelectWindowPixelFormat(HWND hwnd, IFrameBuffer::WindowColo
 //----------------------------------------------------------------------------------------
 bool OpenGLRenderer::SelectWindowPixelFormat(EGLDisplay display, IFrameBuffer::WindowColorSpaceMode windowColorSpaceMode, IFrameBuffer::WindowDepthStencilMode windowDepthStencilMode, PixelFormatInfo& pixelFormatInfo, bool offscreenDevice, const cobalt::logging::ILogger& log, bool debugLoggingEnabled)
 {
+	//##FIX## Workaround for WSL crash
+	//https://github.com/microsoft/WSL/issues/12171
+	WARNINGS_PUSH_OFF
+	static auto wslCrashFix = dlopen("/usr/lib/wsl/lib/libd3d12core.so", RTLD_LAZY | RTLD_GLOBAL); //NOLINT
+	WARNINGS_POP
+
 	// Select the colour format to use for the window framebuffer
 	int redBits = 8;
 	int greenBits = 8;
