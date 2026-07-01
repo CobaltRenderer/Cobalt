@@ -14,41 +14,6 @@
     </TOCGroup>
     <TOCGroup Title="API Reference">
       <TOCEntry Title="RendererInterface package" PageName="cobalt.graphics.RendererInterface" />
-      <TOCGroup Title="Platform Bindings">
-        <TOCEntry Title="PlatformBindings package" PageName="cobalt.graphics.PlatformBindings" />
-        <TOCGroup Title="Renderer Plugins">
-          <TOCEntry Title="GetCobaltAPIVersion" PageName="cobalt.graphics.GetCobaltAPIVersion" />
-          <TOCEntry Title="GetRendererPlugin" PageName="cobalt.graphics.GetRendererPlugin" />
-          <TOCEntry Title="IRendererPlugin" PageName="cobalt.graphics.IRendererPlugin" />
-          <TOCEntry Title="RendererPlugin" PageName="cobalt.graphics.RendererPlugin" />
-          <TOCEntry Title="IModuleHandle" PageName="cobalt.graphics.IModuleHandle" />
-          <TOCEntry Title="ModuleHandleWin32" PageName="cobalt.graphics.ModuleHandleWin32" />
-          <TOCEntry Title="ModuleHandlePosix" PageName="cobalt.graphics.ModuleHandlePosix" />
-          <TOCEntry Title="RenderPluginEnumerator" PageName="cobalt.graphics.RenderPluginEnumerator" />
-        </TOCGroup>
-        <TOCGroup Title="Window System Info">
-          <TOCEntry Title="WindowSystemInfoHeadless" PageName="cobalt.graphics.WindowSystemInfoHeadless" />
-          <TOCEntry Title="WindowSystemInfoWin32" PageName="cobalt.graphics.WindowSystemInfoWin32" />
-          <TOCEntry Title="WindowSystemInfoXlib" PageName="cobalt.graphics.WindowSystemInfoXlib" />
-          <TOCEntry Title="WindowSystemInfoXCB" PageName="cobalt.graphics.WindowSystemInfoXCB" />
-          <TOCEntry Title="WindowSystemInfoWayland" PageName="cobalt.graphics.WindowSystemInfoWayland" />
-          <TOCEntry Title="WindowSystemInfoAppKit" PageName="cobalt.graphics.WindowSystemInfoAppKit" />
-        </TOCGroup>
-        <TOCGroup Title="Window Info">
-          <TOCEntry Title="WindowInfoHeadless" PageName="cobalt.graphics.WindowInfoHeadless" />
-          <TOCEntry Title="WindowInfoWin32" PageName="cobalt.graphics.WindowInfoWin32" />
-          <TOCEntry Title="WindowInfoXlib" PageName="cobalt.graphics.WindowInfoXlib" />
-          <TOCEntry Title="X11Constants" PageName="cobalt.graphics.X11Constants" />
-          <TOCEntry Title="WindowInfoXCB" PageName="cobalt.graphics.WindowInfoXCB" />
-          <TOCEntry Title="WindowInfoWayland" PageName="cobalt.graphics.WindowInfoWayland" />
-          <TOCEntry Title="WindowInfoAppKit" PageName="cobalt.graphics.WindowInfoAppKit" />
-        </TOCGroup>
-        <TOCGroup Title="SDL3 Helpers">
-          <TOCEntry Title="CobaltSDLCreateWindow" PageName="cobalt.graphics.CobaltSDLCreateWindow" />
-          <TOCEntry Title="WindowSystemInfoSDL3" PageName="cobalt.graphics.WindowSystemInfoSDL3" />
-          <TOCEntry Title="WindowInfoSDL3" PageName="cobalt.graphics.WindowInfoSDL3" />
-        </TOCGroup>
-      </TOCGroup>
       <TOCGroup Title="Renderer Types">
         <TOCEntry Title="IGraphicsDeviceEnumerator" PageName="cobalt.graphics.IGraphicsDeviceEnumerator" />
         <TOCEntry Title="IGraphicsDevice"           PageName="cobalt.graphics.IGraphicsDevice" />
@@ -123,6 +88,41 @@
           <TOCEntry Title="StateValueId"            PageName="cobalt.graphics.StateValueId" />
           <TOCEntry Title="StateBufferId"           PageName="cobalt.graphics.StateBufferId" />
           <TOCEntry Title="ResourceArrayId"         PageName="cobalt.graphics.ResourceArrayId" />
+        </TOCGroup>
+      </TOCGroup>
+      <TOCGroup Title="Platform Bindings">
+        <TOCEntry Title="PlatformBindings package" PageName="cobalt.graphics.PlatformBindings" />
+        <TOCGroup Title="Renderer Plugins">
+          <TOCEntry Title="GetCobaltAPIVersion" PageName="cobalt.graphics.GetCobaltAPIVersion" />
+          <TOCEntry Title="GetRendererPlugin" PageName="cobalt.graphics.GetRendererPlugin" />
+          <TOCEntry Title="IRendererPlugin" PageName="cobalt.graphics.IRendererPlugin" />
+          <TOCEntry Title="RendererPlugin" PageName="cobalt.graphics.RendererPlugin" />
+          <TOCEntry Title="IModuleHandle" PageName="cobalt.graphics.IModuleHandle" />
+          <TOCEntry Title="ModuleHandleWin32" PageName="cobalt.graphics.ModuleHandleWin32" />
+          <TOCEntry Title="ModuleHandlePosix" PageName="cobalt.graphics.ModuleHandlePosix" />
+          <TOCEntry Title="RenderPluginEnumerator" PageName="cobalt.graphics.RenderPluginEnumerator" />
+        </TOCGroup>
+        <TOCGroup Title="Window System Info">
+          <TOCEntry Title="WindowSystemInfoHeadless" PageName="cobalt.graphics.WindowSystemInfoHeadless" />
+          <TOCEntry Title="WindowSystemInfoWin32" PageName="cobalt.graphics.WindowSystemInfoWin32" />
+          <TOCEntry Title="WindowSystemInfoXlib" PageName="cobalt.graphics.WindowSystemInfoXlib" />
+          <TOCEntry Title="WindowSystemInfoXCB" PageName="cobalt.graphics.WindowSystemInfoXCB" />
+          <TOCEntry Title="WindowSystemInfoWayland" PageName="cobalt.graphics.WindowSystemInfoWayland" />
+          <TOCEntry Title="WindowSystemInfoAppKit" PageName="cobalt.graphics.WindowSystemInfoAppKit" />
+        </TOCGroup>
+        <TOCGroup Title="Window Info">
+          <TOCEntry Title="WindowInfoHeadless" PageName="cobalt.graphics.WindowInfoHeadless" />
+          <TOCEntry Title="WindowInfoWin32" PageName="cobalt.graphics.WindowInfoWin32" />
+          <TOCEntry Title="WindowInfoXlib" PageName="cobalt.graphics.WindowInfoXlib" />
+          <TOCEntry Title="X11Constants" PageName="cobalt.graphics.X11Constants" />
+          <TOCEntry Title="WindowInfoXCB" PageName="cobalt.graphics.WindowInfoXCB" />
+          <TOCEntry Title="WindowInfoWayland" PageName="cobalt.graphics.WindowInfoWayland" />
+          <TOCEntry Title="WindowInfoAppKit" PageName="cobalt.graphics.WindowInfoAppKit" />
+        </TOCGroup>
+        <TOCGroup Title="SDL3 Helpers">
+          <TOCEntry Title="CobaltSDLCreateWindow" PageName="cobalt.graphics.CobaltSDLCreateWindow" />
+          <TOCEntry Title="WindowSystemInfoSDL3" PageName="cobalt.graphics.WindowSystemInfoSDL3" />
+          <TOCEntry Title="WindowInfoSDL3" PageName="cobalt.graphics.WindowInfoSDL3" />
         </TOCGroup>
       </TOCGroup>
     </TOCGroup>
