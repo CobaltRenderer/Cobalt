@@ -240,7 +240,8 @@ option(COBALT_INHERIT_SYSTEM_INSTALL_PATH "Inherit the system-default install pa
 | `run-code-coverage`         | Runs code coverage analysis for the unit test suite and produces a report. |
 
 # Contributing
-This project welcomes contributions and suggestions. The sections below give some guidance on how to make contributing changes a smoother process.
+This project welcomes contributions and suggestions. Feel free to join our public [Discord server](https://discord.gg/St5bkhrnu8) to get involved. If you're
+interested in contributing code changes, sections below give some guidance on how to make the process smoother.
 
 ### Submission process
 You can contribute changes in the usual manner, by forking the repo and submitting a Pull Request. The Cobalt Renderer uses squashed merges for all changes,
