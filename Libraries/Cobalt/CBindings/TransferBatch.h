@@ -2,6 +2,7 @@
 // Licensed under the MIT License
 #pragma once
 #include "Macros.h"
+#include "Result.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -23,7 +24,7 @@ typedef enum
 } Cobalt_EndTiming;
 
 // Submission methods
-COBALT_FUNCTION_EXPORT char Cobalt_TransferBatch_SubmitBatch(Cobalt_TransferBatch batch);
+COBALT_FUNCTION_EXPORT Cobalt_Result Cobalt_TransferBatch_SubmitBatch(Cobalt_TransferBatch batch);
 COBALT_FUNCTION_EXPORT char Cobalt_TransferBatch_IsSubmitted(Cobalt_TransferBatch batch);
 COBALT_FUNCTION_EXPORT char Cobalt_TransferBatch_IsComplete(Cobalt_TransferBatch batch);
 COBALT_FUNCTION_EXPORT void Cobalt_TransferBatch_WaitForComplete(Cobalt_TransferBatch batch);
