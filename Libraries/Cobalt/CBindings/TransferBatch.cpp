@@ -8,11 +8,11 @@ using namespace cobalt::graphics;
 //----------------------------------------------------------------------------------------
 // Submission methods
 //----------------------------------------------------------------------------------------
-char Cobalt_TransferBatch_SubmitBatch(Cobalt_TransferBatch batch)
+Cobalt_Result Cobalt_TransferBatch_SubmitBatch(Cobalt_TransferBatch batch)
 {
 	auto _this = reinterpret_cast<ITransferBatch*>(batch);
 
-	return _this->SubmitBatch() ? 1 : 0;
+	return _this->SubmitBatch() ? COBALT_SUCCESS : COBALT_FAILURE;
 }
 
 //----------------------------------------------------------------------------------------
