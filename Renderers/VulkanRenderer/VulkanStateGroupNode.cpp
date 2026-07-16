@@ -71,6 +71,7 @@ void VulkanStateGroupNode::AddChildNode(IRenderableNode* childNode)
 	if (!childNodeResolved->SetAsChildNode())
 	{
 		_log->Error("Failed to add renderable node as child");
+		return;
 	}
 
 	// Retrieve the primitive information we need to match this renderable node to a state bucket
