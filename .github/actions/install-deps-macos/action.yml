@@ -7,5 +7,4 @@ runs:
     - name: Installing dependencies (macos)
       shell: bash
       run: |
-        brew update
         brew install clang-format llvm

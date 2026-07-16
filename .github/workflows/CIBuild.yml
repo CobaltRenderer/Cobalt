@@ -95,7 +95,6 @@ jobs:
             buildToolset: clangcl
             presetPrefix: win-clangcl-arm64-
             runner: windows-11-arm
-            increasePageSize: true
 
           # Linux x64
           - buildPlatform: ubuntu
@@ -121,7 +120,6 @@ jobs:
             buildToolset: clang
             presetPrefix: linux-clang-arm64-
             runner: ubuntu-24.04-arm
-            increasePageSize: true
 
           # macOS x64
           - buildPlatform: macos
