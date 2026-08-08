@@ -596,6 +596,7 @@ void OpenGLRenderableNode::Draw(OpenGLShaderProgram* shaderProgram, size_t rende
 		if (!vertexArrayObjectEntry.vertexArrayGenerated)
 		{
 			vertexArrayObjectEntry.vertexArrayID = _renderer->GenerateVertexArrayObject(renderingContextIndex);
+			vertexArrayObjectEntry.vertexArrayGenerated = true;
 			vertexArrayObjectEntry.renderingContextGenerationIndex = renderingContextGenerationIndex;
 			vertexArrayObjectEntry.vertexArrayInvalidated = true;
 		}
