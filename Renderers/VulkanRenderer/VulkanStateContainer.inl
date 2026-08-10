@@ -782,6 +782,7 @@ void VulkanStateContainer<T>::SetStateValueInternal(StateValueId stateId, const 
 	if (stateId == StateValueId::Null)
 	{
 		_log->Warning("Attempted to set state value with ID \"{0}\"", stateId);
+		delete value;
 		return;
 	}
 

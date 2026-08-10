@@ -754,6 +754,7 @@ void Direct3DStateContainer<T>::SetStateValueInternal(StateValueId stateId, cons
 	if (stateId == StateValueId::Null)
 	{
 		_log->Warning("Attempted to set state value with ID \"{0}\"", stateId);
+		delete value;
 		return;
 	}
 
