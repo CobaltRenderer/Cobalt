@@ -79,7 +79,8 @@ static std::filesystem::path GetReportFilePathForOpen(const Configuration& confi
 	std::filesystem::path reportFilePath = config.htmlReportFile.value_or(config.executableFolderPath / "Report" / "Results.html");
 	if (!std::filesystem::exists(reportFilePath))
 	{
-		return "";
+		reportFilePath.clear();
+		return reportFilePath;
 	}
 	return reportFilePath;
 }

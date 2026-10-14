@@ -353,7 +353,7 @@ int main(void)
 	Cobalt_Renderer_WaitForOutputCaptureComplete(renderer);
 
 	size_t imageBufferLength = (size_t)textureSize[0] * (size_t)textureSize[1] * 4;
-	uint8_t* imageBuffer = malloc(imageBufferLength);
+	uint8_t* imageBuffer = (uint8_t*)malloc(imageBufferLength);
 	REQUIRE(Cobalt_FrameBufferOutput_ReadBufferData(output, imageBuffer, imageBufferLength, Cobalt_SourceImageFormat_RGBA, Cobalt_SourceDataFormat_UNorm8, zeroZero, textureSize) == COBALT_SUCCESS);
 
 	size_t pngDataLength = 0;

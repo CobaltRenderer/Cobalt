@@ -42,6 +42,7 @@ set(COBALT_CLANG_WARNING_FLAGS
     -Wno-unused-variable
     -Wno-unused-private-field
     -Wno-zero-as-null-pointer-constant
+    -Wno-error=nrvo
 )
 if (WIN32)
     list(APPEND COBALT_CLANG_WARNING_FLAGS -Wno-language-extension-token)

@@ -3941,7 +3941,8 @@ bool ShaderCode::FixStructTypeNameCollisionsOnMoltenVK(std::vector<uint32_t>& sp
 			c = base + "_t" + std::to_string(i);
 			if (!used.count(c)) return c;
 		}
-		return base + "_t_unique"; // extremely unlikely fallback
+		c = base + "_t_unique"; // extremely unlikely fallback
+		return c;
 	};
 
 	// ---- Pass 1: parse instructions and collect names/IDs ----
