@@ -104,6 +104,7 @@ set(AutomatedTests_SOURCES
     "UnitTests/VertexBufferChangeTest.cpp"
     "UnitTests/WriteIndexBufferFromCompute.cpp"
     "UnitTests/WriteVertexBufferFromCompute.cpp"
+    "UnitTests/RenderableUnboundAttributes.cpp"
     "GeometryHelper.cpp"
     "PerformanceTestBase.cpp"
     "PseudoRandomGenerator.cpp"
@@ -370,6 +371,7 @@ source_group("Tests/Unit Tests/Renderable" FILES
     "UnitTests/IndirectDraw.cpp"
     "UnitTests/IndirectMultiDrawFromCompute.cpp"
     "UnitTests/InstanceMode.cpp"
+    "UnitTests/RenderableUnboundAttributes.cpp"
 )
 source_group("Tests/Unit Tests/Resources/DataArray" FILES
     "UnitTests/AppendStructuredBuffer.cpp"

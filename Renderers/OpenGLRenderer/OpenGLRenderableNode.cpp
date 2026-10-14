@@ -670,12 +670,10 @@ void OpenGLRenderableNode::Draw(OpenGLShaderProgram* shaderProgram, size_t rende
 				glEnableVertexAttribArray(info.attributeID);
 				CheckGLError(_log);
 
-				// If this is an instance attribute, configure it to advance once per instance instead of once per
-				// vertex.
-				if (attributeTypeIndex == VertexInstanceAttributeIndex)
-				{
-					glVertexAttribDivisor(info.attributeID, 1);
-				}
+				// Instance attributes require advancing once pre instance instaed of once per vertex
+				GLint advance = attributeTypeIndex == VertexInstanceAttributeIndex ? 1 : 0;
+				glVertexAttribDivisor(info.attributeID, advance);
+
 				CheckGLError(_log);
 			}
 		}

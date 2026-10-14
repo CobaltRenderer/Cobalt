@@ -1603,15 +1603,31 @@ bool Direct3DShaderProgram::CreateInputLayout(const std::vector<D3D11_INPUT_ELEM
 			continue;
 		}
 
-		D3D11_INPUT_ELEMENT_DESC descriptionEntry = {};
-		descriptionEntry.SemanticName = shaderInputParameter.name.c_str();
-		descriptionEntry.SemanticIndex = (UINT)shaderInputParameter.index;
-		descriptionEntry.InputSlot = 0;
-		descriptionEntry.AlignedByteOffset = 0;
-		descriptionEntry.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-		descriptionEntry.InstanceDataStepRate = 0;
-		descriptionEntry.Format = shaderInputParameter.format;
-		inputDescriptionCopy.push_back(descriptionEntry);
+		// For any unbound parameter here, we will create a dummy binding that ideally points
+		// to our first input parameter if it exists. If no inputs are bound, we will create
+		// a binding that just points to slot 0. This is importatnt as binding to slot 0 when
+		// it is used by another parameter with different InputSlotClass and/or InstanceDataStepRate
+		// is invalid, so we should duplicate the same options for an input parameter if possible.
+		if (!inputDescriptionCopy.empty())
+		{
+			D3D11_INPUT_ELEMENT_DESC descriptionEntry = inputDescriptionCopy[0];
+			descriptionEntry.SemanticName = shaderInputParameter.name.c_str();
+			descriptionEntry.SemanticIndex = (UINT)shaderInputParameter.index;
+			descriptionEntry.Format = shaderInputParameter.format;
+			inputDescriptionCopy.push_back(descriptionEntry);
+		}
+		else
+		{
+			D3D11_INPUT_ELEMENT_DESC descriptionEntry = {};
+			descriptionEntry.SemanticName = shaderInputParameter.name.c_str();
+			descriptionEntry.SemanticIndex = (UINT)shaderInputParameter.index;
+			descriptionEntry.InputSlot = 0;
+			descriptionEntry.AlignedByteOffset = 0;
+			descriptionEntry.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+			descriptionEntry.InstanceDataStepRate = 0;
+			descriptionEntry.Format = shaderInputParameter.format;
+			inputDescriptionCopy.push_back(descriptionEntry);
+		}
 	}
 
 	// Try to create the input layout
