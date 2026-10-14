@@ -115,40 +115,31 @@ void Direct3DStateBufferLayout::AddFieldEntry(const std::string& fieldName, bool
 	FieldEntry fieldEntry;
 	fieldEntry.name = fieldName;
 	fieldEntry.type = type;
-	fieldEntry.isVector = isVector && (width > 1);
-	fieldEntry.isMatrix = isMatrix && (width > 1) && (height > 1);
+	fieldEntry.isVector = isVector && (width > 0);
+	fieldEntry.isMatrix = isMatrix && (width > 0) && (height > 0);
 	fieldEntry.width = width;
 	fieldEntry.height = height;
-	fieldEntry.isArray = (arraySize > 1);
+	fieldEntry.isArray = (arraySize > 0);
 	fieldEntry.dataTypeByteSize = GetDataTypeByteSize(type);
 
-	// Calculate the size of the field. The alignment rules here follow the Direct3D packing rules as defined here:
-	// https://docs.microsoft.com/en-us/windows/desktop/direct3dhlsl/dx-graphics-hlsl-packing-rules
+	// Matrix padding is between storage vectors, and array padding is between elements.
+	// Neither is part of the data supplied to SetStateValue.
+	fieldEntry.entrySizeInBytes = Direct3DStateBufferLayout::ElementSize(fieldEntry.dataTypeByteSize, width, height);
+	fieldEntry.totalFieldEntryByteSize = fieldEntry.entrySizeInBytes;
 	if (fieldEntry.isArray)
 	{
-		arrayStrideInBytes = (arrayStrideInBytes > 0) ? arrayStrideInBytes : (fieldEntry.dataTypeByteSize * 4 * (fieldEntry.isMatrix ? fieldEntry.height : 1));
-		fieldEntry.totalFieldEntryByteSize = arrayStrideInBytes * (fieldEntry.isArray ? arraySize : 1);
-	}
-	else if (fieldEntry.isMatrix)
-	{
-		fieldEntry.totalFieldEntryByteSize = (4 * fieldEntry.dataTypeByteSize * (fieldEntry.height - 1)) + (fieldEntry.width * fieldEntry.dataTypeByteSize);
-	}
-	else if (fieldEntry.isVector)
-	{
-		fieldEntry.totalFieldEntryByteSize = fieldEntry.width * fieldEntry.dataTypeByteSize;
-	}
-	else
-	{
-		fieldEntry.totalFieldEntryByteSize = fieldEntry.dataTypeByteSize;
+		arrayStrideInBytes = arrayStrideInBytes > 0 ? arrayStrideInBytes : Direct3DStateBufferLayout::ArrayStride(fieldEntry.dataTypeByteSize, width, height);
+		fieldEntry.totalFieldEntryByteSize += arrayStrideInBytes * (arraySize - 1);
 	}
 
 	// Calculate the position of the field in the layout
 	if (useAutoOffset)
 	{
+		_nextAutoFieldOffsetInBytes = ((_nextAutoFieldOffsetInBytes + fieldEntry.dataTypeByteSize - 1) / fieldEntry.dataTypeByteSize) * fieldEntry.dataTypeByteSize;
 		const uint32_t alignmentSizeInBytes = 16;
 		size_t offsetIntoAlignmentWindow = (_nextAutoFieldOffsetInBytes % alignmentSizeInBytes);
 		auto remainingBytesInAlignmentWindow = alignmentSizeInBytes - offsetIntoAlignmentWindow;
-		if ((offsetIntoAlignmentWindow > 0) && (remainingBytesInAlignmentWindow < fieldEntry.totalFieldEntryByteSize))
+		if ((offsetIntoAlignmentWindow > 0) && (fieldEntry.isArray || height > 1 || remainingBytesInAlignmentWindow < fieldEntry.totalFieldEntryByteSize))
 		{
 			fieldEntry.bufferOffsetInBytes = _nextAutoFieldOffsetInBytes + remainingBytesInAlignmentWindow;
 		}

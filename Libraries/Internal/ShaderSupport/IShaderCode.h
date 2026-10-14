@@ -81,6 +81,8 @@ public:
 		size_t size{}; // elementCount * elementStride
 		size_t vecSize{};
 		size_t columns{};
+		size_t matrixStride{};
+		bool rowMajor = false;
 		std::vector<uint32_t> arraySizes;
 		Stage usedStages = {};
 		bool writeableResource = false;

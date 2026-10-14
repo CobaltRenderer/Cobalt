@@ -19,6 +19,8 @@ public:
 		size_t baseAlignment = 0;
 		size_t dataTypeByteSize = 0;
 		size_t totalFieldEntryByteSize = 0;
+		size_t entrySizeInBytes = 0;
+		size_t matrixStrideInBytes = 0;
 		DataType type = DataType::Null;
 		bool isVector = false;
 		bool isMatrix = false;
@@ -44,8 +46,13 @@ public:
 	bool BeginManualLayoutDefinition();
 	void AddManualField(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes);
 	void AddManualVector(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t elementCount, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes);
-	void AddManualMatrix(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t width, size_t height, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes);
+	void AddManualMatrix(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t width, size_t height, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes, size_t matrixStrideInBytes = 0);
 	SuccessToken ConstructStateLayout() override;
+
+	// Packing helpers. Width and height describe the stored vectors, not mathematical rows/columns.
+	static size_t VectorSize(size_t scalarSize, size_t width);
+	static size_t ElementSize(size_t scalarSize, size_t width, size_t height, size_t matrixStride);
+	static void CopyValue(uint8_t* destination, const uint8_t* source, size_t sourceSize, size_t scalarSize, size_t width, size_t height, size_t matrixStride);
 
 	// State layout query methods
 	size_t GetTotalLayoutSizeInBytes() const;
@@ -55,7 +62,7 @@ public:
 private:
 	// State layout building methods
 	bool BeginLayoutDefinition(bool manualLayoutMode);
-	void AddFieldEntry(const std::string& fieldName, bool useAutoOffset, size_t bufferOffsetInBytes, DataType type, bool isVector, bool isMatrix, size_t width, size_t height, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes);
+	void AddFieldEntry(const std::string& fieldName, bool useAutoOffset, size_t bufferOffsetInBytes, DataType type, bool isVector, bool isMatrix, size_t width, size_t height, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes, size_t matrixStrideInBytes = 0);
 	size_t GetDataTypeByteSize(DataType dataType) const;
 
 private:

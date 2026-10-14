@@ -1106,7 +1106,8 @@ bool ShaderCode::ExportCodeAsGLSL(std::string& outputCode, bool hasGeometryStage
 		StringReplaceAll(glslCode, "" + blockName + ".", "");
 	}
 
-	// Strip std140 layout qualifiers from uniform blocks
+	// Allow the OpenGL driver to choose the uniform-block layout for performance.
+	//##TODO## Automatic state buffer layouts assume std140 and cannot validate that assumption without a compiled shader.
 	StringReplaceAll(glslCode, "layout(std140) ", "");
 	StringReplaceAll(glslCode, ", std140)", ")");
 
@@ -1346,6 +1347,12 @@ void ShaderCode::GetUniformFields(std::vector<ShaderCode::Resource>* resourceVec
 
 			GetNativeVulkanFormatAndSize(&shaderResource, member);
 			shaderResource.size = _compiler->get_declared_struct_member_size(type, i);
+		}
+
+		if (member.columns > 1)
+		{
+			shaderResource.matrixStride = _compiler->type_struct_member_matrix_stride(type, i);
+			shaderResource.rowMajor = _compiler->has_member_decoration(type.self, i, spv::DecorationRowMajor);
 		}
 
 		// Calculate the stride of the innermost element if this field is an array

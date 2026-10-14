@@ -3,6 +3,7 @@
 #include "VulkanStateBufferLayout.h"
 #include "VulkanRenderer.h"
 #include <algorithm>
+#include <cstring>
 namespace cobalt::graphics {
 
 //----------------------------------------------------------------------------------------
@@ -84,13 +85,13 @@ void VulkanStateBufferLayout::AddManualVector(const std::string& fieldName, size
 }
 
 //----------------------------------------------------------------------------------------
-void VulkanStateBufferLayout::AddManualMatrix(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t width, size_t height, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes)
+void VulkanStateBufferLayout::AddManualMatrix(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t width, size_t height, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes, size_t matrixStrideInBytes)
 {
-	AddFieldEntry(fieldName, false, bufferOffsetInBytes, type, false, true, width, height, arraySize, arrayStrideInBytes, leadingArraySizes, leadingArrayStridesInBytes);
+	AddFieldEntry(fieldName, false, bufferOffsetInBytes, type, false, true, width, height, arraySize, arrayStrideInBytes, leadingArraySizes, leadingArrayStridesInBytes, matrixStrideInBytes);
 }
 
 //----------------------------------------------------------------------------------------
-void VulkanStateBufferLayout::AddFieldEntry(const std::string& fieldName, bool useAutoOffset, size_t bufferOffsetInBytes, DataType type, bool isVector, bool isMatrix, size_t width, size_t height, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes)
+void VulkanStateBufferLayout::AddFieldEntry(const std::string& fieldName, bool useAutoOffset, size_t bufferOffsetInBytes, DataType type, bool isVector, bool isMatrix, size_t width, size_t height, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes, size_t matrixStrideInBytes)
 {
 	// Validate the current state of the layout
 	if (!_layoutBuildInProgress)
@@ -115,52 +116,38 @@ void VulkanStateBufferLayout::AddFieldEntry(const std::string& fieldName, bool u
 	FieldEntry fieldEntry;
 	fieldEntry.name = fieldName;
 	fieldEntry.type = type;
-	fieldEntry.isVector = isVector && (width > 1);
-	fieldEntry.isMatrix = isMatrix && (width > 1) && (height > 1);
+	fieldEntry.isVector = isVector && (width > 0);
+	fieldEntry.isMatrix = isMatrix && (width > 0) && (height > 0);
 	fieldEntry.width = width;
 	fieldEntry.height = height;
-	fieldEntry.isArray = (arraySize > 1);
+	fieldEntry.isArray = (arraySize > 0);
 	fieldEntry.dataTypeByteSize = GetDataTypeByteSize(type);
 
-	// Calculate the size of the field. The alignment rules here follow the Direct3D packing rules as defined here:
-	// https://docs.microsoft.com/en-us/windows/desktop/direct3dhlsl/dx-graphics-hlsl-packing-rules
+	// Automatic layouts use std140. Reflected layouts supply their actual offsets and strides.
+	// A vec3 has vec4 alignment but only three writable components. Arrays and matrices
+	// reserve their final padding, that padding is never part of a SetStateValue write.
+	const size_t vectorWidth = width > 0 ? width : 1;
+	fieldEntry.baseAlignment = fieldEntry.dataTypeByteSize * (vectorWidth == 3 ? 4 : vectorWidth);
+	if (fieldEntry.isArray || fieldEntry.isMatrix)
+	{
+		fieldEntry.baseAlignment = std::max(size_t(16), fieldEntry.baseAlignment);
+	}
+	fieldEntry.matrixStrideInBytes = fieldEntry.isMatrix ? (matrixStrideInBytes > 0 ? matrixStrideInBytes : fieldEntry.baseAlignment) : 0;
+	fieldEntry.entrySizeInBytes = ElementSize(fieldEntry.dataTypeByteSize, width, height, fieldEntry.matrixStrideInBytes);
+	fieldEntry.totalFieldEntryByteSize = fieldEntry.isMatrix ? fieldEntry.matrixStrideInBytes * height : fieldEntry.entrySizeInBytes;
 	if (fieldEntry.isArray)
 	{
-		arrayStrideInBytes = (arrayStrideInBytes > 0) ? arrayStrideInBytes : (fieldEntry.dataTypeByteSize * 4 * (fieldEntry.isMatrix ? fieldEntry.height : 1));
-		fieldEntry.totalFieldEntryByteSize = arrayStrideInBytes * (fieldEntry.isArray ? arraySize : 1);
+		arrayStrideInBytes = arrayStrideInBytes > 0 ? arrayStrideInBytes : ((fieldEntry.totalFieldEntryByteSize + fieldEntry.baseAlignment - 1) / fieldEntry.baseAlignment) * fieldEntry.baseAlignment;
+		fieldEntry.totalFieldEntryByteSize = arrayStrideInBytes * arraySize;
 	}
-	else if (fieldEntry.isMatrix)
+	if (!useAutoOffset)
 	{
-		fieldEntry.totalFieldEntryByteSize = (4 * fieldEntry.dataTypeByteSize * (fieldEntry.height - 1)) + (fieldEntry.width * fieldEntry.dataTypeByteSize);
-	}
-	else if (fieldEntry.isVector)
-	{
-		fieldEntry.totalFieldEntryByteSize = fieldEntry.width * fieldEntry.dataTypeByteSize;
-	}
-	else
-	{
-		fieldEntry.totalFieldEntryByteSize = fieldEntry.dataTypeByteSize;
+		// Reflection may describe a packed layout with a following field in the final padding.
+		fieldEntry.totalFieldEntryByteSize = fieldEntry.entrySizeInBytes + (fieldEntry.isArray ? (arraySize - 1) * arrayStrideInBytes : 0);
 	}
 
 	// Calculate the position of the field in the layout
-	if (useAutoOffset)
-	{
-		const uint32_t alignmentSizeInBytes = 16;
-		size_t offsetIntoAlignmentWindow = (_nextAutoFieldOffsetInBytes % alignmentSizeInBytes);
-		auto remainingBytesInAlignmentWindow = alignmentSizeInBytes - offsetIntoAlignmentWindow;
-		if ((offsetIntoAlignmentWindow > 0) && (remainingBytesInAlignmentWindow < fieldEntry.totalFieldEntryByteSize))
-		{
-			fieldEntry.bufferOffsetInBytes = _nextAutoFieldOffsetInBytes + remainingBytesInAlignmentWindow;
-		}
-		else
-		{
-			fieldEntry.bufferOffsetInBytes = _nextAutoFieldOffsetInBytes;
-		}
-	}
-	else
-	{
-		fieldEntry.bufferOffsetInBytes = bufferOffsetInBytes;
-	}
+	fieldEntry.bufferOffsetInBytes = useAutoOffset ? ((_nextAutoFieldOffsetInBytes + fieldEntry.baseAlignment - 1) / fieldEntry.baseAlignment) * fieldEntry.baseAlignment : bufferOffsetInBytes;
 
 	// Calculate the end position of this field in the buffer
 	size_t followingFieldOffsetInBuffer = fieldEntry.bufferOffsetInBytes + fieldEntry.totalFieldEntryByteSize;
@@ -239,6 +226,32 @@ const VulkanStateBufferLayout::FieldEntry* VulkanStateBufferLayout::GetFieldEntr
 		return nullptr;
 	}
 	return &_fieldEntries[(size_t)fieldID];
+}
+
+//----------------------------------------------------------------------------------------
+size_t VulkanStateBufferLayout::VectorSize(size_t scalarSize, size_t width)
+{
+	return scalarSize * (width > 0 ? width : 1);
+}
+
+//----------------------------------------------------------------------------------------
+size_t VulkanStateBufferLayout::ElementSize(size_t scalarSize, size_t width, size_t height, size_t matrixStride)
+{
+	return (height > 0 ? height - 1 : 0) * matrixStride + VectorSize(scalarSize, width);
+}
+
+//----------------------------------------------------------------------------------------
+void VulkanStateBufferLayout::CopyValue(uint8_t* destination, const uint8_t* source, size_t sourceSize, size_t scalarSize, size_t width, size_t height, size_t matrixStride)
+{
+	const size_t vectorSize = VectorSize(scalarSize, width);
+	const size_t vectorCount = height > 0 ? height : 1;
+	for (size_t i = 0; i < vectorCount && sourceSize > 0; ++i)
+	{
+		const size_t copySize = std::min(sourceSize, vectorSize);
+		std::memcpy(destination + i * matrixStride, source, copySize);
+		source += copySize;
+		sourceSize -= copySize;
+	}
 }
 
 } // namespace cobalt::graphics

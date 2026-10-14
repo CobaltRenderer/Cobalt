@@ -859,7 +859,7 @@ bool Direct3DShaderProgram::LoadGlobalConstantBufferInfoForShaderStage(ShaderSta
 		{
 			for (size_t j = 0; j < entryInfo.defaultValues.size(); ++j)
 			{
-				std::memcpy(constantBufferInfo.bufferContents.data() + entryInfo.defaultValueOffsets[j], entryInfo.defaultValues[j].data(), entryInfo.dataSizeInBytes);
+				std::memcpy(constantBufferInfo.bufferContents.data() + entryInfo.defaultValueOffsets[j], entryInfo.defaultValues[j].data(), entryInfo.entrySizeInBytes);
 			}
 		}
 	}
@@ -1063,18 +1063,12 @@ bool Direct3DShaderProgram::LoadConstantBufferVariableEntry(ConstantBufferInfo& 
 		return false;
 	}
 
-	// Calculate the size of this field in bytes
-	bool memberIsArray = (typeDescription.Elements > 0);
-	size_t memberElementSizeInBytes = Direct3DStateBufferLayout::GetDataTypeByteSize(type);
-	size_t memberSizeInBytes = 0;
-	if (memberIsArray)
-	{
-		memberSizeInBytes = ((4 * memberElementSizeInBytes) * (height <= 0 ? 1 : height)) * typeDescription.Elements;
-	}
-	else
-	{
-		memberSizeInBytes = ((width <= 0 ? 1 : width) * memberElementSizeInBytes) * (height <= 0 ? 1 : height);
-	}
+	// Keep an element's writable extent separate from its array stride. The final vector's
+	// unused components may belong to the next field, including after the last array element.
+	const size_t scalarSize = Direct3DStateBufferLayout::GetDataTypeByteSize(type);
+	const size_t elementSize = Direct3DStateBufferLayout::ElementSize(scalarSize, width, height);
+	const size_t arrayStride = Direct3DStateBufferLayout::ArrayStride(scalarSize, width, height);
+	const size_t memberSizeInBytes = elementSize + (typeDescription.Elements > 0 ? (typeDescription.Elements - 1) * arrayStride : 0);
 
 	// Allocate or retrieve the uniform ID for the variable
 	int uniformID;
@@ -1105,31 +1099,9 @@ bool Direct3DShaderProgram::LoadConstantBufferVariableEntry(ConstantBufferInfo& 
 	entryInfo.type = type;
 	entryInfo.width = width;
 	entryInfo.height = height;
-	//##FIX## This is actually incorrect due to padding, but the rules are non-trivial for combining vector/matrix types
-	//and array notation, and we haven't done that here. We use the actual byte size reported by reflection, and allow
-	//writes to extend into padding, rather than restricting them. We should tighten this up here, and restrict the
-	//entry size to be the region which is allowed to hold valid data, stripping off trailing padding. Note also that
-	//there may not be any trailing padding on the last element in an array, such as when there is no following field in
-	//the buffer. To handle this case and calculate the entry size correctly, we therefore need to round the reported
-	//data size up to the next row boundary before using it to calculate the array entry size.
-	size_t rowSizeInBytes = Direct3DStateBufferLayout::GetDataTypeByteSize(IStateBufferLayout::DataType::Float32) * 4;
-	entryInfo.entrySizeInBytes = (typeDescription.Elements > 0) ? ((((entryInfo.dataSizeInBytes + (rowSizeInBytes - 1)) / rowSizeInBytes) * rowSizeInBytes) / typeDescription.Elements) : entryInfo.dataSizeInBytes;
-
-	// Calculate the array size and stride. The alignment rules here follow the Direct3D packing rules as defined here:
-	// https://docs.microsoft.com/en-us/windows/desktop/direct3dhlsl/dx-graphics-hlsl-packing-rules
-	if (typeDescription.Elements > 0)
-	{
-		//##FIX## Note that array stride may differ from true entry size due to padding. This only works currently
-		//because we have not stripped the padding out of the element size calculation above. When we do strip padding,
-		//this code needs to be changed.
-		entryInfo.arrayStrideInBytes = entryInfo.entrySizeInBytes;
-		entryInfo.arraySize = typeDescription.Elements;
-	}
-	else
-	{
-		entryInfo.arrayStrideInBytes = 0;
-		entryInfo.arraySize = 1;
-	}
+	entryInfo.entrySizeInBytes = elementSize;
+	entryInfo.arrayStrideInBytes = typeDescription.Elements > 0 ? arrayStride : 0;
+	entryInfo.arraySize = typeDescription.Elements;
 
 	// Populate the array sizes and strides for this entry
 	entryInfo.leadingArraySizes = leadingArraySizes;
@@ -1154,8 +1126,8 @@ bool Direct3DShaderProgram::LoadConstantBufferVariableEntry(ConstantBufferInfo& 
 		if (entryInfo.arraySizes.empty())
 		{
 			auto& defaultValueByteArray = entryInfo.defaultValues.emplace_back();
-			defaultValueByteArray.resize(entryInfo.dataSizeInBytes);
-			std::memcpy(defaultValueByteArray.data(), defaultValue, entryInfo.dataSizeInBytes);
+			defaultValueByteArray.resize(entryInfo.entrySizeInBytes);
+			std::memcpy(defaultValueByteArray.data(), defaultValue, entryInfo.entrySizeInBytes);
 			entryInfo.defaultValueOffsets.push_back(entryInfo.bufferOffset);
 		}
 		else
@@ -1174,8 +1146,8 @@ bool Direct3DShaderProgram::LoadConstantBufferVariableEntry(ConstantBufferInfo& 
 
 				// Add a default value entry for this array index
 				auto& defaultValueByteArray = entryInfo.defaultValues.emplace_back();
-				defaultValueByteArray.resize(entryInfo.dataSizeInBytes);
-				std::memcpy(defaultValueByteArray.data(), defaultValue + arrayOffset, entryInfo.dataSizeInBytes);
+				defaultValueByteArray.resize(entryInfo.entrySizeInBytes);
+				std::memcpy(defaultValueByteArray.data(), defaultValue + arrayOffset, entryInfo.entrySizeInBytes);
 				entryInfo.defaultValueOffsets.push_back(entryInfo.bufferOffset + arrayOffset);
 
 				// Advance to the next array index
@@ -1249,16 +1221,11 @@ bool Direct3DShaderProgram::CalculateConstantBufferStructEntrySizeInBytes(size_t
 				return false;
 			}
 
-			// Calculate the size of this field in bytes
-			bool memberIsArray = (memberTypeDescription.Elements > 0);
-			size_t memberElementSizeInBytes = Direct3DStateBufferLayout::GetDataTypeByteSize(type);
-			if (memberIsArray)
+			const size_t scalarSize = Direct3DStateBufferLayout::GetDataTypeByteSize(type);
+			memberSizeInBytes = Direct3DStateBufferLayout::ElementSize(scalarSize, width, height);
+			if (memberTypeDescription.Elements > 0)
 			{
-				memberSizeInBytes = ((4 * memberElementSizeInBytes) * (height <= 0 ? 1 : height)) * memberTypeDescription.Elements;
-			}
-			else
-			{
-				memberSizeInBytes = ((width <= 0 ? 1 : width) * memberElementSizeInBytes) * (height <= 0 ? 1 : height);
+				memberSizeInBytes += (memberTypeDescription.Elements - 1) * Direct3DStateBufferLayout::ArrayStride(scalarSize, width, height);
 			}
 		}
 
@@ -1283,9 +1250,12 @@ bool Direct3DShaderProgram::StateBufferEntryNativeTypeToBufferLayoutType(const D
 		elementHeight = 0;
 		break;
 	case D3D_SVC_MATRIX_COLUMNS:
-	case D3D_SVC_MATRIX_ROWS:
 		elementWidth = typeDescription.Rows;
 		elementHeight = typeDescription.Columns;
+		break;
+	case D3D_SVC_MATRIX_ROWS:
+		elementWidth = typeDescription.Columns;
+		elementHeight = typeDescription.Rows;
 		break;
 	default:
 		return false;
@@ -1882,8 +1852,7 @@ void Direct3DShaderProgram::UpdateStateValue(StateValueId stateId, const uint8_t
 
 		// Update the entry in the buffer
 		uint8_t* uniformLocation = constantBuffer.bufferContents.data() + bufferEntry.bufferOffset + arrayOffset;
-		auto sizeToCopy = std::min(dataSizeInBytes, bufferEntry.entrySizeInBytes);
-		std::memcpy(uniformLocation, data, sizeToCopy);
+		Direct3DStateBufferLayout::CopyValue(uniformLocation, data, dataSizeInBytes, Direct3DStateBufferLayout::GetDataTypeByteSize(bufferEntry.type), bufferEntry.width, bufferEntry.height);
 
 		// Flag that the buffer is now dirty
 		constantBuffer.isDirty = true;
