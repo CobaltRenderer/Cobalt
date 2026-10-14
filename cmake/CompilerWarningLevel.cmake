@@ -28,6 +28,7 @@ set(COBALT_CLANG_WARNING_FLAGS
     -Wno-reserved-identifier
     -Wno-reserved-macro-identifier
     -Wno-shadow
+    -Wno-shadow-header
     -Wno-sign-conversion
     -Wno-suggest-override
     -Wno-switch
@@ -41,6 +42,7 @@ set(COBALT_CLANG_WARNING_FLAGS
     -Wno-unused-variable
     -Wno-unused-private-field
     -Wno-zero-as-null-pointer-constant
+    -Wno-error=nrvo
 )
 if (WIN32)
     list(APPEND COBALT_CLANG_WARNING_FLAGS -Wno-language-extension-token)
