@@ -32,7 +32,8 @@ IRenderableNode::unique_ptr CreateRenderableNode(IRenderer& renderer)
 	auto renderableNode = renderer.CreateRenderableNode();
 	if (!renderableNode->SetPrimitiveMode(IRenderableNode::PrimitiveMode::Triangles))
 	{
-		return nullptr;
+		renderableNode = nullptr;
+		return renderableNode;
 	}
 	return renderableNode;
 }
