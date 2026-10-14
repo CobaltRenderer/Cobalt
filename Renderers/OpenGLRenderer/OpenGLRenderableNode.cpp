@@ -671,8 +671,8 @@ void OpenGLRenderableNode::Draw(OpenGLShaderProgram* shaderProgram, size_t rende
 				CheckGLError(_log);
 
 				// Instance attributes require advancing once pre instance instaed of once per vertex
-				GLint advance = attributeTypeIndex == VertexInstanceAttributeIndex ? 1 : 0;
-				glVertexAttribDivisor(info.attributeID, advance);
+				GLint divisor = attributeTypeIndex == VertexInstanceAttributeIndex ? 1 : 0;
+				glVertexAttribDivisor(info.attributeID, divisor);
 
 				CheckGLError(_log);
 			}
