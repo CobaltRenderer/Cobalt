@@ -166,9 +166,10 @@ DEFINE_UNIT_TEST_WITH_BASE("Renderable/RenderableUnboundAttributes", UnitTestBas
 	{
 		for (int instanceChannel = 0; instanceChannel < static_cast<int>(channelNames.size()); ++instanceChannel)
 		{
-            if (vertexChannel == instanceChannel) {
-                continue;
-            }
+			if (vertexChannel == instanceChannel)
+			{
+				continue;
+			}
 			const std::string resultName = "PerVertex" + channelNames[vertexChannel] + "PerInstance" + channelNames[instanceChannel];
 			const std::string resultDescription = "Three triangles with a per-vertex gradient in " + channelNames[vertexChannel] + " and per-instance intensities in " + channelNames[instanceChannel] + ", leaving the third shader attribute unbound. ";
 			runCase(resultName, resultDescription, vertexChannel, instanceChannel);
