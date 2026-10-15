@@ -482,10 +482,10 @@ void VulkanStateBuffer::SetStateValueInternal(uint32_t pageNo, StateValueId stat
 	}
 
 	// Validate that the write being attempted is within the bounds of the page
-	size_t writeEndPos = (fieldEntry->bufferOffsetInBytes + arrayOffset + dataSizeInBytes);
-	if (writeEndPos > _pageBlockSizeInBytes)
+	size_t writeEndPos = (fieldEntry->bufferOffsetInBytes + arrayOffset + fieldEntry->entrySizeInBytes);
+	if (writeEndPos > _pageSizeInBytes)
 	{
-		_log->Error("Write end position {0} is outside the page size of {1} when attempting to update state buffer", writeEndPos, _pageBlockSizeInBytes);
+		_log->Error("Write end position {0} is outside the page size of {1} when attempting to update state buffer", writeEndPos, _pageSizeInBytes);
 		return;
 	}
 
@@ -493,8 +493,7 @@ void VulkanStateBuffer::SetStateValueInternal(uint32_t pageNo, StateValueId stat
 	PageBlock& pageBlock = _pageBlocks[pageBlockIndex];
 	uint8_t* pageBuffer = pageBlock.memoryBuffers[_buildIndex] + (pageIndexInBlock * _pageSizeInBytes);
 	uint8_t* writeTarget = pageBuffer + fieldEntry->bufferOffsetInBytes + arrayOffset;
-	auto sizeToCopy = std::min(dataSizeInBytes, fieldEntry->totalFieldEntryByteSize);
-	std::memcpy(writeTarget, data, sizeToCopy);
+	VulkanStateBufferLayout::CopyValue(writeTarget, data, dataSizeInBytes, fieldEntry->dataTypeByteSize, fieldEntry->width, fieldEntry->height, fieldEntry->matrixStrideInBytes);
 
 	// Flag that the written page block has unsaved changes
 	if (!pageBlock.hasUnsavedChanges[_buildIndex])

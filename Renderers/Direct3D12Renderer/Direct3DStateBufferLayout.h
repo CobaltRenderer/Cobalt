@@ -3,6 +3,8 @@
 #pragma once
 #include <Cobalt/LoggingInterface/LoggingInterface.pkg>
 #include <Cobalt/RendererInterface/RendererInterface.pkg>
+#include <cstddef>
+#include <cstdint>
 #include <map>
 #include <vector>
 namespace cobalt::graphics {
@@ -18,6 +20,7 @@ public:
 		size_t bufferOffsetInBytes = 0;
 		size_t dataTypeByteSize = 0;
 		size_t totalFieldEntryByteSize = 0;
+		size_t entrySizeInBytes = 0;
 		DataType type = DataType::Null;
 		bool isVector = false;
 		bool isMatrix = false;
@@ -47,12 +50,21 @@ public:
 	SuccessToken ConstructStateLayout() override;
 	inline constexpr static size_t GetDataTypeByteSize(DataType dataType);
 
+	// Buffer packing helpers
+	inline constexpr static size_t ElementSize(size_t scalarSize, size_t width, size_t height);
+	inline constexpr static size_t ArrayStride(size_t scalarSize, size_t width, size_t height);
+	inline static void CopyValue(uint8_t* destination, const uint8_t* source, size_t sourceSize, size_t scalarSize, size_t width, size_t height);
+
 	// State layout query methods
 	size_t GetTotalLayoutSizeInBytes() const;
 	StateValueId GetFieldId(const std::string& fieldName) const;
 	const FieldEntry* GetFieldEntryInfo(StateValueId fieldID) const;
 
 private:
+	// Buffer packing helpers
+	inline constexpr static size_t AlignToRow(size_t size);
+	inline constexpr static size_t VectorSize(size_t scalarSize, size_t width);
+
 	// State layout building methods
 	bool BeginLayoutDefinition(bool manualLayoutMode);
 	void AddFieldEntry(const std::string& fieldName, bool useAutoOffset, size_t bufferOffsetInBytes, DataType type, bool isVector, bool isMatrix, size_t width, size_t height, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes);

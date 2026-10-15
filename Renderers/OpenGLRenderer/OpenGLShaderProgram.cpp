@@ -1649,8 +1649,10 @@ void OpenGLShaderProgram::ReadStateBufferLayoutInfoFromShader(StateBufferId stat
 		uniform.elementHeight = elementHeight;
 		uniform.nativeDataType = (GLenum)uniformTypes[underlyingUniformIndex];
 		uniform.bufferOffset = (size_t)uniformOffsets[underlyingUniformIndex];
-		uniform.arraySize = (size_t)uniformArraySizes[underlyingUniformIndex];
+		uniform.arraySize = uniformArrayStrides[underlyingUniformIndex] > 0 ? (size_t)uniformArraySizes[underlyingUniformIndex] : 0;
 		uniform.arrayStride = (size_t)uniformArrayStrides[underlyingUniformIndex];
+		uniform.matrixStride = (size_t)uniformMatrixStrides[underlyingUniformIndex];
+		uniform.rowMajor = uniformMatrixIsRowMajors[underlyingUniformIndex] != 0;
 	}
 
 	// Merge our individual uniform values together to reconstruct parent arrays
@@ -1673,6 +1675,8 @@ void OpenGLShaderProgram::ReadStateBufferLayoutInfoFromShader(StateBufferId stat
 			mergedUniformInfo.bufferOffset = uniform.bufferOffset;
 			mergedUniformInfo.arraySize = uniform.arraySize;
 			mergedUniformInfo.arrayStride = uniform.arrayStride;
+			mergedUniformInfo.matrixStride = uniform.matrixStride;
+			mergedUniformInfo.rowMajor = uniform.rowMajor;
 			mergedUniformInfo.uniformIndices.push_back(uniformIndex);
 			continue;
 		}
@@ -1720,7 +1724,7 @@ void OpenGLShaderProgram::ReadStateBufferLayoutInfoFromShader(StateBufferId stat
 		// If this uniform was an array itself, we will get one entry for it of the form "someUniform[0]", with a full
 		// array size already decoded and passed in. In this case, we need to strip the last array size entry, since we
 		// need to pass this along separately.
-		if (uniform.arraySize > 1)
+		if (uniform.arraySize > 0)
 		{
 			arraySizes.pop_back();
 		}
@@ -1739,6 +1743,8 @@ void OpenGLShaderProgram::ReadStateBufferLayoutInfoFromShader(StateBufferId stat
 			mergedUniformInfo.bufferOffset = uniform.bufferOffset;
 			mergedUniformInfo.arraySize = uniform.arraySize;
 			mergedUniformInfo.arrayStride = uniform.arrayStride;
+			mergedUniformInfo.matrixStride = uniform.matrixStride;
+			mergedUniformInfo.rowMajor = uniform.rowMajor;
 			mergedUniformInfo.leadingArraySizes = std::move(arraySizes);
 			mergedUniformInfo.uniformIndices.push_back(uniformIndex);
 		}
@@ -1830,7 +1836,7 @@ void OpenGLShaderProgram::ReadStateBufferLayoutInfoFromShader(StateBufferId stat
 		size_t arrayStringSearchPos = mergedUniformInfo.name.find(arrayNotationString, previousArrayStringSearchPos + arrayNotationString.size());
 		while (arrayStringSearchPos != std::string::npos)
 		{
-			if ((mergedUniformInfo.arraySize > 1) && (currentArrayIndex == mergedUniformInfo.leadingArraySizes.size()))
+			if ((mergedUniformInfo.arraySize > 0) && (currentArrayIndex == mergedUniformInfo.leadingArraySizes.size()))
 			{
 				// If this uniform is an array uniform, and we're up to the last array notation, merge the last leading
 				// array notation into it if required, and abort any further processing.
@@ -1914,8 +1920,6 @@ SuccessToken OpenGLShaderProgram::LoadStateBufferLayoutFromShader(StateBufferId 
 	}
 
 	// Add each uniform to the state buffer layout
-	//##TODO## Handle uniformMatrixStrides
-	//##TODO## Handle uniformMatrixIsRowMajors
 	for (const auto& mergedUniform : layoutInfo.mergedUniforms)
 	{
 		// Add this uniform to the state buffer layout
@@ -1929,7 +1933,7 @@ SuccessToken OpenGLShaderProgram::LoadStateBufferLayoutFromShader(StateBufferId 
 		}
 		else
 		{
-			stateBufferLayoutResolved->AddManualMatrix(mergedUniform.name, mergedUniform.bufferOffset, mergedUniform.dataType, mergedUniform.elementWidth, mergedUniform.elementHeight, mergedUniform.arraySize, mergedUniform.arrayStride, mergedUniform.leadingArraySizes, mergedUniform.leadingArrayStrides);
+			stateBufferLayoutResolved->AddManualMatrix(mergedUniform.name, mergedUniform.bufferOffset, mergedUniform.dataType, mergedUniform.rowMajor ? mergedUniform.elementWidth : mergedUniform.elementHeight, mergedUniform.rowMajor ? mergedUniform.elementHeight : mergedUniform.elementWidth, mergedUniform.arraySize, mergedUniform.arrayStride, mergedUniform.leadingArraySizes, mergedUniform.leadingArrayStrides, mergedUniform.matrixStride);
 		}
 	}
 

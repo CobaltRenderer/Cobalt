@@ -160,7 +160,6 @@ private:
 		size_t arrayStrideInBytes[ShaderStageCount] = {0};
 		size_t bufferOffset[ShaderStageCount] = {0};
 		//##TODO## Review the usage of these fields and if they still need to be here
-		size_t entrySizeInBytes = 0;
 		size_t dataSizeInBytes = 0;
 	};
 	struct StateBufferInfo

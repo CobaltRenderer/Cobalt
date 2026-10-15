@@ -14,6 +14,7 @@ set(AutomatedTests_SOURCES
     "UnitTests/BunnyNormals.cpp"
     "UnitTests/CompressedTextures.cpp"
     "UnitTests/ConstantStateValues.cpp"
+    "UnitTests/BufferPacking.cpp"
     "UnitTests/StateValueArrayBindings.cpp"
     "UnitTests/ConsumeStructuredBuffer.cpp"
     "UnitTests/DataArrayGpuTransfer.cpp"
@@ -425,6 +426,7 @@ source_group("Tests/Unit Tests/Resources/StateBuffer" FILES
 )
 source_group("Tests/Unit Tests/Resources/StateValue" FILES
     "UnitTests/ConstantStateValues.cpp"
+    "UnitTests/BufferPacking.cpp"
     "UnitTests/ResourceBindingVariants.cpp"
     "UnitTests/ResourceBindingLifecycle.cpp"
     "UnitTests/StateValueArrayBindings.cpp"

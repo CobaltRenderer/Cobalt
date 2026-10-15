@@ -1,0 +1,121 @@
+// Copyright (c) 2026 Maptek Pty Ltd
+// Licensed under the MIT License
+#include "../UnitTestBase.h"
+namespace cobalt::graphics::testing {
+using namespace cobalt::graphics;
+
+// Define our shader programs
+const std::string VertexShader = R"(
+struct VSInput {
+    float3 position : position;
+    float3 color : color;
+};
+
+struct VSOutput {
+    float4 position : SV_POSITION;
+    float3 color : COLOR;
+};
+
+uniform row_major float3x3 viewProj;
+
+VSOutput main(VSInput IN)
+{
+    VSOutput OUT;
+
+    OUT.color = IN.color;
+    OUT.position = float4(mul(viewProj, IN.position), 1.0f);
+
+    return OUT;
+}
+)";
+const std::string FragmentShader = R"(
+struct VSOutput {
+    float4 position : SV_POSITION;
+    float3 color : COLOR;
+};
+
+float4 main(VSOutput IN) : SV_TARGET0
+{
+    return float4(IN.color, 1.0f);
+}
+)";
+
+DEFINE_UNIT_TEST_WITH_BASE("Resources/StateValue/BufferPacking", UnitTestBase)
+{
+	// Retrieve our important objects
+	auto& renderer = session.Renderer();
+	auto& uiThread = session.UIThread();
+	auto& testWindowInfo = *session.TestWindowPlatformInfo();
+
+	// Define the framebuffer
+	auto mainWindowFrameBuffer = renderer.CreateFrameBuffer();
+	mainWindowFrameBuffer->DefineViewportRegion(V2UInt32(0, 0), session.TestWindowSize());
+	REQUIRE(uiThread.InvokeSync([&] { return mainWindowFrameBuffer->BindWindow(testWindowInfo, IFrameBuffer::WindowDepthStencilMode::DepthUNorm24); }));
+
+	// Create and compile our shader program
+	auto shaderProgram = renderer.CreateShaderProgram();
+	REQUIRE(shaderProgram->LoadShaderStage(IShaderProgram::ShaderStage::Vertex, ShaderSourceInfoHLSL(VertexShader)));
+	REQUIRE(shaderProgram->LoadShaderStage(IShaderProgram::ShaderStage::Fragment, ShaderSourceInfoHLSL(FragmentShader)));
+	REQUIRE(shaderProgram->CompileProgram());
+
+	// Retrieve our shader attribute IDs
+	auto positionAttributeId = shaderProgram->GetVertexAttributeId("position");
+	auto colorAttributeId = shaderProgram->GetVertexAttributeId("color");
+
+	// Create our vertex buffer and populate it with data
+	std::vector<V3Float32> positionVertexData = {{1.0f, 1.0f, 0.5f}, {-1.0f, 0.0f, 0.5f}, {1.0f, -1.0f, 0.5f}};
+	std::vector<V3Float32> colorVertexData = {{1.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 1.0f}};
+	VertexAttribute<V3Float32> vertexAttributePosition(positionVertexData.size(), IVertexAttribute::PerformanceHint::WriteNever | IVertexAttribute::PerformanceHint::ReadNever, IVertexAttribute::PerformanceHint::WriteNever | IVertexAttribute::PerformanceHint::ReadOften);
+	VertexAttribute<V3Float32> vertexAttributeColor(colorVertexData.size(), IVertexAttribute::PerformanceHint::WriteNever | IVertexAttribute::PerformanceHint::ReadNever, IVertexAttribute::PerformanceHint::WriteNever | IVertexAttribute::PerformanceHint::ReadOften);
+	auto vertexBuffer = renderer.CreateVertexBuffer();
+	REQUIRE(vertexBuffer->BindVertexAttribute(vertexAttributePosition));
+	REQUIRE(vertexAttributePosition.SetInitialData(positionVertexData));
+	REQUIRE(vertexBuffer->BindVertexAttribute(vertexAttributeColor));
+	REQUIRE(vertexAttributeColor.SetInitialData(colorVertexData));
+	REQUIRE(vertexBuffer->AllocateMemory());
+
+	// Create our renderable node
+	auto renderableNode = renderer.CreateRenderableNode();
+	REQUIRE(renderableNode->BindVertexAttribute(vertexAttributePosition, positionAttributeId));
+	REQUIRE(renderableNode->BindVertexAttribute(vertexAttributeColor, colorAttributeId));
+	REQUIRE(renderableNode->SetPrimitiveMode(IRenderableNode::PrimitiveMode::Triangles));
+
+	// Rotate and scale the vertices into the reference triangle. The 3x3 matrix
+	// makes incorrect row padding or storage order visible in the rendered image.
+	M3Float32 viewProj = {{0.0f, -0.5f, 0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f}};
+	auto viewProjStateId = shaderProgram->GetStateValueId("viewProj");
+	REQUIRE(viewProjStateId != StateValueId::Null);
+	renderableNode->SetStateValue(viewProjStateId, viewProj);
+
+	// Create our state group node
+	auto groupNode = renderer.CreateStateGroupNode();
+	groupNode->AddChildNode(renderableNode.get());
+
+	// Create our program node
+	auto programNode = renderer.CreateProgramNode();
+	REQUIRE(programNode->BindShaderProgram(shaderProgram.get()));
+	programNode->AddChildNode(groupNode.get());
+
+	// Create our render pass node
+	auto renderPassNode = renderer.CreateRenderPassNode();
+	renderPassNode->BindFrameBuffer(mainWindowFrameBuffer.get());
+	renderPassNode->SetAttachmentClearData(IFrameBuffer::AttachmentType::Color, 0, V4Float32(0.0f, 0.0f, 0.0f, 1.0f));
+	renderPassNode->SetAttachmentClearData(IFrameBuffer::AttachmentType::Depth, 0, V4Float32(1.0f, 0.0f, 0.0f, 0.0f));
+	renderPassNode->AddChildNode(programNode.get());
+
+	// Bind our render tree to the renderer
+	renderer.SetRenderPasses(&renderPassNode, 1);
+
+	// Capture an image of the scene
+	auto frameBufferCapture = renderer.CreateFrameBufferOutput();
+	frameBufferCapture->SetDetachAfterCapture(true);
+	mainWindowFrameBuffer->AddOutputCaptureTarget(frameBufferCapture.get(), IFrameBuffer::AttachmentType::Color);
+	DrawOneFrame();
+	session.AddTestImageResult("RGBTriangleDown", "A red, green and blue triangle, pointing down", std::move(frameBufferCapture), IImageDiff::Algorithm::AllOfThem, 0.95);
+
+	// Remove all our defined render passes
+	renderer.RemoveAllRenderPasses();
+	return true;
+}
+
+} // namespace cobalt::graphics::testing

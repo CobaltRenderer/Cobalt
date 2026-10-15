@@ -951,7 +951,7 @@ SuccessToken VulkanShaderProgram::LoadStateBufferLayoutFromShader(StateBufferId 
 	for (const auto& entry : stateBufferInfo.uniformBufferEntries)
 	{
 		const auto& resource = entry.resourceEntries[0];
-		if (resource.vecSize == 1)
+		if (resource.vecSize == 1 && resource.columns == 1)
 		{
 			stateBufferLayoutResolved->AddManualField(entry.attributeName, entry.bufferOffset[0], ShaderSupportDataTypeToGraphicsDataType(resource.layoutType), entry.arraySize, entry.arrayStrideInBytes[0], entry.leadingArraySizes, entry.leadingArrayStrides[0]);
 		}
@@ -961,7 +961,7 @@ SuccessToken VulkanShaderProgram::LoadStateBufferLayoutFromShader(StateBufferId 
 		}
 		else
 		{
-			stateBufferLayoutResolved->AddManualMatrix(entry.attributeName, entry.bufferOffset[0], ShaderSupportDataTypeToGraphicsDataType(resource.layoutType), resource.vecSize, resource.columns, entry.arraySize, entry.arrayStrideInBytes[0], entry.leadingArraySizes, entry.leadingArrayStrides[0]);
+			stateBufferLayoutResolved->AddManualMatrix(entry.attributeName, entry.bufferOffset[0], ShaderSupportDataTypeToGraphicsDataType(resource.layoutType), resource.rowMajor ? resource.columns : resource.vecSize, resource.rowMajor ? resource.vecSize : resource.columns, entry.arraySize, entry.arrayStrideInBytes[0], entry.leadingArraySizes, entry.leadingArrayStrides[0], resource.matrixStride);
 		}
 	}
 
@@ -1154,7 +1154,6 @@ bool VulkanShaderProgram::LoadStateBufferVariableEntry(size_t shaderStageIndex, 
 	entryInfo.defined[shaderStageIndex] = true;
 	entryInfo.attributeID = (StateValueId)uniformID;
 	entryInfo.attributeName = variableName;
-	entryInfo.entrySizeInBytes = shaderResource.size;
 	entryInfo.bufferOffset[shaderStageIndex] = startOffset;
 	entryInfo.resourceEntries[shaderStageIndex] = shaderResource;
 	entryInfo.type = type;
@@ -1166,7 +1165,7 @@ bool VulkanShaderProgram::LoadStateBufferVariableEntry(size_t shaderStageIndex, 
 	{
 		arraySize *= nextArraySize;
 	}
-	entryInfo.arraySize = arraySize;
+	entryInfo.arraySize = shaderResource.arraySizes.empty() ? 0 : arraySize;
 	entryInfo.dataSizeInBytes = shaderResource.size;
 
 	// Populate the array sizes and strides for this entry
@@ -1261,8 +1260,10 @@ void VulkanShaderProgram::UpdateStateValue(StateValueId stateId, const uint8_t* 
 
 		// Update the entry in the buffer
 		unsigned char* uniformLocation = constantBuffer.bufferContents.data() + bufferEntry.bufferOffset[shaderStageID] + arrayOffset;
-		size_t sizeToCopy = std::min(dataSizeInBytes, bufferEntry.entrySizeInBytes);
-		std::memcpy(uniformLocation, data, sizeToCopy);
+		const auto& resource = bufferEntry.resourceEntries[shaderStageID];
+		const size_t width = resource.rowMajor ? resource.columns : resource.vecSize;
+		const size_t height = resource.rowMajor ? resource.vecSize : resource.columns;
+		VulkanStateBufferLayout::CopyValue(uniformLocation, data, dataSizeInBytes, VulkanStateBufferLayout::GetDataTypeByteSize(bufferEntry.type), width, height, resource.matrixStride);
 
 		// Flag that the buffer is now dirty
 		constantBuffer.isDirty = true;
