@@ -635,6 +635,20 @@ void Direct3DFrameBuffer::CaptureFrameBufferOutput(ID3D12GraphicsCommandList* co
 		V2UInt32 requestedImageSize = captureTarget->GetRequestedImageSize();
 		V2UInt32 croppedImageSize = Direct3DFrameBufferOutput::CalculateCroppedImageDimensions(V2UInt32(captureWidth, captureHeight), requestedImageOffset, requestedImageSize);
 
+		// If the cropped image size is 0 on either axis, clear the capture target, mark it as completed, and move on to
+		// the next capture target.
+		if ((croppedImageSize.X() == 0) || (croppedImageSize.Y() == 0))
+		{
+			captureTargetInfo.completionPending = false;
+			captureTarget->StoreCaptureData(croppedImageSize, nullptr, 0, imageFormat, dataFormat, elementCount, elementSizeInBytes, pixelOffsetInBytes, pixelStrideInBytes, 0, (captureTargetInfo.type == IFrameBuffer::AttachmentType::Stencil));
+			_renderer->AddCurrentFrameBufferOutput(captureTarget);
+			if (captureTarget->IsDetachingAfterCapture())
+			{
+				RemoveOutputCaptureTarget(captureTarget);
+			}
+			continue;
+		}
+
 		// Calculate our memory buffer format and layout requirements
 		D3D12_PLACED_SUBRESOURCE_FOOTPRINT bufferFootprint;
 		size_t uploadBufferSizeInBytes = 0;

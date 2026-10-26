@@ -992,41 +992,48 @@ bool VulkanFrameBuffer::CaptureAttachmentTarget(VkCommandBuffer commandBuffer, C
 	// Calculate the cropped size of the image, taking into account the requested image offset and size, if any.
 	V2UInt32 croppedImageSize = VulkanFrameBufferOutput::CalculateCroppedImageDimensions(V2UInt32(imageWidth, imageHeight), requestedImageOffset, requestedImageSize);
 
-	// Create a staging buffer to receive the data
-	VulkanMemoryManager* memoryManager = _renderer->GetMemoryManager();
-	size_t rowStrideInBytes = pixelStrideInBytes * croppedImageSize.X();
-	size_t bufferSizeInBytes = rowStrideInBytes * croppedImageSize.Y();
-	VkBuffer stagingBuffer;
-	VmaAllocation stagingAllocation;
-	if (!memoryManager->CreateBuffer(bufferSizeInBytes, VK_BUFFER_USAGE_TRANSFER_DST_BIT, VMA_MEMORY_USAGE_GPU_TO_CPU, 0, stagingBuffer, stagingAllocation))
+	// If the cropped image size is 0 on either axis, clear the capture target, otherwise transfer the requested image
+	// data into it.
+	VkBuffer stagingBuffer = {};
+	VmaAllocation stagingAllocation = {};
+	size_t rowStrideInBytes = 0;
+	size_t bufferSizeInBytes = 0;
+	if ((croppedImageSize.X() != 0) && (croppedImageSize.Y() != 0))
 	{
-		_log->Error("Failed to create staging texture for framebuffer capture");
-		return false;
+		// Create a staging buffer to receive the data
+		VulkanMemoryManager* memoryManager = _renderer->GetMemoryManager();
+		rowStrideInBytes = pixelStrideInBytes * croppedImageSize.X();
+		bufferSizeInBytes = rowStrideInBytes * croppedImageSize.Y();
+		if (!memoryManager->CreateBuffer(bufferSizeInBytes, VK_BUFFER_USAGE_TRANSFER_DST_BIT, VMA_MEMORY_USAGE_GPU_TO_CPU, 0, stagingBuffer, stagingAllocation))
+		{
+			_log->Error("Failed to create staging texture for framebuffer capture");
+			return false;
+		}
+
+		// Determine the aspect flags to use based on the type of buffer being read
+		VkImageAspectFlagBits aspectFlag = VK_IMAGE_ASPECT_COLOR_BIT;
+		switch (captureTargetInfo.type)
+		{
+		case IFrameBuffer::AttachmentType::Color:
+			aspectFlag = VK_IMAGE_ASPECT_COLOR_BIT;
+			break;
+		case IFrameBuffer::AttachmentType::Depth:
+			aspectFlag = VK_IMAGE_ASPECT_DEPTH_BIT;
+			break;
+		case IFrameBuffer::AttachmentType::Stencil:
+			aspectFlag = VK_IMAGE_ASPECT_STENCIL_BIT;
+			break;
+		}
+
+		// Transition the source image to a layout where it can be read
+		memoryManager->RecordTransitionImageLayout(commandBuffer, sourceImage, format, 1, 1, initialLayout, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL);
+
+		// Copy the source buffer to the staging buffer
+		memoryManager->RecordCopyImageToBuffer(commandBuffer, sourceImage, stagingBuffer, croppedImageSize.X(), croppedImageSize.Y(), requestedImageOffset.X(), requestedImageOffset.Y(), aspectFlag);
+
+		// Restore the original source image layout
+		memoryManager->RecordTransitionImageLayout(commandBuffer, sourceImage, format, 1, 1, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, initialLayout);
 	}
-
-	// Determine the aspect flags to use based on the type of buffer being read
-	VkImageAspectFlagBits aspectFlag = VK_IMAGE_ASPECT_COLOR_BIT;
-	switch (captureTargetInfo.type)
-	{
-	case IFrameBuffer::AttachmentType::Color:
-		aspectFlag = VK_IMAGE_ASPECT_COLOR_BIT;
-		break;
-	case IFrameBuffer::AttachmentType::Depth:
-		aspectFlag = VK_IMAGE_ASPECT_DEPTH_BIT;
-		break;
-	case IFrameBuffer::AttachmentType::Stencil:
-		aspectFlag = VK_IMAGE_ASPECT_STENCIL_BIT;
-		break;
-	}
-
-	// Transition the source image to a layout where it can be read
-	memoryManager->RecordTransitionImageLayout(commandBuffer, sourceImage, format, 1, 1, initialLayout, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL);
-
-	// Copy the source buffer to the staging buffer
-	memoryManager->RecordCopyImageToBuffer(commandBuffer, sourceImage, stagingBuffer, croppedImageSize.X(), croppedImageSize.Y(), requestedImageOffset.X(), requestedImageOffset.Y(), aspectFlag);
-
-	// Restore the original source image layout
-	memoryManager->RecordTransitionImageLayout(commandBuffer, sourceImage, format, 1, 1, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, initialLayout);
 
 	// Store info on this framebuffer capture process for later processing
 	captureTargetInfo.completionPending = true;
@@ -1065,18 +1072,28 @@ void VulkanFrameBuffer::CompleteCaptureFrameBufferOutput()
 //----------------------------------------------------------------------------------------
 bool VulkanFrameBuffer::CompleteCaptureFrameBufferOutput(const CaptureTargetInfo& captureTargetInfo)
 {
-	// Map our staging texture into memory so we can access its data
-	VulkanMemoryManager* memoryManager = _renderer->GetMemoryManager();
-	uint8_t* sourceData;
-	memoryManager->MapBufferMemory(captureTargetInfo.stagingAllocation, sourceData);
-
-	// Write the texture data into our capture target
+	// If the cropped image size is 0 on either axis, clear the capture target, otherwise transfer the requested image
+	// data into it.
 	VulkanFrameBufferOutput* captureTarget = captureTargetInfo.captureTarget;
-	captureTarget->StoreCaptureData(captureTargetInfo.croppedImageSize, sourceData, captureTargetInfo.bufferSizeInBytes, captureTargetInfo.imageFormat, captureTargetInfo.dataFormat, captureTargetInfo.elementCount, captureTargetInfo.elementSizeInBytes, captureTargetInfo.pixelOffsetInBytes, captureTargetInfo.pixelStrideInBytes, captureTargetInfo.rowStrideInBytes, (captureTargetInfo.type == IFrameBuffer::AttachmentType::Stencil));
+	if ((captureTargetInfo.croppedImageSize.X() == 0) || (captureTargetInfo.croppedImageSize.Y() == 0))
+	{
+		// Store an empty image in the capture target
+		captureTarget->StoreCaptureData(captureTargetInfo.croppedImageSize, nullptr, 0, captureTargetInfo.imageFormat, captureTargetInfo.dataFormat, captureTargetInfo.elementCount, captureTargetInfo.elementSizeInBytes, captureTargetInfo.pixelOffsetInBytes, captureTargetInfo.pixelStrideInBytes, 0, (captureTargetInfo.type == IFrameBuffer::AttachmentType::Stencil));
+	}
+	else
+	{
+		// Map our staging texture into memory so we can access its data
+		VulkanMemoryManager* memoryManager = _renderer->GetMemoryManager();
+		uint8_t* sourceData;
+		memoryManager->MapBufferMemory(captureTargetInfo.stagingAllocation, sourceData);
 
-	// Unmap and destroy our staging texture
-	memoryManager->UnmapBufferMemory(captureTargetInfo.stagingAllocation);
-	memoryManager->DestroyBuffer(captureTargetInfo.stagingBuffer, captureTargetInfo.stagingAllocation);
+		// Write the texture data into our capture target
+		captureTarget->StoreCaptureData(captureTargetInfo.croppedImageSize, sourceData, captureTargetInfo.bufferSizeInBytes, captureTargetInfo.imageFormat, captureTargetInfo.dataFormat, captureTargetInfo.elementCount, captureTargetInfo.elementSizeInBytes, captureTargetInfo.pixelOffsetInBytes, captureTargetInfo.pixelStrideInBytes, captureTargetInfo.rowStrideInBytes, (captureTargetInfo.type == IFrameBuffer::AttachmentType::Stencil));
+
+		// Unmap and destroy our staging texture
+		memoryManager->UnmapBufferMemory(captureTargetInfo.stagingAllocation);
+		memoryManager->DestroyBuffer(captureTargetInfo.stagingBuffer, captureTargetInfo.stagingAllocation);
+	}
 
 	// Record this captured framebuffer output with the renderer
 	_renderer->AddCurrentFrameBufferOutput(captureTarget);

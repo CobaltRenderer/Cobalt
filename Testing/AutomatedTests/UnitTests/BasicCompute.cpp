@@ -82,6 +82,27 @@ DEFINE_UNIT_TEST_WITH_BASE("Compute/BasicCompute", UnitTestBase)
 	regionCaptureOutput->SetArrayCaptureRegion(5, 10, false);
 	dataArrayOut->AddOutputCaptureTarget(regionCaptureOutput.get());
 
+	const size_t tailCaptureOffset = threadCount - 5;
+	auto clippedCaptureOutput = renderer.CreateDataArrayOutput();
+	clippedCaptureOutput->SetDetachAfterCapture(true);
+	clippedCaptureOutput->SetArrayCaptureRegion(10, tailCaptureOffset, false);
+	dataArrayOut->AddOutputCaptureTarget(clippedCaptureOutput.get());
+
+	auto remainingCaptureOutput = renderer.CreateDataArrayOutput();
+	remainingCaptureOutput->SetDetachAfterCapture(true);
+	remainingCaptureOutput->SetArrayCaptureRegion(0, tailCaptureOffset, false);
+	dataArrayOut->AddOutputCaptureTarget(remainingCaptureOutput.get());
+
+	auto emptyRequestedCountCaptureOutput = renderer.CreateDataArrayOutput();
+	emptyRequestedCountCaptureOutput->SetDetachAfterCapture(true);
+	emptyRequestedCountCaptureOutput->SetArrayCaptureRegion(5, threadCount + 5, false);
+	dataArrayOut->AddOutputCaptureTarget(emptyRequestedCountCaptureOutput.get());
+
+	auto emptyRemainingCaptureOutput = renderer.CreateDataArrayOutput();
+	emptyRemainingCaptureOutput->SetDetachAfterCapture(true);
+	emptyRemainingCaptureOutput->SetArrayCaptureRegion(0, threadCount + 5, false);
+	dataArrayOut->AddOutputCaptureTarget(emptyRemainingCaptureOutput.get());
+
 	// Retrieve our shader attribute IDs
 	auto dataArrayOutId = shaderProgram->GetResourceArrayId("bufferDataOut");
 
@@ -148,10 +169,35 @@ DEFINE_UNIT_TEST_WITH_BASE("Compute/BasicCompute", UnitTestBase)
 	REQUIRE(regionCaptureOutput->GetEntrySizeInBytes() == sizeof(BufferEntryOut));
 	std::vector<BufferEntryOut> regionOutputData(5);
 	REQUIRE(regionCaptureOutput->ReadBufferData(regionOutputData.data(), regionOutputData.size() * sizeof(BufferEntryOut)));
+
+	REQUIRE(clippedCaptureOutput->HasCapturedOutput());
+	REQUIRE(clippedCaptureOutput->GetEntryCount() == 5);
+	std::vector<BufferEntryOut> clippedOutputData(5);
+	REQUIRE(clippedCaptureOutput->ReadBufferData(clippedOutputData.data(), clippedOutputData.size() * sizeof(BufferEntryOut)));
+	for (size_t i = 0; i < clippedOutputData.size(); ++i)
+	{
+		REQUIRE(clippedOutputData[i].threadId == outputData[tailCaptureOffset + i].threadId);
+		REQUIRE(clippedOutputData[i].checkValue == outputData[tailCaptureOffset + i].checkValue);
+	}
+
+	REQUIRE(remainingCaptureOutput->HasCapturedOutput());
+	REQUIRE(remainingCaptureOutput->GetEntryCount() == 5);
+	std::vector<BufferEntryOut> remainingOutputData(5);
+	REQUIRE(remainingCaptureOutput->ReadBufferData(remainingOutputData.data(), remainingOutputData.size() * sizeof(BufferEntryOut)));
+	for (size_t i = 0; i < remainingOutputData.size(); ++i)
+	{
+		REQUIRE(remainingOutputData[i].threadId == outputData[tailCaptureOffset + i].threadId);
+		REQUIRE(remainingOutputData[i].checkValue == outputData[tailCaptureOffset + i].checkValue);
+	}
+
+	REQUIRE(emptyRequestedCountCaptureOutput->HasCapturedOutput());
+	REQUIRE(emptyRequestedCountCaptureOutput->GetEntryCount() == 0);
+	REQUIRE(emptyRemainingCaptureOutput->HasCapturedOutput());
+	REQUIRE(emptyRemainingCaptureOutput->GetEntryCount() == 0);
 	regionCaptureOutput->ClearCapturedOutput();
 	REQUIRE(!regionCaptureOutput->HasCapturedOutput());
 	REQUIRE(!removedCaptureOutput->HasCapturedOutput());
-	session.AddTestSuccess("DataArrayOutputLifecycle", "Data array output capture reported uncaptured state, capture regions, counter suppression, detach-after-capture state, readback sizing, clearing, and removal correctly.");
+	session.AddTestSuccess("DataArrayOutputLifecycle", "Data array output capture reported uncaptured state, exact, clipped, remaining, and empty capture regions, counter suppression, detach-after-capture state, readback sizing, clearing, and removal correctly.");
 
 	// Removing the compute task should prevent subsequent dispatches.
 	dataArrayCapturedOutput->ClearCapturedOutput();

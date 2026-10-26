@@ -7,14 +7,14 @@
   </Paragraph>
   <Section Title="Description">
     <Paragraph>
-      The <TypeRef>HasCapturedOutput</TypeRef> method returns true if there is captured data ready to be read from the output buffer.
+      The <TypeRef>HasCapturedOutput</TypeRef> method returns true when a capture operation has completed. This remains true for a successful capture containing zero entries.
     </Paragraph>
   </Section>
   <Section Title="Usage">
     <Code Language="C++"><![CDATA[bool HasCapturedOutput() const;]]></Code>
     <SubSection Title="Return value">
       <ReturnValue Type="bool">
-        True if output has been captured and can be read, false otherwise.
+        True if an output capture has completed, including an empty capture, false otherwise.
       </ReturnValue>
     </SubSection>
   </Section>

@@ -239,7 +239,14 @@ void VulkanFrameBufferOutput::StoreCaptureData(const V2UInt32& imageSize, const 
 	_state[_drawIndex].pixelOffsetInBytes = pixelOffsetInBytes;
 	_state[_drawIndex].pixelStrideInBytes = pixelStrideInBytes;
 	_state[_drawIndex].rowStrideInBytes = rowStrideInBytes;
-	_state[_drawIndex].dataBuffer.assign(imageData, imageData + imageDataSizeInBytes);
+	if (imageDataSizeInBytes == 0)
+	{
+		_state[_drawIndex].dataBuffer.clear();
+	}
+	else
+	{
+		_state[_drawIndex].dataBuffer.assign(imageData, imageData + imageDataSizeInBytes);
+	}
 	_state[_drawIndex].isStencilComponent = isStencilComponent;
 	_state[_drawIndex].hasCapturedOutput = true;
 	_renderer->FlagObjectModified(this);

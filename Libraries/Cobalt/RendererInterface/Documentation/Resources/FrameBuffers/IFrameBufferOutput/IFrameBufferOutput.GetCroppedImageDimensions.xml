@@ -7,7 +7,7 @@
   </Paragraph>
   <Section Title="Description">
     <Paragraph>
-      The <TypeRef>GetCroppedImageDimensions</TypeRef> method returns the resulting image size if the specified offset and maximum region size are applied to the actual image data in the output buffer. This can be used to appropriately size a buffer to pass into the ReadBufferData method.
+      The <TypeRef>GetCroppedImageDimensions</TypeRef> method returns the resulting image size if the specified offset and maximum region size are applied to the actual image data in the output buffer. An offset outside the captured image returns (0, 0). This can be used to appropriately size a buffer to pass into the ReadBufferData method.
     </Paragraph>
   </Section>
   <Section Title="Usage">

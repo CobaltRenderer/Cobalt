@@ -15,10 +15,10 @@
     <SubSection Title="Argument list">
       <ArgumentList>
         <ArgumentListEntry Type="const V2UInt32" Name="imageOffsetInPixels">
-          The top-left pixel offset of the framebuffer region to capture.
+          The top-left pixel offset of the framebuffer region to capture. An offset outside the framebuffer produces a successful capture with image dimensions of (0, 0).
         </ArgumentListEntry>
         <ArgumentListEntry Type="const V2UInt32" Name="imageRegionInPixels">
-          The pixel dimensions of the framebuffer region to capture. A zero value captures the remaining image from the offset.
+          The maximum pixel dimensions of the framebuffer region to capture. Each zero dimension captures the remaining image in that dimension from the offset. Nonzero dimensions are clipped to the available image region.
         </ArgumentListEntry>
       </ArgumentList>
     </SubSection>

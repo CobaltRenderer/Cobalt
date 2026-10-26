@@ -671,10 +671,17 @@ void Direct3DTexelArray::CaptureDataBufferOutput(ID3D12GraphicsCommandList* comm
 	// Transfer each requested capture region into the data staging buffer
 	for (auto* captureTarget : _state[_drawIndex].captureTargets)
 	{
-		// Retrieve the requested capture settings from our framebuffer output object
-		size_t bufferStartPosInBytes = captureTarget->GetRequestedBufferOffset() * _structureStrideInBytes;
-		size_t dataSizeInBytes = captureTarget->GetRequestedEntryCount() * _structureStrideInBytes;
-		dataSizeInBytes = (dataSizeInBytes > 0 ? dataSizeInBytes : _totalBufferSizeInBytes);
+		// Determine the position and size of the buffer region to capture
+		size_t entryOffset = std::min(captureTarget->GetRequestedBufferOffset(), _structureEntryCount);
+		size_t availableEntryCount = _structureEntryCount - entryOffset;
+		size_t requestedEntryCount = captureTarget->GetRequestedEntryCount();
+		size_t entryCountToCapture = (requestedEntryCount == 0 ? availableEntryCount : std::min(requestedEntryCount, availableEntryCount));
+		size_t bufferStartPosInBytes = entryOffset * _structureStrideInBytes;
+		size_t dataSizeInBytes = entryCountToCapture * _structureStrideInBytes;
+		if (dataSizeInBytes == 0)
+		{
+			continue;
+		}
 
 		// Transition the buffer to the required resource state for reading
 		auto acquireBarrier = CD3DX12_RESOURCE_BARRIER::Transition(_bufferWrapper->buffer, _bufferWrapper->lastResourceState, D3D12_RESOURCE_STATE_COPY_SOURCE);
@@ -714,10 +721,10 @@ void Direct3DTexelArray::CompleteCaptureDataBufferOutput()
 	for (auto* captureTarget : _state[_drawIndex].captureTargets)
 	{
 		// Determine the position and size of the buffer region to capture
-		size_t entryOffset = captureTarget->GetRequestedBufferOffset();
-		size_t entryCountToCapture = captureTarget->GetRequestedEntryCount();
-		entryCountToCapture = (entryCountToCapture == 0 ? _structureEntryCount : entryCountToCapture);
-		entryCountToCapture = (((entryCountToCapture + entryOffset) > _structureEntryCount) ? (_structureEntryCount - entryOffset) : entryCountToCapture);
+		size_t entryOffset = std::min(captureTarget->GetRequestedBufferOffset(), _structureEntryCount);
+		size_t availableEntryCount = _structureEntryCount - entryOffset;
+		size_t requestedEntryCount = captureTarget->GetRequestedEntryCount();
+		size_t entryCountToCapture = (requestedEntryCount == 0 ? availableEntryCount : std::min(requestedEntryCount, availableEntryCount));
 		size_t bufferStartPosInBytes = entryOffset * _structureStrideInBytes;
 
 		// Store the requested capture data in the capture target

@@ -180,7 +180,14 @@ void OpenGLFrameBufferOutput::StoreCaptureData(const V2UInt32& imageSize, const 
 	_state[_drawIndex].dataFormat = dataFormat;
 	_state[_drawIndex].optimalSourceImageFormat = optimalSourceImageFormat;
 	_state[_drawIndex].optimalSourceDataFormat = optimalSourceDataFormat;
-	_state[_drawIndex].dataBuffer.assign(imageData, imageData + imageDataSizeInBytes);
+	if (imageDataSizeInBytes == 0)
+	{
+		_state[_drawIndex].dataBuffer.clear();
+	}
+	else
+	{
+		_state[_drawIndex].dataBuffer.assign(imageData, imageData + imageDataSizeInBytes);
+	}
 	_state[_drawIndex].isStencilComponent = isStencilComponent;
 	_state[_drawIndex].hasCapturedOutput = true;
 	_renderer->FlagObjectModified(this);

@@ -166,7 +166,15 @@ size_t VulkanTexelArrayOutput::GetRequestedBufferOffset() const
 void VulkanTexelArrayOutput::StoreCaptureData(const unsigned char* bufferData, size_t bufferEntryCount, size_t bufferEntrySizeInBytes, ITexelArray::ImageFormat imageFormat, ITexelArray::DataFormat dataFormat)
 {
 	// Store the provided capture data
-	_state[_drawIndex].dataBuffer.assign(bufferData, bufferData + (bufferEntryCount * bufferEntrySizeInBytes));
+	size_t dataSizeInBytes = bufferEntryCount * bufferEntrySizeInBytes;
+	if (dataSizeInBytes == 0)
+	{
+		_state[_drawIndex].dataBuffer.clear();
+	}
+	else
+	{
+		_state[_drawIndex].dataBuffer.assign(bufferData, bufferData + dataSizeInBytes);
+	}
 	_state[_drawIndex].actualCaptureEntryCount = bufferEntryCount;
 	_state[_drawIndex].actualCaptureEntrySizeInBytes = bufferEntrySizeInBytes;
 	_state[_drawIndex].imageFormat = imageFormat;
