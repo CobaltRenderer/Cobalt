@@ -2212,8 +2212,8 @@ bool Direct3DRenderer::UseLegacyRenderingMethod() const
 bool Direct3DRenderer::IsFeaturePresent(DXGI_FEATURE feature) const
 {
 	// Try and get the IDXGIFactory5 interface. If that's not available, the feature definitely isn't either.
-	Microsoft::WRL::ComPtr<IDXGIFactory5> dxgiFactory5;
-	HRESULT queryFactory5Return = _dxgiFactory->QueryInterface(IID_PPV_ARGS(&dxgiFactory5));
+	IDXGIFactory5* _dxgiFactory5 = nullptr;
+	HRESULT queryFactory5Return = _dxgiFactory->QueryInterface(__uuidof(IDXGIFactory5), reinterpret_cast<void**>(&_dxgiFactory5));
 	if (FAILED(queryFactory5Return))
 	{
 		return false;
@@ -2221,7 +2221,7 @@ bool Direct3DRenderer::IsFeaturePresent(DXGI_FEATURE feature) const
 
 	// Check if the feature is supported
 	BOOL featureSupported = FALSE;
-	HRESULT checkFeatureSupportReturn = dxgiFactory5->CheckFeatureSupport(feature, &featureSupported, sizeof(featureSupported));
+	HRESULT checkFeatureSupportReturn = _dxgiFactory5->CheckFeatureSupport(feature, &featureSupported, sizeof(featureSupported));
 	if (FAILED(checkFeatureSupportReturn))
 	{
 		_log->Error("CheckFeatureSupport failed with error code {0}", checkFeatureSupportReturn);
