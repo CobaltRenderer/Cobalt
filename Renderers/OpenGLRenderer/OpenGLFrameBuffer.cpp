@@ -838,25 +838,6 @@ void OpenGLFrameBuffer::CaptureFrameBufferOutput(bool usePixelBufferObjects, boo
 			continue;
 		}
 
-		// Bind the correct buffer attachment. Note that we restore it to GL_COLOR_ATTACHMENT0 for reading depth/stencil
-		// buffer attachents, as while the documentation seems to suggest calls to glReadBuffer should have no effect on
-		// reading depth/stencil attachments, in practice it is unreliable on some drivers unless we restore it to the
-		// default value.
-		if (_drawState.boundToWindow && !_drawState.headlessWindow)
-		{
-			glReadBuffer(captureFrontBuffer ? GL_FRONT : GL_BACK);
-		}
-		else
-		{
-			GLenum nativeType = GL_COLOR_ATTACHMENT0;
-			if (captureTargetInfo.type == IFrameBuffer::AttachmentType::Color)
-			{
-				nativeType = GetNativeAttachmentType(captureTargetInfo.type, captureTargetInfo.index);
-			}
-			glReadBuffer(nativeType);
-		}
-		CheckGLError(_log);
-
 		// Determine the image and data formats to request when retrieving the framebuffer contents
 		ITextureBuffer2D::ImageFormat imageFormat = ITextureBuffer2D::ImageFormat::R;
 		ITextureBuffer2D::DataFormat dataFormat = ITextureBuffer2D::DataFormat::UInt8;
@@ -927,6 +908,58 @@ void OpenGLFrameBuffer::CaptureFrameBufferOutput(bool usePixelBufferObjects, boo
 		size_t pixelStrideInBytes = elementSizeInBytes * elementCount;
 		size_t rowStrideInBytes = croppedImageSize.X() * pixelStrideInBytes;
 		size_t bufferSizeInBytes = (croppedImageSize.Y() * rowStrideInBytes);
+
+		// If the cropped image size is 0 on either axis, record an empty capture without attempting a readback.
+		if ((croppedImageSize.X() == 0) || (croppedImageSize.Y() == 0))
+		{
+			// Store information on the capture format
+			captureTargetInfo.completionPending = usePixelBufferObjects;
+			captureTargetInfo.completionFence = nullptr;
+			captureTargetInfo.optimalSourceImageFormat = optimalSourceImageFormat;
+			captureTargetInfo.optimalSourceDataFormat = optimalSourceDataFormat;
+			captureTargetInfo.finalImageFormat = finalImageFormat;
+			captureTargetInfo.finalDataFormat = finalDataFormat;
+			captureTargetInfo.croppedImageSize = croppedImageSize;
+
+			// If PBOs aren't being used for capture, process this capture target now, otherwise defer further work
+			// until the completion phase.
+			if (!usePixelBufferObjects)
+			{
+				// Store an empty image in the capture target
+				captureTarget->StoreCaptureData(croppedImageSize, nullptr, 0, finalImageFormat, finalDataFormat, optimalSourceImageFormat, optimalSourceDataFormat, (captureTargetInfo.type == IFrameBuffer::AttachmentType::Stencil));
+
+				// Record this captured framebuffer output with the renderer
+				_renderer->AddCurrentFrameBufferOutput(captureTarget);
+
+				// Now that we've captured a frame, detach the output capture target if requested.
+				if (detachAfterCapture)
+				{
+					RemoveOutputCaptureTarget(captureTarget);
+				}
+			}
+
+			// Advance to the next capture target
+			continue;
+		}
+
+		// Bind the correct buffer attachment. Note that we restore it to GL_COLOR_ATTACHMENT0 for reading depth/stencil
+		// buffer attachents, as while the documentation seems to suggest calls to glReadBuffer should have no effect on
+		// reading depth/stencil attachments, in practice it is unreliable on some drivers unless we restore it to the
+		// default value.
+		if (_drawState.boundToWindow && !_drawState.headlessWindow)
+		{
+			glReadBuffer(captureFrontBuffer ? GL_FRONT : GL_BACK);
+		}
+		else
+		{
+			GLenum nativeType = GL_COLOR_ATTACHMENT0;
+			if (captureTargetInfo.type == IFrameBuffer::AttachmentType::Color)
+			{
+				nativeType = GetNativeAttachmentType(captureTargetInfo.type, captureTargetInfo.index);
+			}
+			glReadBuffer(nativeType);
+		}
+		CheckGLError(_log);
 
 		// Read the image data
 		GLint imageOffsetY = imageHeight - (croppedImageSize.Y() + requestedImageOffset.Y());
@@ -1039,24 +1072,34 @@ void OpenGLFrameBuffer::CompleteCaptureFrameBufferOutput()
 			captureTargetInfo.completionFence = nullptr;
 		}
 
-		// Map the pixel buffer object into client memory
-		const auto& stagingBufferInfo = _stagingBuffersForCapture[captureTargetIndex];
-		glBindBuffer(GL_PIXEL_PACK_BUFFER, stagingBufferInfo.pixelBufferObjectID);
-		auto mappedBuffer = reinterpret_cast<unsigned char*>(glMapBufferRange(GL_PIXEL_PACK_BUFFER, 0, stagingBufferInfo.bufferSizeInBytes, GL_MAP_READ_BIT));
-		if (mappedBuffer == nullptr)
-		{
-			_log->Error("Failed to map pixel buffer for framebuffer capture");
-			glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
-			continue;
-		}
-
-		// Write the texture data into our capture target
+		// If the cropped image size is 0 on either axis, clear the capture target, otherwise transfer the requested
+		// image data into it.
 		OpenGLFrameBufferOutput* captureTarget = captureTargetInfo.captureTarget;
-		captureTarget->StoreCaptureData(captureTargetInfo.croppedImageSize, mappedBuffer, stagingBufferInfo.bufferSizeInBytes, captureTargetInfo.finalImageFormat, captureTargetInfo.finalDataFormat, captureTargetInfo.optimalSourceImageFormat, captureTargetInfo.optimalSourceDataFormat, (captureTargetInfo.type == IFrameBuffer::AttachmentType::Stencil));
+		if ((captureTargetInfo.croppedImageSize.X() == 0) || (captureTargetInfo.croppedImageSize.Y() == 0))
+		{
+			// Store an empty image in the capture target
+			captureTarget->StoreCaptureData(captureTargetInfo.croppedImageSize, nullptr, 0, captureTargetInfo.finalImageFormat, captureTargetInfo.finalDataFormat, captureTargetInfo.optimalSourceImageFormat, captureTargetInfo.optimalSourceDataFormat, (captureTargetInfo.type == IFrameBuffer::AttachmentType::Stencil));
+		}
+		else
+		{
+			// Map the pixel buffer object into client memory
+			const auto& stagingBufferInfo = _stagingBuffersForCapture[captureTargetIndex];
+			glBindBuffer(GL_PIXEL_PACK_BUFFER, stagingBufferInfo.pixelBufferObjectID);
+			auto mappedBuffer = reinterpret_cast<unsigned char*>(glMapBufferRange(GL_PIXEL_PACK_BUFFER, 0, stagingBufferInfo.bufferSizeInBytes, GL_MAP_READ_BIT));
+			if (mappedBuffer == nullptr)
+			{
+				_log->Error("Failed to map pixel buffer for framebuffer capture");
+				glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
+				continue;
+			}
 
-		// Unmap the buffer
-		glUnmapBuffer(GL_PIXEL_PACK_BUFFER);
-		glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
+			// Write the texture data into our capture target
+			captureTarget->StoreCaptureData(captureTargetInfo.croppedImageSize, mappedBuffer, stagingBufferInfo.bufferSizeInBytes, captureTargetInfo.finalImageFormat, captureTargetInfo.finalDataFormat, captureTargetInfo.optimalSourceImageFormat, captureTargetInfo.optimalSourceDataFormat, (captureTargetInfo.type == IFrameBuffer::AttachmentType::Stencil));
+
+			// Unmap the buffer
+			glUnmapBuffer(GL_PIXEL_PACK_BUFFER);
+			glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
+		}
 
 		// Record this captured framebuffer output with the renderer
 		_renderer->AddCurrentFrameBufferOutput(captureTarget);

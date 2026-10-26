@@ -184,6 +184,27 @@ DEFINE_UNIT_TEST_WITH_BASE("Resources/TexelArray/RWBuffer", UnitTestBase)
 		regionCaptureOutput->SetDetachAfterCapture(true);
 		regionCaptureOutput->SetArrayCaptureRegion(3, 1);
 		dataArrayOut->AddOutputCaptureTarget(regionCaptureOutput.get());
+
+		const size_t tailCaptureOffset = inputData.size() - 5;
+		auto clippedCaptureOutput = renderer.CreateTexelArrayOutput();
+		clippedCaptureOutput->SetDetachAfterCapture(true);
+		clippedCaptureOutput->SetArrayCaptureRegion(10, tailCaptureOffset);
+		dataArrayOut->AddOutputCaptureTarget(clippedCaptureOutput.get());
+
+		auto remainingCaptureOutput = renderer.CreateTexelArrayOutput();
+		remainingCaptureOutput->SetDetachAfterCapture(true);
+		remainingCaptureOutput->SetArrayCaptureRegion(0, tailCaptureOffset);
+		dataArrayOut->AddOutputCaptureTarget(remainingCaptureOutput.get());
+
+		auto emptyRequestedCountCaptureOutput = renderer.CreateTexelArrayOutput();
+		emptyRequestedCountCaptureOutput->SetDetachAfterCapture(true);
+		emptyRequestedCountCaptureOutput->SetArrayCaptureRegion(5, inputData.size() + 5);
+		dataArrayOut->AddOutputCaptureTarget(emptyRequestedCountCaptureOutput.get());
+
+		auto emptyRemainingCaptureOutput = renderer.CreateTexelArrayOutput();
+		emptyRemainingCaptureOutput->SetDetachAfterCapture(true);
+		emptyRemainingCaptureOutput->SetArrayCaptureRegion(0, inputData.size() + 5);
+		dataArrayOut->AddOutputCaptureTarget(emptyRemainingCaptureOutput.get());
 		DrawOneFrame();
 		DrawOneFrame();
 		REQUIRE(regionCaptureOutput->HasCapturedOutput());
@@ -193,12 +214,37 @@ DEFINE_UNIT_TEST_WITH_BASE("Resources/TexelArray/RWBuffer", UnitTestBase)
 		std::vector<V2Float32> regionOutputData;
 		REQUIRE(regionCaptureOutput->ReadBufferData(regionOutputData));
 		REQUIRE(regionOutputData.size() == 3);
+
+		REQUIRE(clippedCaptureOutput->HasCapturedOutput());
+		REQUIRE(clippedCaptureOutput->GetEntryCount() == 5);
+		std::vector<V2Float32> clippedOutputData;
+		REQUIRE(clippedCaptureOutput->ReadBufferData(clippedOutputData));
+		REQUIRE(clippedOutputData.size() == 5);
+		for (size_t i = 0; i < clippedOutputData.size(); ++i)
+		{
+			REQUIRE(clippedOutputData[i] == outputData[tailCaptureOffset + i]);
+		}
+
+		REQUIRE(remainingCaptureOutput->HasCapturedOutput());
+		REQUIRE(remainingCaptureOutput->GetEntryCount() == 5);
+		std::vector<V2Float32> remainingOutputData;
+		REQUIRE(remainingCaptureOutput->ReadBufferData(remainingOutputData));
+		REQUIRE(remainingOutputData.size() == 5);
+		for (size_t i = 0; i < remainingOutputData.size(); ++i)
+		{
+			REQUIRE(remainingOutputData[i] == outputData[tailCaptureOffset + i]);
+		}
+
+		REQUIRE(emptyRequestedCountCaptureOutput->HasCapturedOutput());
+		REQUIRE(emptyRequestedCountCaptureOutput->GetEntryCount() == 0);
+		REQUIRE(emptyRemainingCaptureOutput->HasCapturedOutput());
+		REQUIRE(emptyRemainingCaptureOutput->GetEntryCount() == 0);
 		regionCaptureOutput->ClearCapturedOutput();
 		REQUIRE(!regionCaptureOutput->HasCapturedOutput());
 		DrawOneFrame();
 		REQUIRE(!regionCaptureOutput->HasCapturedOutput());
 		REQUIRE(!removedCaptureOutput->HasCapturedOutput());
-		session.AddTestSuccess("TexelArrayOutputLifecycle", "Texel array output capture reported uncaptured state, detach-after-capture state, capture regions, optimal format metadata, readback, clearing, and removal correctly.");
+		session.AddTestSuccess("TexelArrayOutputLifecycle", "Texel array output capture reported uncaptured state, detach-after-capture state, exact, clipped, remaining, and empty capture regions, optimal format metadata, readback, clearing, and removal correctly.");
 	}
 
 	// Remove the renderable node

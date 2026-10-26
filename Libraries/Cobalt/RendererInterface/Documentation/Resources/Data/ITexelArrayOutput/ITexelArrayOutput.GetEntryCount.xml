@@ -7,7 +7,7 @@
   </Paragraph>
   <Section Title="Description">
     <Paragraph>
-      The <TypeRef>GetEntryCount</TypeRef> method returns the number of captured entries currently stored in the output buffer.
+      The <TypeRef>GetEntryCount</TypeRef> method returns the number of captured entries currently stored in the output buffer. This can be less than the requested count when the capture region extends past the end of the array, and can be zero for a successful empty capture.
     </Paragraph>
   </Section>
   <Section Title="Usage">

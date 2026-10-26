@@ -623,19 +623,22 @@ void OpenGLTexelArray::CaptureDataBufferOutput()
 	for (auto* captureTarget : _state[_drawIndex].captureTargets)
 	{
 		// Determine the position and size of the buffer region to capture
-		size_t entryOffset = captureTarget->GetRequestedBufferOffset();
-		size_t entryCountToCapture = captureTarget->GetRequestedEntryCount();
-		entryCountToCapture = (entryCountToCapture == 0 ? _structureEntryCount : entryCountToCapture);
-		entryCountToCapture = (((entryCountToCapture + entryOffset) > _structureEntryCount) ? (_structureEntryCount - entryOffset) : entryCountToCapture);
+		size_t entryOffset = std::min(captureTarget->GetRequestedBufferOffset(), _structureEntryCount);
+		size_t availableEntryCount = _structureEntryCount - entryOffset;
+		size_t requestedEntryCount = captureTarget->GetRequestedEntryCount();
+		size_t entryCountToCapture = (requestedEntryCount == 0 ? availableEntryCount : std::min(requestedEntryCount, availableEntryCount));
 		size_t bufferStartPosInBytes = entryOffset * _structureStrideInBytes;
 
 		// Retrieve the requested data from the buffer
 		bufferData.resize(entryCountToCapture * _structureStrideInBytes);
-		CheckGLError(_log);
-		glBindBuffer(GL_TEXTURE_BUFFER, _openGLBufferNo);
-		glGetBufferSubData(GL_TEXTURE_BUFFER, bufferStartPosInBytes, bufferData.size(), bufferData.data());
-		glBindBuffer(GL_TEXTURE_BUFFER, 0);
-		CheckGLError(_log);
+		if (!bufferData.empty())
+		{
+			CheckGLError(_log);
+			glBindBuffer(GL_TEXTURE_BUFFER, _openGLBufferNo);
+			glGetBufferSubData(GL_TEXTURE_BUFFER, bufferStartPosInBytes, bufferData.size(), bufferData.data());
+			glBindBuffer(GL_TEXTURE_BUFFER, 0);
+			CheckGLError(_log);
+		}
 
 		// Store the requested capture data in the capture target
 		bool detachAfterCapture = captureTarget->IsDetachingAfterCapture();

@@ -523,41 +523,51 @@ bool Direct3DFrameBuffer::CaptureFrameBufferOutput(ID3D11DeviceContext1* context
 	// Calculate the cropped size of the image, taking into account the requested image offset and size, if any.
 	V2UInt32 croppedImageSize = Direct3DFrameBufferOutput::CalculateCroppedImageDimensions(V2UInt32(imageWidth, imageHeight), requestedImageOffset, requestedImageSize);
 
-	// Transfer our framebuffer output to the staging texture
-	if ((croppedImageSize.X() == imageWidth) && (croppedImageSize.Y() == imageHeight))
+	// If the cropped image size is 0 on either axis, clear the capture target, otherwise transfer the requested image
+	// data into it.
+	if ((croppedImageSize.X() == 0) || (croppedImageSize.Y() == 0))
 	{
-		// Copy the entire buffer
-		context->CopyResource(stagingTextureBuffer, sourceTextureBuffer);
+		// Store an empty image in the capture target
+		captureTarget->StoreCaptureData(croppedImageSize, nullptr, 0, imageFormat, dataFormat, elementCount, elementSizeInBytes, pixelOffsetInBytes, pixelStrideInBytes, 0, (captureTargetInfo.type == IFrameBuffer::AttachmentType::Stencil));
 	}
 	else
 	{
-		// Copy the cropped region from the buffer
-		D3D11_BOX box{};
-		box.left = requestedImageOffset.X();
-		box.top = requestedImageOffset.Y();
-		box.right = requestedImageOffset.X() + croppedImageSize.X();
-		box.bottom = requestedImageOffset.Y() + croppedImageSize.Y();
-		box.front = 0;
-		box.back = 1;
-		context->CopySubresourceRegion1(stagingTextureBuffer, 0, 0, 0, 0, sourceTextureBuffer, 0, &box, D3D11_COPY_DISCARD);
+		// Transfer our framebuffer output to the staging texture
+		if ((croppedImageSize.X() == imageWidth) && (croppedImageSize.Y() == imageHeight))
+		{
+			// Copy the entire buffer
+			context->CopyResource(stagingTextureBuffer, sourceTextureBuffer);
+		}
+		else
+		{
+			// Copy the cropped region from the buffer
+			D3D11_BOX box{};
+			box.left = requestedImageOffset.X();
+			box.top = requestedImageOffset.Y();
+			box.right = requestedImageOffset.X() + croppedImageSize.X();
+			box.bottom = requestedImageOffset.Y() + croppedImageSize.Y();
+			box.front = 0;
+			box.back = 1;
+			context->CopySubresourceRegion1(stagingTextureBuffer, 0, 0, 0, 0, sourceTextureBuffer, 0, &box, D3D11_COPY_DISCARD);
+		}
+
+		// Map our staging texture into memory so we can access its data
+		D3D11_MAPPED_SUBRESOURCE mappedResource;
+		if (FAILED(context->Map(stagingTextureBuffer, 0, D3D11_MAP_READ, 0, &mappedResource)))
+		{
+			_log->Error("Failed to map staging texture for framebuffer capture");
+			return false;
+		}
+		const auto* sourceData = reinterpret_cast<const unsigned char*>(mappedResource.pData);
+
+		// Write the texture data into our capture target
+		size_t rowStrideInBytes = mappedResource.RowPitch;
+		size_t bufferSizeInBytes = mappedResource.DepthPitch;
+		captureTarget->StoreCaptureData(croppedImageSize, sourceData, bufferSizeInBytes, imageFormat, dataFormat, elementCount, elementSizeInBytes, pixelOffsetInBytes, pixelStrideInBytes, rowStrideInBytes, (captureTargetInfo.type == IFrameBuffer::AttachmentType::Stencil));
+
+		// Unmap our staging texture
+		context->Unmap(stagingTextureBuffer, 0);
 	}
-
-	// Map our staging texture into memory so we can access its data
-	D3D11_MAPPED_SUBRESOURCE mappedResource;
-	if (FAILED(context->Map(stagingTextureBuffer, 0, D3D11_MAP_READ, 0, &mappedResource)))
-	{
-		_log->Error("Failed to map staging texture for framebuffer capture");
-		return false;
-	}
-	const auto* sourceData = reinterpret_cast<const unsigned char*>(mappedResource.pData);
-
-	// Write the texture data into our capture target
-	size_t rowStrideInBytes = mappedResource.RowPitch;
-	size_t bufferSizeInBytes = mappedResource.DepthPitch;
-	captureTarget->StoreCaptureData(croppedImageSize, sourceData, bufferSizeInBytes, imageFormat, dataFormat, elementCount, elementSizeInBytes, pixelOffsetInBytes, pixelStrideInBytes, rowStrideInBytes, (captureTargetInfo.type == IFrameBuffer::AttachmentType::Stencil));
-
-	// Unmap our staging texture
-	context->Unmap(stagingTextureBuffer, 0);
 
 	// Record this captured framebuffer output with the renderer
 	_renderer->AddCurrentFrameBufferOutput(captureTarget);

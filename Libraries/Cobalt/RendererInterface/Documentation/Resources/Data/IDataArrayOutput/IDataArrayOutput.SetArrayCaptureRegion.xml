@@ -15,10 +15,10 @@
     <SubSection Title="Argument list">
       <ArgumentList>
         <ArgumentListEntry Type="size_t" Name="captureEntryCount">
-          The number of array entries to capture.
+          The maximum number of array entries to capture. A value of zero captures all entries from the buffer offset to the end of the array. If fewer entries are available, all remaining entries are captured.
         </ArgumentListEntry>
         <ArgumentListEntry Type="size_t" Name="bufferOffset">
-          The first array entry to capture.
+          The first array entry to capture. An offset at or beyond the end of the array produces a successful capture containing zero entries.
         </ArgumentListEntry>
         <ArgumentListEntry Type="bool" Name="captureCounterValue">
           True to capture the attached counter value along with the data array contents.

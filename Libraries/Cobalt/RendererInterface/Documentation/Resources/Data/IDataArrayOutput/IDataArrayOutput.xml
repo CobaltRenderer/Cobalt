@@ -47,7 +47,7 @@
     <SubSection Title="Data methods">
       <FunctionMemberList>
         <FunctionMemberListEntry Visibility="Public" Name="HasCapturedOutput" PageName="cobalt.graphics.IDataArrayOutput.HasCapturedOutput">
-          Returns true if there is captured data ready to be read from the output buffer
+          Returns true when a capture operation has completed, including an empty capture
         </FunctionMemberListEntry>
         <FunctionMemberListEntry Visibility="Public" Name="HasCapturedCounterValue" PageName="cobalt.graphics.IDataArrayOutput.HasCapturedCounterValue">
           Returns true if there is a captured counter value ready to be read from the output

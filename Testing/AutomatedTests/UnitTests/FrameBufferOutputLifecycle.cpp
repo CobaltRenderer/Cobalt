@@ -51,6 +51,9 @@ DEFINE_UNIT_TEST_WITH_BASE("Framebuffer/FramebufferOutputLifecycle", UnitTestBas
 	const V2UInt32 xClippedSubCaptureExpectedSize(captureSize.X() - xClippedSubCaptureOffset.X(), xClippedSubCaptureSize.Y());
 	const V2UInt32 outOfBoundsCaptureOffsetX(captureSize.X(), subCaptureOffset.Y());
 	const V2UInt32 outOfBoundsCaptureOffsetY(subCaptureOffset.X(), captureSize.Y());
+	const V2UInt32 tailCaptureOffset((frameBufferSize.X() * 3) / 4, (frameBufferSize.Y() * 3) / 4);
+	const V2UInt32 tailCaptureExpectedSize(frameBufferSize.X() - tailCaptureOffset.X(), frameBufferSize.Y() - tailCaptureOffset.Y());
+	const V2UInt32 outOfBoundsFrameBufferOffset(frameBufferSize.X(), frameBufferSize.Y());
 
 	// Create a window-bound framebuffer so output capture exercises the same path as the user-facing back buffer.
 	auto frameBuffer = renderer.CreateFrameBuffer();
@@ -134,7 +137,44 @@ DEFINE_UNIT_TEST_WITH_BASE("Framebuffer/FramebufferOutputLifecycle", UnitTestBas
 	redFrameBufferCapture->SetDetachAfterCapture(true);
 	redFrameBufferCapture->SetFrameBufferCaptureRegion(captureOffset, captureSize);
 	frameBuffer->AddOutputCaptureTarget(redFrameBufferCapture.get(), IFrameBuffer::AttachmentType::Color);
+
+	auto clippedFrameBufferCapture = renderer.CreateFrameBufferOutput();
+	clippedFrameBufferCapture->SetDetachAfterCapture(true);
+	clippedFrameBufferCapture->SetFrameBufferCaptureRegion(tailCaptureOffset, frameBufferSize);
+	frameBuffer->AddOutputCaptureTarget(clippedFrameBufferCapture.get(), IFrameBuffer::AttachmentType::Color);
+
+	auto remainingFrameBufferCapture = renderer.CreateFrameBufferOutput();
+	remainingFrameBufferCapture->SetDetachAfterCapture(true);
+	remainingFrameBufferCapture->SetFrameBufferCaptureRegion(tailCaptureOffset, V2UInt32(0, 0));
+	frameBuffer->AddOutputCaptureTarget(remainingFrameBufferCapture.get(), IFrameBuffer::AttachmentType::Color);
+
+	auto emptyRequestedSizeFrameBufferCapture = renderer.CreateFrameBufferOutput();
+	emptyRequestedSizeFrameBufferCapture->SetDetachAfterCapture(true);
+	emptyRequestedSizeFrameBufferCapture->SetFrameBufferCaptureRegion(outOfBoundsFrameBufferOffset, V2UInt32(1, 1));
+	frameBuffer->AddOutputCaptureTarget(emptyRequestedSizeFrameBufferCapture.get(), IFrameBuffer::AttachmentType::Color);
+
+	auto emptyRemainingFrameBufferCapture = renderer.CreateFrameBufferOutput();
+	emptyRemainingFrameBufferCapture->SetDetachAfterCapture(true);
+	emptyRemainingFrameBufferCapture->SetFrameBufferCaptureRegion(outOfBoundsFrameBufferOffset, V2UInt32(0, 0));
+	frameBuffer->AddOutputCaptureTarget(emptyRemainingFrameBufferCapture.get(), IFrameBuffer::AttachmentType::Color);
 	DrawOneFrame();
+
+	REQUIRE(clippedFrameBufferCapture->HasCapturedOutput());
+	REQUIRE(clippedFrameBufferCapture->GetImageDimensions() == tailCaptureExpectedSize);
+	std::vector<V4UInt8> clippedFrameBufferData;
+	REQUIRE(clippedFrameBufferCapture->ReadBufferData(clippedFrameBufferData));
+	REQUIRE(clippedFrameBufferData.size() == ((size_t)tailCaptureExpectedSize.X() * (size_t)tailCaptureExpectedSize.Y()));
+
+	REQUIRE(remainingFrameBufferCapture->HasCapturedOutput());
+	REQUIRE(remainingFrameBufferCapture->GetImageDimensions() == tailCaptureExpectedSize);
+	std::vector<V4UInt8> remainingFrameBufferData;
+	REQUIRE(remainingFrameBufferCapture->ReadBufferData(remainingFrameBufferData));
+	REQUIRE(remainingFrameBufferData == clippedFrameBufferData);
+
+	REQUIRE(emptyRequestedSizeFrameBufferCapture->HasCapturedOutput());
+	REQUIRE(emptyRequestedSizeFrameBufferCapture->GetImageDimensions() == V2UInt32(0, 0));
+	REQUIRE(emptyRemainingFrameBufferCapture->HasCapturedOutput());
+	REQUIRE(emptyRemainingFrameBufferCapture->GetImageDimensions() == V2UInt32(0, 0));
 
 	// Verify captured-output metadata, including full, clipped, and out-of-bounds crop calculations.
 	REQUIRE(frameBufferCapture->HasCapturedOutput());
@@ -227,7 +267,7 @@ DEFINE_UNIT_TEST_WITH_BASE("Framebuffer/FramebufferOutputLifecycle", UnitTestBas
 	renderPassNode->SetAttachmentClearData(IFrameBuffer::AttachmentType::Color, 0, V4Float32(0.0f, 0.0f, 1.0f, 1.0f));
 	DrawOneFrame();
 	REQUIRE(!frameBufferCapture->HasCapturedOutput());
-	session.AddTestSuccess("FrameBufferOutputLifecycle", "Framebuffer output capture, uncropped baseline output, detach-after-capture, clipped and out-of-bounds readback, persistent capture targets, clearing, color switching, and removal behaved as expected.");
+	session.AddTestSuccess("FrameBufferOutputLifecycle", "Framebuffer output capture, uncropped baseline output, detach-after-capture, clipped, remaining, and empty capture requests, clipped and out-of-bounds readback, persistent capture targets, clearing, color switching, and removal behaved as expected.");
 
 	// Remove all our defined render passes
 	renderer.RemoveAllRenderPasses();

@@ -15,10 +15,10 @@
     <SubSection Title="Argument list">
       <ArgumentList>
         <ArgumentListEntry Type="size_t" Name="captureEntryCount">
-          The number of texel entries to capture.
+          The maximum number of texel entries to capture. A value of zero captures all entries from the buffer offset to the end of the array. If fewer entries are available, all remaining entries are captured.
         </ArgumentListEntry>
         <ArgumentListEntry Type="size_t" Name="bufferOffset">
-          The first texel entry to capture.
+          The first texel entry to capture. An offset at or beyond the end of the array produces a successful capture containing zero entries.
         </ArgumentListEntry>
       </ArgumentList>
     </SubSection>

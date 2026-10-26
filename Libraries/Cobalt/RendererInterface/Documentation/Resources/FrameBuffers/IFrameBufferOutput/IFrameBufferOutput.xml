@@ -50,7 +50,7 @@
     <SubSection Title="Data methods">
       <FunctionMemberList>
         <FunctionMemberListEntry Visibility="Public" Name="HasCapturedOutput" PageName="cobalt.graphics.IFrameBufferOutput.HasCapturedOutput">
-          Returns true if there is image data ready to be read from the output buffer
+          Returns true when a capture operation has completed, including an empty capture
         </FunctionMemberListEntry>
         <FunctionMemberListEntry Visibility="Public" Name="ClearCapturedOutput" PageName="cobalt.graphics.IFrameBufferOutput.ClearCapturedOutput">
           Relases the captured image data. Note that this doesn't need to be called to capture a new frame.

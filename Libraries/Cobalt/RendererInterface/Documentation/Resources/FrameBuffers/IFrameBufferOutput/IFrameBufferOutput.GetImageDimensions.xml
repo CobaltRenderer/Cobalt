@@ -7,14 +7,14 @@
   </Paragraph>
   <Section Title="Description">
     <Paragraph>
-      The <TypeRef>GetImageDimensions</TypeRef> method returns the size in pixels of the image data in the output buffer.
+      The <TypeRef>GetImageDimensions</TypeRef> method returns the size in pixels of the image data in the output buffer. The dimensions can be smaller than the requested capture region when it extends past the framebuffer bounds, and are (0, 0) for a successful empty capture.
     </Paragraph>
   </Section>
   <Section Title="Usage">
     <Code Language="C++"><![CDATA[V2UInt32 GetImageDimensions() const;]]></Code>
     <SubSection Title="Return value">
       <ReturnValue Type="V2UInt32">
-        The dimensions of the captured framebuffer image, in pixels.
+        The actual dimensions of the captured framebuffer image, in pixels.
       </ReturnValue>
     </SubSection>
   </Section>
