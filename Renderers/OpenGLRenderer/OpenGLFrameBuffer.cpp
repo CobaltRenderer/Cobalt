@@ -912,6 +912,7 @@ void OpenGLFrameBuffer::CaptureFrameBufferOutput(bool usePixelBufferObjects, boo
 		// If the cropped image size is 0 on either axis, record an empty capture without attempting a readback.
 		if ((croppedImageSize.X() == 0) || (croppedImageSize.Y() == 0))
 		{
+			// Store information on the capture format
 			captureTargetInfo.completionPending = usePixelBufferObjects;
 			captureTargetInfo.completionFence = nullptr;
 			captureTargetInfo.optimalSourceImageFormat = optimalSourceImageFormat;
@@ -920,24 +921,24 @@ void OpenGLFrameBuffer::CaptureFrameBufferOutput(bool usePixelBufferObjects, boo
 			captureTargetInfo.finalDataFormat = finalDataFormat;
 			captureTargetInfo.croppedImageSize = croppedImageSize;
 
-			// Pixel buffer object captures are completed later, after the renderer initializes the captured-output list for
-			// the frame.
-			if (usePixelBufferObjects)
+			// If PBOs aren't being used for capture, process this capture target now, otherwise defer further work
+			// until the completion phase.
+			if (!usePixelBufferObjects)
 			{
-				continue;
+				// Store an empty image in the capture target
+				captureTarget->StoreCaptureData(croppedImageSize, nullptr, 0, finalImageFormat, finalDataFormat, optimalSourceImageFormat, optimalSourceDataFormat, (captureTargetInfo.type == IFrameBuffer::AttachmentType::Stencil));
+
+				// Record this captured framebuffer output with the renderer
+				_renderer->AddCurrentFrameBufferOutput(captureTarget);
+
+				// Now that we've captured a frame, detach the output capture target if requested.
+				if (detachAfterCapture)
+				{
+					RemoveOutputCaptureTarget(captureTarget);
+				}
 			}
 
-			// Store an empty image in the capture target
-			captureTarget->StoreCaptureData(croppedImageSize, nullptr, 0, finalImageFormat, finalDataFormat, optimalSourceImageFormat, optimalSourceDataFormat, (captureTargetInfo.type == IFrameBuffer::AttachmentType::Stencil));
-
-			// Record this captured framebuffer output with the renderer
-			_renderer->AddCurrentFrameBufferOutput(captureTarget);
-
-			// Now that we've captured a frame, detach the output capture target if requested.
-			if (detachAfterCapture)
-			{
-				RemoveOutputCaptureTarget(captureTarget);
-			}
+			// Advance to the next capture target
 			continue;
 		}
 
