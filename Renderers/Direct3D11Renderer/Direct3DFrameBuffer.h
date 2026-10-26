@@ -120,7 +120,7 @@ private:
 	std::vector<Microsoft::WRL::ComPtr<ID3D11Texture2D>> _stagingTexturesForCapture;
 	bool _framebufferCreated = false;
 	bool _checkedFeatureAvailability = false;
-	bool _flipDiscardModePresent = false;
+	bool _flipDiscardModeAvailable = false;
 	bool _tearingFeaturePresent = false;
 	bool _warnedAboutRenderTargetLimitExceeded = false;
 	std::atomic_flag _stateModified = ATOMIC_FLAG_INIT;
