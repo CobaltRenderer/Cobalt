@@ -1198,6 +1198,12 @@ bool Direct3DFrameBuffer::CreateNativeObjectsForWindowTarget(ID3D12Device* devic
 		swapChainDescription.SampleDesc.Quality = 0;
 		swapChainDescription.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		swapChainDescription.BufferCount = 2;
+		// Note that Direct3D 12 only supports flip model swap chains, so it cannot use DXGI_SWAP_EFFECT_DISCARD. This
+		// is a problem currently, as there's no equivalent today (2026-10-26) under flip presentation modes for a model
+		// that allows unrestricted framerates, IE not limiting to VSync, without also opting into tearing. There's also
+		// no equivalent to the Mailbox modes on Vulkan that provide the same thing. As a result, we expect our
+		// presentation to be limited to VSync here unless the caller has opted into tearing, which if they have, we
+		// expect tearing to be present.
 		swapChainDescription.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 		swapChainDescription.Flags = swapChainFlags;
 		HRESULT createSwapChainForHwndReturn = dxgiFactory->CreateSwapChainForHwnd(commandQueue, nativeWindowInfo->windowHandle, &swapChainDescription, nullptr, nullptr, &swapChainOld);

@@ -25,7 +25,7 @@ Direct3DFrameBuffer::Direct3DFrameBuffer(cobalt::logging::ILogger* log, Direct3D
 	_framebufferCreated = false;
 	_checkedFeatureAvailability = false;
 	_tearingFeaturePresent = false;
-	_flipDiscardModePresent = false;
+	_flipDiscardModeAvailable = false;
 	_renderTargetViews.reserve(D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT);
 }
 
@@ -876,13 +876,32 @@ bool Direct3DFrameBuffer::CreateNativeObjectsForWindowTarget(ID3D11Device1* devi
 	// Build our set of swap chain flags
 	if (!_checkedFeatureAvailability)
 	{
-		Microsoft::WRL::ComPtr<IDXGIFactory5> dxgiFactory5;
-		_flipDiscardModePresent = SUCCEEDED(dxgiFactory->QueryInterface(IID_PPV_ARGS(&dxgiFactory5)));
+		Microsoft::WRL::ComPtr<IDXGIFactory4> dxgiFactory4;
+		_flipDiscardModeAvailable = SUCCEEDED(dxgiFactory->QueryInterface(IID_PPV_ARGS(&dxgiFactory4)));
 		_tearingFeaturePresent = _renderer->IsFeaturePresent(DXGI_FEATURE_PRESENT_ALLOW_TEARING);
 		_checkedFeatureAvailability = true;
 	}
+	bool limitToVsync = ((_drawState.windowBindingFlags & WindowBindingFlags::LimitSwapToVSync) != WindowBindingFlags::None);
 	bool allowTearing = _tearingFeaturePresent && ((_drawState.windowBindingFlags & WindowBindingFlags::AllowTearing) != WindowBindingFlags::None);
 	UINT swapChainFlags = (allowTearing ? DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING : 0);
+
+	// Although the flip presentation models are newer, they effectively limit the framerate to VSync, unless tearing is
+	// enabled. If the caller requests no VSync, and no tearing, we instead use the older DXGI_SWAP_EFFECT_DISCARD mode,
+	// which will allow frames to be rendered as fast as possible, with the latest frame selected at the time of
+	// drawing, so no tearing will be visible. If VSync is enabled, we use the newer flip presentation modes if
+	// available. Since DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL is available on Windows 8, which is currently our lowest
+	// supported Windows platform, we assume it will always be available. If we wanted to support Windows 7, we would
+	// need to limit required DXGI support to 1.1, whereas we currently assume 1.2. At this point, we'd need to handle
+	// fallback to DXGI_SWAP_EFFECT_DISCARD here if DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL is not available.
+	DXGI_SWAP_EFFECT swapEffect;
+	if (limitToVsync || allowTearing)
+	{
+		swapEffect = (_flipDiscardModeAvailable ? DXGI_SWAP_EFFECT_FLIP_DISCARD : DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL);
+	}
+	else
+	{
+		swapEffect = DXGI_SWAP_EFFECT_DISCARD;
+	}
 
 	// Create or resize our swap chain
 	if (resizeExistingSwapChain)
@@ -904,10 +923,7 @@ bool Direct3DFrameBuffer::CreateNativeObjectsForWindowTarget(ID3D11Device1* devi
 	}
 	else
 	{
-		// Create a new swap chain. Note that we currently require DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL as a minimum, as we
-		// currently assume DXGI 1.2 support, which requires Windows 8+. If we wanted to support Windows 7, we would
-		// need to fall back to DXGI_SWAP_EFFECT_DISCARD, but this would involve other changes as Direct3D 11.1 is only
-		// partially supported on Windows 7.
+		// Create a new swap chain
 		DXGI_SWAP_CHAIN_DESC1 swapChainDescription = {};
 		swapChainDescription.Width = windowSizeX;
 		swapChainDescription.Height = windowSizeY;
@@ -916,7 +932,7 @@ bool Direct3DFrameBuffer::CreateNativeObjectsForWindowTarget(ID3D11Device1* devi
 		swapChainDescription.SampleDesc.Quality = 0;
 		swapChainDescription.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		swapChainDescription.BufferCount = 2;
-		swapChainDescription.SwapEffect = (_flipDiscardModePresent ? DXGI_SWAP_EFFECT_FLIP_DISCARD : DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL);
+		swapChainDescription.SwapEffect = swapEffect;
 		swapChainDescription.Flags = swapChainFlags;
 		HRESULT createSwapChainForHwndReturn = dxgiFactory->CreateSwapChainForHwnd(device, nativeWindowInfo->windowHandle, &swapChainDescription, nullptr, nullptr, &_swapChain);
 		if (FAILED(createSwapChainForHwndReturn))
