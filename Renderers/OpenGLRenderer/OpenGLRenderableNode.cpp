@@ -51,13 +51,13 @@ void OpenGLRenderableNode::Delete()
 //----------------------------------------------------------------------------------------
 void OpenGLRenderableNode::ExtractVertexArrayIDs(std::vector<OpenGLRenderer::ContainerObjectsPendingRelease>& releaseList) const
 {
-	// Add any vertex array object IDs for contexts which are still valid to the free list
+	// Queue any vertex array object IDs belonging to contexts which are still valid for deletion
 	for (size_t i = 0; i < _vertexArrayObjectEntries.size(); ++i)
 	{
 		const auto& entry = _vertexArrayObjectEntries[i];
 		if (entry.vertexArrayGenerated && releaseList[i].slotAllocated && (entry.renderingContextGenerationIndex == releaseList[i].generationIndex))
 		{
-			releaseList[i].vertexArrayObjects->push_back(entry.vertexArrayID);
+			releaseList[i].vertexArrayObjectsPendingDeletion->push_back(entry.vertexArrayID);
 		}
 	}
 }
@@ -595,7 +595,7 @@ void OpenGLRenderableNode::Draw(OpenGLShaderProgram* shaderProgram, size_t rende
 		// If the vertex array object hasn't been generated yet, generate an ID for it now.
 		if (!vertexArrayObjectEntry.vertexArrayGenerated)
 		{
-			vertexArrayObjectEntry.vertexArrayID = _renderer->GenerateVertexArrayObject(renderingContextIndex);
+			vertexArrayObjectEntry.vertexArrayID = _renderer->GenerateVertexArrayObject();
 			vertexArrayObjectEntry.vertexArrayGenerated = true;
 			vertexArrayObjectEntry.renderingContextGenerationIndex = renderingContextGenerationIndex;
 			vertexArrayObjectEntry.vertexArrayInvalidated = true;
