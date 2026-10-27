@@ -1041,6 +1041,7 @@ bool OpenGLRenderer::PerformInitializeOpenGL()
 		_log->Error("RetrieveOrCreateRenderingContext failed for main rendering context");
 		return false;
 	}
+	_mainRenderingContextGenerationIndex = _allocatedRenderingContexts[renderingContextIndex].generationIndex;
 
 	// Initiaize glad
 	if (gladLoadGL() == 0)
@@ -1294,7 +1295,7 @@ void OpenGLRenderer::PerformRenderOperation()
 	_boundDataArrays.clear();
 	_boundTexelArrays.clear();
 	size_t renderingContextIndex = 0;
-	size_t renderingContextGenerationIndex = 0;
+	size_t renderingContextGenerationIndex = _mainRenderingContextGenerationIndex;
 	bool lastCommandWasCompute = false;
 	OpenGLShaderProgram* currentShaderProgram = nullptr;
 	OpenGLFrameBuffer* currentFramebuffer = nullptr;
@@ -1336,7 +1337,7 @@ void OpenGLRenderer::PerformRenderOperation()
 				ActivateRenderingContext(_mainRenderingContext);
 #endif
 				renderingContextIndex = 0;
-				renderingContextGenerationIndex = 0;
+				renderingContextGenerationIndex = _mainRenderingContextGenerationIndex;
 			}
 
 #ifdef __APPLE__
@@ -1376,7 +1377,7 @@ void OpenGLRenderer::PerformRenderOperation()
 				else
 				{
 					renderingContextIndex = 0;
-					renderingContextGenerationIndex = 0;
+					renderingContextGenerationIndex = _mainRenderingContextGenerationIndex;
 					_boundTextureFramebuffers.push_back(newFramebuffer);
 				}
 
@@ -2158,12 +2159,16 @@ void OpenGLRenderer::PerformDeleteDrawResourcesOperation(bool nextDrawDelete)
 			auto& releaseHelper = _containerObjectsReleaseHelpers[i];
 			releaseHelper.slotAllocated = renderingContext.slotAllocated;
 			releaseHelper.generationIndex = renderingContext.generationIndex;
-			releaseHelper.vertexArrayObjects = &renderingContext.freeVertexArrayObjectIDs;
+			releaseHelper.vertexArrayObjectsPendingDeletion = &renderingContext.vertexArrayObjectIDsPendingDeletion;
 		}
 	}
 
-	// Delete all pending objects to be deleted. We also collect all VAO IDs here which belong to rendering contexts
-	// which are still active, merging them back into the free list.
+	// Collect all VAOs which are pending deletion, then delete them in their owning rendering contexts. We perform this
+	// step first, as it requires render context switching. It does not technically need to occur before deleting bound
+	// resources which are used in the VAO, however there may be some minor overhead from doing it the other way around
+	// as VAOs keep bound resources alive, which on some implementations may defer cleanup until a later stage. Since we
+	// have to do the context switching here anyway, and that needs grouping to make efficient, we perform this step up
+	// front.
 	for (const auto& entry : _state[stateIndex].deletePendingObjects)
 	{
 		auto entryAsRenderableNode = std::get_if<OpenGLRenderableNode*>(&entry);
@@ -2171,6 +2176,12 @@ void OpenGLRenderer::PerformDeleteDrawResourcesOperation(bool nextDrawDelete)
 		{
 			(*entryAsRenderableNode)->ExtractVertexArrayIDs(_containerObjectsReleaseHelpers);
 		}
+	}
+	PerformDeletePendingVertexArrayObjects();
+
+	// Delete all remaining pending renderer objects
+	for (const auto& entry : _state[stateIndex].deletePendingObjects)
+	{
 		std::visit([](auto* object) { delete object; }, entry);
 	}
 	_state[stateIndex].deletePendingObjects.clear();
@@ -2269,6 +2280,82 @@ int OpenGLRenderer::GetUniformBufferOffsetAlignment() const
 float OpenGLRenderer::GetMaxTextureSamplerAnisotropy() const
 {
 	return _maxTextureSamplerAnisotropy;
+}
+
+//----------------------------------------------------------------------------------------
+// Vertex array object methods
+//----------------------------------------------------------------------------------------
+GLuint OpenGLRenderer::GenerateVertexArrayObject()
+{
+	// Generate a new VAO for the current rendering context. VAOs remain owned by the renderable which created them
+	// until that renderable is deleted, at which point they are queued for deletion and cleaned up along with other
+	// freed VAOs since the last frame. Although reusing VAOs from a "free pool" may sound useful, VAOs keep their
+	// associated bound resources alive until they're freed (OpenGL 4.3 - 5.1.3 - Deleted Object and Object Name
+	// Lifetimes). There's no simple way to clear a VAO, every possible resource slot would need to be unbound, so the
+	// overhead of clearing VAOs to enable reuse would exceed the overhead of regenerating them on demand. Note that if
+	// the rendering context is released first, the VAOs are freed automatically, as they're container objects and
+	// exclusively owned by the rendering context, not shared (OpenGL 4.3 Chapter 5 - Shared Objects and Multiple
+	// Contexts). This means we do not need to delete all allocated VAOs for a context before it is destroyed.
+	GLuint vertexArrayId;
+	glGenVertexArrays(1, &vertexArrayId);
+	CheckGLError(_log.get());
+	return vertexArrayId;
+}
+
+//----------------------------------------------------------------------------------------
+void OpenGLRenderer::PerformDeletePendingVertexArrayObjects()
+{
+	// Delete all VAOs which are pending deletion
+#ifdef OPENGL_USE_PLATFORM_APPKIT
+	std::unique_lock<std::mutex> lock(_renderingContextMutex);
+#endif
+	bool switchedRenderingContext = false;
+	for (auto& entry : _allocatedRenderingContexts)
+	{
+		// If there is no valid rendering context in this slot, or no VAOs are pending deletion in this slot, skip to
+		// the next one.
+		if (!entry.slotAllocated || entry.vertexArrayObjectIDsPendingDeletion.empty())
+		{
+			continue;
+		}
+
+		// Activate the target rendering context. VAOs are not shared between rendering contexts, so their owning
+		// context must be active when they are deleted.
+#ifdef OPENGL_USE_PLATFORM_WIN32
+		bool contextActivated = ActivateRenderingContext(entry.hwnd, entry.deviceContext, entry.renderingContext);
+#elif defined(OPENGL_USE_EGL)
+		bool contextActivated = ActivateRenderingContext(entry.display, entry.window, entry.renderingContext);
+#elif defined(OPENGL_USE_PLATFORM_XLIB)
+		bool contextActivated = ActivateRenderingContext(entry.display, entry.window, entry.renderingContext);
+#elif defined(OPENGL_USE_PLATFORM_APPKIT)
+		bool contextActivated = ActivateRenderingContext(entry.renderingContext);
+#endif
+		if (!contextActivated)
+		{
+			continue;
+		}
+
+		// Delete all VAOs in this context which are pending deletion
+		glDeleteVertexArrays((GLsizei)entry.vertexArrayObjectIDsPendingDeletion.size(), entry.vertexArrayObjectIDsPendingDeletion.data());
+		CheckGLError(_log.get());
+		entry.vertexArrayObjectIDsPendingDeletion.clear();
+		switchedRenderingContext = true;
+	}
+
+	// If we switched off the default rendering context, switch back again now.
+	if (switchedRenderingContext)
+	{
+#ifdef OPENGL_USE_PLATFORM_WIN32
+		ActivateRenderingContext(_dummyMainWindowHandle, _deviceContext, _mainRenderingContext);
+#elif defined(OPENGL_USE_EGL)
+		ActivateRenderingContext(_mainDisplay, _dummySurface, _mainRenderingContext);
+#elif defined(OPENGL_USE_PLATFORM_XLIB)
+		ActivateRenderingContext(_xDisplay, _dummyWindow, _mainRenderingContext);
+#elif defined(OPENGL_USE_PLATFORM_APPKIT)
+		ActivateRenderingContext(_mainRenderingContext);
+#endif
+	}
+	CheckGLError(_log.get());
 }
 
 //----------------------------------------------------------------------------------------
@@ -3201,7 +3288,7 @@ bool OpenGLRenderer::RetrieveOrCreateRenderingContextForWindow(HWND hwnd, HDC de
 		renderingContextInfo.hwnd = hwnd;
 		renderingContextInfo.deviceContext = deviceContext;
 		renderingContextInfo.renderingContext = newContext;
-		renderingContextInfo.freeVertexArrayObjectIDs.clear();
+		renderingContextInfo.vertexArrayObjectIDsPendingDeletion.clear();
 		++renderingContextInfo.generationIndex;
 		renderingContextInfo.slotAllocated = true;
 	}
@@ -3315,7 +3402,7 @@ bool OpenGLRenderer::RetrieveOrCreateRenderingContextForWindow(EGLDisplay displa
 		renderingContextInfo.display = display;
 		renderingContextInfo.window = window;
 		renderingContextInfo.renderingContext = newContext;
-		renderingContextInfo.freeVertexArrayObjectIDs.clear();
+		renderingContextInfo.vertexArrayObjectIDsPendingDeletion.clear();
 		++renderingContextInfo.generationIndex;
 		renderingContextInfo.slotAllocated = true;
 	}
@@ -3438,7 +3525,7 @@ bool OpenGLRenderer::RetrieveOrCreateRenderingContextForWindow(::Display* displa
 		renderingContextInfo.display = display;
 		renderingContextInfo.window = window;
 		renderingContextInfo.renderingContext = newContext;
-		renderingContextInfo.freeVertexArrayObjectIDs.clear();
+		renderingContextInfo.vertexArrayObjectIDsPendingDeletion.clear();
 		++renderingContextInfo.generationIndex;
 		renderingContextInfo.slotAllocated = true;
 	}
@@ -3548,7 +3635,7 @@ bool OpenGLRenderer::RetrieveOrCreateRenderingContextForWindow(NSView* window, c
 		renderingContextInfo.pixelFormatInfo = pixelFormatInfo;
 		renderingContextInfo.window = window;
 		renderingContextInfo.renderingContext = newContext;
-		renderingContextInfo.freeVertexArrayObjectIDs.clear();
+		renderingContextInfo.vertexArrayObjectIDsPendingDeletion.clear();
 		++renderingContextInfo.generationIndex;
 		renderingContextInfo.slotAllocated = true;
 	}
@@ -3706,34 +3793,6 @@ bool OpenGLRenderer::ActivateRenderingContext(CGLContextObj renderingContext) co
 }
 #endif
 
-//----------------------------------------------------------------------------------------
-GLuint OpenGLRenderer::GenerateVertexArrayObject(size_t renderingContextIndex)
-{
-	// Pull a vertex array object ID from the back of the free list, or allocate a new one if the free list is empty.
-	// Note that we do NOT need to track the lifetime of these vertex arrays. The renderable nodes will keep track of
-	// them from here, and we return them to the "free" pool when they're deleted. If the rendering context is released
-	// first, the VAOs are freed automatically, as they're container objects and exclusively owned by the rendering
-	// context, not shared (OpenGL 4.3 Chapter 5 - Shared Objects and Multiple Contexts). This is convenient, because
-	// we don't want to make the context current just to free them. They take up a very small amount of memory, so
-	// keeping them in a free pool isn't a problem. As a result, we never actually call glDeleteVertexArrays.
-#ifdef OPENGL_USE_PLATFORM_APPKIT
-	std::unique_lock<std::mutex> lock(_renderingContextMutex);
-#endif
-	GLuint vertexArrayId;
-	auto& renderingContextEntry = _allocatedRenderingContexts[renderingContextIndex];
-	if (!renderingContextEntry.freeVertexArrayObjectIDs.empty())
-	{
-		vertexArrayId = renderingContextEntry.freeVertexArrayObjectIDs.back();
-		renderingContextEntry.freeVertexArrayObjectIDs.pop_back();
-	}
-	else
-	{
-		glGenVertexArrays(1, &vertexArrayId);
-		CheckGLError(_log.get());
-	}
-	return vertexArrayId;
-}
-
 #ifdef OPENGL_USE_PLATFORM_WIN32
 //----------------------------------------------------------------------------------------
 void OpenGLRenderer::DeleteRenderingContext(size_t renderingContextIndex)
@@ -3741,6 +3800,7 @@ void OpenGLRenderer::DeleteRenderingContext(size_t renderingContextIndex)
 	auto& entry = _allocatedRenderingContexts[renderingContextIndex];
 	wglDeleteContext(entry.renderingContext);
 	entry.renderingContext = nullptr;
+	entry.vertexArrayObjectIDsPendingDeletion.clear();
 	entry.slotAllocated = false;
 }
 #endif
@@ -3753,6 +3813,7 @@ void OpenGLRenderer::DeleteRenderingContext(size_t renderingContextIndex)
 	eglDestroyContext(entry.display, entry.renderingContext);
 	entry.display = EGL_NO_DISPLAY;
 	entry.renderingContext = nullptr;
+	entry.vertexArrayObjectIDsPendingDeletion.clear();
 	entry.slotAllocated = false;
 }
 #endif
@@ -3765,6 +3826,7 @@ void OpenGLRenderer::DeleteRenderingContext(size_t renderingContextIndex)
 	glXDestroyContext(entry.display, entry.renderingContext);
 	entry.display = nullptr;
 	entry.renderingContext = nullptr;
+	entry.vertexArrayObjectIDsPendingDeletion.clear();
 	entry.slotAllocated = false;
 }
 #endif
@@ -3777,6 +3839,7 @@ void OpenGLRenderer::DeleteRenderingContext(size_t renderingContextIndex)
 	auto& entry = _allocatedRenderingContexts[renderingContextIndex];
 	CGLDestroyContext(entry.renderingContext);
 	entry.renderingContext = nullptr;
+	entry.vertexArrayObjectIDsPendingDeletion.clear();
 	entry.slotAllocated = false;
 }
 #endif

@@ -89,7 +89,7 @@ public:
 	{
 		bool slotAllocated = false;
 		size_t generationIndex = 0;
-		std::vector<GLuint>* vertexArrayObjects = nullptr;
+		std::vector<GLuint>* vertexArrayObjectsPendingDeletion = nullptr;
 	};
 
 public:
@@ -191,6 +191,9 @@ public:
 	// Texture and sampler methods
 	float GetMaxTextureSamplerAnisotropy() const;
 
+	// Vertex array object methods
+	GLuint GenerateVertexArrayObject();
+
 	// Rendering context methods
 #ifdef OPENGL_USE_PLATFORM_WIN32
 	bool SelectWindowPixelFormat(HWND hwnd, IFrameBuffer::WindowColorSpaceMode windowColorSpaceMode, IFrameBuffer::WindowDepthStencilMode windowDepthStencilMode, HDC& deviceContext, PixelFormatInfo& pixelFormatInfo) const;
@@ -213,7 +216,6 @@ public:
 	bool RetrieveOrCreateRenderingContextForWindow(NSView* window, const PixelFormatInfo& pixelFormatInfo, CGLContextObj& renderingContext, size_t& renderingContextIndex, bool makeCurrent);
 	bool ActivateRenderingContext(CGLContextObj renderingContext) const;
 #endif
-	GLuint GenerateVertexArrayObject(size_t renderingContextIndex);
 
 	// Settings methods
 	bool DebugLoggingEnabled() const;
@@ -265,7 +267,7 @@ private:
 		bool slotAllocated = false;
 		PixelFormatInfo pixelFormatInfo;
 		size_t generationIndex = 0;
-		std::vector<GLuint> freeVertexArrayObjectIDs;
+		std::vector<GLuint> vertexArrayObjectIDsPendingDeletion;
 #ifdef OPENGL_USE_PLATFORM_WIN32
 		HWND hwnd = nullptr;
 		HDC deviceContext = nullptr;
@@ -295,13 +297,15 @@ private:
 	void PerformDeleteLastDrawResourcesOperation();
 	void PerformDeleteNextDrawResourcesOperation();
 	void PerformDeleteDrawResourcesOperation(bool nextDrawDelete);
-	void PerformDeletePendingVertexArrayObjects();
 	void BindTextures(const std::vector<ITextureBindingInfo*>& bindingEntries, OpenGLShaderProgram* program);
 	void BindStateBuffers(const std::vector<StateBufferBindingInfo*>& bindingEntries, OpenGLShaderProgram* program);
 	void BindResourceArrays(const std::vector<ResourceArrayBindingInfo*>& bindingEntries, OpenGLShaderProgram* program, bool performReset);
 	void UnbindTextures(const std::vector<ITextureBindingInfo*>& bindingEntries, OpenGLShaderProgram* program);
 	void UnbindStateBuffers(const std::vector<StateBufferBindingInfo*>& bindingEntries, OpenGLShaderProgram* program);
 	void UnbindResourceArrays(const std::vector<ResourceArrayBindingInfo*>& bindingEntries, OpenGLShaderProgram* program);
+
+	// Vertex array object methods
+	void PerformDeletePendingVertexArrayObjects();
 
 	// Debug log methods
 	static void GLAPIENTRY MessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam);
@@ -396,6 +400,7 @@ private:
 	  _windowSystemInfo;
 	PixelFormatInfo _dummyWindowPixelFormatInfo = {};
 	size_t _currentRenderingContextIndex = 0;
+	size_t _mainRenderingContextGenerationIndex = 0;
 	std::vector<RenderingContextInfo> _allocatedRenderingContexts;
 	std::set<IGraphicsDevice::Feature> _enabledFeatures;
 	std::set<Options> _enabledOptions;
