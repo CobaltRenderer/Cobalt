@@ -21,6 +21,7 @@
 #include <Internal/ImageDiff/ImageDiff.pkg>
 #include <cctype>
 #include <chrono>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -557,6 +558,41 @@ static void PrependVKLayerPath(const std::filesystem::path& newPath)
 //----------------------------------------------------------------------------------------
 static cobalt::logging::ILogger* UnhandledExceptionLogger = nullptr;
 #ifdef _WIN32
+#if defined(_M_ARM64)
+static LONG WINAPI Arm64VectoredExceptionHandler(LPEXCEPTION_POINTERS ep)
+{
+	// This handler runs before structured exception handling and the replaceable process-level unhandled exception
+	// filter. Keep the first output independent of all other process state so we can tell whether the exception reached
+	// user-mode exception dispatch at all.
+	(void)std::fputs("[CrashHandler ARM64] Vectored exception handler entered.\n", stdout);
+	(void)std::fflush(stdout);
+
+	if ((ep != nullptr) && (ep->ExceptionRecord != nullptr) && (ep->ExceptionRecord->ExceptionCode == EXCEPTION_ACCESS_VIOLATION))
+	{
+		const auto* exceptionRecord = ep->ExceptionRecord;
+		void* targetAddress = nullptr;
+		if (exceptionRecord->NumberParameters >= 2)
+		{
+			targetAddress = reinterpret_cast<void*>(exceptionRecord->ExceptionInformation[1]);
+		}
+
+		HMODULE containingModule = nullptr;
+		(void)GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, reinterpret_cast<LPCWSTR>(exceptionRecord->ExceptionAddress), &containingModule);
+		char modulePath[MAX_PATH] = {};
+		if (containingModule != nullptr)
+		{
+			(void)GetModuleFileNameA(containingModule, modulePath, static_cast<DWORD>(sizeof(modulePath)));
+		}
+		const auto exceptionAddress = reinterpret_cast<std::uintptr_t>(exceptionRecord->ExceptionAddress);
+		const auto moduleAddress = reinterpret_cast<std::uintptr_t>(containingModule);
+		const auto moduleOffset = (containingModule != nullptr) ? (exceptionAddress - moduleAddress) : 0;
+		(void)std::fprintf(stdout, "[CrashHandler ARM64] Access violation: exceptionAddress=%p, targetAddress=%p, module=%s, moduleBase=%p, moduleOffset=0x%llX.\n", exceptionRecord->ExceptionAddress, targetAddress, modulePath, containingModule, static_cast<unsigned long long>(moduleOffset));
+		(void)std::fflush(stdout);
+	}
+	return EXCEPTION_CONTINUE_SEARCH;
+}
+#endif
+
 static LONG WINAPI UnhandledExceptionHandler(LPEXCEPTION_POINTERS ep)
 {
 #if defined(_M_ARM64)
@@ -1282,6 +1318,9 @@ Reference data:
 	UnhandledExceptionLogger = log.get();
 #ifdef _WIN32
 	SetUnhandledExceptionFilter(UnhandledExceptionHandler);
+#if defined(_M_ARM64)
+	(void)AddVectoredExceptionHandler(1, Arm64VectoredExceptionHandler);
+#endif
 #else
 #if defined(__APPLE__)
 	NSSetUncaughtExceptionHandler(UnhandledExceptionHandler);

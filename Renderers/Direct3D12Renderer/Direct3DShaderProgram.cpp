@@ -2167,6 +2167,10 @@ void Direct3DShaderProgram::UnbindConstantBuffer(ID3D12GraphicsCommandList* comm
 //----------------------------------------------------------------------------------------
 void Direct3DShaderProgram::UpdateStateValue(StateValueId stateId, const uint8_t* data, size_t dataSizeInBytes, const size_t* arrayIndices, size_t arrayIndexCount)
 {
+#if defined(_M_ARM64)
+	_log->Info("D3D12 ARM64 checkpoint: Applying global state value ID {0}, source size {1}, array dimensions {2}.", static_cast<size_t>(stateId), dataSizeInBytes, arrayIndexCount);
+#endif
+
 	// Ensure the supplied uniform ID is valid
 	if ((stateId == graphics::StateValueId::Null) || ((size_t)stateId >= _globalUniformNameToID.size()))
 	{
@@ -2212,6 +2216,10 @@ void Direct3DShaderProgram::UpdateStateValue(StateValueId stateId, const uint8_t
 		{
 			const size_t matrixVectorSizeInBytes = bufferEntry.width * dataTypeByteSize;
 			const size_t matrixVectorStrideInBytes = dataTypeByteSize * 4;
+#if defined(_M_ARM64)
+			const size_t expandedMatrixSizeInBytes = ((bufferEntry.height - 1) * matrixVectorStrideInBytes) + matrixVectorSizeInBytes;
+			_log->Info("D3D12 ARM64 checkpoint: Expanding matrix state value {0} at byte offset {1}; write end {2}, buffer size {3}.", bufferEntry.attributeName, bufferEntry.bufferOffset + arrayOffset, bufferEntry.bufferOffset + arrayOffset + expandedMatrixSizeInBytes, constantBuffer.bufferContents.size());
+#endif
 			for (size_t vectorIndex = 0; vectorIndex < bufferEntry.height; ++vectorIndex)
 			{
 				std::memcpy(uniformLocation + (vectorIndex * matrixVectorStrideInBytes), data + (vectorIndex * matrixVectorSizeInBytes), matrixVectorSizeInBytes);
@@ -2220,12 +2228,18 @@ void Direct3DShaderProgram::UpdateStateValue(StateValueId stateId, const uint8_t
 		else
 		{
 			auto sizeToCopy = std::min(dataSizeInBytes, bufferEntry.entrySizeInBytes);
+#if defined(_M_ARM64)
+			_log->Info("D3D12 ARM64 checkpoint: Copying state value {0} at byte offset {1}; write end {2}, buffer size {3}.", bufferEntry.attributeName, bufferEntry.bufferOffset + arrayOffset, bufferEntry.bufferOffset + arrayOffset + sizeToCopy, constantBuffer.bufferContents.size());
+#endif
 			std::memcpy(uniformLocation, data, sizeToCopy);
 		}
 
 		// Flag that the buffer is now dirty
 		constantBuffer.isDirty = true;
 	}
+#if defined(_M_ARM64)
+	_log->Info("D3D12 ARM64 checkpoint: Global state value ID {0} applied.", static_cast<size_t>(stateId));
+#endif
 }
 
 //----------------------------------------------------------------------------------------
