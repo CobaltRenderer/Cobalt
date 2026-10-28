@@ -1085,6 +1085,10 @@ bool ShaderCode::ExportCodeAsGLSL(std::string& outputCode, bool hasGeometryStage
 		break;
 	}
 
+	// Create and configure the cross compiler
+	spirv_cross::CompilerGLSL compiler(_spirvCode);
+	compiler.set_common_options(opt);
+
 	// Preserve vertex input names for application-side lookup, and give each inter-stage variable the same name in
 	// its producing and consuming stages. Remove only the HLSL aggregate qualification (for example,
 	// "fragmentInput.color" becomes "color"), then add the producing stage's prefix. Interface matching is
@@ -1117,9 +1121,7 @@ bool ShaderCode::ExportCodeAsGLSL(std::string& outputCode, bool hasGeometryStage
 		}
 	}
 
-	// Compile the SPIRV code to GLSL
-	spirv_cross::CompilerGLSL compiler(_spirvCode);
-	compiler.set_common_options(opt);
+	// Cross-compile the SPIRV code to GLSL
 	std::string glslCode;
 	try
 	{
