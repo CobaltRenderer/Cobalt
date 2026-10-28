@@ -1263,10 +1263,6 @@ void Direct3DRenderer::RenderThread()
 //----------------------------------------------------------------------------------------
 void Direct3DRenderer::PerformPrepareBuildOperation()
 {
-#if defined(_M_ARM64)
-	_log->Info("D3D12 ARM64 checkpoint: PerformPrepareBuildOperation entered.");
-#endif
-
 	// Reset the draw command allocator to reclaim memory
 	if (FAILED(_drawCommandAllocator->Reset()))
 	{
@@ -1310,18 +1306,11 @@ void Direct3DRenderer::PerformPrepareBuildOperation()
 
 	// If any temporary transfer buffers were allocated to be freed during this new frame, destroy them now.
 	_state[_drawIndex].transferBufferAllocations.clear();
-#if defined(_M_ARM64)
-	_log->Info("D3D12 ARM64 checkpoint: PerformPrepareBuildOperation completed.");
-#endif
 }
 
 //----------------------------------------------------------------------------------------
 void Direct3DRenderer::PerformRenderOperation()
 {
-#if defined(_M_ARM64)
-	_log->Info("D3D12 ARM64 checkpoint: PerformRenderOperation entered.");
-#endif
-
 	// Reset our build fence
 	if (FAILED(_buildFence->Signal(0)))
 	{
@@ -1410,9 +1399,6 @@ void Direct3DRenderer::PerformRenderOperation()
 			residencySetSizeInBytes = 0;
 		}
 	}
-#if defined(_M_ARM64)
-	_log->Info("D3D12 ARM64 checkpoint: Pending buffer transfers and writes completed.");
-#endif
 
 	// Since it's possible for the same shader program to be used more than once in the render tree, and there's some
 	// data which is tracked per shader, we do a quick pre-pass to the program node level here to flag all active shader
@@ -1436,9 +1422,6 @@ void Direct3DRenderer::PerformRenderOperation()
 			shaderProgram->ResetGlobalConstantBufferState();
 		}
 	}
-#if defined(_M_ARM64)
-	_log->Info("D3D12 ARM64 checkpoint: Shader global-buffer state reset completed; building global buffers.");
-#endif
 
 	// Traverse the render tree to fill our global shared state buffer. This technique is the current state of the art
 	// in preparing per-frame constant data buffers. See the following article from NVidia for more information:
@@ -1581,9 +1564,6 @@ void Direct3DRenderer::PerformRenderOperation()
 			}
 		}
 	}
-#if defined(_M_ARM64)
-	_log->Info("D3D12 ARM64 checkpoint: Global constant-buffer build completed.");
-#endif
 
 	// Pop a render marker if required
 	if (_useRenderMarkers)
@@ -1595,9 +1575,6 @@ void Direct3DRenderer::PerformRenderOperation()
 	// operations can begin, so there's no advantage in waiting any longer.
 	++commandListsSubmittted;
 	SubmitDrawCommandList();
-#if defined(_M_ARM64)
-	_log->Info("D3D12 ARM64 checkpoint: Setup command list submitted.");
-#endif
 	AllocateDrawCommandList();
 	drawCommandList = _drawCommandList.Get();
 	residencySet = _drawResidencySet;
@@ -1613,9 +1590,6 @@ void Direct3DRenderer::PerformRenderOperation()
 	{
 		drawCommandList->SetDescriptorHeaps((UINT)descriptorHeaps.size(), descriptorHeaps.data());
 	}
-#if defined(_M_ARM64)
-	_log->Info("D3D12 ARM64 checkpoint: Draw command list initialized; traversing render tree.");
-#endif
 
 	// Traverse the render tree and perform our draw operations
 	_captureTargetsPresent = false;
@@ -1652,9 +1626,6 @@ void Direct3DRenderer::PerformRenderOperation()
 			if (newFramebuffer != nullptr)
 			{
 				newFramebuffer->BindFrameBuffer(drawCommandList, _drawCommandQueue.Get(), _dxgiFactory.Get());
-#if defined(_M_ARM64)
-				_log->Info("D3D12 ARM64 checkpoint: Framebuffer bound.");
-#endif
 				if (newFramebuffer->IsBoundToWindow())
 				{
 					_boundWindowFramebuffers.push_back(newFramebuffer);
@@ -1755,16 +1726,10 @@ void Direct3DRenderer::PerformRenderOperation()
 					{
 						shaderProgram->BindShaderProgram(drawCommandList);
 						boundShaderProgram = true;
-#if defined(_M_ARM64)
-						_log->Info("D3D12 ARM64 checkpoint: Shader program bound.");
-#endif
 					}
 
 					// Apply fixed state associated with this state group node
 					groupNode->ApplyFixedState(stateBucketID, frameBufferIndex, drawCommandList, shaderProgram, currentFramebuffer);
-#if defined(_M_ARM64)
-					_log->Info("D3D12 ARM64 checkpoint: State-group fixed state and graphics pipeline applied.");
-#endif
 
 					// Bind any textures or state buffer entries set as defaults at the render pass level. Note that we need to do
 					// this after the root signature has been set, so it must occur after the "ApplyFixedState" call on the group
@@ -1831,9 +1796,6 @@ void Direct3DRenderer::PerformRenderOperation()
 						}
 						BindResourceArrays(drawCommandList, resourceBufferEntriesForGroupNode, shaderProgram, true, isComputeTask);
 					}
-#if defined(_M_ARM64)
-					_log->Info("D3D12 ARM64 checkpoint: State-group resource bindings applied.");
-#endif
 
 					// If this group node is performing a compute task, execute it now.
 					if (isComputeTask)
@@ -1956,9 +1918,6 @@ void Direct3DRenderer::PerformRenderOperation()
 						{
 							BindStateBuffers(drawCommandList, stateBufferEntriesForRenderableNode, shaderProgram, false);
 						}
-#if defined(_M_ARM64)
-						_log->Info("D3D12 ARM64 checkpoint: Renderable state-buffer bindings applied.");
-#endif
 						if (hasResourceBufferEntries)
 						{
 							BindResourceArrays(drawCommandList, resourceBufferEntriesForRenderableNode, shaderProgram, true, false);
@@ -1966,15 +1925,9 @@ void Direct3DRenderer::PerformRenderOperation()
 
 						// Attach the required global constant buffer entries
 						shaderProgram->ApplyGlobalConstantBufferBindings(drawCommandList, renderableNode->GetGlobalConstantBufferBindingInfo());
-#if defined(_M_ARM64)
-						_log->Info("D3D12 ARM64 checkpoint: Renderable global constant-buffer bindings applied.");
-#endif
 
 						// Draw this renderable object
 						renderableNode->Draw(drawCommandList, shaderProgram);
-#if defined(_M_ARM64)
-						_log->Info("D3D12 ARM64 checkpoint: Renderable draw recorded.");
-#endif
 
 						// If we bound any textures or state buffer entries, and the state group node provided some
 						// initial bindings of its own, restore the bindings that were set on the state group node now.
@@ -2069,9 +2022,6 @@ void Direct3DRenderer::PerformRenderOperation()
 
 	// Submit the last command list for drawing
 	SubmitDrawCommandList();
-#if defined(_M_ARM64)
-	_log->Info("D3D12 ARM64 checkpoint: Final draw command list submitted.");
-#endif
 
 	// Update our count of the total number of indices in the last rendered frame
 	_totalVerticesLastFrame = totalVertexCount;
@@ -2082,9 +2032,6 @@ void Direct3DRenderer::PerformRenderOperation()
 	_capturedTexelArrayOutputsInCurrentFrame.clear();
 	if (_captureTargetsPresent)
 	{
-#if defined(_M_ARM64)
-		_log->Info("D3D12 ARM64 checkpoint: Recording capture commands.");
-#endif
 		AllocateDrawCommandList();
 		for (Direct3DFrameBuffer* frameBuffer : _boundWindowFramebuffers)
 		{
@@ -2098,20 +2045,11 @@ void Direct3DRenderer::PerformRenderOperation()
 		{
 			resourceBuffer->CaptureDataBufferOutput(_drawCommandList.Get());
 		}
-#if defined(_M_ARM64)
-		_log->Info("D3D12 ARM64 checkpoint: Data-array capture commands recorded.");
-#endif
 		for (Direct3DTexelArray* resourceBuffer : _boundTexelArrays)
 		{
 			resourceBuffer->CaptureDataBufferOutput(_drawCommandList.Get());
 		}
-#if defined(_M_ARM64)
-		_log->Info("D3D12 ARM64 checkpoint: Texel-array capture commands recorded.");
-#endif
 		SubmitDrawCommandList();
-#if defined(_M_ARM64)
-		_log->Info("D3D12 ARM64 checkpoint: Capture command list submitted.");
-#endif
 	}
 
 	// Insert a fence to signal when our draw commands have finished executing
@@ -2119,9 +2057,6 @@ void Direct3DRenderer::PerformRenderOperation()
 	{
 		_log->Error("Failed to signal draw fence");
 	}
-#if defined(_M_ARM64)
-	_log->Info("D3D12 ARM64 checkpoint: Draw fence signalled; PerformRenderOperation completed.");
-#endif
 
 	// Forward any pending debug messages to our logging system if required
 	if (_enableDebugLogging)
@@ -2153,14 +2088,8 @@ void Direct3DRenderer::EmitEndEvent(ID3D12GraphicsCommandList* commandList) cons
 //----------------------------------------------------------------------------------------
 void Direct3DRenderer::PerformSwapOperation()
 {
-#if defined(_M_ARM64)
-	_log->Info("D3D12 ARM64 checkpoint: PerformSwapOperation entered; waiting for the draw fence.");
-#endif
 	// Wait for the draw fence to be reached
 	WaitForSingleObject(_drawFenceEvent, INFINITE);
-#if defined(_M_ARM64)
-	_log->Info("D3D12 ARM64 checkpoint: Draw fence reached.");
-#endif
 
 	// Reset our draw fence
 	if (FAILED(_drawFence->Signal(0)))

@@ -952,10 +952,6 @@ bool Direct3DStateGroupNode::CreateNativeComputePipelineState(PipelineStateBucke
 //----------------------------------------------------------------------------------------
 bool Direct3DStateGroupNode::CreateNativeGraphicsPipelineState(PipelineStateBucket& stateBucket, int frameBufferIndex, Direct3DShaderProgram* shaderProgram, Direct3DFrameBuffer* framebuffer)
 {
-#if defined(_M_ARM64)
-	_log->Info("D3D12 ARM64 checkpoint: Building graphics pipeline-state description.");
-#endif
-
 	// Initialize the pipeline state description with suitable default values
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC& pipelineDescription = stateBucket.pipelineStateDescriptions[frameBufferIndex];
 	pipelineDescription = {};
@@ -1003,13 +999,7 @@ bool Direct3DStateGroupNode::CreateNativeGraphicsPipelineState(PipelineStateBuck
 	pipelineDescription.IBStripCutValue = stateBucket.stripCutValue;
 
 	// Create the pipeline state object
-#if defined(_M_ARM64)
-	_log->Info("D3D12 ARM64 checkpoint: Graphics pipeline-state description built; calling CreateGraphicsPipelineState.");
-#endif
 	HRESULT createGraphicsPipelineStateReturn = _renderer->GetDevice()->CreateGraphicsPipelineState(&pipelineDescription, IID_PPV_ARGS(&stateBucket.pipelineStateObjects[frameBufferIndex]));
-#if defined(_M_ARM64)
-	_log->Info("D3D12 ARM64 checkpoint: CreateGraphicsPipelineState returned {0}.", createGraphicsPipelineStateReturn);
-#endif
 	if (FAILED(createGraphicsPipelineStateReturn))
 	{
 		_log->Error("Failed to create graphics pipeline state object with error code {0}", createGraphicsPipelineStateReturn);
