@@ -1279,7 +1279,7 @@ protected:
 
 		// Size and center an integer-pixel grid with a one-pixel black gap around every square
 		const V2UInt32 windowSize = session.TestWindowSize();
-		const uint32_t rowCount = uint32_t((results.size() + columnCount - 1) / columnCount);
+		const uint32_t rowCount = ((uint32_t)results.size() + columnCount - 1) / columnCount;
 		const uint32_t cellSize = std::min(windowSize.X() / columnCount, windowSize.Y() / rowCount);
 		REQUIRE(cellSize >= 3);
 		const uint32_t gridWidth = cellSize * columnCount;
@@ -1297,8 +1297,8 @@ protected:
 		colors.reserve(results.size() * 6);
 		for (size_t i = 0; i < results.size(); ++i)
 		{
-			const uint32_t column = uint32_t(i % columnCount);
-			const uint32_t row = uint32_t(i / columnCount);
+			const uint32_t column = (uint32_t)i % columnCount;
+			const uint32_t row = (uint32_t)i / columnCount;
 			const uint32_t minPixelX = gridOriginX + (column * cellSize) + 1;
 			const uint32_t maxPixelX = gridOriginX + ((column + 1) * cellSize) - 1;
 			const uint32_t minPixelY = gridOriginY + (row * cellSize) + 1;
