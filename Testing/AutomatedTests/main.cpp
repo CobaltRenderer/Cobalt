@@ -586,7 +586,7 @@ static LONG WINAPI Arm64VectoredExceptionHandler(LPEXCEPTION_POINTERS ep)
 		const auto exceptionAddress = reinterpret_cast<std::uintptr_t>(exceptionRecord->ExceptionAddress);
 		const auto moduleAddress = reinterpret_cast<std::uintptr_t>(containingModule);
 		const auto moduleOffset = (containingModule != nullptr) ? (exceptionAddress - moduleAddress) : 0;
-		(void)std::fprintf(stdout, "[CrashHandler ARM64] Access violation: exceptionAddress=%p, targetAddress=%p, module=%s, moduleBase=%p, moduleOffset=0x%llX.\n", exceptionRecord->ExceptionAddress, targetAddress, modulePath, containingModule, static_cast<unsigned long long>(moduleOffset));
+		(void)std::fprintf(stdout, "[CrashHandler ARM64] Access violation: exceptionAddress=%p, targetAddress=%p, module=%s, moduleBase=%p, moduleOffset=0x%llX.\n", exceptionRecord->ExceptionAddress, targetAddress, modulePath, reinterpret_cast<void*>(containingModule), static_cast<unsigned long long>(moduleOffset));
 		(void)std::fflush(stdout);
 	}
 	return EXCEPTION_CONTINUE_SEARCH;
