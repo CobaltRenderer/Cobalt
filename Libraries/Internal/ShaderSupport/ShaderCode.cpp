@@ -41,89 +41,6 @@ extern "C" FUNCTION_EXPORT IShaderCode* CreateIShaderCode(cobalt::logging::ILogg
 } // namespace internal
 
 //----------------------------------------------------------------------------------------
-// OpenGLLayoutCompiler methods
-//----------------------------------------------------------------------------------------
-void ShaderCode::OpenGLLayoutCompiler::MakeBufferLayoutsOpenGLCompatible()
-{
-	// Repack each buffer using the standard supported for its corresponding OpenGL interface block type. Storage
-	// buffers are only available in OpenGL versions which support the std430 layout.
-	auto resources = get_shader_resources();
-	for (const auto& resource : resources.uniform_buffers)
-	{
-		RepackBuffer(resource, spirv_cross::BufferPackingStd140);
-	}
-	for (const auto& resource : resources.storage_buffers)
-	{
-		RepackBuffer(resource, spirv_cross::BufferPackingStd430);
-	}
-}
-
-//----------------------------------------------------------------------------------------
-uint32_t ShaderCode::OpenGLLayoutCompiler::AlignTo(uint32_t value, uint32_t alignment)
-{
-	// Buffer member alignments are always powers of two, allowing the aligned value to be calculated with a bit mask.
-	return (value + alignment - 1) & ~(alignment - 1);
-}
-
-//----------------------------------------------------------------------------------------
-void ShaderCode::OpenGLLayoutCompiler::RepackBuffer(const spirv_cross::Resource& resource, spirv_cross::BufferPackingStandard packing)
-{
-	// The base type of a block resource is the outer structure whose members define the buffer layout.
-	const auto& type = get_type(resource.base_type_id);
-	RepackStruct(type, packing);
-}
-
-//----------------------------------------------------------------------------------------
-void ShaderCode::OpenGLLayoutCompiler::RepackStruct(const spirv_cross::SPIRType& type, spirv_cross::BufferPackingStandard packing)
-{
-	// Rebuild the structure member offsets in declaration order using SPIRV-Cross's implementation of the requested
-	// OpenGL packing standard.
-	uint32_t offset = 0;
-	uint32_t previousStructAlignment = 1;
-	for (uint32_t memberIndex = 0; memberIndex < type.member_types.size(); ++memberIndex)
-	{
-		// Align this member to both its own base alignment and any trailing alignment required by a preceding structure.
-		// The packed size returned for a structure does not include that trailing padding.
-		const auto& memberType = get_type(type.member_types[memberIndex]);
-		auto memberFlags = get_member_decoration_bitset(type.self, memberIndex);
-		const uint32_t memberAlignment = type_to_packed_alignment(memberType, memberFlags, packing);
-		offset = AlignTo(offset, std::max(memberAlignment, previousStructAlignment));
-		set_member_decoration(type.self, memberIndex, spv::DecorationOffset, offset);
-
-		// Repack any arrays or structures contained by this member, since their stride and member decorations are stored
-		// separately from this outer member offset.
-		RepackNestedType(memberType, memberFlags, packing);
-		if (memberType.columns > 1)
-		{
-			// Matrices are stored as vectors separated by the matrix base alignment under std140 and std430.
-			set_member_decoration(type.self, memberIndex, spv::DecorationMatrixStride, memberAlignment);
-		}
-
-		// Advance to the unpadded end of the member. If it is a structure, preserve its base alignment so the next
-		// iteration can account for the structure's required trailing padding.
-		offset += type_to_packed_size(memberType, memberFlags, packing);
-		previousStructAlignment = memberType.basetype == spirv_cross::SPIRType::Struct ? memberAlignment : 1;
-	}
-}
-
-//----------------------------------------------------------------------------------------
-void ShaderCode::OpenGLLayoutCompiler::RepackNestedType(const spirv_cross::SPIRType& type, const spirv_cross::Bitset& flags, spirv_cross::BufferPackingStandard packing)
-{
-	if (!type.array.empty())
-	{
-		// Apply the stride for this array dimension, then continue through the parent type to handle multidimensional
-		// arrays and structures nested inside arrays.
-		set_decoration(type.self, spv::DecorationArrayStride, type_to_packed_array_stride(type, flags, packing));
-		RepackNestedType(get_type(type.parent_type), flags, packing);
-	}
-	else if (type.basetype == spirv_cross::SPIRType::Struct)
-	{
-		// Recursively rebuild all offsets and strides belonging to the nested structure.
-		RepackStruct(type, packing);
-	}
-}
-
-//----------------------------------------------------------------------------------------
 // Constructors
 //----------------------------------------------------------------------------------------
 ShaderCode::ShaderCode(cobalt::logging::ILogger::unique_ptr&& log)
@@ -1168,44 +1085,44 @@ bool ShaderCode::ExportCodeAsGLSL(std::string& outputCode, bool hasGeometryStage
 		break;
 	}
 
+	// Preserve vertex input names for application-side lookup, and give each inter-stage variable the same name in
+	// its producing and consuming stages. Remove only the HLSL aggregate qualification (for example,
+	// "fragmentInput.color" becomes "color"), then add the producing stage's prefix. Interface matching is
+	// intentionally name-based, without relying on matching SPIR-V locations.
+	const auto resources = compiler.get_shader_resources();
+	if (!previousOutputPrefix.empty())
+	{
+		for (const auto& resource : resources.stage_inputs)
+		{
+			std::string interfaceName = resource.name;
+			const auto qualificationEnd = interfaceName.find_last_of('.');
+			if (qualificationEnd != std::string::npos)
+			{
+				interfaceName.erase(0, qualificationEnd + 1);
+			}
+			compiler.set_name(resource.id, previousOutputPrefix + interfaceName);
+		}
+	}
+	if (!outputPrefix.empty() && (_stage != IShaderCode::Stage::Fragment))
+	{
+		for (const auto& resource : resources.stage_outputs)
+		{
+			std::string interfaceName = resource.name;
+			const auto qualificationEnd = interfaceName.find_last_of('.');
+			if (qualificationEnd != std::string::npos)
+			{
+				interfaceName.erase(0, qualificationEnd + 1);
+			}
+			compiler.set_name(resource.id, outputPrefix + interfaceName);
+		}
+	}
+
 	// Compile the SPIRV code to GLSL
-	OpenGLLayoutCompiler compiler(_spirvCode);
+	spirv_cross::CompilerGLSL compiler(_spirvCode);
 	compiler.set_common_options(opt);
 	std::string glslCode;
 	try
 	{
-		// Preserve vertex attribute names for application-side lookup. For interfaces between stages, discard only an
-		// aggregate parameter qualification such as "fragmentInput." and add the producing stage's prefix. Matching is
-		// intentionally name-based; equal SPIR-V locations do not make differently named interfaces equivalent.
-		const auto resources = compiler.get_shader_resources();
-		if (!previousOutputPrefix.empty())
-		{
-			for (const auto& resource : resources.stage_inputs)
-			{
-				std::string interfaceName = resource.name;
-				const auto qualificationEnd = interfaceName.find_last_of('.');
-				if (qualificationEnd != std::string::npos)
-				{
-					interfaceName.erase(0, qualificationEnd + 1);
-				}
-				compiler.set_name(resource.id, previousOutputPrefix + interfaceName);
-			}
-		}
-		if (!outputPrefix.empty() && (_stage != IShaderCode::Stage::Fragment))
-		{
-			for (const auto& resource : resources.stage_outputs)
-			{
-				std::string interfaceName = resource.name;
-				const auto qualificationEnd = interfaceName.find_last_of('.');
-				if (qualificationEnd != std::string::npos)
-				{
-					interfaceName.erase(0, qualificationEnd + 1);
-				}
-				compiler.set_name(resource.id, outputPrefix + interfaceName);
-			}
-		}
-
-		compiler.MakeBufferLayoutsOpenGLCompatible();
 		glslCode = compiler.compile();
 	}
 	catch (const std::runtime_error& e)
