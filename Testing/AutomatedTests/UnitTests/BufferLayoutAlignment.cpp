@@ -499,20 +499,20 @@ void StoreEntry(uint firstResult, AlignmentEntry value)
     alignmentResults[result++] = value.vector4.y;
     alignmentResults[result++] = value.vector4.z;
     alignmentResults[result++] = value.vector4.w;
-    [unroll]
+    [loop]
     for (uint row = 0; row < 2; ++row)
     {
-        [unroll]
+        [loop]
         for (uint column = 0; column < 2; ++column)
         {
             alignmentResults[result++] = value.matrix2[row][column];
         }
     }
     alignmentResults[result++] = value.scalarAfterMatrix2;
-    [unroll]
+    [loop]
     for (uint row = 0; row < 3; ++row)
     {
-        [unroll]
+        [loop]
         for (uint column = 0; column < 3; ++column)
         {
             alignmentResults[result++] = value.matrix3[row][column];
@@ -520,34 +520,34 @@ void StoreEntry(uint firstResult, AlignmentEntry value)
     }
     alignmentResults[result++] = value.vectorAfterMatrix3.x;
     alignmentResults[result++] = value.vectorAfterMatrix3.y;
-    [unroll]
+    [loop]
     for (uint row = 0; row < 4; ++row)
     {
-        [unroll]
+        [loop]
         for (uint column = 0; column < 4; ++column)
         {
             alignmentResults[result++] = value.matrix4[row][column];
         }
     }
-    [unroll]
+    [loop]
     for (uint element = 0; element < 2; ++element)
     {
         alignmentResults[result++] = value.scalarArray[element];
     }
-    [unroll]
+    [loop]
     for (uint element = 0; element < 2; ++element)
     {
         alignmentResults[result++] = value.vector3Array[element].x;
         alignmentResults[result++] = value.vector3Array[element].y;
         alignmentResults[result++] = value.vector3Array[element].z;
     }
-    [unroll]
+    [loop]
     for (uint element = 0; element < 2; ++element)
     {
-        [unroll]
+        [loop]
         for (uint row = 0; row < 3; ++row)
         {
-            [unroll]
+            [loop]
             for (uint column = 0; column < 3; ++column)
             {
                 alignmentResults[result++] = value.matrix3Array[element][row][column];
@@ -571,20 +571,20 @@ void StoreGeneratedStructuredEntry(uint entryIndex, float firstValue)
     structuredOutput[entryIndex].vector4.y = value++;
     structuredOutput[entryIndex].vector4.z = value++;
     structuredOutput[entryIndex].vector4.w = value++;
-    [unroll]
+    [loop]
     for (uint row = 0; row < 2; ++row)
     {
-        [unroll]
+        [loop]
         for (uint column = 0; column < 2; ++column)
         {
             structuredOutput[entryIndex].matrix2[row][column] = value++;
         }
     }
     structuredOutput[entryIndex].scalarAfterMatrix2 = value++;
-    [unroll]
+    [loop]
     for (uint row = 0; row < 3; ++row)
     {
-        [unroll]
+        [loop]
         for (uint column = 0; column < 3; ++column)
         {
             structuredOutput[entryIndex].matrix3[row][column] = value++;
@@ -592,34 +592,34 @@ void StoreGeneratedStructuredEntry(uint entryIndex, float firstValue)
     }
     structuredOutput[entryIndex].vectorAfterMatrix3.x = value++;
     structuredOutput[entryIndex].vectorAfterMatrix3.y = value++;
-    [unroll]
+    [loop]
     for (uint row = 0; row < 4; ++row)
     {
-        [unroll]
+        [loop]
         for (uint column = 0; column < 4; ++column)
         {
             structuredOutput[entryIndex].matrix4[row][column] = value++;
         }
     }
-    [unroll]
+    [loop]
     for (uint element = 0; element < 2; ++element)
     {
         structuredOutput[entryIndex].scalarArray[element] = value++;
     }
-    [unroll]
+    [loop]
     for (uint element = 0; element < 2; ++element)
     {
         structuredOutput[entryIndex].vector3Array[element].x = value++;
         structuredOutput[entryIndex].vector3Array[element].y = value++;
         structuredOutput[entryIndex].vector3Array[element].z = value++;
     }
-    [unroll]
+    [loop]
     for (uint element = 0; element < 2; ++element)
     {
-        [unroll]
+        [loop]
         for (uint row = 0; row < 3; ++row)
         {
-            [unroll]
+            [loop]
             for (uint column = 0; column < 3; ++column)
             {
                 structuredOutput[entryIndex].matrix3Array[element][row][column] = value++;
@@ -733,20 +733,20 @@ bool GlobalValueMatches(uint targetIndex)
     CHECK_ALIGNMENT_VALUE(globalVector4.y);
     CHECK_ALIGNMENT_VALUE(globalVector4.z);
     CHECK_ALIGNMENT_VALUE(globalVector4.w);
-    [unroll]
+    [loop]
     for (uint row = 0; row < 2; ++row)
     {
-        [unroll]
+        [loop]
         for (uint column = 0; column < 2; ++column)
         {
             CHECK_ALIGNMENT_VALUE(globalMatrix2[row][column]);
         }
     }
     CHECK_ALIGNMENT_VALUE(globalScalarAfterMatrix2);
-    [unroll]
+    [loop]
     for (uint row = 0; row < 3; ++row)
     {
-        [unroll]
+        [loop]
         for (uint column = 0; column < 3; ++column)
         {
             CHECK_ALIGNMENT_VALUE(globalMatrix3[row][column]);
@@ -754,34 +754,34 @@ bool GlobalValueMatches(uint targetIndex)
     }
     CHECK_ALIGNMENT_VALUE(globalVectorAfterMatrix3.x);
     CHECK_ALIGNMENT_VALUE(globalVectorAfterMatrix3.y);
-    [unroll]
+    [loop]
     for (uint row = 0; row < 4; ++row)
     {
-        [unroll]
+        [loop]
         for (uint column = 0; column < 4; ++column)
         {
             CHECK_ALIGNMENT_VALUE(globalMatrix4[row][column]);
         }
     }
-    [unroll]
+    [loop]
     for (uint element = 0; element < 2; ++element)
     {
         CHECK_ALIGNMENT_VALUE(globalScalarArray[element]);
     }
-    [unroll]
+    [loop]
     for (uint element = 0; element < 2; ++element)
     {
         CHECK_ALIGNMENT_VALUE(globalVector3Array[element].x);
         CHECK_ALIGNMENT_VALUE(globalVector3Array[element].y);
         CHECK_ALIGNMENT_VALUE(globalVector3Array[element].z);
     }
-    [unroll]
+    [loop]
     for (uint element = 0; element < 2; ++element)
     {
-        [unroll]
+        [loop]
         for (uint row = 0; row < 3; ++row)
         {
-            [unroll]
+            [loop]
             for (uint column = 0; column < 3; ++column)
             {
                 CHECK_ALIGNMENT_VALUE(globalMatrix3Array[element][row][column]);
@@ -808,20 +808,20 @@ bool BufferValueMatches(uint targetIndex)
     CHECK_ALIGNMENT_VALUE(bufferVector4.y);
     CHECK_ALIGNMENT_VALUE(bufferVector4.z);
     CHECK_ALIGNMENT_VALUE(bufferVector4.w);
-    [unroll]
+    [loop]
     for (uint row = 0; row < 2; ++row)
     {
-        [unroll]
+        [loop]
         for (uint column = 0; column < 2; ++column)
         {
             CHECK_ALIGNMENT_VALUE(bufferMatrix2[row][column]);
         }
     }
     CHECK_ALIGNMENT_VALUE(bufferScalarAfterMatrix2);
-    [unroll]
+    [loop]
     for (uint row = 0; row < 3; ++row)
     {
-        [unroll]
+        [loop]
         for (uint column = 0; column < 3; ++column)
         {
             CHECK_ALIGNMENT_VALUE(bufferMatrix3[row][column]);
@@ -829,34 +829,34 @@ bool BufferValueMatches(uint targetIndex)
     }
     CHECK_ALIGNMENT_VALUE(bufferVectorAfterMatrix3.x);
     CHECK_ALIGNMENT_VALUE(bufferVectorAfterMatrix3.y);
-    [unroll]
+    [loop]
     for (uint row = 0; row < 4; ++row)
     {
-        [unroll]
+        [loop]
         for (uint column = 0; column < 4; ++column)
         {
             CHECK_ALIGNMENT_VALUE(bufferMatrix4[row][column]);
         }
     }
-    [unroll]
+    [loop]
     for (uint element = 0; element < 2; ++element)
     {
         CHECK_ALIGNMENT_VALUE(bufferScalarArray[element]);
     }
-    [unroll]
+    [loop]
     for (uint element = 0; element < 2; ++element)
     {
         CHECK_ALIGNMENT_VALUE(bufferVector3Array[element].x);
         CHECK_ALIGNMENT_VALUE(bufferVector3Array[element].y);
         CHECK_ALIGNMENT_VALUE(bufferVector3Array[element].z);
     }
-    [unroll]
+    [loop]
     for (uint element = 0; element < 2; ++element)
     {
-        [unroll]
+        [loop]
         for (uint row = 0; row < 3; ++row)
         {
-            [unroll]
+            [loop]
             for (uint column = 0; column < 3; ++column)
             {
                 CHECK_ALIGNMENT_VALUE(bufferMatrix3Array[element][row][column]);
