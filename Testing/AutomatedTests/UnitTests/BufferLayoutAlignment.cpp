@@ -419,7 +419,7 @@ OpFunctionEnd
 // Build a compact matrix containing four distinct values in storage-vector order.
 M2Float32 CreateVulkanMatrixStrideMatrix(float firstValue)
 {
-	M2Float32 matrix;
+	M2Float32 matrix = {};
 	for (size_t i = 0; i < matrix.size(); ++i)
 	{
 		matrix.data()[i] = firstValue + (float)i;
@@ -911,7 +911,7 @@ static_assert(sizeof(AlignmentValues) == AlignmentValueCount * sizeof(float));
 // Create one value set with a distinct sequential value in every component
 AlignmentValues CreateAlignmentValues(float firstValue)
 {
-	AlignmentValues result{};
+	AlignmentValues result = {};
 	float value = firstValue;
 
 	// Populate the interleaved scalar and vector fields
@@ -1001,7 +1001,7 @@ size_t GetStructuredAlignmentEntrySize(StructuredAlignmentLayout layout)
 // Build the byte offset table used to pack and unpack every logical structured-buffer value
 std::array<size_t, AlignmentValueCount> GetStructuredAlignmentOffsets(StructuredAlignmentLayout layout)
 {
-	std::array<size_t, AlignmentValueCount> offsets{};
+	std::array<size_t, AlignmentValueCount> offsets = {};
 
 	// Direct3D structured buffers use the tightly packed CPU value order
 	if (layout == StructuredAlignmentLayout::Compact)
@@ -1371,12 +1371,12 @@ protected:
 		REQUIRE(stateBuffer->AllocateMemory());
 
 		// Populate every matrix component and each value following a matrix
-		M2Float32 matrix2;
+		M2Float32 matrix2 = {};
 		for (size_t i = 0; i < matrix2.size(); ++i)
 		{
 			matrix2.data()[i] = float(i + 1);
 		}
-		M3Float32 matrix3;
+		M3Float32 matrix3 = {};
 		for (size_t i = 0; i < matrix3.size(); ++i)
 		{
 			matrix3.data()[i] = float(i + 6);
@@ -1690,7 +1690,7 @@ protected:
 		const size_t structuredEntrySize = GetStructuredAlignmentEntrySize(structuredLayout);
 
 		// Pack and allocate the structured input buffer with data in a non-zero entry
-		std::array<AlignmentValues, StructuredBufferEntryCount> structuredInputData{};
+		std::array<AlignmentValues, StructuredBufferEntryCount> structuredInputData = {};
 		structuredInputData[StructuredBufferTestEntry] = structuredValues;
 		const auto packedStructuredInputData = PackStructuredAlignmentValues(structuredInputData, structuredLayout);
 		auto structuredInputBuffer = renderer.CreateDataArray();
