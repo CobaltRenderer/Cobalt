@@ -794,6 +794,8 @@ void OpenGLFrameBuffer::CaptureFrameBufferOutput(bool usePixelBufferObjects, boo
 	CheckGLError(_log);
 
 	// Store our framebuffer output in any capture targets that have been bound
+	bool serializePBOCaptures = _drawState.headlessWindow && _renderer->SerializeHeadlessPBOCaptures();
+	GLsync previousSerializedCaptureFence = nullptr;
 	for (size_t captureTargetIndex = 0; captureTargetIndex < _drawState.captureTargets.size(); ++captureTargetIndex)
 	{
 		// Attempt to locate the bound texture for the target framebuffer output
@@ -969,6 +971,17 @@ void OpenGLFrameBuffer::CaptureFrameBufferOutput(bool usePixelBufferObjects, boo
 		captureTargetInfo.completionPending = usePixelBufferObjects;
 		if (usePixelBufferObjects)
 		{
+			// Work around corruption on affected Intel Windows drivers by waiting for the previous headless PBO read to
+			// complete before submitting another one. See SerializeHeadlessPBOCaptures for full details.
+			if (serializePBOCaptures && (previousSerializedCaptureFence != nullptr))
+			{
+				GLenum waitResult = glClientWaitSync(previousSerializedCaptureFence, GL_SYNC_FLUSH_COMMANDS_BIT, GL_TIMEOUT_IGNORED);
+				if ((waitResult != GL_ALREADY_SIGNALED) && (waitResult != GL_CONDITION_SATISFIED))
+				{
+					_log->Error("Unexpected framebuffer capture fence wait result: {0}", waitResult);
+				}
+			}
+
 			// Retrieve the pixel buffer for this capture target, allocating one if it hasn't previously been created.
 			if (captureTargetIndex >= _stagingBuffersForCapture.size())
 			{
@@ -1008,6 +1021,7 @@ void OpenGLFrameBuffer::CaptureFrameBufferOutput(bool usePixelBufferObjects, boo
 				glFlush();
 			}
 			captureTargetInfo.completionFence = completionFence;
+			previousSerializedCaptureFence = completionFence;
 
 			// Store information on the capture format
 			captureTargetInfo.optimalSourceImageFormat = optimalSourceImageFormat;
@@ -1067,7 +1081,11 @@ void OpenGLFrameBuffer::CompleteCaptureFrameBufferOutput()
 		// If we have to wait on a fence for the PBO write to complete, wait for it now, and clean up the fence.
 		if (captureTargetInfo.completionFence != nullptr)
 		{
-			glClientWaitSync(captureTargetInfo.completionFence, GL_SYNC_FLUSH_COMMANDS_BIT, GL_TIMEOUT_IGNORED);
+			GLenum waitResult = glClientWaitSync(captureTargetInfo.completionFence, GL_SYNC_FLUSH_COMMANDS_BIT, GL_TIMEOUT_IGNORED);
+			if ((waitResult != GL_ALREADY_SIGNALED) && (waitResult != GL_CONDITION_SATISFIED))
+			{
+				_log->Error("Unexpected framebuffer capture fence wait result: {0}", waitResult);
+			}
 			glDeleteSync(captureTargetInfo.completionFence);
 			captureTargetInfo.completionFence = nullptr;
 		}
@@ -1097,7 +1115,10 @@ void OpenGLFrameBuffer::CompleteCaptureFrameBufferOutput()
 			captureTarget->StoreCaptureData(captureTargetInfo.croppedImageSize, mappedBuffer, stagingBufferInfo.bufferSizeInBytes, captureTargetInfo.finalImageFormat, captureTargetInfo.finalDataFormat, captureTargetInfo.optimalSourceImageFormat, captureTargetInfo.optimalSourceDataFormat, (captureTargetInfo.type == IFrameBuffer::AttachmentType::Stencil));
 
 			// Unmap the buffer
-			glUnmapBuffer(GL_PIXEL_PACK_BUFFER);
+			if (glUnmapBuffer(GL_PIXEL_PACK_BUFFER) == GL_FALSE)
+			{
+				_log->Error("Framebuffer capture pixel buffer contents became corrupt while mapped");
+			}
 			glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
 		}
 

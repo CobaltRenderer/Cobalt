@@ -54,11 +54,11 @@ namespace cobalt::graphics {
 // Constructors
 //----------------------------------------------------------------------------------------
 #ifdef __linux__
-OpenGLRenderer::OpenGLRenderer(cobalt::logging::ILogger::unique_ptr log, const std::set<IGraphicsDevice::Feature>& enabledFeatures, const std::set<Options>& enabledOptions, bool finishWhenSwitchingContexts, bool flushFramebufferTextureWritesBeforeWindowSampling, bool usingSoftwareRenderer, const std::string& renderNodePath)
+OpenGLRenderer::OpenGLRenderer(cobalt::logging::ILogger::unique_ptr log, const std::set<IGraphicsDevice::Feature>& enabledFeatures, const std::set<Options>& enabledOptions, bool finishWhenSwitchingContexts, bool serializeHeadlessPBOCaptures, bool flushFramebufferTextureWritesBeforeWindowSampling, bool usingSoftwareRenderer, const std::string& renderNodePath)
 #else
-OpenGLRenderer::OpenGLRenderer(cobalt::logging::ILogger::unique_ptr log, const std::set<IGraphicsDevice::Feature>& enabledFeatures, const std::set<Options>& enabledOptions, bool finishWhenSwitchingContexts, bool flushFramebufferTextureWritesBeforeWindowSampling, bool usingSoftwareRenderer)
+OpenGLRenderer::OpenGLRenderer(cobalt::logging::ILogger::unique_ptr log, const std::set<IGraphicsDevice::Feature>& enabledFeatures, const std::set<Options>& enabledOptions, bool finishWhenSwitchingContexts, bool serializeHeadlessPBOCaptures, bool flushFramebufferTextureWritesBeforeWindowSampling, bool usingSoftwareRenderer)
 #endif
-: _buildIndex(0), _drawIndex(1), _enabledFeatures(enabledFeatures), _enabledOptions(enabledOptions), _usingSoftwareRenderer(usingSoftwareRenderer), _finishWhenSwitchingContexts(finishWhenSwitchingContexts), _flushFramebufferTextureWritesBeforeWindowSampling(flushFramebufferTextureWritesBeforeWindowSampling)
+: _buildIndex(0), _drawIndex(1), _enabledFeatures(enabledFeatures), _enabledOptions(enabledOptions), _usingSoftwareRenderer(usingSoftwareRenderer), _finishWhenSwitchingContexts(finishWhenSwitchingContexts), _serializeHeadlessPBOCaptures(serializeHeadlessPBOCaptures), _flushFramebufferTextureWritesBeforeWindowSampling(flushFramebufferTextureWritesBeforeWindowSampling)
 #ifdef __linux__
   ,
   _renderNodePath(renderNodePath)
@@ -3898,6 +3898,42 @@ bool OpenGLRenderer::UsePixelBufferObjectsForFrameCapture() const
 	// disadvantages, so it's enabled always by default, but the alternate method of synchronous client calls is
 	// supported for reference.
 	return true;
+}
+
+//----------------------------------------------------------------------------------------
+bool OpenGLRenderer::SerializeHeadlessPBOCaptures() const
+{
+	// This option works around a flaw with Intel graphics drivers observed on Windows. This was seen on 2026-10-28
+	// with an Intel UHD integrated graphics device in an i9-13950HX CPU, on Windows 11 26200.9711 using Intel
+	// graphics driver version 32.0.101.7088. The failure occurred in headless rendering when one frame requested
+	// several non-empty framebuffer captures. The failing test queues four non-empty captures into four PBOs, as well
+	// as two empty metadata-only captures. The headless framebuffer uses a GL_RGBA8 renderbuffer, and each non-empty
+	// capture queues glReadPixels into a different pixel pack buffer object (PBO). When several of those reads were
+	// outstanding together, one or more PBOs could contain large, block-aligned regions which did not match the
+	// framebuffer contents, even though glClientWaitSync reported completion, glMapBufferRange succeeded,
+	// glUnmapBuffer returned GL_TRUE, and no GL error was reported. The problem was originally exposed by the
+	// "Framebuffer/FramebufferOutputLifecycle" unit test when run with the OpenGL 3.3 or 4.3 renderers in headless
+	// mode. It was not observed when rendering through a visible window or when only one capture was queued.
+	//
+	// The original code is valid OpenGL and should not require this serialization. It gives every read a separate PBO,
+	// places a fence after each glReadPixels call in the same command stream, flushes that stream, waits indefinitely for
+	// the fence before reading the PBO, and maps without GL_MAP_UNSYNCHRONIZED_BIT. The OpenGL 4.3 Core Profile
+	// specification, section 2.1, states that commands in one context are processed in submission order and that pixel
+	// reads see the completed effects of preceding commands. Section 18.2 defines glReadPixels with a non-zero
+	// GL_PIXEL_PACK_BUFFER as writing to an offset in that buffer. Sections 4.1 through 4.1.2 specify the fence,
+	// glClientWaitSync, and command-flushing behavior; a fence covers all preceding commands in the same command stream
+	// and is not signalled until their effects are fully realized. Section 6.3 also requires a normal glMapBufferRange
+	// call to return only after pending operations on that buffer have completed. The ARB_pixel_buffer_object
+	// specification explicitly describes the intended asynchronous use of several PBO pixel transfers followed by
+	// mapping. See the following specifications:
+	// https://registry.khronos.org/OpenGL/specs/gl/glspec43.core.pdf
+	// https://registry.khronos.org/OpenGL/extensions/ARB/ARB_pixel_buffer_object.txt
+	//
+	// Investigation confirmed that glFlush before the reads and glFinish once before the batch did not prevent the
+	// corruption, while glFinish between individual reads did. The narrower workaround implemented here waits for the
+	// fence belonging to the preceding headless PBO read before submitting the next read. This serializes only multiple
+	// PBO captures from a headless framebuffer; the common single-capture path remains asynchronous.
+	return _serializeHeadlessPBOCaptures;
 }
 
 //----------------------------------------------------------------------------------------

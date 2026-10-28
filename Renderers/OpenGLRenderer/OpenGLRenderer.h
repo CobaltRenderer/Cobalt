@@ -95,9 +95,9 @@ public:
 public:
 	// Constructors
 #ifdef __linux__
-	OpenGLRenderer(cobalt::logging::ILogger::unique_ptr log, const std::set<IGraphicsDevice::Feature>& enabledFeatures, const std::set<Options>& enabledOptions, bool finishWhenSwitchingContexts, bool flushFramebufferTextureWritesBeforeWindowSampling, bool usingSoftwareRenderer, const std::string& renderNodePath);
+	OpenGLRenderer(cobalt::logging::ILogger::unique_ptr log, const std::set<IGraphicsDevice::Feature>& enabledFeatures, const std::set<Options>& enabledOptions, bool finishWhenSwitchingContexts, bool serializeHeadlessPBOCaptures, bool flushFramebufferTextureWritesBeforeWindowSampling, bool usingSoftwareRenderer, const std::string& renderNodePath);
 #else
-	OpenGLRenderer(cobalt::logging::ILogger::unique_ptr log, const std::set<IGraphicsDevice::Feature>& enabledFeatures, const std::set<Options>& enabledOptions, bool finishWhenSwitchingContexts, bool flushFramebufferTextureWritesBeforeWindowSampling, bool usingSoftwareRenderer);
+	OpenGLRenderer(cobalt::logging::ILogger::unique_ptr log, const std::set<IGraphicsDevice::Feature>& enabledFeatures, const std::set<Options>& enabledOptions, bool finishWhenSwitchingContexts, bool serializeHeadlessPBOCaptures, bool flushFramebufferTextureWritesBeforeWindowSampling, bool usingSoftwareRenderer);
 #endif
 
 	// Initialization methods
@@ -220,6 +220,7 @@ public:
 	// Settings methods
 	bool DebugLoggingEnabled() const;
 	bool UsePixelBufferObjectsForFrameCapture() const;
+	bool SerializeHeadlessPBOCaptures() const;
 	bool CaptureWindowFramebuffersFromFrontBuffer() const;
 
 	// Extension methods
@@ -348,6 +349,7 @@ private:
 	bool _initializeOpenGLRequestPending = false;
 	bool _initializeOpenGLResult = false;
 	bool _finishWhenSwitchingContexts = false;
+	bool _serializeHeadlessPBOCaptures = false;
 	bool _flushFramebufferTextureWritesBeforeWindowSampling = false;
 	bool _enableDebugLogging = false;
 	bool _captureTargetsPresent = false;
