@@ -1665,17 +1665,23 @@ protected:
 	bool RunAlignmentTest(ITestSession& session, IFrameBuffer& frameBuffer, bool useReflectedStateBufferLayout)
 	{
 		// Retrieve the renderer and compile the full resource-array shader program
+		session.Log().Info(useReflectedStateBufferLayout ? "BufferLayoutAlignment checkpoint: Entered reflected-layout alignment test." : "BufferLayoutAlignment checkpoint: Entered automatic-layout alignment test.");
 		auto& renderer = session.Renderer();
 		auto shaderProgram = renderer.CreateShaderProgram();
+		session.Log().Info("BufferLayoutAlignment checkpoint: Shader program created; loading the vertex shader.");
 		REQUIRE(shaderProgram->LoadShaderStage(IShaderProgram::ShaderStage::Vertex, ShaderSourceInfoHLSL(VertexShader)));
+		session.Log().Info("BufferLayoutAlignment checkpoint: Vertex shader loaded; loading the fragment shader.");
 		REQUIRE(shaderProgram->LoadShaderStage(IShaderProgram::ShaderStage::Fragment, ShaderSourceInfoHLSL(FragmentShader)));
+		session.Log().Info("BufferLayoutAlignment checkpoint: Fragment shader loaded; compiling the shader program.");
 		REQUIRE(shaderProgram->CompileProgram());
+		session.Log().Info("BufferLayoutAlignment checkpoint: Shader program compiled.");
 
 		// Create a distinct sequential value range for every tested data source
 		const AlignmentValues globalValues = CreateAlignmentValues(1000.0f);
 		const AlignmentValues bufferValues = CreateAlignmentValues(2000.0f);
 		const AlignmentValues structuredValues = CreateAlignmentValues(3000.0f);
 		const AlignmentValues generatedStructuredValues = CreateAlignmentValues(4000.0f);
+		session.Log().Info("BufferLayoutAlignment checkpoint: CPU alignment values created.");
 
 		// Select the structured-buffer ABI used by the active renderer family
 		StructuredAlignmentLayout structuredLayout = StructuredAlignmentLayout::Compact;
@@ -1688,6 +1694,7 @@ protected:
 			structuredLayout = StructuredAlignmentLayout::VulkanHlsl;
 		}
 		const size_t structuredEntrySize = GetStructuredAlignmentEntrySize(structuredLayout);
+		session.Log().Info("BufferLayoutAlignment checkpoint: Structured-buffer layout selected; packing the input data.");
 
 		// Pack and allocate the structured input buffer with data in a non-zero entry
 		std::array<AlignmentValues, StructuredBufferEntryCount> structuredInputData = {};
@@ -1697,6 +1704,7 @@ protected:
 		structuredInputBuffer->SetBufferLayout(structuredEntrySize, structuredInputData.size());
 		REQUIRE(structuredInputBuffer->SetInitialData(packedStructuredInputData.data(), packedStructuredInputData.size()));
 		REQUIRE(structuredInputBuffer->AllocateMemory());
+		session.Log().Info("BufferLayoutAlignment checkpoint: Structured input buffer allocated.");
 
 		// Allocate and attach a capture target to the writable structured buffer
 		auto structuredOutputBuffer = renderer.CreateDataArray();
@@ -1707,6 +1715,7 @@ protected:
 		auto structuredOutputCapture = renderer.CreateDataArrayOutput();
 		structuredOutputCapture->SetDetachAfterCapture(true);
 		structuredOutputBuffer->AddOutputCaptureTarget(structuredOutputCapture.get());
+		session.Log().Info("BufferLayoutAlignment checkpoint: Structured output buffer and capture allocated.");
 
 		// Allocate the flat GPU result buffer used to record every shader read
 		auto alignmentResultBuffer = renderer.CreateTexelArray();
@@ -1715,6 +1724,7 @@ protected:
 		auto alignmentResultCapture = renderer.CreateTexelArrayOutput();
 		alignmentResultCapture->SetDetachAfterCapture(true);
 		alignmentResultBuffer->AddOutputCaptureTarget(alignmentResultCapture.get());
+		session.Log().Info("BufferLayoutAlignment checkpoint: Alignment result buffer and capture allocated.");
 
 		// Create either the reflected or automatic state-buffer layout
 		const auto stateBufferId = shaderProgram->GetStateBufferId("AlignmentStateBuffer");
@@ -1727,6 +1737,7 @@ protected:
 		{
 			REQUIRE(BuildAutomaticStateBufferLayout(*stateBufferLayout));
 		}
+		session.Log().Info("BufferLayoutAlignment checkpoint: State-buffer layout constructed.");
 
 		// Allocate the state buffer and populate every one of its fields
 		auto stateBuffer = renderer.CreateStateBuffer();
@@ -1734,6 +1745,7 @@ protected:
 		stateBuffer->SetPageSettings(1);
 		REQUIRE(stateBuffer->AllocateMemory());
 		SetAlignmentValues(*stateBuffer, *stateBuffer, "buffer", bufferValues);
+		session.Log().Info("BufferLayoutAlignment checkpoint: State buffer allocated and populated.");
 
 		// Create a fullscreen quad to execute the fragment shader
 		std::vector<V4Float32> positionData;
@@ -1743,6 +1755,7 @@ protected:
 		REQUIRE(vertexBuffer->BindVertexAttribute(positionAttribute));
 		REQUIRE(positionAttribute.SetInitialData(positionData));
 		REQUIRE(vertexBuffer->AllocateMemory());
+		session.Log().Info("BufferLayoutAlignment checkpoint: Fullscreen geometry allocated.");
 
 		// Create the renderable node and bind its state buffer
 		auto renderableNode = renderer.CreateRenderableNode();
@@ -1770,9 +1783,11 @@ protected:
 		renderPassNode->SetAttachmentClearData(IFrameBuffer::AttachmentType::Color, 0, V4Float32(0.0f, 0.0f, 0.0f, 1.0f));
 		renderPassNode->AddChildNode(programNode.get());
 		renderer.SetRenderPasses(&renderPassNode, 1);
+		session.Log().Info("BufferLayoutAlignment checkpoint: Render tree assembled; drawing the alignment frame.");
 
 		// Execute one frame to populate both output buffers
 		DrawOneFrame();
+		session.Log().Info("BufferLayoutAlignment checkpoint: Alignment frame drawn; reading the flat result buffer.");
 
 		// Read the flat GPU results containing the loose, state-buffer, and structured-buffer values
 		REQUIRE(alignmentResultCapture->HasCapturedOutput());
@@ -1780,6 +1795,7 @@ protected:
 		std::vector<V1Float32> capturedResults;
 		REQUIRE(alignmentResultCapture->ReadBufferData(capturedResults));
 		REQUIRE(capturedResults.size() == AlignmentResultCount);
+		session.Log().Info("BufferLayoutAlignment checkpoint: Flat result buffer captured.");
 
 		// Build the expected flat sequence in the same order written by the shader
 		std::vector<float> expectedResults;
@@ -1809,6 +1825,7 @@ protected:
 		AppendExpectedValues(expectedStructuredOutput, generatedStructuredValues);
 		const auto actualStructuredOutput = UnpackStructuredAlignmentValues(capturedStructuredOutput, StructuredBufferOutputTestEntry, structuredLayout);
 		REQUIRE(expectedStructuredOutput.size() == actualStructuredOutput.size());
+		session.Log().Info("BufferLayoutAlignment checkpoint: Structured output captured and unpacked.");
 
 		// Verify every scalar, vector component, matrix element, and array entry written by the shader
 		for (size_t i = 0; i < expectedStructuredOutput.size(); ++i)
@@ -1819,13 +1836,16 @@ protected:
 		// Draw the shared 280-value image before reporting the detailed manual result
 		renderer.RemoveAllRenderPasses();
 		const std::string resultPrefix = useReflectedStateBufferLayout ? "Reflected" : "Automatic";
+		session.Log().Info("BufferLayoutAlignment checkpoint: CPU comparisons completed; rendering the visualization.");
 		REQUIRE(RenderAlignmentVisualization(session, frameBuffer, results, 20, resultPrefix + "BufferAlignmentVisualization", "A 20 by 14 grid shows all 280 individual loose-uniform, state-buffer, structured-input, and structured-output comparisons."));
+		session.Log().Info("BufferLayoutAlignment checkpoint: Alignment visualization captured.");
 		if (failureCount != 0)
 		{
 			session.AddTestFailure(resultPrefix + "BufferAlignment", "Every scalar, vector component, matrix element, and array element must match after GPU reads and writes.", firstFailure + " There were " + std::to_string(failureCount) + " failures in total.");
 			return false;
 		}
 		session.AddTestSuccess(resultPrefix + "BufferAlignment", "Every scalar, vector component, matrix element, and array element matched after GPU reads from loose uniforms, a state buffer, and a structured buffer, and after GPU writes to a structured buffer.");
+		session.Log().Info("BufferLayoutAlignment checkpoint: Alignment test completed successfully.");
 		return true;
 	}
 };

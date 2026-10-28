@@ -21,6 +21,7 @@
 #include <Internal/ImageDiff/ImageDiff.pkg>
 #include <cctype>
 #include <chrono>
+#include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <cwctype>
@@ -558,6 +559,11 @@ static cobalt::logging::ILogger* UnhandledExceptionLogger = nullptr;
 #ifdef _WIN32
 static LONG WINAPI UnhandledExceptionHandler(LPEXCEPTION_POINTERS ep)
 {
+#if defined(_M_ARM64)
+	(void)std::fputs("[CrashHandler ARM64] UnhandledExceptionHandler entered.\n", stdout);
+	(void)std::fflush(stdout);
+#endif
+
 	// Log an error about this exception
 	if (UnhandledExceptionLogger != nullptr)
 	{

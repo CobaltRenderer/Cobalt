@@ -3,6 +3,7 @@
 #include "CrashHandler.h"
 #include <DbgHelp.h>
 #include <algorithm>
+#include <cstdio>
 #include <cstring>
 namespace cobalt::debug {
 // clang-format off
@@ -12,6 +13,24 @@ inline std::wstring CrashHandler::GenerateExceptionReport(PEXCEPTION_POINTERS pE
 	return L"";
 }
 #else
+
+//----------------------------------------------------------------------------------------
+#if defined(_M_ARM64)
+inline void WriteArm64CrashReportDiagnostic(const char* message)
+{
+	// Write directly to the standard output handle so this diagnostic remains independent of the logging system and
+	// its buffering. The automated test runner captures this stream.
+	HANDLE standardOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+	if ((standardOutput == nullptr) || (standardOutput == INVALID_HANDLE_VALUE))
+	{
+		return;
+	}
+
+	DWORD bytesWritten = 0;
+	(void)WriteFile(standardOutput, message, static_cast<DWORD>(std::strlen(message)), &bytesWritten, nullptr);
+	(void)WriteFile(standardOutput, "\r\n", 2, &bytesWritten, nullptr);
+}
+#endif
 
 //----------------------------------------------------------------------------------------
 #ifdef _WIN64
@@ -154,9 +173,33 @@ inline bool CrashHandler::GetContainingModuleInfo(void* targetAddress, Containin
 //----------------------------------------------------------------------------------------
 inline std::wstring CrashHandler::GenerateExceptionReport(PEXCEPTION_POINTERS pExceptionInfo)
 {
+#if defined(_M_ARM64)
+	WriteArm64CrashReportDiagnostic("[CrashHandler ARM64] GenerateExceptionReport entered.");
+
+	char initialDiagnostic[256] = {};
+	if ((pExceptionInfo != nullptr) && (pExceptionInfo->ExceptionRecord != nullptr))
+	{
+		PEXCEPTION_RECORD exceptionRecord = pExceptionInfo->ExceptionRecord;
+		void* targetAddress = nullptr;
+		if (exceptionRecord->NumberParameters >= 2)
+		{
+			targetAddress = reinterpret_cast<void*>(exceptionRecord->ExceptionInformation[1]);
+		}
+		std::snprintf(initialDiagnostic, sizeof(initialDiagnostic), "[CrashHandler ARM64] Exception metadata: code=0x%08lX, exceptionAddress=%p, targetAddress=%p.", static_cast<unsigned long>(exceptionRecord->ExceptionCode), exceptionRecord->ExceptionAddress, targetAddress);
+	}
+	else
+	{
+		std::snprintf(initialDiagnostic, sizeof(initialDiagnostic), "[CrashHandler ARM64] Exception metadata is incomplete.");
+	}
+	WriteArm64CrashReportDiagnostic(initialDiagnostic);
+#endif
+
 	// Start out with a banner
 	std::wstringstream errorString;
 	AppendCrashReport(errorString, L"\n//=====================================================\n");
+#if defined(_M_ARM64)
+	WriteArm64CrashReportDiagnostic("[CrashHandler ARM64] Report stream initialized.");
+#endif
 
 	PEXCEPTION_RECORD pExceptionRecord = pExceptionInfo->ExceptionRecord;
 
@@ -170,10 +213,19 @@ inline std::wstring CrashHandler::GenerateExceptionReport(PEXCEPTION_POINTERS pE
 	{
 		AppendCrashReport(errorString, L"Error Writing Memory: " FORMAT_POINTER L"\n", pExceptionRecord->ExceptionInformation[1]);
 	}
+#if defined(_M_ARM64)
+	WriteArm64CrashReportDiagnostic("[CrashHandler ARM64] Exception description generated.");
+#endif
 
 	// Now print information about where the fault occurred
 	ContainingModuleInfo moduleInfo;
+#if defined(_M_ARM64)
+	WriteArm64CrashReportDiagnostic("[CrashHandler ARM64] Resolving the faulting module.");
+#endif
 	GetContainingModuleInfo(pExceptionRecord->ExceptionAddress, moduleInfo);
+#if defined(_M_ARM64)
+	WriteArm64CrashReportDiagnostic("[CrashHandler ARM64] Faulting module resolved.");
+#endif
 	DWORD section = (moduleInfo.containsAddressInfo ? moduleInfo.section : 0);
 	ULONG_PTR offsetFromSection = (moduleInfo.containsAddressInfo ? moduleInfo.offsetFromSection : 0);
 	ULONG_PTR offsetFromBase = (moduleInfo.containsModuleInfo ? (ULONG_PTR)pExceptionRecord->ExceptionAddress - moduleInfo.loadedBaseAddress : 0);
@@ -188,6 +240,9 @@ inline std::wstring CrashHandler::GenerateExceptionReport(PEXCEPTION_POINTERS pE
 		}
 	}
 	AppendCrashReport(errorString, L"\n");
+#if defined(_M_ARM64)
+	WriteArm64CrashReportDiagnostic("[CrashHandler ARM64] Fault location generated.");
+#endif
 
 	PCONTEXT pCtx = pExceptionInfo->ContextRecord;
 
@@ -231,21 +286,47 @@ inline std::wstring CrashHandler::GenerateExceptionReport(PEXCEPTION_POINTERS pE
 	AppendCrashReport(errorString, L"Flags:%08X\n", pCtx->EFlags);
 #endif
 
+#if defined(_M_ARM64)
+	WriteArm64CrashReportDiagnostic("[CrashHandler ARM64] Register state generated.");
+#endif
 	SymSetOptions(SYMOPT_DEFERRED_LOADS);
 
 	// Initialize DbgHelp
+#if defined(_M_ARM64)
+	WriteArm64CrashReportDiagnostic("[CrashHandler ARM64] Initializing DbgHelp.");
+#endif
 	if (!SymInitialize(GetCurrentProcess(), 0, TRUE))
 	{
-		return errorString.str();
+#if defined(_M_ARM64)
+		WriteArm64CrashReportDiagnostic("[CrashHandler ARM64] DbgHelp initialization failed; finalizing the partial report.");
+#endif
+		std::wstring result = errorString.str();
+#if defined(_M_ARM64)
+		WriteArm64CrashReportDiagnostic("[CrashHandler ARM64] Partial report finalized.");
+#endif
+		return result;
 	}
+#if defined(_M_ARM64)
+	WriteArm64CrashReportDiagnostic("[CrashHandler ARM64] DbgHelp initialized; beginning the stack walk.");
+#endif
 
 	CONTEXT trashableContext = *pCtx;
 	WriteStackDetails(errorString, &trashableContext);
+#if defined(_M_ARM64)
+	WriteArm64CrashReportDiagnostic("[CrashHandler ARM64] Stack walk completed.");
+#endif
 
 	SymCleanup(GetCurrentProcess());
+#if defined(_M_ARM64)
+	WriteArm64CrashReportDiagnostic("[CrashHandler ARM64] DbgHelp cleanup completed.");
+#endif
 
 	AppendCrashReport(errorString, L"\n");
-	return errorString.str();
+	std::wstring result = errorString.str();
+#if defined(_M_ARM64)
+	WriteArm64CrashReportDiagnostic("[CrashHandler ARM64] Exception report finalized; returning it to the caller.");
+#endif
+	return result;
 }
 
 //----------------------------------------------------------------------------------------
