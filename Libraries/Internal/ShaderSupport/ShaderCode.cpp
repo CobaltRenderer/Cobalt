@@ -397,27 +397,27 @@ bool ShaderCode::LoadCode(Language language, Stage stage, Environment sourceEnvi
 		// Make compiler object to do reflection on code
 		_compiler = std::make_unique<spirv_cross::Compiler>(_spirvCode);
 
-		// Restore resource names
+		// Restore unqualified HLSL interface names. Entry-point structure parameters are flattened into names such as
+		// "fragmentInput.color" by glslang, but the parameter name is not part of the interface member's identity. Keep
+		// the reflected location in generated inter-stage names so those names remain descriptive and unambiguous.
 		if (language == Language::HLSL)
 		{
 			spirv_cross::ShaderResources resources = _compiler->get_shader_resources();
 			for (const auto& resource : resources.stage_inputs)
 			{
+				std::string newName = resource.name;
 				auto index = resource.name.find_last_of('.');
 				if (index != std::string::npos)
 				{
 					++index;
-					std::string newName = resource.name.substr(index, resource.name.size() - index);
-					_compiler->set_name(resource.id, newName);
-					ChangeName(newName, resource.id);
+					newName = resource.name.substr(index, resource.name.size() - index);
 				}
-			}
-
-			if (stage != IShaderCode::Stage::Vertex)
-			{
-				for (const auto& resource : resources.stage_inputs)
+				if (stage != IShaderCode::Stage::Vertex)
 				{
-					std::string newName = resource.name + "_Location" + std::to_string(_compiler->get_decoration(resource.id, spv::DecorationLocation));
+					newName += "_Location" + std::to_string(_compiler->get_decoration(resource.id, spv::DecorationLocation));
+				}
+				if (newName != resource.name)
+				{
 					_compiler->set_name(resource.id, newName);
 					ChangeName(newName, resource.id);
 				}
@@ -427,14 +427,16 @@ bool ShaderCode::LoadCode(Language language, Stage stage, Environment sourceEnvi
 			{
 				for (const auto& resource : resources.stage_outputs)
 				{
+					std::string newName = resource.name;
 					auto index = resource.name.find_last_of('.');
 					if (index != std::string::npos)
 					{
 						++index;
-						std::string newName = resource.name.substr(index, resource.name.size() - index) + "_Location" + std::to_string(_compiler->get_decoration(resource.id, spv::DecorationLocation));
-						_compiler->set_name(resource.id, newName);
-						ChangeName(newName, resource.id);
+						newName = resource.name.substr(index, resource.name.size() - index);
 					}
+					newName += "_Location" + std::to_string(_compiler->get_decoration(resource.id, spv::DecorationLocation));
+					_compiler->set_name(resource.id, newName);
+					ChangeName(newName, resource.id);
 				}
 			}
 
@@ -469,9 +471,8 @@ bool ShaderCode::LoadCode(Language language, Stage stage, Environment sourceEnvi
 			}
 		}
 
-		spirv_cross::ShaderResources resources = _compiler->get_shader_resources();
-
 		// Shader inputs
+		spirv_cross::ShaderResources resources = _compiler->get_shader_resources();
 		int nextInputResourceOrder = 0;
 		for (const auto& resource : resources.stage_inputs)
 		{
@@ -1061,9 +1062,66 @@ bool ShaderCode::ExportCodeAsGLSL(std::string& outputCode, bool hasGeometryStage
 	}
 	opt.enable_420pack_extension = false;
 
-	// Compile the SPIRV code to GLSL
+	// Determine the input/output prefixes to use for this shader stage. OpenGL 3.3 links user-defined stage
+	// interfaces by name, so the original unqualified interface name must be preserved on both sides of each stage
+	// boundary while still distinguishing interfaces belonging to different stages.
+	std::string outputPrefix;
+	std::string previousOutputPrefix;
+	switch (_stage)
+	{
+	case IShaderCode::Stage::Vertex:
+		outputPrefix = "VSOUT_";
+		break;
+	case IShaderCode::Stage::Geometry:
+		outputPrefix = "GSOUT_";
+		previousOutputPrefix = "VSOUT_";
+		break;
+	case IShaderCode::Stage::Fragment:
+		outputPrefix = "FSOUT_";
+		previousOutputPrefix = (hasGeometryStage ? "GSOUT_" : "VSOUT_");
+		break;
+	case IShaderCode::Stage::Compute:
+		outputPrefix = "CSOUT_";
+		break;
+	}
+
+	// Create and configure the cross compiler
 	spirv_cross::CompilerGLSL compiler(_spirvCode);
 	compiler.set_common_options(opt);
+
+	// Preserve vertex input names for application-side lookup, and give each inter-stage variable the same name in
+	// its producing and consuming stages. Remove only the HLSL aggregate qualification (for example,
+	// "fragmentInput.color" becomes "color"), then add the producing stage's prefix. Interface matching is
+	// intentionally name-based, without relying on matching SPIR-V locations.
+	const auto resources = compiler.get_shader_resources();
+	if (!previousOutputPrefix.empty())
+	{
+		for (const auto& resource : resources.stage_inputs)
+		{
+			std::string interfaceName = resource.name;
+			const auto qualificationEnd = interfaceName.find_last_of('.');
+			if (qualificationEnd != std::string::npos)
+			{
+				interfaceName.erase(0, qualificationEnd + 1);
+			}
+			compiler.set_name(resource.id, previousOutputPrefix + interfaceName);
+		}
+	}
+	if (!outputPrefix.empty() && (_stage != IShaderCode::Stage::Fragment))
+	{
+		for (const auto& resource : resources.stage_outputs)
+		{
+			std::string interfaceName = resource.name;
+			const auto qualificationEnd = interfaceName.find_last_of('.');
+			if (qualificationEnd != std::string::npos)
+			{
+				interfaceName.erase(0, qualificationEnd + 1);
+			}
+			compiler.set_name(resource.id, outputPrefix + interfaceName);
+		}
+	}
+
+	// Cross-compile the SPIRV code to GLSL
 	std::string glslCode;
 	try
 	{
@@ -1116,27 +1174,6 @@ bool ShaderCode::ExportCodeAsGLSL(std::string& outputCode, bool hasGeometryStage
 	// Strip "_entryPointOutput" annotations
 	StringReplaceAll(glslCode, "_entryPointOutput_", "");
 	glslCode = std::regex_replace(glslCode, constructMultiLineRegex("(\\W)_entryPointOutput(\\W)"), "$1entryPointOutput$2");
-
-	// Determine the input/output prefixes to use for this shader stage
-	std::string outputPrefix;
-	std::string previousOutputPrefix;
-	switch (_stage)
-	{
-	case IShaderCode::Stage::Vertex:
-		outputPrefix = "VSOUT_";
-		break;
-	case IShaderCode::Stage::Geometry:
-		outputPrefix = "GSOUT_";
-		previousOutputPrefix = "VSOUT_";
-		break;
-	case IShaderCode::Stage::Fragment:
-		outputPrefix = "FSOUT_";
-		previousOutputPrefix = (hasGeometryStage ? "GSOUT_" : "VSOUT_");
-		break;
-	case IShaderCode::Stage::Compute:
-		outputPrefix = "CSOUT_";
-		break;
-	}
 
 	// Rename shader inputs/outputs to use the correct prefixes. This will ensure input attribute names are preserved,
 	// while "private" inputs/outputs between shader stages have correct matching names between shader stages, while
