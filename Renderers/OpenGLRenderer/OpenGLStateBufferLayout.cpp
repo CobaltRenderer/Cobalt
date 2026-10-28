@@ -54,43 +54,43 @@ bool OpenGLStateBufferLayout::BeginLayoutDefinition(bool manualLayoutMode)
 void OpenGLStateBufferLayout::AppendField(const Marshal::In<std::string>& fieldName, DataType type, size_t arraySize)
 {
 	std::vector<size_t> dummyVector;
-	AddFieldEntry(fieldName, true, 0, type, false, false, 0, 0, arraySize, 0, dummyVector, dummyVector);
+	AddFieldEntry(fieldName, true, 0, type, false, false, 0, 0, 0, arraySize, 0, dummyVector, dummyVector);
 }
 
 //----------------------------------------------------------------------------------------
 void OpenGLStateBufferLayout::AppendVector(const Marshal::In<std::string>& fieldName, DataType type, size_t elementCount, size_t arraySize)
 {
 	std::vector<size_t> dummyVector;
-	AddFieldEntry(fieldName, true, 0, type, true, false, elementCount, 0, arraySize, 0, dummyVector, dummyVector);
+	AddFieldEntry(fieldName, true, 0, type, true, false, elementCount, 0, 0, arraySize, 0, dummyVector, dummyVector);
 }
 
 //----------------------------------------------------------------------------------------
 void OpenGLStateBufferLayout::AppendMatrix(const Marshal::In<std::string>& fieldName, DataType type, size_t width, size_t height, size_t arraySize)
 {
 	std::vector<size_t> dummyVector;
-	AddFieldEntry(fieldName, true, 0, type, false, true, width, height, arraySize, 0, dummyVector, dummyVector);
+	AddFieldEntry(fieldName, true, 0, type, false, true, width, height, 0, arraySize, 0, dummyVector, dummyVector);
 }
 
 //----------------------------------------------------------------------------------------
 void OpenGLStateBufferLayout::AddManualField(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes)
 {
-	AddFieldEntry(fieldName, false, bufferOffsetInBytes, type, false, false, 0, 0, arraySize, arrayStrideInBytes, leadingArraySizes, leadingArrayStridesInBytes);
+	AddFieldEntry(fieldName, false, bufferOffsetInBytes, type, false, false, 0, 0, 0, arraySize, arrayStrideInBytes, leadingArraySizes, leadingArrayStridesInBytes);
 }
 
 //----------------------------------------------------------------------------------------
 void OpenGLStateBufferLayout::AddManualVector(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t elementCount, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes)
 {
-	AddFieldEntry(fieldName, false, bufferOffsetInBytes, type, true, false, elementCount, 0, arraySize, arrayStrideInBytes, leadingArraySizes, leadingArrayStridesInBytes);
+	AddFieldEntry(fieldName, false, bufferOffsetInBytes, type, true, false, elementCount, 0, 0, arraySize, arrayStrideInBytes, leadingArraySizes, leadingArrayStridesInBytes);
 }
 
 //----------------------------------------------------------------------------------------
-void OpenGLStateBufferLayout::AddManualMatrix(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t width, size_t height, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes)
+void OpenGLStateBufferLayout::AddManualMatrix(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t width, size_t height, size_t matrixStrideInBytes, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes)
 {
-	AddFieldEntry(fieldName, false, bufferOffsetInBytes, type, false, true, width, height, arraySize, arrayStrideInBytes, leadingArraySizes, leadingArrayStridesInBytes);
+	AddFieldEntry(fieldName, false, bufferOffsetInBytes, type, false, true, width, height, matrixStrideInBytes, arraySize, arrayStrideInBytes, leadingArraySizes, leadingArrayStridesInBytes);
 }
 
 //----------------------------------------------------------------------------------------
-void OpenGLStateBufferLayout::AddFieldEntry(const std::string& fieldName, bool useAutoOffset, size_t bufferOffsetInBytes, DataType type, bool isVector, bool isMatrix, size_t width, size_t height, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes)
+void OpenGLStateBufferLayout::AddFieldEntry(const std::string& fieldName, bool useAutoOffset, size_t bufferOffsetInBytes, DataType type, bool isVector, bool isMatrix, size_t width, size_t height, size_t matrixStrideInBytes, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes)
 {
 	// Validate the current state of the layout
 	if (!_layoutBuildInProgress)
@@ -121,6 +121,7 @@ void OpenGLStateBufferLayout::AddFieldEntry(const std::string& fieldName, bool u
 	fieldEntry.height = height;
 	fieldEntry.isArray = (arraySize > 1);
 	fieldEntry.dataTypeByteSize = GetDataTypeByteSize(type);
+	fieldEntry.matrixStrideInBytes = fieldEntry.isMatrix ? ((matrixStrideInBytes > 0) ? matrixStrideInBytes : (fieldEntry.dataTypeByteSize * 4)) : 0;
 
 	// Calculate the alignment and size of the field. The alignment rules here follow the OpenGL "std140" layout mode,
 	// as defined in the OpenGL 4.5 specification, section 7.6.2.2 "Standard Uniform Block Layout", as detailed here:
@@ -128,7 +129,7 @@ void OpenGLStateBufferLayout::AddFieldEntry(const std::string& fieldName, bool u
 	if (fieldEntry.isArray || fieldEntry.isMatrix)
 	{
 		fieldEntry.baseAlignment = fieldEntry.dataTypeByteSize * 4;
-		arrayStrideInBytes = (arrayStrideInBytes > 0) ? arrayStrideInBytes : (fieldEntry.baseAlignment * (fieldEntry.isMatrix ? fieldEntry.height : 1));
+		arrayStrideInBytes = (arrayStrideInBytes > 0) ? arrayStrideInBytes : (fieldEntry.isMatrix ? (fieldEntry.matrixStrideInBytes * fieldEntry.height) : fieldEntry.baseAlignment);
 		fieldEntry.totalFieldEntryByteSize = arrayStrideInBytes * (fieldEntry.isArray ? arraySize : 1);
 	}
 	else if (fieldEntry.isVector)
@@ -136,7 +137,9 @@ void OpenGLStateBufferLayout::AddFieldEntry(const std::string& fieldName, bool u
 		auto paddedElementCount = fieldEntry.width;
 		paddedElementCount += (paddedElementCount == 3) ? 1 : 0;
 		fieldEntry.baseAlignment = paddedElementCount * fieldEntry.dataTypeByteSize;
-		fieldEntry.totalFieldEntryByteSize = fieldEntry.baseAlignment;
+		// A three-component vector has four-component base alignment, but its fourth
+		// component is still available to a following scalar in a std140 block.
+		fieldEntry.totalFieldEntryByteSize = fieldEntry.width * fieldEntry.dataTypeByteSize;
 	}
 	else
 	{

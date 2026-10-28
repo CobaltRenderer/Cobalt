@@ -130,7 +130,7 @@ bool TestManager::ExecuteTests(const std::vector<IUnitTest*>& testSet, const std
 {
 	// Reset our running counter of started tests
 	_testStartedCount = 0;
-	size_t testCount = testSet.size();
+	size_t testSuiteCount = testSet.size();
 
 	// If we're generating a report file, write leading content to the file.
 	bool enableHtmlReport = !reportFilePath.empty();
@@ -181,23 +181,29 @@ bool TestManager::ExecuteTests(const std::vector<IUnitTest*>& testSet, const std
 	}
 
 	// Execute each requested test
+	size_t totalTestCount = 0;
 	size_t passedTestCount = 0;
+	size_t passedTestSuiteCount = 0;
 	for (auto* test : testSet)
 	{
-		if (ExecuteTestInternal(test, reportFilePath))
+		size_t totalTestCountForTestSuite = 0;
+		size_t passedTestCountForTestSuite = 0;
+		if (ExecuteTestInternal(test, reportFilePath, totalTestCountForTestSuite, passedTestCountForTestSuite))
 		{
-			++passedTestCount;
+			++passedTestSuiteCount;
 		}
+		totalTestCount += totalTestCountForTestSuite;
+		passedTestCount += passedTestCountForTestSuite;
 	}
-	bool passedAllTests = (passedTestCount == testCount);
+	bool passedAllTests = (passedTestSuiteCount == testSuiteCount);
 
 	// If we're generating a report file, write the final content to the file.
 	if (enableHtmlReport)
 	{
-		AppendReportData(reportFilePath, FinalReportContent(passedTestCount, testCount));
+		AppendReportData(reportFilePath, FinalReportContent(passedTestSuiteCount, testSuiteCount, passedTestCount, totalTestCount));
 		if (enableHtmlIndex)
 		{
-			AppendIndexData(reportIndexPath, FinalIndexContent(passedTestCount, testCount));
+			AppendIndexData(reportIndexPath, FinalIndexContent(passedTestSuiteCount, testSuiteCount));
 		}
 	}
 
@@ -230,7 +236,7 @@ bool TestManager::ExecuteTest(IUnitTest* test, const std::filesystem::path& repo
 }
 
 //----------------------------------------------------------------------------------------
-bool TestManager::ExecuteTestInternal(IUnitTest* test, const std::filesystem::path& reportFilePath)
+bool TestManager::ExecuteTestInternal(IUnitTest* test, const std::filesystem::path& reportFilePath, size_t& totalTestCount, size_t& passedTestCount)
 {
 	// Create the test session object
 	auto testSpecificLogger = _log.GetLoggerChildScope("T_" + std::to_string(++_testStartedCount));
@@ -251,9 +257,11 @@ bool TestManager::ExecuteTestInternal(IUnitTest* test, const std::filesystem::pa
 	}
 	testSession.FinalizeSession();
 
-	// If all tests passed, return true to the caller.
+	// Return the test counts and success status to the caller
 	size_t totalNonSkippedTests = testSession.GetTotalTestCount() - testSession.GetSkippedTestCount();
-	bool allTestsPassed = (testSession.GetPassedTestCount() == totalNonSkippedTests);
+	totalTestCount = totalNonSkippedTests;
+	passedTestCount = testSession.GetPassedTestCount();
+	bool allTestsPassed = (passedTestCount == totalNonSkippedTests);
 	return allTestsPassed;
 };
 
@@ -512,21 +520,21 @@ std::string TestManager::InitialReportContent(bool writeInitialHeader) const
 }
 
 //----------------------------------------------------------------------------------------
-std::string TestManager::FinalIndexContent(size_t passedTestCount, size_t testCount) const
+std::string TestManager::FinalIndexContent(size_t passedTestSuiteCount, size_t testSuiteCount) const
 {
 	std::string report;
-	report += "<td class='" + ((passedTestCount == testCount) ? std::string("testCasePassed") : std::string("testCaseFailed")) + "'>" + std::to_string(passedTestCount) + " / " + std::to_string(testCount) + "</td>";
+	report += "<td class='" + ((passedTestSuiteCount == testSuiteCount) ? std::string("testCasePassed") : std::string("testCaseFailed")) + "'>" + std::to_string(passedTestSuiteCount) + " / " + std::to_string(testSuiteCount) + "</td>";
 	report += "</tr>";
 	return report;
 }
 
 //----------------------------------------------------------------------------------------
-std::string TestManager::FinalReportContent(size_t passedTestCount, size_t testCount) const
+std::string TestManager::FinalReportContent(size_t passedTestSuiteCount, size_t testSuiteCount, size_t passedTestCount, size_t totalTestCount) const
 {
 	std::string report;
 	report += "<tr>";
-	report += "<td colspan=\"2\"><h3>" + ((passedTestCount == testCount) ? std::string("All tests passed") : std::to_string(testCount - passedTestCount) + std::string(" tests failed")) + "</h3></td>";
-	report += "<td class='" + ((passedTestCount == testCount) ? std::string("testCasePassed") : std::string("testCaseFailed")) + "'>" + std::to_string(passedTestCount) + " / " + std::to_string(testCount) + "</td>";
+	report += "<td colspan=\"2\"><h3>" + ((passedTestSuiteCount == testSuiteCount) ? std::string("All tests passed (") + std::to_string(passedTestSuiteCount) + std::string("/") + std::to_string(testSuiteCount) + std::string(")") : std::to_string(testSuiteCount - passedTestSuiteCount) + std::string(" of ") + std::to_string(testSuiteCount) + std::string(" tests failed")) + "</h3></td>";
+	report += "<td class='" + ((passedTestSuiteCount == testSuiteCount) ? std::string("testCasePassed") : std::string("testCaseFailed")) + "'>" + std::to_string(passedTestCount) + " / " + std::to_string(totalTestCount) + "</td>";
 	report += "</tr></table></body></html>";
 	return report;
 }

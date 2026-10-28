@@ -1283,9 +1283,14 @@ bool Direct3DShaderProgram::StateBufferEntryNativeTypeToBufferLayoutType(const D
 		elementHeight = 0;
 		break;
 	case D3D_SVC_MATRIX_COLUMNS:
-	case D3D_SVC_MATRIX_ROWS:
+		// A column-major matrix is stored as Columns vectors containing Rows elements.
 		elementWidth = typeDescription.Rows;
 		elementHeight = typeDescription.Columns;
+		break;
+	case D3D_SVC_MATRIX_ROWS:
+		// A row-major matrix is stored as Rows vectors containing Columns elements.
+		elementWidth = typeDescription.Columns;
+		elementHeight = typeDescription.Rows;
 		break;
 	default:
 		return false;
@@ -1880,10 +1885,25 @@ void Direct3DShaderProgram::UpdateStateValue(StateValueId stateId, const uint8_t
 			arrayOffset += arrayIndex * bufferEntry.arrayStrides[i];
 		}
 
-		// Update the entry in the buffer
+		// Update the entry in the buffer. Matrix API values are tightly packed, but constant-buffer matrices store each
+		// vector in a separate four-component register.
 		uint8_t* uniformLocation = constantBuffer.bufferContents.data() + bufferEntry.bufferOffset + arrayOffset;
-		auto sizeToCopy = std::min(dataSizeInBytes, bufferEntry.entrySizeInBytes);
-		std::memcpy(uniformLocation, data, sizeToCopy);
+		const size_t dataTypeByteSize = Direct3DStateBufferLayout::GetDataTypeByteSize(bufferEntry.type);
+		const size_t compactMatrixSizeInBytes = bufferEntry.width * bufferEntry.height * dataTypeByteSize;
+		if ((bufferEntry.height > 1) && (dataSizeInBytes == compactMatrixSizeInBytes))
+		{
+			const size_t matrixVectorSizeInBytes = bufferEntry.width * dataTypeByteSize;
+			const size_t matrixVectorStrideInBytes = dataTypeByteSize * 4;
+			for (size_t vectorIndex = 0; vectorIndex < bufferEntry.height; ++vectorIndex)
+			{
+				std::memcpy(uniformLocation + (vectorIndex * matrixVectorStrideInBytes), data + (vectorIndex * matrixVectorSizeInBytes), matrixVectorSizeInBytes);
+			}
+		}
+		else
+		{
+			auto sizeToCopy = std::min(dataSizeInBytes, bufferEntry.entrySizeInBytes);
+			std::memcpy(uniformLocation, data, sizeToCopy);
+		}
 
 		// Flag that the buffer is now dirty
 		constantBuffer.isDirty = true;

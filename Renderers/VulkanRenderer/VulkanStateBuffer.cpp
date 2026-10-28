@@ -481,8 +481,15 @@ void VulkanStateBuffer::SetStateValueInternal(uint32_t pageNo, StateValueId stat
 		arrayOffset += arrayIndex * fieldEntry->arrayStridesInBytes[i];
 	}
 
+	// Matrix values supplied through the public API are tightly packed, while uniform-buffer matrices may store
+	// padding between vectors. Identify a complete matrix value so it can be expanded using the reflected stride.
+	const size_t compactMatrixSizeInBytes = fieldEntry->width * fieldEntry->height * fieldEntry->dataTypeByteSize;
+	const bool expandMatrixValue = fieldEntry->isMatrix && (dataSizeInBytes == compactMatrixSizeInBytes);
+	const size_t matrixVectorStrideInBytes = fieldEntry->matrixStrideInBytes;
+	const size_t expandedDataSizeInBytes = expandMatrixValue ? ((fieldEntry->height - 1) * matrixVectorStrideInBytes) + (fieldEntry->width * fieldEntry->dataTypeByteSize) : dataSizeInBytes;
+
 	// Validate that the write being attempted is within the bounds of the page
-	size_t writeEndPos = (fieldEntry->bufferOffsetInBytes + arrayOffset + dataSizeInBytes);
+	size_t writeEndPos = (fieldEntry->bufferOffsetInBytes + arrayOffset + expandedDataSizeInBytes);
 	if (writeEndPos > _pageBlockSizeInBytes)
 	{
 		_log->Error("Write end position {0} is outside the page size of {1} when attempting to update state buffer", writeEndPos, _pageBlockSizeInBytes);
@@ -493,8 +500,19 @@ void VulkanStateBuffer::SetStateValueInternal(uint32_t pageNo, StateValueId stat
 	PageBlock& pageBlock = _pageBlocks[pageBlockIndex];
 	uint8_t* pageBuffer = pageBlock.memoryBuffers[_buildIndex] + (pageIndexInBlock * _pageSizeInBytes);
 	uint8_t* writeTarget = pageBuffer + fieldEntry->bufferOffsetInBytes + arrayOffset;
-	auto sizeToCopy = std::min(dataSizeInBytes, fieldEntry->totalFieldEntryByteSize);
-	std::memcpy(writeTarget, data, sizeToCopy);
+	if (expandMatrixValue)
+	{
+		const size_t matrixVectorSizeInBytes = fieldEntry->width * fieldEntry->dataTypeByteSize;
+		for (size_t vectorIndex = 0; vectorIndex < fieldEntry->height; ++vectorIndex)
+		{
+			std::memcpy(writeTarget + (vectorIndex * matrixVectorStrideInBytes), data + (vectorIndex * matrixVectorSizeInBytes), matrixVectorSizeInBytes);
+		}
+	}
+	else
+	{
+		auto sizeToCopy = std::min(dataSizeInBytes, fieldEntry->totalFieldEntryByteSize);
+		std::memcpy(writeTarget, data, sizeToCopy);
+	}
 
 	// Flag that the written page block has unsaved changes
 	if (!pageBlock.hasUnsavedChanges[_buildIndex])

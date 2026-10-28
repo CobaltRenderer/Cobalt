@@ -62,6 +62,12 @@ public:
 		Float32,
 		Float64,
 	};
+	enum class MatrixOrientation
+	{
+		None,
+		RowMajor,
+		ColumnMajor,
+	};
 
 	// Structures
 	//##TODO## Clean this up
@@ -81,6 +87,8 @@ public:
 		size_t size{}; // elementCount * elementStride
 		size_t vecSize{};
 		size_t columns{};
+		size_t matrixStride{};
+		MatrixOrientation matrixOrientation = MatrixOrientation::None;
 		std::vector<uint32_t> arraySizes;
 		Stage usedStages = {};
 		bool writeableResource = false;

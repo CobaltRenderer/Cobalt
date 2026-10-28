@@ -8,6 +8,7 @@ WARNINGS_PUSH_OFF
 #include "spirv-tools/libspirv.hpp"
 #include "spirv-tools/optimizer.hpp"
 #include "spirv_cross.hpp"
+#include "spirv_glsl.hpp"
 #include "vulkan/vulkan.h"
 WARNINGS_POP
 #include <vector>
@@ -32,6 +33,25 @@ public:
 	bool ExportCodeAsMSL(std::string& outputCode) const override;
 	bool HasLoadedCode() const override;
 	bool ValidateCode() const override;
+
+private:
+	// Nested types
+	class OpenGLLayoutCompiler : public spirv_cross::CompilerGLSL
+	{
+	public:
+		// Constructors
+		using spirv_cross::CompilerGLSL::CompilerGLSL;
+
+		// Helper methods
+		void MakeBufferLayoutsOpenGLCompatible();
+
+	private:
+		// Helper methods
+		static uint32_t AlignTo(uint32_t value, uint32_t alignment);
+		void RepackBuffer(const spirv_cross::Resource& resource, spirv_cross::BufferPackingStandard packing);
+		void RepackStruct(const spirv_cross::SPIRType& type, spirv_cross::BufferPackingStandard packing);
+		void RepackNestedType(const spirv_cross::SPIRType& type, const spirv_cross::Bitset& flags, spirv_cross::BufferPackingStandard packing);
+	};
 
 private:
 	// Reflection methods

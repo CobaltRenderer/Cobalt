@@ -107,6 +107,8 @@ private:
 		size_t bufferOffset = 0;
 		size_t arraySize = 0;
 		size_t arrayStride = 0;
+		size_t matrixStride = 0;
+		bool isRowMajor = false;
 		std::vector<size_t> arrayIndices;
 	};
 	struct MergedStateBufferUniformInfo
@@ -119,6 +121,8 @@ private:
 		size_t bufferOffset = 0;
 		size_t arraySize = 0;
 		size_t arrayStride = 0;
+		size_t matrixStride = 0;
+		bool isRowMajor = false;
 		std::vector<size_t> leadingArraySizes;
 		std::vector<size_t> leadingArrayStrides;
 		std::vector<size_t> uniformIndices;

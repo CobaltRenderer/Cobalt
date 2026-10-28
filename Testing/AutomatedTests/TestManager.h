@@ -51,7 +51,7 @@ public:
 
 private:
 	// Test execution methods
-	bool ExecuteTestInternal(IUnitTest* test, const std::filesystem::path& reportFilePath);
+	bool ExecuteTestInternal(IUnitTest* test, const std::filesystem::path& reportFilePath, size_t& totalTestCount, size_t& passedTestCount);
 	static bool GetAlphaNumericKeyState(int key);
 
 	// Report builder methods
@@ -60,8 +60,8 @@ private:
 	void AppendReportData(const std::filesystem::path& filePath, const std::string& content) const;
 	std::string InitialIndexContent(const std::string& sectionName, bool writeInitialHeader, bool fixBrokenPreviousEntry) const;
 	std::string InitialReportContent(bool writeInitialHeader) const;
-	std::string FinalIndexContent(size_t passedTestCount, size_t testCount) const;
-	std::string FinalReportContent(size_t passedTestCount, size_t testCount) const;
+	std::string FinalIndexContent(size_t passedTestSuiteCount, size_t testSuiteCount) const;
+	std::string FinalReportContent(size_t passedTestSuiteCount, size_t testSuiteCount, size_t passedTestCount, size_t totalTestCount) const;
 
 private:
 	cobalt::logging::ILogger& _log;

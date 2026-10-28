@@ -1651,6 +1651,8 @@ void OpenGLShaderProgram::ReadStateBufferLayoutInfoFromShader(StateBufferId stat
 		uniform.bufferOffset = (size_t)uniformOffsets[underlyingUniformIndex];
 		uniform.arraySize = (size_t)uniformArraySizes[underlyingUniformIndex];
 		uniform.arrayStride = (size_t)uniformArrayStrides[underlyingUniformIndex];
+		uniform.matrixStride = (size_t)uniformMatrixStrides[underlyingUniformIndex];
+		uniform.isRowMajor = (uniformMatrixIsRowMajors[underlyingUniformIndex] != 0);
 	}
 
 	// Merge our individual uniform values together to reconstruct parent arrays
@@ -1673,6 +1675,8 @@ void OpenGLShaderProgram::ReadStateBufferLayoutInfoFromShader(StateBufferId stat
 			mergedUniformInfo.bufferOffset = uniform.bufferOffset;
 			mergedUniformInfo.arraySize = uniform.arraySize;
 			mergedUniformInfo.arrayStride = uniform.arrayStride;
+			mergedUniformInfo.matrixStride = uniform.matrixStride;
+			mergedUniformInfo.isRowMajor = uniform.isRowMajor;
 			mergedUniformInfo.uniformIndices.push_back(uniformIndex);
 			continue;
 		}
@@ -1739,6 +1743,8 @@ void OpenGLShaderProgram::ReadStateBufferLayoutInfoFromShader(StateBufferId stat
 			mergedUniformInfo.bufferOffset = uniform.bufferOffset;
 			mergedUniformInfo.arraySize = uniform.arraySize;
 			mergedUniformInfo.arrayStride = uniform.arrayStride;
+			mergedUniformInfo.matrixStride = uniform.matrixStride;
+			mergedUniformInfo.isRowMajor = uniform.isRowMajor;
 			mergedUniformInfo.leadingArraySizes = std::move(arraySizes);
 			mergedUniformInfo.uniformIndices.push_back(uniformIndex);
 		}
@@ -1914,8 +1920,6 @@ SuccessToken OpenGLShaderProgram::LoadStateBufferLayoutFromShader(StateBufferId 
 	}
 
 	// Add each uniform to the state buffer layout
-	//##TODO## Handle uniformMatrixStrides
-	//##TODO## Handle uniformMatrixIsRowMajors
 	for (const auto& mergedUniform : layoutInfo.mergedUniforms)
 	{
 		// Add this uniform to the state buffer layout
@@ -1929,7 +1933,11 @@ SuccessToken OpenGLShaderProgram::LoadStateBufferLayoutFromShader(StateBufferId 
 		}
 		else
 		{
-			stateBufferLayoutResolved->AddManualMatrix(mergedUniform.name, mergedUniform.bufferOffset, mergedUniform.dataType, mergedUniform.elementWidth, mergedUniform.elementHeight, mergedUniform.arraySize, mergedUniform.arrayStride, mergedUniform.leadingArraySizes, mergedUniform.leadingArrayStrides);
+			// OpenGL matrix types describe their logical column and row counts. Convert those dimensions to the width and
+			// count of the physical vectors separated by the reflected matrix stride.
+			const size_t matrixVectorWidth = mergedUniform.isRowMajor ? mergedUniform.elementWidth : mergedUniform.elementHeight;
+			const size_t matrixVectorCount = mergedUniform.isRowMajor ? mergedUniform.elementHeight : mergedUniform.elementWidth;
+			stateBufferLayoutResolved->AddManualMatrix(mergedUniform.name, mergedUniform.bufferOffset, mergedUniform.dataType, matrixVectorWidth, matrixVectorCount, mergedUniform.matrixStride, mergedUniform.arraySize, mergedUniform.arrayStride, mergedUniform.leadingArraySizes, mergedUniform.leadingArrayStrides);
 		}
 	}
 
