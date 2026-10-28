@@ -3,8 +3,9 @@ FetchContent_Declare(glm
     GIT_REPOSITORY "https://github.com/g-truc/glm.git"
     GIT_TAG        "1.0.2"
     SOURCE_DIR     "${COBALT_EXTERNAL_ROOT}/Cache/glm"
+    SOURCE_SUBDIR  "MissingDirToSkipAddingAsSubProject"
 )
-FetchContent_Populate(glm)
+FetchContent_MakeAvailable(glm)
 add_library(glm INTERFACE)
 target_include_directories(glm SYSTEM INTERFACE "${COBALT_EXTERNAL_ROOT}/Cache/glm")
 

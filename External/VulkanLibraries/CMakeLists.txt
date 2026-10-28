@@ -48,8 +48,9 @@ FetchContent_Declare(VulkanMemoryAllocator
     GIT_REPOSITORY "https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator.git"
     GIT_TAG        "v3.0.1"
     SOURCE_DIR     "${COBALT_EXTERNAL_ROOT}/Cache/VulkanMemoryAllocator"
+    SOURCE_SUBDIR  "MissingDirToSkipAddingAsSubProject"
 )
-FetchContent_Populate(VulkanMemoryAllocator)
+FetchContent_MakeAvailable(VulkanMemoryAllocator)
 add_library(VulkanMemoryAllocator INTERFACE IMPORTED)
 target_include_directories(VulkanMemoryAllocator SYSTEM INTERFACE "${COBALT_EXTERNAL_ROOT}/Cache/VulkanMemoryAllocator/include")
 
@@ -79,8 +80,9 @@ if(APPLE)
         URL "${VULKAN_SDK_URL}"
         SOURCE_DIR "${COBALT_EXTERNAL_ROOT}/Cache/VulkanSDK"
         DOWNLOAD_NO_EXTRACT TRUE
+        SOURCE_SUBDIR "MissingDirToSkipAddingAsSubProject"
     )
-    FetchContent_Populate(vulkan_sdk_zip)
+    FetchContent_MakeAvailable(vulkan_sdk_zip)
 
     # ---- unzip stage ----
     if(NOT EXISTS "${VULKAN_SDK_APP_DIR}/.extracted")
