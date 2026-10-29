@@ -894,23 +894,21 @@ IRenderer::unique_ptr OpenGLGraphicsDevice::CreateRenderer(const Marshal::In<std
 	//setenv("GALLIUM_DRIVER", "softpipe", 1);
 #endif
 
-	bool finishWhenSwitchingContexts = false;
-	bool serializeHeadlessPBOCaptures = false;
-	bool flushFramebufferTextureWritesBeforeWindowSampling = false;
+	OpenGLRenderer::CompatibilitySettings compatibilitySettings = {};
+	compatibilitySettings.usingSoftwareRenderer = _usingSoftwareRenderer;
+#ifdef __linux__
+	compatibilitySettings.renderNodePath = _renderNodePath;
+#endif
 	bool isIntelDevice = (GetVendor() == Vendor::Intel);
 #ifdef _WIN32
 	// Enable the workarounds required for known Intel Windows OpenGL driver synchronization problems.
-	finishWhenSwitchingContexts = isIntelDevice;
-	serializeHeadlessPBOCaptures = isIntelDevice;
+	compatibilitySettings.finishWhenSwitchingContexts = isIntelDevice;
+	compatibilitySettings.serializeHeadlessPBOCaptures = isIntelDevice;
 #endif
 #ifdef __APPLE__
-	flushFramebufferTextureWritesBeforeWindowSampling = isIntelDevice;
+	compatibilitySettings.flushFramebufferTextureWritesBeforeWindowSampling = isIntelDevice;
 #endif
-#ifdef __linux__
-	return IRenderer::unique_ptr(new OpenGLRenderer(_log->CloneLogger(), enabledFeatures.Get(), enabledOptions.Get(), finishWhenSwitchingContexts, serializeHeadlessPBOCaptures, flushFramebufferTextureWritesBeforeWindowSampling, _usingSoftwareRenderer, _renderNodePath));
-#else
-	return IRenderer::unique_ptr(new OpenGLRenderer(_log->CloneLogger(), enabledFeatures.Get(), enabledOptions.Get(), finishWhenSwitchingContexts, serializeHeadlessPBOCaptures, flushFramebufferTextureWritesBeforeWindowSampling, _usingSoftwareRenderer));
-#endif
+	return IRenderer::unique_ptr(new OpenGLRenderer(_log->CloneLogger(), enabledFeatures.Get(), enabledOptions.Get(), compatibilitySettings));
 }
 
 } // namespace cobalt::graphics

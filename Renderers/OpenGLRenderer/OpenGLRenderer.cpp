@@ -53,16 +53,8 @@ namespace cobalt::graphics {
 //----------------------------------------------------------------------------------------
 // Constructors
 //----------------------------------------------------------------------------------------
-#ifdef __linux__
-OpenGLRenderer::OpenGLRenderer(cobalt::logging::ILogger::unique_ptr log, const std::set<IGraphicsDevice::Feature>& enabledFeatures, const std::set<Options>& enabledOptions, bool finishWhenSwitchingContexts, bool serializeHeadlessPBOCaptures, bool flushFramebufferTextureWritesBeforeWindowSampling, bool usingSoftwareRenderer, const std::string& renderNodePath)
-#else
-OpenGLRenderer::OpenGLRenderer(cobalt::logging::ILogger::unique_ptr log, const std::set<IGraphicsDevice::Feature>& enabledFeatures, const std::set<Options>& enabledOptions, bool finishWhenSwitchingContexts, bool serializeHeadlessPBOCaptures, bool flushFramebufferTextureWritesBeforeWindowSampling, bool usingSoftwareRenderer)
-#endif
-: _buildIndex(0), _drawIndex(1), _enabledFeatures(enabledFeatures), _enabledOptions(enabledOptions), _usingSoftwareRenderer(usingSoftwareRenderer), _finishWhenSwitchingContexts(finishWhenSwitchingContexts), _serializeHeadlessPBOCaptures(serializeHeadlessPBOCaptures), _flushFramebufferTextureWritesBeforeWindowSampling(flushFramebufferTextureWritesBeforeWindowSampling)
-#ifdef __linux__
-  ,
-  _renderNodePath(renderNodePath)
-#endif
+OpenGLRenderer::OpenGLRenderer(cobalt::logging::ILogger::unique_ptr log, const std::set<IGraphicsDevice::Feature>& enabledFeatures, const std::set<Options>& enabledOptions, const CompatibilitySettings& compatibilitySettings)
+: _compatibilitySettings(compatibilitySettings), _enabledFeatures(enabledFeatures), _enabledOptions(enabledOptions), _buildIndex(0), _drawIndex(1)
 {
 	_log = (log != nullptr ? std::move(log) : cobalt::logging::ILogger::unique_ptr(new cobalt::logging::NullLogger()));
 }
@@ -205,7 +197,7 @@ SuccessToken OpenGLRenderer::Initialize(const WindowSystemInfoBase& windowSystem
 #endif
 	if (std::holds_alternative<WindowSystemInfoHeadless>(_windowSystemInfo))
 	{
-		if (_renderNodePath.empty())
+		if (_compatibilitySettings.renderNodePath.empty())
 		{
 			// If we don't have a render node path, which could happen if we're running in headless mode with a software
 			// renderer, we try for the Mesa surfaceless extension, otherwise we fall back to EGL_DEFAULT_DISPLAY.
@@ -244,16 +236,16 @@ SuccessToken OpenGLRenderer::Initialize(const WindowSystemInfoBase& windowSystem
 		else
 		{
 			// Attempt to open the GBM device for headless rendering
-			_gbmDeviceFileHandle = open(_renderNodePath.c_str(), O_RDWR | O_CLOEXEC); // NOLINT(cppcoreguidelines-pro-type-vararg,hicpp-vararg)
+			_gbmDeviceFileHandle = open(_compatibilitySettings.renderNodePath.c_str(), O_RDWR | O_CLOEXEC); // NOLINT(cppcoreguidelines-pro-type-vararg,hicpp-vararg)
 			if (_gbmDeviceFileHandle < 0)
 			{
-				_log->Error("Could not initialize renderer for headless rendering. Failed to open the device with path \"{0}\": errno={1} ({2}).", _renderNodePath, errno, std::strerror(errno));
+				_log->Error("Could not initialize renderer for headless rendering. Failed to open the device with path \"{0}\": errno={1} ({2}).", _compatibilitySettings.renderNodePath, errno, std::strerror(errno));
 				return false;
 			}
 			_gbmDevice = gbm_create_device(_gbmDeviceFileHandle);
 			if (_gbmDevice == nullptr)
 			{
-				_log->Error("Could not initialize renderer for headless rendering. gbm_create_device failed for device with path \"{0}\": errno={1} ({2}).", _renderNodePath, errno, std::strerror(errno));
+				_log->Error("Could not initialize renderer for headless rendering. gbm_create_device failed for device with path \"{0}\": errno={1} ({2}).", _compatibilitySettings.renderNodePath, errno, std::strerror(errno));
 				close(_gbmDeviceFileHandle);
 				_gbmDeviceFileHandle = -1;
 				return false;
@@ -1348,7 +1340,7 @@ void OpenGLRenderer::PerformRenderOperation()
 			// this is a narrow macOS specific fix for legacy hardware, we only do it here on Mac systems when an Intel
 			// graphics device has been detected. Newer systems all run Apple silicon and don't exhibit this bug, nor was
 			// it observed on AMD discrete graphics devices on the same legacy system.
-			if (_flushFramebufferTextureWritesBeforeWindowSampling && !newFramebufferUsesDefaultRenderingContext && defaultRenderingContextCurrentlyActive)
+			if (_compatibilitySettings.flushFramebufferTextureWritesBeforeWindowSampling && !newFramebufferUsesDefaultRenderingContext && defaultRenderingContextCurrentlyActive)
 			{
 				for (OpenGLFrameBuffer* frameBuffer : _boundTextureFramebuffers)
 				{
@@ -3696,7 +3688,7 @@ bool OpenGLRenderer::ActivateRenderingContext(HWND hwnd, HDC deviceContext, HGLR
 		// work around this issue by calling glFinish() prior to switching out the rendering context, so if Intel
 		// hardware is being used we perform that operation here. If the rendering context itself matches however, and
 		// we're only changing the target draw surface, we don't need to perform this step.
-		if (renderingContextNeedsSwitching && _finishWhenSwitchingContexts)
+		if (renderingContextNeedsSwitching && _compatibilitySettings.finishWhenSwitchingContexts)
 		{
 			glFinish();
 		}
@@ -3933,7 +3925,7 @@ bool OpenGLRenderer::SerializeHeadlessPBOCaptures() const
 	// corruption, while glFinish between individual reads did. The narrower workaround implemented here waits for the
 	// fence belonging to the preceding headless PBO read before submitting the next read. This serializes only multiple
 	// PBO captures from a headless framebuffer; the common single-capture path remains asynchronous.
-	return _serializeHeadlessPBOCaptures;
+	return _compatibilitySettings.serializeHeadlessPBOCaptures;
 }
 
 //----------------------------------------------------------------------------------------
@@ -3949,7 +3941,7 @@ bool OpenGLRenderer::CaptureWindowFramebuffersFromFrontBuffer() const
 	// advance the frame draw process further, without blocking when reading from front buffers, IE, we could overlap
 	// the read with advancing the build to draw state, however we currently don't bother, as reading using PBOs is a
 	// faster, preferred method anyway, and that can't be delayed in this manner.
-	bool captureWindowFramebuffersFromFrontBuffer = !_usingSoftwareRenderer;
+	bool captureWindowFramebuffersFromFrontBuffer = !_compatibilitySettings.usingSoftwareRenderer;
 #ifdef OPENGL_USE_EGL
 	captureWindowFramebuffersFromFrontBuffer = false;
 #endif

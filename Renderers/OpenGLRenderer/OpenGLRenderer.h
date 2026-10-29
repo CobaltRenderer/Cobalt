@@ -91,14 +91,18 @@ public:
 		size_t generationIndex = 0;
 		std::vector<GLuint>* vertexArrayObjectsPendingDeletion = nullptr;
 	};
+	struct CompatibilitySettings
+	{
+		bool finishWhenSwitchingContexts = false;
+		bool serializeHeadlessPBOCaptures = false;
+		bool flushFramebufferTextureWritesBeforeWindowSampling = false;
+		bool usingSoftwareRenderer = false;
+		std::string renderNodePath;
+	};
 
 public:
 	// Constructors
-#ifdef __linux__
-	OpenGLRenderer(cobalt::logging::ILogger::unique_ptr log, const std::set<IGraphicsDevice::Feature>& enabledFeatures, const std::set<Options>& enabledOptions, bool finishWhenSwitchingContexts, bool serializeHeadlessPBOCaptures, bool flushFramebufferTextureWritesBeforeWindowSampling, bool usingSoftwareRenderer, const std::string& renderNodePath);
-#else
-	OpenGLRenderer(cobalt::logging::ILogger::unique_ptr log, const std::set<IGraphicsDevice::Feature>& enabledFeatures, const std::set<Options>& enabledOptions, bool finishWhenSwitchingContexts, bool serializeHeadlessPBOCaptures, bool flushFramebufferTextureWritesBeforeWindowSampling, bool usingSoftwareRenderer);
-#endif
+	OpenGLRenderer(cobalt::logging::ILogger::unique_ptr log, const std::set<IGraphicsDevice::Feature>& enabledFeatures, const std::set<Options>& enabledOptions, const CompatibilitySettings& compatibilitySettings);
 
 	// Initialization methods
 	SuccessToken Initialize(const WindowSystemInfoBase& windowSystemInfo, InitializationFlags flags) override;
@@ -322,12 +326,10 @@ private:
 
 private:
 	cobalt::logging::ILogger::unique_ptr _log;
-#ifdef __linux__
-	std::string _renderNodePath;
+	CompatibilitySettings _compatibilitySettings;
 #ifdef OPENGL_USE_EGL
 	int _gbmDeviceFileHandle = -1;
 	gbm_device* _gbmDevice = nullptr;
-#endif
 #endif
 	mutable std::mutex _renderThreadMutex;
 	mutable std::mutex _buildStateMutex;
@@ -335,7 +337,6 @@ private:
 	mutable std::condition_variable _notifyRenderThreadTaskComplete;
 	std::condition_variable _notifyRenderThreadStopped;
 	std::thread::id _renderThreadID;
-	bool _usingSoftwareRenderer = false;
 	bool _renderThreadActive = false;
 	bool _frameAdvanceInProgress = false;
 	bool _buildingInProgress = false;
@@ -348,9 +349,6 @@ private:
 	mutable bool _earlyDeleteNextDrawResourcesRequestPending = false;
 	bool _initializeOpenGLRequestPending = false;
 	bool _initializeOpenGLResult = false;
-	bool _finishWhenSwitchingContexts = false;
-	bool _serializeHeadlessPBOCaptures = false;
-	bool _flushFramebufferTextureWritesBeforeWindowSampling = false;
 	bool _enableDebugLogging = false;
 	bool _captureTargetsPresent = false;
 	bool _useRenderMarkers = false;
