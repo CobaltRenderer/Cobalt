@@ -718,7 +718,7 @@ cbuffer AlignmentStateBuffer
 
 bool GlobalValueMatches(uint targetIndex)
 {
-	uint valueIndex = 0;
+    uint valueIndex = 0;
     float expectedValue = 1000.0f;
     bool matches = false;
     CHECK_ALIGNMENT_VALUE(globalScalarBefore);
@@ -793,7 +793,7 @@ bool GlobalValueMatches(uint targetIndex)
 
 bool BufferValueMatches(uint targetIndex)
 {
-	uint valueIndex = 0;
+    uint valueIndex = 0;
     float expectedValue = 2000.0f;
     bool matches = false;
     CHECK_ALIGNMENT_VALUE(bufferScalarBefore);
