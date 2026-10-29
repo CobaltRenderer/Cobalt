@@ -961,7 +961,19 @@ SuccessToken VulkanShaderProgram::LoadStateBufferLayoutFromShader(StateBufferId 
 		}
 		else
 		{
-			stateBufferLayoutResolved->AddManualMatrix(entry.attributeName, entry.bufferOffset[0], ShaderSupportDataTypeToGraphicsDataType(resource.layoutType), resource.vecSize, resource.columns, entry.arraySize, entry.arrayStrideInBytes[0], entry.leadingArraySizes, entry.leadingArrayStrides[0]);
+			size_t matrixVectorWidth = resource.vecSize;
+			size_t matrixVectorCount = resource.columns;
+			if (resource.matrixOrientation == IShaderCode::MatrixOrientation::RowMajor)
+			{
+				matrixVectorWidth = resource.columns;
+				matrixVectorCount = resource.vecSize;
+			}
+			else if (resource.matrixOrientation != IShaderCode::MatrixOrientation::ColumnMajor)
+			{
+				_log->Error("State buffer field {0} is a matrix without a reflected row-major or column-major storage orientation", entry.attributeName);
+				return false;
+			}
+			stateBufferLayoutResolved->AddManualMatrix(entry.attributeName, entry.bufferOffset[0], ShaderSupportDataTypeToGraphicsDataType(resource.layoutType), matrixVectorWidth, matrixVectorCount, resource.matrixStride, entry.arraySize, entry.arrayStrideInBytes[0], entry.leadingArraySizes, entry.leadingArrayStrides[0]);
 		}
 	}
 
@@ -1259,10 +1271,36 @@ void VulkanShaderProgram::UpdateStateValue(StateValueId stateId, const uint8_t* 
 			arrayOffset += arrayIndex * bufferEntry.arrayStrides[shaderStageID][i];
 		}
 
-		// Update the entry in the buffer
+		// Update the entry in the buffer. Matrix API values are tightly packed, but SPIR-V uniform-buffer matrices may
+		// store padding between their physical row or column vectors.
 		unsigned char* uniformLocation = constantBuffer.bufferContents.data() + bufferEntry.bufferOffset[shaderStageID] + arrayOffset;
-		size_t sizeToCopy = std::min(dataSizeInBytes, bufferEntry.entrySizeInBytes);
-		std::memcpy(uniformLocation, data, sizeToCopy);
+		const auto& resourceEntry = bufferEntry.resourceEntries[shaderStageID];
+		const size_t compactMatrixSizeInBytes = resourceEntry.width * resourceEntry.vecSize * resourceEntry.columns;
+		if ((resourceEntry.columns > 1) && (dataSizeInBytes == compactMatrixSizeInBytes))
+		{
+			size_t matrixVectorElementCount = resourceEntry.vecSize;
+			size_t matrixVectorCount = resourceEntry.columns;
+			if (resourceEntry.matrixOrientation == IShaderCode::MatrixOrientation::RowMajor)
+			{
+				matrixVectorElementCount = resourceEntry.columns;
+				matrixVectorCount = resourceEntry.vecSize;
+			}
+			else if (resourceEntry.matrixOrientation != IShaderCode::MatrixOrientation::ColumnMajor)
+			{
+				_log->Error("Global state value {0} is a matrix without a reflected row-major or column-major storage orientation", bufferEntry.attributeName);
+				return;
+			}
+			const size_t matrixVectorSizeInBytes = resourceEntry.width * matrixVectorElementCount;
+			for (size_t vectorIndex = 0; vectorIndex < matrixVectorCount; ++vectorIndex)
+			{
+				std::memcpy(uniformLocation + (vectorIndex * resourceEntry.matrixStride), data + (vectorIndex * matrixVectorSizeInBytes), matrixVectorSizeInBytes);
+			}
+		}
+		else
+		{
+			size_t sizeToCopy = std::min(dataSizeInBytes, bufferEntry.entrySizeInBytes);
+			std::memcpy(uniformLocation, data, sizeToCopy);
+		}
 
 		// Flag that the buffer is now dirty
 		constantBuffer.isDirty = true;

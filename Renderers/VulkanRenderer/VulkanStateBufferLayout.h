@@ -25,6 +25,7 @@ public:
 		bool isArray = false;
 		size_t width = 0;
 		size_t height = 0;
+		size_t matrixStrideInBytes = 0;
 		std::vector<size_t> arraySizes;
 		std::vector<size_t> arrayStridesInBytes;
 	};
@@ -44,7 +45,7 @@ public:
 	bool BeginManualLayoutDefinition();
 	void AddManualField(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes);
 	void AddManualVector(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t elementCount, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes);
-	void AddManualMatrix(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t width, size_t height, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes);
+	void AddManualMatrix(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t width, size_t height, size_t matrixStrideInBytes, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes);
 	SuccessToken ConstructStateLayout() override;
 	inline constexpr static size_t GetDataTypeByteSize(DataType dataType);
 
@@ -56,7 +57,7 @@ public:
 private:
 	// State layout building methods
 	bool BeginLayoutDefinition(bool manualLayoutMode);
-	void AddFieldEntry(const std::string& fieldName, bool useAutoOffset, size_t bufferOffsetInBytes, DataType type, bool isVector, bool isMatrix, size_t width, size_t height, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes);
+	void AddFieldEntry(const std::string& fieldName, bool useAutoOffset, size_t bufferOffsetInBytes, DataType type, bool isVector, bool isMatrix, size_t width, size_t height, size_t matrixStrideInBytes, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes);
 
 private:
 	cobalt::logging::ILogger* _log;

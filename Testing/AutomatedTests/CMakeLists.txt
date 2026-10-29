@@ -10,6 +10,7 @@ set(AutomatedTests_SOURCES
     "UnitTests/BasicCompute.cpp"
     "UnitTests/BasicScene.cpp"
     "UnitTests/Buffer.cpp"
+    "UnitTests/BufferLayoutAlignment.cpp"
     "UnitTests/BufferOffsets.cpp"
     "UnitTests/BunnyNormals.cpp"
     "UnitTests/CompressedTextures.cpp"
@@ -455,6 +456,7 @@ source_group("Tests/Unit Tests/Scene" FILES
     "UnitTests/OnGpuCopy.cpp"
 )
 source_group("Tests/Unit Tests/Shader" FILES
+    "UnitTests/BufferLayoutAlignment.cpp"
     "UnitTests/GeometryShaders.cpp"
     "UnitTests/ShaderReflectionQueries.cpp"
     "UnitTests/ShaderEntryPointSelection.cpp"

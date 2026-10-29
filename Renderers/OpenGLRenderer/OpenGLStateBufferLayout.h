@@ -19,6 +19,7 @@ public:
 		size_t baseAlignment = 0;
 		size_t dataTypeByteSize = 0;
 		size_t totalFieldEntryByteSize = 0;
+		size_t matrixStrideInBytes = 0;
 		DataType type = DataType::Null;
 		bool isVector = false;
 		bool isMatrix = false;
@@ -44,7 +45,7 @@ public:
 	bool BeginManualLayoutDefinition();
 	void AddManualField(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes);
 	void AddManualVector(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t elementCount, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes);
-	void AddManualMatrix(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t width, size_t height, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes);
+	void AddManualMatrix(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t width, size_t height, size_t matrixStrideInBytes, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes);
 	SuccessToken ConstructStateLayout() override;
 
 	// State layout query methods
@@ -55,7 +56,7 @@ public:
 private:
 	// State layout building methods
 	bool BeginLayoutDefinition(bool manualLayoutMode);
-	void AddFieldEntry(const std::string& fieldName, bool useAutoOffset, size_t bufferOffsetInBytes, DataType type, bool isVector, bool isMatrix, size_t width, size_t height, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes);
+	void AddFieldEntry(const std::string& fieldName, bool useAutoOffset, size_t bufferOffsetInBytes, DataType type, bool isVector, bool isMatrix, size_t width, size_t height, size_t matrixStrideInBytes, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes);
 	size_t GetDataTypeByteSize(DataType dataType) const;
 
 private:

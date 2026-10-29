@@ -54,43 +54,43 @@ bool VulkanStateBufferLayout::BeginLayoutDefinition(bool manualLayoutMode)
 void VulkanStateBufferLayout::AppendField(const Marshal::In<std::string>& fieldName, DataType type, size_t arraySize)
 {
 	std::vector<size_t> dummyVector;
-	AddFieldEntry(fieldName, true, 0, type, false, false, 0, 0, arraySize, 0, dummyVector, dummyVector);
+	AddFieldEntry(fieldName, true, 0, type, false, false, 0, 0, 0, arraySize, 0, dummyVector, dummyVector);
 }
 
 //----------------------------------------------------------------------------------------
 void VulkanStateBufferLayout::AppendVector(const Marshal::In<std::string>& fieldName, DataType type, size_t elementCount, size_t arraySize)
 {
 	std::vector<size_t> dummyVector;
-	AddFieldEntry(fieldName, true, 0, type, true, false, elementCount, 0, arraySize, 0, dummyVector, dummyVector);
+	AddFieldEntry(fieldName, true, 0, type, true, false, elementCount, 0, 0, arraySize, 0, dummyVector, dummyVector);
 }
 
 //----------------------------------------------------------------------------------------
 void VulkanStateBufferLayout::AppendMatrix(const Marshal::In<std::string>& fieldName, DataType type, size_t width, size_t height, size_t arraySize)
 {
 	std::vector<size_t> dummyVector;
-	AddFieldEntry(fieldName, true, 0, type, false, true, width, height, arraySize, 0, dummyVector, dummyVector);
+	AddFieldEntry(fieldName, true, 0, type, false, true, width, height, 0, arraySize, 0, dummyVector, dummyVector);
 }
 
 //----------------------------------------------------------------------------------------
 void VulkanStateBufferLayout::AddManualField(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes)
 {
-	AddFieldEntry(fieldName, false, bufferOffsetInBytes, type, false, false, 0, 0, arraySize, arrayStrideInBytes, leadingArraySizes, leadingArrayStridesInBytes);
+	AddFieldEntry(fieldName, false, bufferOffsetInBytes, type, false, false, 0, 0, 0, arraySize, arrayStrideInBytes, leadingArraySizes, leadingArrayStridesInBytes);
 }
 
 //----------------------------------------------------------------------------------------
 void VulkanStateBufferLayout::AddManualVector(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t elementCount, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes)
 {
-	AddFieldEntry(fieldName, false, bufferOffsetInBytes, type, true, false, elementCount, 0, arraySize, arrayStrideInBytes, leadingArraySizes, leadingArrayStridesInBytes);
+	AddFieldEntry(fieldName, false, bufferOffsetInBytes, type, true, false, elementCount, 0, 0, arraySize, arrayStrideInBytes, leadingArraySizes, leadingArrayStridesInBytes);
 }
 
 //----------------------------------------------------------------------------------------
-void VulkanStateBufferLayout::AddManualMatrix(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t width, size_t height, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes)
+void VulkanStateBufferLayout::AddManualMatrix(const std::string& fieldName, size_t bufferOffsetInBytes, DataType type, size_t width, size_t height, size_t matrixStrideInBytes, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes)
 {
-	AddFieldEntry(fieldName, false, bufferOffsetInBytes, type, false, true, width, height, arraySize, arrayStrideInBytes, leadingArraySizes, leadingArrayStridesInBytes);
+	AddFieldEntry(fieldName, false, bufferOffsetInBytes, type, false, true, width, height, matrixStrideInBytes, arraySize, arrayStrideInBytes, leadingArraySizes, leadingArrayStridesInBytes);
 }
 
 //----------------------------------------------------------------------------------------
-void VulkanStateBufferLayout::AddFieldEntry(const std::string& fieldName, bool useAutoOffset, size_t bufferOffsetInBytes, DataType type, bool isVector, bool isMatrix, size_t width, size_t height, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes)
+void VulkanStateBufferLayout::AddFieldEntry(const std::string& fieldName, bool useAutoOffset, size_t bufferOffsetInBytes, DataType type, bool isVector, bool isMatrix, size_t width, size_t height, size_t matrixStrideInBytes, size_t arraySize, size_t arrayStrideInBytes, const std::vector<size_t>& leadingArraySizes, const std::vector<size_t>& leadingArrayStridesInBytes)
 {
 	// Validate the current state of the layout
 	if (!_layoutBuildInProgress)
@@ -121,17 +121,29 @@ void VulkanStateBufferLayout::AddFieldEntry(const std::string& fieldName, bool u
 	fieldEntry.height = height;
 	fieldEntry.isArray = (arraySize > 1);
 	fieldEntry.dataTypeByteSize = GetDataTypeByteSize(type);
+	fieldEntry.matrixStrideInBytes = fieldEntry.isMatrix ? ((matrixStrideInBytes > 0) ? matrixStrideInBytes : (fieldEntry.dataTypeByteSize * 4)) : 0;
 
-	// Calculate the size of the field. The alignment rules here follow the Direct3D packing rules as defined here:
-	// https://docs.microsoft.com/en-us/windows/desktop/direct3dhlsl/dx-graphics-hlsl-packing-rules
+	// Calculate the size of the field. Reflected layouts supply matrix and array strides independently. Application-
+	// defined automatic layouts use extended alignment (the basis of OpenGL std140) with Vulkan 1.1 relaxed block
+	// layout under Vulkan's Standard Buffer Layout rules for uniform blocks. This renderer does not enable the optional
+	// scalarBlockLayout (GLSL scalar layout) or uniformBufferStandardLayout device features. Arrays and matrices
+	// therefore use extended alignment rather than the base alignment (OpenGL std430) that
+	// uniformBufferStandardLayout would permit, and vectors cannot improperly straddle a 16-byte boundary as
+	// scalarBlockLayout would permit. Relaxed block layout requires no feature flag and is always available in Vulkan
+	// 1.1, allowing compatible scalars and vectors to share a 16-byte region as long as the vector does not improperly
+	// straddle it. In summary, this mode is closest to relaxed std140: array and matrix alignment remains std140-like,
+	// while scalar and vector placement resembles Direct3D constant-buffer packing when it does not straddle. Unlike
+	// Direct3D packing, Vulkan does not allow a following value to reuse protected trailing matrix padding in this mode.
+	// For further information on Vulkan packing rules, refer to the following:
+	// https://docs.vulkan.org/spec/latest/chapters/interfaces.html#interfaces-resources-layout
 	if (fieldEntry.isArray)
 	{
-		arrayStrideInBytes = (arrayStrideInBytes > 0) ? arrayStrideInBytes : (fieldEntry.dataTypeByteSize * 4 * (fieldEntry.isMatrix ? fieldEntry.height : 1));
+		arrayStrideInBytes = (arrayStrideInBytes > 0) ? arrayStrideInBytes : (fieldEntry.isMatrix ? (fieldEntry.matrixStrideInBytes * fieldEntry.height) : (fieldEntry.dataTypeByteSize * 4));
 		fieldEntry.totalFieldEntryByteSize = arrayStrideInBytes * (fieldEntry.isArray ? arraySize : 1);
 	}
 	else if (fieldEntry.isMatrix)
 	{
-		fieldEntry.totalFieldEntryByteSize = (4 * fieldEntry.dataTypeByteSize * (fieldEntry.height - 1)) + (fieldEntry.width * fieldEntry.dataTypeByteSize);
+		fieldEntry.totalFieldEntryByteSize = fieldEntry.matrixStrideInBytes * fieldEntry.height;
 	}
 	else if (fieldEntry.isVector)
 	{
