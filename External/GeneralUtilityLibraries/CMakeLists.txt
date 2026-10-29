@@ -45,8 +45,9 @@ FetchContent_Declare(gli
     GIT_REPOSITORY "https://github.com/g-truc/gli.git"
     GIT_TAG "ea5e33aeab9b5f0c90e3d33ea8b794bf9e1dc006" # 0.8.4
     SOURCE_DIR "${COBALT_EXTERNAL_ROOT}/Cache/gli"
+    SOURCE_SUBDIR "MissingDirToSkipAddingAsSubProject"
 )
-FetchContent_Populate(gli)
+FetchContent_MakeAvailable(gli)
 add_library(gli INTERFACE)
 target_include_directories(gli SYSTEM INTERFACE
     "${COBALT_EXTERNAL_ROOT}/Cache/gli/external"

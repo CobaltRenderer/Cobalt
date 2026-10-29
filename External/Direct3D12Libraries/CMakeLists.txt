@@ -1,17 +1,16 @@
-# Replace long paths with hashed names. The DirectX-Graphics-Samples repo contains very long names with deep
-# directory structures, and FetchContent_Populate can't exceed MAX_PATH on windows, even when support for longer
-# names has been activated at the OS level. We work around it here to prevent clone failures.
-set(CMAKE_OBJECT_PATH_MAX 250)
-
 # D3DX12Residency
 FetchContent_Declare(DXSamples
     GIT_REPOSITORY "https://github.com/microsoft/DirectX-Graphics-Samples.git"
     GIT_TAG        "1704d8883ea74a73d332516bb6d990a134abaebd"
+    # DXSamples contains repository-relative paths up to 173 characters long. Enable Git's Windows long-path handling
+    # so the surrounding checkout path does not cause the clone to exceed MAX_PATH.
+    GIT_CONFIG     core.longpaths=true
     SOURCE_DIR     "${COBALT_EXTERNAL_ROOT}/Cache/DXSamples"
     PATCH_COMMAND  git apply "${CMAKE_CURRENT_SOURCE_DIR}/D3DX12Residency.patch"
     UPDATE_DISCONNECTED TRUE
+    SOURCE_SUBDIR  "MissingDirToSkipAddingAsSubProject"
 )
-FetchContent_Populate(DXSamples)
+FetchContent_MakeAvailable(DXSamples)
 add_library(D3DX12Residency INTERFACE)
 target_include_directories(D3DX12Residency SYSTEM INTERFACE "${COBALT_EXTERNAL_ROOT}/Cache/DXSamples/Libraries/D3DX12Residency")
 
@@ -34,8 +33,9 @@ FetchContent_Declare(D3D12MemoryAllocator
     GIT_REPOSITORY "https://github.com/GPUOpen-LibrariesAndSDKs/D3D12MemoryAllocator.git"
     GIT_TAG        "eace86c42911c8812841043d8f34c7574acee7da"
     SOURCE_DIR     "${COBALT_EXTERNAL_ROOT}/Cache/D3D12MemoryAllocator"
+    SOURCE_SUBDIR  "MissingDirToSkipAddingAsSubProject"
 )
-FetchContent_Populate(D3D12MemoryAllocator)
+FetchContent_MakeAvailable(D3D12MemoryAllocator)
 add_library(D3D12MemoryAllocator INTERFACE)
 target_include_directories(D3D12MemoryAllocator SYSTEM INTERFACE
     "${COBALT_EXTERNAL_ROOT}/Cache/D3D12MemoryAllocator/include"
